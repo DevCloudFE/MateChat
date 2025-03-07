@@ -41,6 +41,9 @@ export default {
       ],
     },
   ],
-  '/en/use-guide/': [{ text: 'Start', link: '/en/use-guide/introduction' }],
+  '/en/use-guide/': [
+    { text: 'Start', link: '/en/use-guide/introduction' },
+    { text: 'i18n', link: '/use-guide/i18n' },
+  ],
   '/en/playground/': [{ text: 'Demo', link: '/en/playground/playground' }],
 };

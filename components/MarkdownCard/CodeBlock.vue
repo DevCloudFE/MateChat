@@ -77,7 +77,20 @@
   
   const copyCode = debounce((e: Event) => {
     const target = e.target as HTMLElement;
-    navigator.clipboard.writeText(props.code);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(props.code);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.style.position = 'fixed';
+      textarea.style.top = '-9999px';
+      textarea.style.left = '-9999px';
+      textarea.style.zIndex = '-1';
+      textarea.value = props.code;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
     target.classList.remove('icon-copy-new');
     copied.value = true;
     setTimeout(() => {

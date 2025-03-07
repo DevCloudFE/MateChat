@@ -49,8 +49,9 @@ async function buildSingle(itemFile) {
 
 // 自动引入index.css
 function autoImportCss() {
+  const ignore = [...IgnoreDirs, 'Locale'];
   fs.readdirSync(BuildLibOutputDir)
-    .filter((itemDir) => fs.statSync(path.resolve(BuildLibOutputDir, itemDir)).isDirectory() && !IgnoreDirs.includes(itemDir))
+    .filter((itemDir) => fs.statSync(path.resolve(BuildLibOutputDir, itemDir)).isDirectory() && !ignore.includes(itemDir))
     .map((itemDir) => ({ indexPath: path.resolve(BuildLibOutputDir, itemDir, 'index.js') }))
     .forEach((itemDir) => {
       const fileContent = fs.readFileSync(itemDir.indexPath);

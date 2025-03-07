@@ -46,6 +46,8 @@ export default {
   '/use-guide/': [
     // { text: '更新日志', link: '/use-guide/changelog' },
     { text: '快速开始', link: '/use-guide/introduction' },
+    { text: '国际化', link: '/use-guide/i18n' },
+
   ],
   '/playground/': [{ text: '演示', link: '/playground/playground' }],
 };

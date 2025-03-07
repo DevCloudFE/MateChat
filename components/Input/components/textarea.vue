@@ -19,6 +19,9 @@ import { Textarea } from 'vue-devui/textarea';
 import 'vue-devui/textarea/style.css';
 import { inputInjectionKey, SubmitShortKey, DisplayType } from '../input-types';
 import type { InputContext } from '../input-types';
+import { useMcI18n } from '@matechat/core/Locale';
+
+const { t } = useMcI18n();
 
 const { inputValue, rootProps, rootEmits } = inject(inputInjectionKey) as InputContext;
 const placeholder = computed(() => {
@@ -32,7 +35,7 @@ const placeholder = computed(() => {
     enterKey = 'Shift + Enter';
     shiftEnterKey = 'Enter';
   }
-  return rootProps.placeholder ?? (enterKey ? `请输入您的问题，并按${enterKey}发送，按${shiftEnterKey}换行` : '请输入您的问题...');
+  return rootProps.placeholder ?? (enterKey ? t(`Input.pleaseEnterPlaceholder`, {enterKey: enterKey, shiftEnterKey: shiftEnterKey}) : t('Input.pleaseEnter'));
 });
 let lock = false;
 

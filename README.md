@@ -1,3 +1,6 @@
+
+[![star](https://gitcode.com/DevCloudFE/MateChat/star/badge.svg)](https://gitcode.com/DevCloudFE/MateChat/issues) 
+
 <a href="https://matechat.gitcode.com/" target="_blank" rel="noopener noreferrer" style="width: 200px; margin: 0 auto; display: flex">
     <img alt="MateChat Logo" src="https://matechat.gitcode.com/logo.svg" width="48" style="max-width:100%;">
     <span align="center" style="font-size: 24px; margin-left: 8px; display: inline-block; padding-top: 14px">MateChat</span>
