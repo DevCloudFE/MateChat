@@ -99,7 +99,7 @@ export function useActiveAnchor(container) {
     // find the last header above the top of viewport
     let activeLink = null;
     for (const { link, top } of headers) {
-      if (top > scrollY + 4) {
+      if (top > scrollY + getScrollYNum()) {
         break;
       }
       activeLink = link;
@@ -119,6 +119,14 @@ export function useActiveAnchor(container) {
     if (activeLink) {
       activeLink.classList.add('active');
     }
+  }
+}
+export function setHtmlScrollPaddingTopClass() {
+  const isComponentsPage = location.pathname.startsWith('/components/introduction/demo');
+  if (isComponentsPage) {
+    document.documentElement.classList.add('html-scroll-padding-top');
+  } else {
+    document.documentElement.classList.remove('html-scroll-padding-top');
   }
 }
 function getAbsoluteTop(element) {
@@ -158,4 +166,8 @@ function buildTree(data, min, max) {
     stack.push(node);
   });
   return result;
+}
+function getScrollYNum() {
+  const isComponentsPage = location.pathname.startsWith('/components/introduction/demo');
+  return isComponentsPage ? 110 : 60;
 }

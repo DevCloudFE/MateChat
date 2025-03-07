@@ -3,6 +3,7 @@
 html {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
+  scroll-padding-top: 60px;
 }
 
 html:hover {
@@ -60,4 +61,8 @@ body {
 
 button.copy {
   display: none;
+}
+
+.html-scroll-padding-top {
+  scroll-padding-top: 110px;
 }
