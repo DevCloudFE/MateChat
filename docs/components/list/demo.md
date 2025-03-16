@@ -47,7 +47,7 @@ const onSelect = (e) => {
   <d-radio-group v-model="selectedVariant" direction="row">
     <d-radio v-for="item in variantList" :key="item.value" :value="item.value">{{ item.label }}</d-radio>
   </d-radio-group>
-  <div style="display:flex;align-items:center;"><d-switch v-model="autoWrap" size="sm"></d-switch>自动换行</div>
+  <div style="display:flex;align-items:center;margin-bottom: 12px;"><d-switch v-model="autoWrap" size="sm" style="margin-right: 8px;"></d-switch>自动换行</div>
   <McList :data="options" :selectable="false" :autoWrap="autoWrap" direction="horizontal" :variant="selectedVariant"></McList>
 </template>
 

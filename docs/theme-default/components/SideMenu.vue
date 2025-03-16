@@ -16,7 +16,7 @@
             :key="`${index}+${idx}`"
             :href="menu.link"
             :title="menu.text"
-            :class="['menu-item devui-text-ellipsis', { 'menu-item-active': isActive(menu.link) }]"
+            :class="['menu-item devui-text-ellipsis sub-menu', { 'menu-item-active': isActive(menu.link) }]"
           >
             {{ menu.text }}
           </a>
@@ -122,6 +122,9 @@ watch(
   &:hover {
     color: $devui-list-item-hover-text;
     background-color: $devui-list-item-hover-bg;
+  }
+  &.sub-menu {
+    padding: 0 24px;
   }
 }
 </style>
