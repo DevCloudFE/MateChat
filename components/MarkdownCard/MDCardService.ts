@@ -1,5 +1,5 @@
 import { filterXSS, getDefaultCSSWhiteList, getDefaultWhiteList, type IWhiteList } from 'xss';
-import type { CustomXssRule } from './mdCard.types';
+import type { CustomXssRule, MdPlugin } from './mdCard.types';
 
 export class MDCardService {
   private xssWhiteList = getDefaultWhiteList();
@@ -48,6 +48,16 @@ export class MDCardService {
           this.xssWhiteList[rule['key']] = rule['value'];
         }
       });
+    }
+  }
+
+
+  setMdPlugins(plugins: MdPlugin[], mdt: any) {
+    if (plugins && plugins.length) {
+      plugins.forEach(item => {
+        const { plugin, opts } = item;
+        mdt.use(plugin, opts);
+      })
     }
   }
 

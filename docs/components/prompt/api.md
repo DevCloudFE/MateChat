@@ -6,11 +6,11 @@ iconSrc: '/promptIcon.png'
 
 ### 参数
 
-| 参数名    | 类型                            | 默认值 | 说明                      |
-| --------- | ------------------------------- | ------ | ------------------------- |
-| direction | [ListDirection](#listdirection) | ''     | logo 图片地址             |
-| list      | [Prompt](#prompt)               | ''     | header 标题               |
-| variant   | [ListVariant](#listvariant)     | false  | header 标题区域是否可点击 |
+| 参数名    | 类型                            | 默认值     | 说明                 |
+| --------- | ------------------------------- | ---------- | -------------------- |
+| direction | [ListDirection](#listdirection) | 'vertical' | 排列方式，水平或垂直 |
+| list      | [Prompt[]](#prompt)             | []         | 提示列表             |
+| variant   | [ListVariant](#listvariant)     | 'filled'   | 提示样式             |
 
 ### 事件
 

@@ -12,7 +12,9 @@ bannerSrc: '/bubbleBanner.png'
 | content        | `string`                          | ''       | MarkDown文本                                           |
 | theme        | [`Theme`](#theme)                          | 'light'       | MarkDown卡片主题                                           |
 | mdOptions        | `object`                          | {}       | 设置 markdown 对字符串的处理方式， 可参考[markdown-it](https://www.npmjs.com/package/markdown-it?activeTab=readme)|
+| mdPlugins       | [MdPlugin[]](#mdplugin)       | []       | 设置 markdown-it 插件|
 | customXssRules       | [CustomXssRule[]](#customxssrule)       | []       | 自定义 xss 对某种 tag 的过滤方式，每条规则需要指定 tag, 并给出需要加入白名单的属性数组|
+
 
 
 ### 代码块插槽
@@ -23,6 +25,11 @@ bannerSrc: '/bubbleBanner.png'
 | codeHeader     | { codeBlockData: [CodeBlockData](#codeblockdata) }     | 自定义代码块头部区域     |
 | codeContent     | { codeBlockData: [CodeBlockData](#codeblockdata) }     | 自定义代码块内容区域     |
 
+### 事件
+
+| 事件名     | 返回值 | 说明               |
+| ---------- | ------ | ------------------ |
+| after-mdt-init    | Object  | markdown-it实例mdt，在初始化完成后返回     |
 
 ### 类型定义
 
@@ -35,6 +42,15 @@ interface CustomXssRule {
 }
 ```
 
+#### Mdplugin
+
+```ts
+interface Mdplugin {
+  plugin: any;
+  opts?: Object;
+}
+
+```
 #### Theme
 
 ```ts

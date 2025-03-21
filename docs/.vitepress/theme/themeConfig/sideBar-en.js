@@ -43,7 +43,25 @@ export default {
   ],
   '/en/use-guide/': [
     { text: 'Start', link: '/en/use-guide/introduction' },
+    { text: 'On-demand Import', link: '/use-guide/require' },
     { text: 'i18n', link: '/use-guide/i18n' },
+    { text: 'Theming', link: '/use-guide/theme' },
+    {
+      text: 'Model Intergration',
+      items: [
+        { text: 'OpenAI', link: '/use-guide/model/openai' },
+        { text: 'DeepSeek', link: '/use-guide/model/deepseek' },
+        { text: 'Ohter', link: '/use-guide/model/other' },
+      ],
+    },
+    {
+      text: 'Other',
+      items: [
+        { text: 'How to Use', link: '/use-guide/access' },
+        { text: 'Contributing', link: '/use-guide/contributing' },
+        { text: 'FAQ', link: '/use-guide/faq' },
+      ]
+    }
   ],
   '/en/playground/': [{ text: 'Demo', link: '/en/playground/playground' }],
 };

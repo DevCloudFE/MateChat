@@ -66,7 +66,6 @@ const index = ref(1);
       rgba(255, 255, 255, 0.8);
     color: #43406D;
     cursor: pointer;
-    transition: all 0.5 ease-in-out;
     &.active {
       color: rgba(255, 255, 255, 0.8);
       background:

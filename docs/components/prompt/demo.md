@@ -4,6 +4,12 @@ desc: 用于展示一组预定义的问题或建议
 iconSrc: '/promptIcon.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McPrompt } from '@matechat/core';
+```
+
 ### 基本用法
 
 :::demo

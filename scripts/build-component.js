@@ -33,7 +33,7 @@ async function buildSingle(itemFile) {
       plugins: [vue(), vueJsx()],
       build: {
         rollupOptions: {
-          external: ['vue', '@floating-ui/dom', '@vue/shared', 'lodash-es', /vue-devui/, /@matechat\/core/, 'markdown-it', 'highlight.js', 'xss'],
+          external: ['vue', '@floating-ui/dom', '@vue/shared', 'lodash-es', /@matechat\/core/, 'markdown-it', 'highlight.js', 'xss'],
         },
         lib: {
           entry: itemFile.indexPath,

@@ -4,6 +4,12 @@ desc: 用于承载对话内容的气泡组件
 bannerSrc: '/bubbleBanner.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McBubble } from '@matechat/core';
+```
+
 ### 基本用法
 
 基本用法只需传入 content 即可

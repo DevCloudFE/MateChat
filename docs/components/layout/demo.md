@@ -5,6 +5,12 @@ bannerSrc: '/layoutBanner.png'
 iconSrc: '/layoutIcon.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McLayoutAside, McLayoutContent, McLayoutHeader, McLayout, McLayoutSender } from '@matechat/core';
+```
+
 ### 基本用法
 
 :::demo

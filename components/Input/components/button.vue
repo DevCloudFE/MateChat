@@ -1,21 +1,22 @@
 <template>
-  <Button
-    variant="solid"
-    shape="round"
+  <button
     :disabled="rootProps.disabled || (!rootProps.loading && !inputValue)"
-    :class="['mc-button', { 'mc-button-loading': rootProps.loading }]"
+    :class="['mc-button', { 'mc-button-loading': rootProps.loading, mousedown: isMouseDown }]"
     @click="onConfirm"
+    @mousedown="() => (isMouseDown = true)"
+    @mouseup="() => (isMouseDown = false)"
   >
-    <LoadingIcon v-if="rootProps.loading" />
-    <SendIcon v-else />
-    <span>{{ rootProps.loading ? t('Input.pauseAnswer') : t('Input.send') }}</span>
-  </Button>
+    <span class="mc-button-content">
+      <LoadingIcon v-if="rootProps.loading" />
+      <SendIcon v-else />
+      <span>{{ rootProps.loading ? t('Input.pauseAnswer') : t('Input.send') }}</span>
+    </span>
+    <div v-if="showWave" class="mc-button-water-wave" :style="waveStyle"></div>
+  </button>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue';
-import { Button } from 'vue-devui/button';
-import 'vue-devui/button/style.css';
+import { inject, ref, reactive } from 'vue';
 import LoadingIcon from './LoadingIcon.vue';
 import SendIcon from './SendIcon.vue';
 import { inputInjectionKey } from '../input-types';
@@ -25,8 +26,25 @@ import { useMcI18n } from '@matechat/core/Locale';
 const { t } = useMcI18n();
 
 const { inputValue, rootProps, rootEmits } = inject(inputInjectionKey) as InputContext;
+const isMouseDown = ref(false);
+const showWave = ref(false);
+const waveStyle = reactive({
+  top: '0px',
+  left: '0px',
+});
 
-const onConfirm = () => {
+const showClickWave = (e: MouseEvent) => {
+  waveStyle.left = e.offsetX + 'px';
+  waveStyle.top = e.offsetY + 'px';
+  showWave.value = true;
+
+  setTimeout(() => {
+    showWave.value = false;
+  }, 300);
+};
+
+const onConfirm = (e: MouseEvent) => {
+  showClickWave(e);
   if (rootProps.loading) {
     rootEmits('cancel');
   } else {
@@ -39,25 +57,71 @@ const onConfirm = () => {
 <style scoped lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
 
-.mc-button.devui-button {
+.mc-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-width: 64px;
+  height: 32px;
+  line-height: 1.5;
+  color: $devui-light-text;
+  font-size: $devui-font-size-md;
+  padding: 0 16px;
+  border-radius: 20px;
+  background-color: $devui-primary;
+  overflow: hidden;
   border: none;
+  cursor: pointer;
+  transition:
+    background-color $devui-animation-duration-slow $devui-animation-ease-in-out-smooth,
+    border-color $devui-animation-duration-slow $devui-animation-ease-in-out-smooth,
+    color $devui-animation-duration-slow $devui-animation-ease-in-out-smooth;
 
   &.mc-button-loading {
-    :deep(svg) {
+    svg {
       animation: rotating 1s linear infinite;
     }
   }
 
-  :deep(.button-content) {
-    svg {
-      path {
-        fill: $devui-light-text;
-      }
-      margin-right: 4px;
-    }
+  &.mousedown:not(:disabled) {
+    transform: scale(0.95);
+  }
 
+  &:hover {
+    background-color: $devui-primary-hover;
+  }
+  &:active {
+    background-color: $devui-primary-active;
+  }
+  &:disabled {
+    color: $devui-light-text;
+    background-color: $devui-primary-disabled;
+    cursor: not-allowed;
+  }
+
+  .mc-button-content {
     display: inline-flex;
     align-items: center;
+  }
+
+  .mc-button-water-wave {
+    position: absolute;
+    background-color: $devui-base-bg;
+    border-radius: 50%;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    animation: waterWave $devui-animation-duration-slow $devui-animation-linear;
+  }
+
+  svg {
+    :deep(path) {
+      fill: $devui-light-text;
+    }
+    margin-right: 4px;
   }
 }
 
@@ -68,6 +132,20 @@ const onConfirm = () => {
 
   100% {
     transform: rotate(180deg);
+  }
+}
+
+@keyframes waterWave {
+  0% {
+    opacity: 0.2;
+    width: 30px;
+    height: 30px;
+  }
+
+  100% {
+    opacity: 0;
+    width: 200px;
+    height: 200px;
   }
 }
 </style>

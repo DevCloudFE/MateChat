@@ -5,6 +5,12 @@ bannerSrc: '/mentionBanner.png'
 iconSrc: '/mentionIcon.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McMention } from '@matechat/core';
+```
+
 ### 基本用法
 
 通过`v-model`控制组件的展开收起。

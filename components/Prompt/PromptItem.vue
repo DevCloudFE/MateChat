@@ -11,8 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from 'vue-devui/icon';
-import 'vue-devui/icon/style.css';
+import Icon from './components/Icon.vue';
 import { promptItemProps } from './prompt-types';
 
 defineProps(promptItemProps);

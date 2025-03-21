@@ -143,7 +143,7 @@ import Scene3D from './Scene3D.vue';
     width: 0;
   }
   100% {
-    width: 6em;
+    width: 6.1em;
   }
 }
 

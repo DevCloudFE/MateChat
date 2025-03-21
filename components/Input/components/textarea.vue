@@ -1,22 +1,22 @@
 <template>
-  <Textarea
+  <textarea
     v-model="inputValue"
     :placeholder="placeholder"
-    :showGlowStyle="false"
     :disabled="rootProps.disabled"
     :maxlength="rootProps.maxLength"
-    :class="['mc-textarea', { 'mc-textarea-simple': rootProps.displayType === DisplayType.Simple }]"
+    :class="[
+      'mc-textarea',
+      { 'mc-textarea-simple': rootProps.displayType === DisplayType.Simple, 'mc-textarea-disabled': rootProps.disabled },
+    ]"
     @input="onInput"
     @compositionstart="onCompositionStart"
     @compositionend="onCompositionEnd"
     @keydown="onKeydown"
-  ></Textarea>
+  ></textarea>
 </template>
 
 <script setup lang="ts">
 import { nextTick, inject, computed } from 'vue';
-import { Textarea } from 'vue-devui/textarea';
-import 'vue-devui/textarea/style.css';
 import { inputInjectionKey, SubmitShortKey, DisplayType } from '../input-types';
 import type { InputContext } from '../input-types';
 import { useMcI18n } from '@matechat/core/Locale';
@@ -35,7 +35,10 @@ const placeholder = computed(() => {
     enterKey = 'Shift + Enter';
     shiftEnterKey = 'Enter';
   }
-  return rootProps.placeholder ?? (enterKey ? t(`Input.pleaseEnterPlaceholder`, {enterKey: enterKey, shiftEnterKey: shiftEnterKey}) : t('Input.pleaseEnter'));
+  return (
+    rootProps.placeholder ??
+    (enterKey ? t(`Input.pleaseEnterPlaceholder`, { enterKey: enterKey, shiftEnterKey: shiftEnterKey }) : t('Input.pleaseEnter'))
+  );
 });
 let lock = false;
 
@@ -78,14 +81,26 @@ const onKeydown = (e: KeyboardEvent) => {
 <style lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
 
-.mc-textarea.devui-textarea {
+.mc-textarea {
+  width: 100%;
   height: 64px;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 4px 0;
+  color: $devui-text;
+  background-color: $devui-form-control-bg;
+  vertical-align: middle;
+  outline: none;
+  box-sizing: border-box;
+  resize: none;
   border: none;
 
   &.mc-textarea-simple {
     height: 32px;
+  }
+
+  &.mc-textarea-disabled {
+    color: $devui-disabled-text;
+    background-color: $devui-disabled-bg;
+    cursor: not-allowed;
   }
 
   &::placeholder {

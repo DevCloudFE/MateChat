@@ -35,7 +35,7 @@
             <div class="line-h" :class="{ active: i <= index - 1 || (index === 4 && i === 4) }"></div>
             <div class="row-h">
               <div class="dot-h" :class="{ active: i <= index }"></div>
-              <div class="label-h" @click="onHStepClick(i)">
+              <div class="label-h" :class="{ 'unactivated-label': i !== index }" @click="onHStepClick(i)">
                 {{ item.label }}<span>{{ item.labelNext }}</span>
               </div>
             </div>
@@ -388,6 +388,9 @@ function onTransitionEnd() {
     }
     .label-h {
       cursor: pointer;
+      &.unactivated-label {
+        color: $devui-aide-text;
+      }
     }
   }
   .active {

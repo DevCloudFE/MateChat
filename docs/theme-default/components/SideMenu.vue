@@ -124,4 +124,10 @@ watch(
     background-color: $devui-list-item-hover-bg;
   }
 }
+
+.menu-list {
+  .menu-item {
+    padding-left: 22px;
+  }
+}
 </style>

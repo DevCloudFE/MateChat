@@ -5,6 +5,12 @@ bannerSrc: '/listBanner.png'
 iconSrc: '/listIcon.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McList } from '@matechat/core';
+```
+
 ### 基本用法
 
 一般用于选中类场景。选项数据中通过`disabled`字段设置选项禁用，通过`active`字段设置选中。默认悬浮高亮，点击时选中高亮。

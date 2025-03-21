@@ -5,6 +5,12 @@ bannerSrc: '/inputBanner.png'
 iconSrc: '/inputIcon.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McInput } from '@matechat/core';
+```
+
 ### 基本用法
 
 :::demo

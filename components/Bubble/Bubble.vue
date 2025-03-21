@@ -30,8 +30,7 @@
 
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import { Avatar } from 'vue-devui/avatar';
-import 'vue-devui/avatar/style.css';
+import Avatar from './components/Avatar.vue';
 import { props } from './bubble-types';
 import { DEFAULT_AVATAR_WIDTH, DEFAULT_AVATAR_HEIGHT, AVATAR_NAME, AVATAR_IMG } from './bubble-constants';
 import BubbleLoading from './BubbleLoading.vue';

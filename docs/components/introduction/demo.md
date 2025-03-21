@@ -4,6 +4,12 @@ desc: 用于介绍向用户提供的功能
 bannerSrc: '/introductionBanner.png'
 ---
 
+按需引入路径：
+
+```ts
+import { McIntroduction } from '@matechat/core';
+```
+
 ### 基本用法
 
 :::demo

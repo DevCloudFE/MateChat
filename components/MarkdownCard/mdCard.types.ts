@@ -13,6 +13,11 @@ export interface CodBlockData {
 
 export type Theme = 'light' | 'dark';
 
+export interface MdPlugin {
+  plugin: any;
+  opts?: Object;
+}
+
 export const mdCardProps = {
   content: {
     type: String,
@@ -22,6 +27,11 @@ export const mdCardProps = {
   mdOptions: {
     type: Object as PropType<Options>,
     default: () => ({})
+  },
+
+  mdPlugins: {
+    type: Array as PropType<Array<MdPlugin>>,
+    default: () => [],
   },
 
   customXssRules: {

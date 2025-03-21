@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import markdownit from 'markdown-it';
 import hljs from 'highlight.js';
-import { computed,h, useSlots, type VNode, watch } from 'vue';
+import { computed,h, useSlots, type VNode, watch, onMounted } from 'vue';
 import CodeBlock from './CodeBlock.vue';
 import { mdCardProps } from './mdCard.types';
 import { MDCardService } from './MDCardService';
@@ -25,6 +25,8 @@ render: () => VNode;
 const mdCardService = new MDCardService();
 
 const props = defineProps(mdCardProps);
+
+const emit = defineEmits(['afterMdtInit']);
 
 const slots = useSlots();
 
@@ -132,9 +134,19 @@ watch(() => props.customXssRules, (rules) => {
 mdCardService.setCustomXssRules(rules);
 });
 
+watch(() => props.mdPlugins, (plugins) => {
+  mdCardService.setMdPlugins(plugins, mdt);
+},{
+  immediate: true,
+});
+
 const themeClass = computed(() => {
 return props.theme === 'dark' ? 'mc-markdown-render-dark' : 'mc-markdown-render-light';
 });
+
+onMounted(() => {
+  emit('afterMdtInit', mdt)
+})
 
 defineExpose({
 mdt
