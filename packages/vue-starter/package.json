@@ -1,0 +1,32 @@
+{
+  "name": "matechat-vue",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.5",
+  "dependencies": {
+    "vue": "^3.5.13",
+    "@matechat/core": "workspace:^"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0",
+    "vue-tsc": "^2.2.4"
+  }
+}

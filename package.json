@@ -17,6 +17,7 @@
 		"docs:dev": "pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
 		"docs:build": "pnpm generate && vitepress build docs",
 		"docs:preview": "pnpm generate && vitepress preview docs",
+    "dev:vue-starter": "pnpm --filter vue-starter dev",
 		"prepare": "husky"
 	},
 	"dependencies": {
