@@ -102,15 +102,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, inject } from 'vue';
-import { useData } from 'vitepress';
-import { ThemeKey, LocaleKey } from '../datas/type';
-import { infinityTheme, galaxyTheme } from 'devui-theme';
-import { themeServiceInstance } from '../../index';
-import { useI18n } from 'vue-i18n';
-import { useLangs } from '../../composables/langs';
-import { useRouter } from 'vitepress';
-const emit = defineEmits(['themeUpdate']);
+import { galaxyTheme, infinityTheme } from "devui-theme";
+import { useData } from "vitepress";
+import { useRouter } from "vitepress";
+import { computed, inject, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useLangs } from "../../composables/langs";
+import { themeServiceInstance } from "../../index";
+import { LocaleKey, ThemeKey } from "../datas/type";
+const emit = defineEmits(["themeUpdate"]);
 const i18n = useI18n();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 const { theme, page, isDark } = useData();
@@ -119,9 +119,17 @@ const isZh = ref(true);
 const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
 
-const iconMap = ['/png/header/instruction.png', '/png/header/components.png', '/png/header/demo.png'];
+const iconMap = [
+  "/png/header/instruction.png",
+  "/png/header/components.png",
+  "/png/header/demo.png",
+];
 
-const activeIconMap = ['/png/header/instructionActive.png', '/png/header/componentsActive.png', '/png/header/demoActive.png'];
+const activeIconMap = [
+  "/png/header/instructionActive.png",
+  "/png/header/componentsActive.png",
+  "/png/header/demoActive.png",
+];
 
 const props = defineProps({
   isScroll: {
@@ -140,19 +148,19 @@ const ThemeConfig = {
 };
 
 const isActive = (link: string) => {
-  const prefix = link.split('/')[1];
+  const prefix = link.split("/")[1];
   return page.value.relativePath.startsWith(prefix);
 };
 
 const isDropdown = ref(false);
 
 onMounted(() => {
-  if (typeof localStorage !== 'undefined') {
-    if (localStorage.getItem('theme') === ThemeKey.Galaxy) {
+  if (typeof localStorage !== "undefined") {
+    if (localStorage.getItem("theme") === ThemeKey.Galaxy) {
       isGalaxy.value = true;
     }
 
-    if (localStorage.getItem('locale') === LocaleKey.en) {
+    if (localStorage.getItem("locale") === LocaleKey.en) {
       isZh.value = false;
     }
   }
@@ -163,32 +171,33 @@ const go = (link: string) => {
 };
 
 const goThird = (link: string) => {
-  window.open(link, '_blank');
+  window.open(link, "_blank");
 };
 
-const toggleAppearance = inject('toggle-appearance', (isGalaxy) => {
+const toggleAppearance = inject("toggle-appearance", (isGalaxy) => {
   isDark.value = isGalaxy;
 });
 
 function setTheme(key: ThemeKey) {
   isGalaxy.value = !isGalaxy.value;
-  typeof localStorage !== 'undefined' && localStorage.setItem('theme', key);
+  typeof localStorage !== "undefined" && localStorage.setItem("theme", key);
   themeServiceInstance?.applyTheme(ThemeConfig[key]);
   toggleAppearance(isGalaxy.value);
-  emit('themeUpdate', isGalaxy.value);
+  emit("themeUpdate", isGalaxy.value);
 }
 
 function themeChange(change) {
   const key = change ? ThemeKey.Galaxy : ThemeKey.Infinity;
-  localStorage.setItem('theme', key);
+  localStorage.setItem("theme", key);
   themeServiceInstance?.applyTheme(ThemeConfig[key]);
   toggleAppearance(isGalaxy.value);
-  emit('themeUpdate', isGalaxy.value);
+  emit("themeUpdate", isGalaxy.value);
 }
 
 function collapseSideMenu() {
-  const sideMenu = document.querySelector('.side-menu') as HTMLElement;
-  sideMenu.style.width = !sideMenu.style.width || sideMenu.style.width === '0px' ? '230px' : '0px';
+  const sideMenu = document.querySelector(".side-menu") as HTMLElement;
+  sideMenu.style.width =
+    !sideMenu.style.width || sideMenu.style.width === "0px" ? "230px" : "0px";
 }
 
 function onDropdown(status: boolean) {
@@ -209,7 +218,7 @@ function onDropdown(status: boolean) {
   justify-content: space-between;
   align-items: center;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 48px;
   background-color: $devui-base-bg;
   transition: 0.5s;
