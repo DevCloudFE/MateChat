@@ -1,4 +1,4 @@
-@media (prefers-reduced-motion: reduce) {
+image.png@media (prefers-reduced-motion: reduce) {
   *,
   ::before,
   ::after {
@@ -12,6 +12,193 @@
   }
 }
 
+/* 添加View Transitions支持 */
+:root {
+  --view-transition-duration: 0.5s;
+  --transition-position-x: 95%;
+  --transition-position-y: 5%;
+  --max-radius: 150vmax;
+  --transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --code-bg-light: #f9fafb;
+  --code-bg-dark: #1a1a1a;
+  --code-text-light: #333;
+  --code-text-dark: #e5e7eb;
+  --code-border-light: #e5e7eb;
+  --code-border-dark: #374151;
+  --pre-bg-light: #f6f8fa;
+  --pre-bg-dark: #111827;
+  --syntax-bg-light: #f6f8fa;
+  --syntax-bg-dark: #0d1117;
+  --syntax-highlight-dark: #1f2937;
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0% at var(--transition-position-x) var(--transition-position-y));
+  }
+  to {
+    clip-path: circle(var(--max-radius) at var(--transition-position-x) var(--transition-position-y));
+  }
+}
+
+::view-transition-group(root) {
+  animation: none;
+}
+
+::view-transition-old(root) {
+  animation: none;
+  opacity: 1;
+}
+
+::view-transition-new(root) {
+  animation: circle-in var(--view-transition-duration) var(--transition-easing) forwards;
+  opacity: 1;
+}
+
+html.dark {
+  color-scheme: dark;
+  transition: background-color var(--view-transition-duration) ease;
+  
+
+  --vp-code-block-bg: var(--code-bg-dark);
+  --vp-code-line-highlight-color: rgba(0, 0, 0, 0.3);
+  --vp-code-tab-divider: var(--code-border-dark);
+  
+
+  --vp-c-text-1: #e5e7eb;
+  --vp-c-text-2: #d1d5db;
+  --vp-c-text-3: #9ca3af;
+}
+
+
+html.dark pre,
+html.dark code {
+  background-color: var(--pre-bg-dark);
+  color: var(--code-text-dark);
+  border-color: var(--code-border-dark);
+}
+
+html.dark pre {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+html.dark .token.comment,
+html.dark .token.prolog,
+html.dark .token.doctype,
+html.dark .token.cdata {
+  color: #8b949e;
+}
+
+html.dark .token.punctuation {
+  color: #c9d1d9;
+}
+
+html.dark .token.property,
+html.dark .token.keyword,
+html.dark .token.tag {
+  color: #ff7b72;
+}
+
+html.dark .token.class-name {
+  color: #f2cc60;
+}
+
+html.dark .token.string,
+html.dark .token.attr-value {
+  color: #a5d6ff;
+}
+
+html.dark .token.operator,
+html.dark .token.entity,
+html.dark .token.url {
+  color: #79c0ff;
+}
+
+html.dark .token.function {
+  color: #d2a8ff;
+}
+
+
+html.dark .token.builtin,
+html.dark .token.char,
+html.dark .token.constant {
+  color: #79c0ff;
+}
+
+html.dark code.get, 
+html.dark code.GET {
+  background-color: rgba(125, 211, 252, 0.1);
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  color: #7dd3fc !important;
+  padding: 0.2em 0.4em;
+  font-weight: bold;
+}
+
+
+html.dark code[class*="language-"],
+html.dark pre[class*="language-"] {
+  text-shadow: none;
+}
+
+html.dark .api-method {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  margin-right: 0.5em;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+html.dark .api-method.get {
+  background-color: rgba(125, 211, 252, 0.2);
+  color: #7dd3fc;
+}
+
+
+html.dark span.api-path {
+  background-color: rgba(99, 110, 123, 0.15);
+  color: #d1d5db;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  font-family: var(--vp-font-family-mono);
+  letter-spacing: 0.5px;
+}
+
+
+html.dark .token.variable,
+html.dark .token.parameter {
+  color: #ffa657;
+}
+
+/* 修复iOS Safari支持 */
+@supports not (animation-timeline: view-timeline-inset(0%)) {
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: 0s;
+    }
+    
+    .theme-toggle-transition {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--theme-bg-color);
+        clip-path: circle(0% at var(--transition-position-x) var(--transition-position-y));
+        animation: circle-in var(--view-transition-duration) var(--transition-easing) forwards;
+      }
+    }
+  }
+}
+
 *,
 ::before,
 ::after {
@@ -22,10 +209,6 @@ html {
   line-height: 1.4;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-}
-
-html.dark {
-  color-scheme: dark;
 }
 
 body {
@@ -42,6 +225,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--view-transition-duration) ease, color var(--view-transition-duration) ease;
 }
 
 main {
@@ -247,4 +431,178 @@ mjx-container {
 mjx-container > svg {
   display: inline-block;
   margin: auto;
+}
+
+/* 暗黑模式下的内联代码块和API路径样式 */
+html.dark code:not(pre code) {
+  background-color: rgba(99, 110, 123, 0.15);
+  color: #e5e7eb;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  border: 1px solid rgba(99, 110, 123, 0.2);
+  font-size: 0.9em;
+}
+
+html.dark .api-path {
+  background-color: rgba(99, 110, 123, 0.15);
+  color: #79c0ff;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.9em;
+}
+
+/* 修复列表项在暗黑模式下的显示问题 */
+html.dark ol li::before,
+html.dark ul li::before {
+  color: #9ca3af;
+}
+
+html.dark ul li {
+  color: #e5e7eb;
+}
+
+
+html.dark pre code .highlighted {
+  background-color: rgba(99, 110, 123, 0.3);
+  box-shadow: 0 0 0 4px rgba(99, 110, 123, 0.3);
+  border-radius: 2px;
+}
+
+
+html.dark .method-get,
+html.dark .get {
+  color: #7dd3fc;
+}
+
+html.dark .method-post,
+html.dark .post {
+  color: #86efac;
+}
+
+html.dark .method-put,
+html.dark .put {
+  color: #fdba74;
+}
+
+html.dark .method-delete,
+html.dark .delete {
+  color: #fca5a5;
+}
+
+/* 调整代码块边距和边框 */
+html.dark div[class*='language-'] {
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--pre-bg-dark);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+
+html.dark ol,
+html.dark ul {
+  padding-left: 1.25em;
+}
+
+html.dark ol {
+  list-style-type: decimal;
+}
+
+html.dark ul {
+  list-style-type: disc;
+}
+
+html.dark ol li,
+html.dark ul li {
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+/* 添加有序列表项数字颜色 */
+html.dark ol li::marker {
+  color: #9ca3af;
+}
+
+/* 添加无序列表项圆点颜色 */
+html.dark ul li::marker {
+  color: #9ca3af;
+}
+
+
+html.dark ul ul,
+html.dark ol ol,
+html.dark ul ol,
+html.dark ol ul {
+  margin-top: 0.5em;
+}
+
+
+html.dark code .keyword {
+  color: #ff7b72;
+  font-weight: bold;
+}
+
+html.dark code span.api-method,
+html.dark code span.get {
+  display: inline;
+  padding: 0.2em 0.4em;
+  margin-right: 0.25em;
+  background-color: rgba(125, 211, 252, 0.2);
+  color: #7dd3fc;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+
+html.dark code span.token.builtin,
+html.dark code span.token.plain {
+  color: #e5e7eb;
+  font-family: var(--vp-font-family-mono);
+}
+
+html.dark code span.token.string {
+  color: #a5d6ff;
+}
+
+
+html.dark code span.token.punctuation + span.token.plain {
+  color: #ffa657;
+}
+
+
+html.dark .api-path-component {
+  color: #d1d5db;
+}
+
+html.dark .api-path-param {
+  color: #ffa657;
+  font-style: italic;
+}
+
+
+html.dark p code,
+html.dark li code {
+  background-color: rgba(99, 110, 123, 0.15);
+  color: #e5e7eb;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+
+html.dark .language-api .token.keyword,
+html.dark .language-http .token.keyword {
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+html.dark .language-api .token.keyword.get,
+html.dark .language-http .token.keyword.get {
+  background-color: rgba(125, 211, 252, 0.2);
+  color: #7dd3fc;
 }
