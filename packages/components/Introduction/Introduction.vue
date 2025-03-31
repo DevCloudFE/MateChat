@@ -9,13 +9,28 @@
       <div v-for="(item, index) in description" :key="index">{{ item }}</div>
     </div>
     <slot></slot>
+    <Button id="mateButton" :label="'Vue Button'" @click="btnClick">
+      <template #expand>
+        <img v-if="logoImg" :src="logoImg" :alt="title" />
+        <span @click="expand">Expand</span>
+      </template>
+    </Button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { props } from './introduction-types';
-
+import Button from '../Button/Button.vue';
+import { onMounted } from 'vue';
 defineProps(props);
+
+const btnClick = () => {
+  console.log('Button clicked');
+};
+
+const expand = () => {
+  console.log('Expand clicked');
+};
 </script>
 
 <style scoped lang="scss">

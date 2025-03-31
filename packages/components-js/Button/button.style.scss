@@ -1,0 +1,14 @@
+.mc-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+
+  .mc-button-icon {
+    margin-right: 4px;
+  }
+}
