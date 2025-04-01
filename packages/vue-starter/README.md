@@ -1,5 +1,6 @@
-# MateChat 
-  - vue-starter
+# MateChat
+  - 子项目包名规则: @matechat/*
+  - 包名: @matechat/vue-starter
 
 ## 依赖安装
 可以在本子项目根目录(packages/vue-starter)下执行：

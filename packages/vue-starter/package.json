@@ -1,12 +1,9 @@
 {
-  "name": "matechat-vue",
+  "name": "@matechat/vue-starter",
   "private": true,
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
   "main": "index.js",
   "scripts": {
     "dev": "vite",
