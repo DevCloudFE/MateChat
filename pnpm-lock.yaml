@@ -145,11 +145,17 @@ importers:
         specifier: ^1.0.15
         version: 1.0.15
 
-  packages/matechat-vue:
+  packages/vue-starter:
     dependencies:
+      '@devui-design/icons':
+        specifier: ^1.4.0
+        version: 1.4.0
       '@matechat/core':
-        specifier: workspace:^
-        version: link:../components
+        specifier: ^1.3.0
+        version: 1.3.1(vue@3.5.13(typescript@5.7.3))
+      devui-theme:
+        specifier: ^0.0.7
+        version: 0.0.7
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
@@ -828,6 +834,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@matechat/core@1.3.1':
+    resolution: {integrity: sha512-k56xuH489mDH1pSdD0dtwpXtXkJdKDVLNGDpXEbbo4vV8YWPIMOfNgWtMpuN89/M8k9c5PQx3VCkTtUkS2riZg==}
+    peerDependencies:
+      vue: ^3.5.13
 
   '@mdit-vue/plugin-sfc@2.1.3':
     resolution: {integrity: sha512-Ezl0dNvQNS639Yl4siXm+cnWtQvlqHrg+u+lnau/OHpj9Xh3LVap/BSQVugKIV37eR13jXXYf3VaAOP1fXPN+w==}
@@ -3856,6 +3867,17 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@matechat/core@1.3.1(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      '@floating-ui/dom': 1.6.13
+      '@vue/shared': 3.5.13
+      devui-theme: 0.0.7
+      highlight.js: 11.11.1
+      lodash-es: 4.17.21
+      markdown-it: 12.2.0
+      vue: 3.5.13(typescript@5.7.3)
+      xss: 1.0.15
 
   '@mdit-vue/plugin-sfc@2.1.3':
     dependencies:
