@@ -5,6 +5,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@matechat/core': path.resolve(__dirname, '../packages/components'),
+      '@components-js': path.resolve(__dirname, '../packages/components-js/packages'),
     },
   },
 });

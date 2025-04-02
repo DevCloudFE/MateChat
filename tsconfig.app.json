@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@matechat/playground/*": ["./playground/*"],
-      "@matechat/core/*": ["./packages/components/*"]
+      "@matechat/core/*": ["./packages/components/*"],
+      "@components-js/*": ["./packages/components-js/packages/*"]
     }
   }
 }

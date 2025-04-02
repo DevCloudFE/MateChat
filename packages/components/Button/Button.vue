@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, defineProps, defineEmits } from 'vue';
-import  Button  from '../../components-js/packages/Button/Button.svelte'; // 引入 NativeComponent
+import  Button  from '@components-js/Button/Button.svelte'; 
 
 // 定义 Vue 组件的 props
 const props = defineProps({

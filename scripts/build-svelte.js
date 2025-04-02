@@ -7,7 +7,7 @@ export async function buildSvelteComponents() {
     defineConfig({
       configFile: false, // 不使用默认的 Vite 配置文件
       publicDir: false,
-      plugins: [svelte()],
+      plugins: [svelte({emitCss: false,})],
       build: {
         rollupOptions: {
           external: ["svelte", "svelte/internal"], // 将 Svelte 运行时标记为外部依赖

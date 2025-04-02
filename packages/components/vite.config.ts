@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      'components-js': path.resolve(__dirname, '../packages/components-js/packages'),
     },
   },
   optimizeDeps: { exclude: ['fsevents'] },
