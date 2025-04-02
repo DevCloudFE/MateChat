@@ -12,9 +12,13 @@ import {
   buildLibOutputIndexDtsFile,
 } from './const.js';
 import { resolveFilesInfo } from './utils.js';
+import { buildSvelteComponents } from './build-svelte.js';
 
 async function buildComponents() {
   const filesInfo = resolveFilesInfo(componentsDir, ignoreDirs);
+
+  // 编译 Svelte 组件
+  await buildSvelteComponents();
 
   for (let i = 0; i < filesInfo.length; i++) {
     await buildSingle(filesInfo[i]);

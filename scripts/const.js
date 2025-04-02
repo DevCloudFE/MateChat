@@ -13,5 +13,5 @@ export const buildLibOutputDir = path.resolve(__dirname, '../packages/components
 export const buildLibOutputIndexFile = path.resolve(buildLibOutputDir, './mate-chat.js');
 export const buildLibOutputIndexDtsFile = path.resolve(buildLibOutputDir, './index.d.ts');
 
-export const componentsSvelteDir = path.resolve(__dirname, '../packages/components-svelte');
-
+export const componentsSvelteDir = path.resolve(__dirname, '../packages/components-svelte/components/index.ts');
+export const svelteOutputDir = path.resolve(__dirname, '../packages/components-js');

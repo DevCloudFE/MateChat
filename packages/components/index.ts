@@ -1,4 +1,5 @@
 import { McBubble } from './Bubble';
+import { McButton } from './Button';
 import { McHeader } from './Header';
 import { McInput } from './Input';
 import { McIntroduction } from './Introduction';
@@ -11,6 +12,7 @@ import { McPrompt } from './Prompt';
 
 const installs = [
   McBubble,
+  McButton,
   McHeader,
   McInput,
   McIntroduction,
@@ -24,6 +26,7 @@ const installs = [
 
 export {
   McBubble,
+  McButton,
   McHeader,
   McInput,
   McIntroduction,
