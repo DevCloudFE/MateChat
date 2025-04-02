@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, defineProps, defineEmits } from 'vue';
-import { ButtonComponent } from '../../components-js/Button/button';
+import  Button  from '../../components-js/packages/Button/Button.svelte'; // 引入 NativeComponent
 
 // 定义 Vue 组件的 props
 const props = defineProps({
@@ -34,21 +34,17 @@ const emit = defineEmits(['click']);
 
 const mcButton = ref<HTMLElement | null>(null);
 const slot = ref<HTMLElement | null>(null);
-let nativeComponent: ButtonComponent | null = null;
+let nativeComponent: Button | null = null;
 
 onMounted(() => {
     if (mcButton.value) {
         // 创建 NativeComponent 实例并挂载到 ref 元素上
-        nativeComponent = new ButtonComponent({
-            container: mcButton.value,
+        nativeComponent = new Button({
+            target: mcButton.value,
             props: {
                 content: props.content,
                 styles: props.styles,
                 label: props.label,
-                slots: {
-                    expand: slot?.value,
-                },
-                showIcon: true,
                 onClick: (event: MouseEvent) => {
                     emit('click', event); // 通过 Vue 的 emit 抛出事件
                 },
@@ -67,7 +63,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="scss">
-::v-deep {
-    @import '../../components-js/Button/button.style.scss';
-}
+// ::v-deep {
+//     @import '../../components-js/Button/button.style.scss';
+// }
 </style>

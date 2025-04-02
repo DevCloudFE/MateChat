@@ -6,7 +6,8 @@
     "playground/**/*.vue",
     "packages/**/*.vue",
     "packages/**/*.ts",
-    "packages/**/*.tsx"
+    "packages/**/*.tsx",
+    "packages/**/*.svelte",
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

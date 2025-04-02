@@ -14,10 +14,12 @@
 		"build:lib": "pnpm generate && node ./scripts/build-component.js && node ./scripts/release.js",
 		"lint": "biome lint",
 		"format": "biome format --write",
-		"docs:dev": "pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
+		"docs:dev": "vitepress dev docs --port 5174 --host 0.0.0.0",
 		"docs:build": "pnpm generate && vitepress build docs",
 		"docs:preview": "pnpm generate && vitepress preview docs",
-		"prepare": "husky"
+		"prepare": "husky",
+		"dev:svelte": "vite --config packages/component-svelte/vite.config.ts",
+		"build:svelte": "vite build --config packages/component-svelte/vite.config.ts"
 	},
 	"dependencies": {
 		"@datatraccorporation/markdown-it-mermaid": "^0.5.0",
@@ -55,6 +57,8 @@
 		"lint-staged": "^15.5.0",
 		"npm-run-all2": "^7.0.1",
 		"sass-embedded": "^1.83.4",
+		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"svelte": "^4.2.19",
 		"vite": "^6.0.1",
 		"vitepress": "^1.5.0",
 		"vitepress-theme-demoblock": "^3.0.7"
