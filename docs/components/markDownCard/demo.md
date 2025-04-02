@@ -91,9 +91,9 @@ onMounted(() => {
 
 :::
 
-### think标签支持
+### \<think\>标签支持
 
-支持think标签
+支持自定义的 \<think\> 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示
 
 :::demo
 
@@ -206,17 +206,13 @@ const toggleThink = (idx) => {
   if (isLoading.value) {
     return
   }
-  const nodes = document.querySelectorAll('.mc-bubble-content-container');
-  const targetNode = nodes[idx];
+  const targetNode = document.querySelectorAll('.mc-bubble-content-container')[idx];
   if (targetNode) {
     const thinkBlock = targetNode.querySelector('.mc-think-block');
     if (thinkBlock) {
-      // 获取当前 display 样式
       const currentDisplay = getComputedStyle(thinkBlock).display;
-
-      // 根据当前 display 样式设置为相反值
       thinkBlock.style.display = currentDisplay === 'none' ? 'block' : 'none';
-      btnIcon.value = currentDisplay === 'none' ? 'icon-chevron-up-2' : 'icon-chevron-down-2'
+      btnIcon.value = currentDisplay === 'none' ? 'icon-chevron-up-2' :'icon-chevron-down-2'
     }
   }
 }
@@ -240,9 +236,9 @@ const generateAnswer = () => {
     let totalTime = 0;
     interval = setInterval(() => {
       if (currentIndex < mockAnswer.length) {
-        messages.value[messages.value.length - 1].content += mockAnswer[currentIndex];
-        currentIndex++;
-        totalTime += 20;
+        messages.value[messages.value.length - 1].content = mockAnswer.slice(0, currentIndex);
+        currentIndex += 10;
+        totalTime += 100;
         if (messages.value[messages.value.length - 1].content.indexOf('</think>') > -1 && thinkBtnText.value === '思考中...') {
           thinkBtnText.value = `已深度思考 (用时${totalTime / 1000}秒)`;
         }
@@ -251,7 +247,7 @@ const generateAnswer = () => {
         clearInterval(interval);
         messages.value[messages.value.length - 1].loading = false;
       }
-    }, 20);
+    }, 100);
   }
 }
 
