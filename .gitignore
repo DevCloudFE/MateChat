@@ -15,6 +15,7 @@ coverage
 *.local
 package-lock.json
 pnpm-workspace.yaml
+/packages/components-js/*
 
 /cypress/videos/
 /cypress/screenshots/
@@ -35,3 +36,4 @@ cache
 *.sw?
 
 *.tsbuildinfo
+
