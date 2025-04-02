@@ -8,23 +8,20 @@ export const introPrompt = {
     {
       value: 'quickSort',
       label: '帮我写一个快速排序',
-      icon: 'icon-info-o',
-      color: 'rgb(255, 215, 0)',
+      iconConfig: { name: 'icon-info-o', color: '#5e7ce0' },
       desc: '使用 js 快速实现一个可用的快速排序',
     },
     {
       value: 'helpMd',
       label: '你可以帮我做些什么？',
-      icon: 'icon-star',
-      color: 'rgb(255, 215, 0)',
+      iconConfig: { name: 'icon-star', color: 'rgb(255, 215, 0)' },
       desc: '了解当前大模型可以帮你做的事',
     },
     {
-      value: 'helpMd',
-      label: '你可以帮我做些什么？',
-      icon: 'icon-star',
-      color: 'rgb(255, 215, 0)',
-      desc: '了解当前大模型可以帮你做的事',
+      value: 'bindProjectSpace',
+      label: '怎么绑定项目空间',
+      iconConfig: { name: 'icon-priority', color: '#3ac295' },
+      desc: '如何绑定云空间中的项目',
     },
   ],
 };
@@ -39,14 +36,13 @@ export const guessQuestions = [
 export const simplePrompt = [
   {
     value: 'quickSort',
-    icon: 'icon-info-o',
+    iconConfig: { name: 'icon-info-o', color: '#5e7ce0' },
     color: 'rgb(255, 215, 0)',
     label: '帮我写一个快速排序',
   },
   {
     value: 'helpMd',
-    icon: 'icon-star',
-    color: 'rgb(255, 215, 0)',
+    iconConfig: { name: 'icon-star', color: 'rgb(255, 215, 0)' },
     label: '你可以帮我做些什么？',
   },
 ];

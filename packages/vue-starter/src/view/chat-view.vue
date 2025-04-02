@@ -209,6 +209,8 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import 'devui-theme/styles-var/devui-var.scss';
+
 .demo-test {
   width: 100%;
   min-width: 500px;
@@ -238,22 +240,22 @@ onMounted(() => {
   .guess-question {
     width: 100%;
     padding: 16px 12px;
-    border-radius: var(--devui-border-radius-card);
-    background-color: var(--devui-gray-form-control-bg);
+    border-radius: $devui-border-radius-card;
+    background-color: $devui-gray-form-control-bg;
 
     .guess-title {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--devui-text);
+      color: $devui-text;
       margin-bottom: 12px;
 
       & > div:first-child {
         font-weight: 700;
-        font-size: var(--devui-font-size);
+        font-size: $devui-font-size;
       }
       & > div:last-child {
-        font-size: var(--devui-font-size-sm);
+        font-size: $devui-font-size-sm;
         cursor: pointer;
         span {
           margin-left: 4px;
@@ -267,11 +269,11 @@ onMounted(() => {
       flex-wrap: wrap;
       gap: 8px;
       span {
-        font-size: var(--devui-font-size-sm);
-        color: var(--devui-text);
+        font-size: $devui-font-size-sm;
+        color: $devui-text;
         padding: 4px 12px;
-        border-radius: var(--devui-border-radius-full);
-        background-color: var(--devui-gray-form-control-hover-bg);
+        border-radius: $devui-border-radius-full;
+        background-color: $devui-gray-form-control-hover-bg;
         cursor: pointer;
       }
     }
@@ -285,7 +287,7 @@ onMounted(() => {
       cursor: pointer;
 
       &:hover {
-        background-color: var(--devui-icon-hover-bg);
+        background-color: $devui-gray-10;
       }
     }
   }
@@ -314,7 +316,7 @@ onMounted(() => {
       cursor: pointer;
 
       &:hover {
-        background: var(--devui-global-bg);
+        background: $devui-global-bg;
       }
     }
   }
@@ -328,8 +330,8 @@ onMounted(() => {
       display: flex;
       align-items: center;
       padding: 4px 8px;
-      border-radius: var(--devui-border-radius-full);
-      background-color: var(--devui-area);
+      border-radius: $devui-border-radius-full;
+      background-color: $devui-area;
       cursor: pointer;
 
       img {
@@ -339,14 +341,14 @@ onMounted(() => {
       }
 
       span {
-        font-size: var(--devui-font-size);
-        color: var(--devui-text);
+        font-size: $devui-font-size;
+        color: $devui-text;
         margin-right: 8px;
       }
 
       i {
-        font-size: var(--devui-font-size);
-        color: var(--devui-text);
+        font-size: $devui-font-size;
+        color: $devui-text;
         transition: transform 0.3s ease-in-out;
 
         &:last-child {
@@ -363,12 +365,12 @@ onMounted(() => {
       width: 1px;
       height: 14px;
       margin: 0 12px;
-      background-color: var(--devui-line);
+      background-color: $devui-line;
     }
 
     .knowledge-wrapper {
-      font-size: var(--devui-font-size);
-      color: var(--devui-text);
+      font-size: $devui-font-size;
+      color: $devui-text;
       cursor: pointer;
 
       span {
@@ -391,20 +393,20 @@ onMounted(() => {
       gap: 8px;
 
       span {
-        font-size: var(--devui-font-size-sm);
-        color: var(--devui-text);
+        font-size: $devui-font-size-sm;
+        color: $devui-text;
         cursor: pointer;
       }
 
       .input-foot-dividing-line {
         width: 1px;
         height: 14px;
-        background-color: var(--devui-line);
+        background-color: $devui-line;
       }
 
       .input-foot-maxlength {
-        font-size: var(--devui-font-size-sm);
-        color: var(--devui-aide-text);
+        font-size: $devui-font-size-sm;
+        color: $devui-aide-text;
       }
     }
 

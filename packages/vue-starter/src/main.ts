@@ -3,4 +3,6 @@ import './style.css';
 import App from './App.vue';
 import MateChat from '@matechat/core';
 
-createApp(App).use(MateChat).mount('#app');
+createApp(App)
+  .use(MateChat)
+  .mount('#app');
