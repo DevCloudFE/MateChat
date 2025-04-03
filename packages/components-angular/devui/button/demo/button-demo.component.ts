@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DevuiSourceData } from 'ng-devui/shared/devui-codebox';
+// import { any } from 'ng-devui/shared/devui-codebox';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 @Component({
@@ -8,53 +8,53 @@ import { Subscription } from 'rxjs';
     standalone: false
 })
 export class ButtonDemoComponent implements OnInit, OnDestroy {
-  commonSource: Array<DevuiSourceData> = [
+  commonSource = [
     { title: 'HTML', language: 'xml', code: require('./common/common.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./common/common.component.ts?raw') },
   ];
 
-  iconSource: Array<DevuiSourceData> = [
+  iconSource= [
     { title: 'HTML', language: 'xml', code: require('./icon/icon.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./icon/icon.component.ts?raw') },
     { title: 'SCSS', language: 'css', code: require('./icon/icon.component.scss?raw') },
   ];
 
-  loadingSource: Array<DevuiSourceData> = [
+  loadingSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./loading/loading.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./loading/loading.component.ts?raw') },
   ];
 
-  primarySource: Array<DevuiSourceData> = [
+  primarySource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./primary/primary.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./primary/primary.component.ts?raw') },
   ];
 
-  textSource: Array<DevuiSourceData> = [
+  textSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./text/text.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./text/text.component.ts?raw') },
   ];
 
-  dangerSource: Array<DevuiSourceData> = [
+  dangerSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./danger/danger.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./danger/danger.component.ts?raw') },
   ];
 
-  combinationSource: Array<DevuiSourceData> = [
+  combinationSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./combination/combination.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./combination/combination.component.ts?raw') },
   ];
 
-  autofocusSource: Array<DevuiSourceData> = [
+  autofocusSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./autofocus/autofocus.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./autofocus/autofocus.component.ts?raw') },
   ];
 
-  sizeSource: Array<DevuiSourceData> = [
+  sizeSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./size/size.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./size/size.component.ts?raw') },
   ];
 
-  groupsSource: Array<DevuiSourceData> = [
+  groupsSource: Array<any> = [
     { title: 'HTML', language: 'xml', code: require('./groups/groups.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./groups/groups.component.ts?raw') },
     { title: 'SCSS', language: 'css', code: require('./groups/groups.component.scss?raw') },

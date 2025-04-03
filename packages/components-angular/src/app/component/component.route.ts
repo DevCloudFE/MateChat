@@ -31,7 +31,17 @@ export const routesConfig: Routes = [
     path: 'global-config',
     component: GlobalConfigComponent,
     data: { nodisplay: true },
-  }
+  },
+  {
+    path: 'button',
+    component: ExamplePanelComponent,
+    loadChildren: () => import('../../../devui/button/demo/button-demo.module').then((m) => m.ButtonDemoModule),
+    data: {
+      name: 'Button',
+      cnName: '按钮',
+      bannerName: "6",
+    },
+  },
  
 
 

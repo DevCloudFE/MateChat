@@ -12,6 +12,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { AnimationNumberDuration } from 'ng-devui/utils';
+import Button from '../../../components-js/packages/Button/button.svelte';
+import { ta } from 'date-fns/locale';
 export type IButtonType = 'button' | 'submit' | 'reset';
 /**
  * 类型中text-dark参数废弃
@@ -48,6 +50,31 @@ export class ButtonComponent implements AfterContentChecked {
   @Input() loadingTemplateRef: TemplateRef<any>;
   @Output() btnClick = new EventEmitter<MouseEvent>();
   @ViewChild('buttonContent', { static: true }) buttonContent: ElementRef;
+
+  nativeButton;
+  ngOnInit() {
+ 
+  }
+
+  ngAfterViewInit() {
+    let nativeButton = new Button({
+      target: this.buttonContent.nativeElement,
+      props: {    
+        id: this.id,
+        type: this.type,
+        bsStyle: this.bsStyle,
+        shape: this.shape,
+        bsSize: this.bsSize,
+        bsPosition: this.bsPosition,
+        bordered: this.bordered,
+        icon: this.icon,
+        disabled: this.disabled,
+        showLoading: this.showLoading,
+        width: this.width,
+        label: 'angular button',
+      } 
+    }) 
+  }
 
   @HostListener('click', ['$event'])
   handleDisabled($event: Event) {
