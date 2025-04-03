@@ -1,0 +1,17 @@
+@import '~ng-devui/styles-var/devui-var.scss';
+
+.container {
+  width: 300px;
+}
+
+.list {
+  position: relative;
+  max-height: 180px;
+  overflow: scroll;
+  width: 295px;
+}
+
+.item {
+  line-height: 35px;
+  border-bottom: 1px solid $devui-dividing-line;
+}

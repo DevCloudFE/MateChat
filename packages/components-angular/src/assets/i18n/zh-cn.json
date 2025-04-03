@@ -1,0 +1,5125 @@
+{
+  "mainNav": {
+    "design": "设计体系",
+    "components": "组件",
+    "icons": "图标库",
+    "versions": "版本历程"
+  },
+  "themePicker": {
+    "theme": "主题",
+    "color": "主题颜色",
+    "mode": "主题模式",
+    "light": "浅色模式",
+    "dark": "深色模式",
+    "follow": "跟随系统",
+    "largeSize": "大字号模式",
+    "default": "默认主题",
+    "extend": "扩展主题",
+    "customize": "定制主题",
+    "customizeDark": "深色",
+    "customizeDownloadConfig": "下载主题文件",
+    "customizeDownloadConfigHelp": "使用",
+    "infinity": "无限",
+    "sweet": "蜜糖",
+    "deep": "深邃夜空",
+    "provence": "普罗旺斯",
+    "galaxy": "追光"
+  },
+  "public": {
+    "overview": {
+      "title": "组件总览",
+      "description": "DevUI 为 Web 应用提供了丰富的基础 UI 组件，我们还将持续探索企业级应用的最佳 UI 实践，欢迎尝试使用 DevUI。",
+      "placeholder": "请输入你想查找的组件",
+      "newChange": "UPDATED",
+      "sunset": "日落",
+      "lookingCmp": "您要找的组件是不是？",
+      "suggestCmp": "推荐组件",
+      "filter": "过滤器",
+      "newChangeCmps": "有更新的",
+      "recentlySuggestCmps": "近期推荐"
+    },
+    "start": "快速开始",
+    "themeDoc": "主题化使用指南",
+    "globalDoc": "全局设置",
+    "versions": "版本历程",
+    "whenToUse": "何时使用",
+    "goTo": "快速前往"
+  },
+  "codebox": {
+    "showCode": "展开代码",
+    "hideCode": "收起代码",
+    "copyCode": "复制代码",
+    "codesandbox": "在 CodeSandbox 上打开",
+    "stackblitz": "在 StackBlitz 上打开",
+    "success": "复制成功"
+  },
+  "components": {
+    "accordion": {
+      "name": "Accordion 手风琴",
+      "type": "导航",
+      "path": "accordion",
+      "description": "为页面提供导航的组件。",
+      "tmw": "需要通过分组组织菜单的时候使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "传入菜单，监听含子项的可展开菜单的开合事件(menuToggle)或可点击菜单的点击事件(itemClick)。可展开菜单默认展开使用属性open，可点击菜单默认激活使用属性active，禁用项使用disabled。通过restrictOneOpen设置是否限制只能展开一个一级菜单。",
+        "Only one level-1 menu can be expanded.": "限制只能展开一个一级菜单",
+        "Embedded menu (no shadow)": "内嵌菜单形式（无阴影）",
+        "Content 1": "内容一",
+        "Subcontent 1": "子内容1",
+        "Subcontent 2": "子内容2",
+        "Subcontent 3": "子内容3",
+        "Content 2 (overlong, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long": "内容二（超长长长长长长长长长长长长长长内容测试）",
+        "Subcontent 1 (Extremely long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long,": "子内容1（超长长长长长长长长长长长长长长内容测试",
+        "Content 3 (expanded by default)": "内容三（默认展开）",
+        "Subcontent 1 (disabled)": "子内容1(禁用)",
+        "Subcontent 2 (activated by default)": "子内容2(默认激活)",
+        "Content 4 (no sub-item)": "内容四（没有子项）",
+        "Content 5 (Disabled)": "内容五（禁用）",
+        "Content 6 (dynamic loading)": "内容六（动态加载）"
+      },
+      "changeKeyDemo": {
+        "title": "改变键值",
+        "description": "通过titleKey,childrenKey,disabledKey,activeKey等等改变数组键值，适配不同的接口类型定义。",
+        "Content 1": "内容一",
+        "Content 2 (expanded)": "内容二（展开）",
+        "Subcontent 1 (disabled)": "子内容1（禁用）",
+        "Subcontent 2 (selected)": "子内容2（选中）",
+        "Subcontent 3": "子内容3"
+      },
+      "innerListTemplateDemo": {
+        "title": "使用列表模板",
+        "description": "内部列表通过制定innerListTemplate使用模板。",
+        "test": "内容二的内容"
+      },
+      "linkDemo": {
+        "title": "使用内置路由和链接类型",
+        "description": "通过设置linkType切换不同的内置路由和链接类型：默认类型''；路由类型'routerLink'；外链类型：'hrefLink'；基于数据判断路由或链接类型：'dependOnLinkTypeKey'。",
+        "Route Link (Recommended)": "路由链接（推荐使用）",
+        "Native hyperlink (used in cross-site scenarios)": "原生超链接（涉及跨站场景使用）",
+        "Hybrid link (used in some cross-site scenarios)": "混合链接（部分涉及跨站场景使用）",
+        "Basic components": "基础组件",
+        "accordion": "手风琴",
+        "Anchor": "锚点",
+        "Button": "按钮",
+        "Advanced Component": "高级组件",
+        "Table (Disabled)": "表格(禁用)",
+        "Dragging (Parameter Example)": "拖拽(参数示例)",
+        "Others": "其他",
+        "Icon Library": "图标库",
+        "Home page": "首页",
+        "dragging": "拖拽",
+        "Home page (new window)": "首页(新开窗口)",
+        "Home page (external link and open this window)": "首页(外链且本窗口打开)"
+      },
+      "multiLevelDemo": {
+        "title": "复合层级和自动展开",
+        "description": "支持多层级和不限制嵌套层级。可以独立使用autoOpenActiveMenu使得激活的菜单的父层级自动展开。",
+        "Automatically expand activated menus": "自动展开激活的菜单",
+        "Content 1 (menu only)": "内容一（仅菜单）",
+        "Content 2 (menu and content)": "内容二（菜单和内容）",
+        "Subcontent 1": "子子内容1",
+        "Subcontent 2": "子子内容2",
+        "Subcontent 3": "子子内容3",
+        "Content 3 (menu and content)": "内容三（菜单和内容）",
+        "Subcontent 1 (with sublists)": "子内容1（有子列表）",
+        "Subcontent 2 (with sublists)": "子子内容2（有子列表）",
+        "Sub-sub-content 1": "子子子内容1",
+        "Sub-sub-content 2": "子子子内容2",
+        "Sub-content 3": "子子子内容3",
+        "Content 4 (no content in the sublist)": "内容四（子列表没有内容）"
+      },
+      "templateDemo": {
+        "title": "使用模板",
+        "description": "可展开菜单和可点击菜单分别使用模板。可展开菜单指定menuItemTemplate，可点击菜单指定itemTemplate。没有数据模板指定noContentTemplate，并可以通过showNoContent控制无数据的时候不展开。 加载中模板指定loadingTemplate，通过item的loadingKey对应的属性值控制是否显示加载中。",
+        "Reset": "重置",
+        "Number of clicks:": "点击次数：",
+        "Not open yet. Please wait...": "尚未开放，敬请期待...",
+        "It's loading hard.": "正在用力地加载中.",
+        "Content 1": "内容一",
+        "Content 2": "内容二",
+        "Content 3": "内容三",
+        "Content 4 (customized template without data)": "内容四（自定义无数据模板）",
+        "Content 5 (Customizing the Template Being Loaded)": "内容五（自定义加载中模板）",
+        "The expandable menu node must have a non-undefined child.": "可展开菜单节点必须有children非undefined",
+        "Subcontent 1": "子内容1",
+        "Subcontent 2": "子内容2",
+        "Subcontent 3": "子内容3",
+        "Subcontent 4": "子内容4",
+        "Subcontent 5": "子内容5",
+        "Subcontent 6": "子内容6",
+        "Subcontent 7": "子内容7"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "use-built-in-routing-and-link-types": "内置路由和链接类型",
+        "using-templates": "使用模板",
+        "compound-level-and-auto-expand": "复合层级和自动展开",
+        "change-values": "改变键值"
+      }
+    },
+    "menu": {
+      "name": "Menu 菜单",
+      "type": "导航",
+      "path": "menu",
+      "description": "为页面菜单的组件。",
+      "tmw": "需要通过分组组织菜单的时候使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "展开、选中和禁用"
+      },
+      "openCloseDemo": {
+        "title": "可折叠",
+        "description": "[collapsed] 属性控制菜单展开和折叠, 在菜单根元素上设置var(--devui-menu-width)可控制展开和折叠的宽度"
+      },
+      "openOneDemo": {
+        "title": "手风琴效果",
+        "description": "控制d-sub-menu的[open]属性实现手风琴效果"
+      },
+      "LoopDemo": {
+        "title": "递归菜单",
+        "description": "通过封装递归组件实现递归菜单"
+      },
+      "CustomNodeDemo": {
+        "title": "自定义节点",
+        "description": "自定义节点样式，[noStyle]属性会清掉所有预制样式，这意味着得所有样式都得自己写"
+      },
+      "AutoExpandDemo": {
+        "title": "自动展开选中菜单",
+        "description": "根据选中项自动展开其父级菜单"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "open-close": "可折叠",
+        "open-one": "手风琴效果",
+        "loop": "递归菜单",
+        "custom-node": "自定义节点",
+        "auto-expand": "自动展开选中项"
+      }
+    },
+    "input-group": {
+      "name": "输入框组合",
+      "type": "数据录入",
+      "path": "input-group",
+      "description": "为一个或多个类输入框内容添加前后缀，并提供自适应拼接效果。",
+      "tmw": "多个类输入框内容需要拼接组合的场景。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "可包含单个或多个类输入框组件拼接，不可换行。"
+      },
+      "responsiveDemo": {
+        "title": "自适应拼接用法",
+        "description": "多个该组件可根据容器宽度自适应拼接。",
+        "alarmRule": "告警规则",
+        "defaultRule": "默认规则",
+        "indicatorName": "指标名称",
+        "indicatorNamePlaceholder": "请输入指标名称",
+        "valueType": "平均值",
+        "valueTypes": "平均值,最大值,最小值"
+      },
+      "embedDemo": {
+        "title": "嵌入用法",
+        "description": "与 text-input 组件配合使用，不支持自适应拼接。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "responsive-usage": "自适应拼接用法",
+        "embed-usage": "嵌入用法"
+      }
+    },
+    "alert": {
+      "name": "Alert 警告",
+      "type": "反馈",
+      "path": "alert",
+      "description": "显示警告信息，需要用户关注的信息的组件。",
+      "tmw": "当页面需要向用户发出警告信息时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "共有四种样式：success、danger、warning、info。"
+      },
+      "closableDemo": {
+        "title": "可关闭的提示",
+        "description": "显示关闭按钮，点击可关闭提示。"
+      },
+      "withoutIconDemo": {
+        "title": "不使用默认图标",
+        "description": "不使用默认的类型图标。"
+      },
+      "carouselDemo": {
+        "title": "自动轮播",
+        "description": "循环播放一系列文字提示信息。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "tips-to-close": "可关闭的提示",
+        "without-icon": "不使用默认图标",
+        "carousel": "自动轮播"
+      }
+    },
+    "animations": {
+      "name": "动效",
+      "type": "扩展服务",
+      "path": "animations",
+      "description": "DevUI针对web端典型的交互场景，提供了顺滑，高效，简单的动效效果用于提升用户的交互体验",
+      "tmw": "1. 元素的出现或消失；2. 元素状态发生改变",
+      "collapsedDemo": {
+        "title": "Expand Collapse",
+        "description": "使用在处于页面内的元素的展开和收起，表现形式为容器尺寸的单轴变化，常用于手风琴，树形组件，折叠面板等组件"
+      },
+      "fadeInOutDemo": {
+        "title": "Fade In Out",
+        "description": "使用在堆叠于页面上且存在宿主的元素出现和消失，表现形式为内容区域的透明度变化+容器尺寸的单轴变化，常用于下拉选择框，日期选择等组件"
+      },
+      "flyInOutDemo": {
+        "title": "Fly In Out",
+        "description": "使用在堆叠于页面且覆盖整个页面的元素出现和消失，表现形式为内容区域透明度变化+内容区域的位移，常用于抽屉组件"
+      },
+      "wipeInOutDemo": {
+        "title": "Wipe In Out",
+        "description": "使用在堆叠于页面且未处于页面边缘的元素出现和消失，表现形式为内容区域透明度变化+内容区域基于y轴的微小位移，常用于弹窗组件"
+      },
+      "animationIconDemo": {
+        "title": "通过公共class添加icon动效"
+      },
+      "anchorLinkValues": {
+        "expand-collapse": "Expand Collapse",
+        "fade-in-out": "Fade In Out",
+        "fly-in-out": "Fly In Out",
+        "wipe-in-out": "Wipe In Out",
+        "icon-class": "class控制icon动效"
+      }
+    },
+    "anchor": {
+      "name": "Anchor 锚点",
+      "type": "导航",
+      "path": "anchor",
+      "description": "跳转到页面指定位置的组件。",
+      "tmw": "需要在页面的各个部分之间实现快速跳转时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "跟随滚动效果请参考sticky。",
+        "attention": "组件仅实现了锚点的功能，可搭配sticky使用，跟随滚动效果请参考sticky",
+        "base-info": "基本信息",
+        "issue-list": "需求列表",
+        "case-list": "用例列表",
+        "quarlity-result": "质量评估",
+        "The basic information is displayed.": "这里显示基本信息。",
+        "The requirement list is displayed.": "这里显示需求列表。",
+        "The test case list is displayed.": "这里显示用例列表。",
+        "The quality assessment is displayed here.": "这里显示质量评估。"
+      },
+      "asyncDemo": {
+        "title": "异步加载",
+        "description": "支持异步加载, 可以先加载菜单或者先加载内容，点击按钮切换加载。",
+        "Click to switch to asynchronous loading content.": "点击切换异步加载内容",
+        "Asynchronous loading menu": "异步加载菜单",
+        "Asynchronous loading of content": "异步加载内容",
+        "base-info": "基本信息",
+        "issue-list": "需求列表",
+        "case-list": "用例列表",
+        "quarlity-result": "质量评估",
+        "The basic information is displayed.": "这里显示基本信息。",
+        "The requirement list is displayed.": "这里显示需求列表。",
+        "The test case list is displayed.": "这里显示用例列表。",
+        "The quality assessment is displayed here.": "这里显示质量评估。"
+      },
+      "hashDemo": {
+        "title": "支持url锚点",
+        "description": "支持url的锚点哈希链接，支持更新哈希。",
+        "base-info": "基本信息",
+        "issue-list": "需求列表",
+        "case-list": "用例列表",
+        "quarlity-result": "质量评估",
+        "The basic information is displayed.": "这里显示基本信息。",
+        "The requirement list is displayed.": "这里显示需求列表。",
+        "The test case list is displayed.": "这里显示用例列表。",
+        "The quality assessment is displayed here.": "这里显示质量评估。",
+        "Activating an anchor": "激活anchor的时候刷新地址哈希值",
+        "Refresh Hash Address": "刷新地址哈希值生效",
+        "Click the anchor link in the Case List area.": "点击“用例列表”锚点链接",
+        "Click the Quality Evaluation anchor.": "点击“质量评估”锚点内部",
+        "Initialize scrolling to the corresponding anchor point.": "仅初始化的时候滚动到对应锚点",
+        "Scroll to the corresponding anchor to take effect": "滚动到对应锚点生效",
+        "Jump to Requirements List via Hash and initialize": "通过哈希跳到“需求列表”并重新初始化",
+        "Jump to the Requirement List via Hash": "通过哈希跳到“需求列表”"
+      },
+      "scrollTargetDemo": {
+        "title": "更换滚动容器",
+        "description": "通过scrollTarget更换滚动容器。",
+        "base-info": "基本信息",
+        "issue-list": "需求列表",
+        "case-list": "用例列表",
+        "quarlity-result": "质量评估",
+        "The basic information is displayed.": "这里显示基本信息。",
+        "The requirement list is displayed.": "这里显示需求列表。",
+        "The test case list is displayed.": "这里显示用例列表。",
+        "The quality assessment is displayed here.": "这里显示质量评估。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "asynchronous-loading": "异步加载",
+        "scroll-target": "更换滚动容器",
+        "support-hash": "支持url锚点"
+      }
+    },
+    "auto-complete": {
+      "name": "AutoComplete 自动补全",
+      "type": "数据录入",
+      "path": "auto-complete",
+      "description": "联想用户可能需要的输入结果。",
+      "tmw": "当需要根据用户输入的部分字符推断出他可能想要输入的内容时。",
+      "basicDemo": {
+        "title": "基础用法",
+        "description": "通过 source 设置自动完成的数据源。"
+      },
+      "objectDemo": {
+        "title": "自定义数据匹配方法",
+        "description": "通过 searchFn 自定义数据的匹配方法和返回的数据格式。"
+      },
+      "customDemo": {
+        "title": "自定义模板展示",
+        "description": "通过 itemTemplate、noResultItemTemplate 自定义下拉框和无匹配提示。"
+      },
+      "disabledDemo": {
+        "title": "设置禁用",
+        "description": "通过 disabled 设置输入框禁用，通过 disabledKey 禁用下拉选项。",
+        "Search Results": "搜索结果"
+      },
+      "latestDemo": {
+        "title": "最近输入",
+        "description": "通过 latestSource 设置最近输入。"
+      },
+      "lazyLoadDemo": {
+        "title": "懒加载",
+        "description": "enableLazyLoad 开启懒加载。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "auto-object": "自定义数据匹配方法",
+        "auto-custom": "自定义模板展示",
+        "auto-disable": "设置禁用",
+        "auto-latest": "最近输入",
+        "auto-lazy-load": "启用懒加载"
+      },
+      "design": {
+        "structure": {
+          "name": "结构",
+          "desc": "不同类型的输入框，其结构也有所不同，具体如下所示：",
+          "image": "assets/design/auto-complete/structure.png",
+          "descList": [
+            {
+              "title": "1.  标签：",
+              "content": "默认状态：按需显示，内容标题，告知用户当前输入的内容。"
+            },
+            {
+              "title": "2.  输入框：",
+              "content": "默认状态：圆角，4px；承载用户的具体输入。"
+            },
+            {
+              "title": "3.  输入的内容：",
+              "content": "默认状态：颜色，#252B3A;用户输入的内容。"
+            },
+            {
+              "title": "4.  输入的结果：",
+              "content": "默认状态：联想，输入的内容; 首个结果为输入的内容。"
+            },
+            {
+              "title": "5.  自动补全的结果：",
+              "content": "默认状态：按需显示，根据输入的内容匹配到的选项; 根据输入的内容匹配包含输入内容字段的选项。"
+            }
+          ]
+        },
+        "how-to-use": {
+          "name": "如何使用",
+          "sub-name": "何时使用",
+          "descList": [
+            "需要对输入框而不是选择器提供输入建议/辅助提示，进行自动补全的操作",
+            "与搜索框Select组件的区别：",
+            "1.AutoComplete本质上是一个带提示的、增强型的提供输入建议文本输入框，而Select是一个选择器",
+            "2.AutoComplete用户可以自由输入，关键词是辅助输入，而Select则是在限定的可选项中进行选择，关键词是选择",
+            "3.AutoComplete只允许为字符串，而Select的已选项渲染可定制化程度更高，可以为任意类型"
+          ]
+        },
+        "scene": {
+          "name": "场景",
+          "sceneList": [
+            {
+              "name": "基本用法",
+              "desc": "根据当前输入以下拉选择的形式展示输入建议。",
+              "img": "assets/design/auto-complete/basic.png"
+            },
+            {
+              "name": "自定义选项",
+              "desc": "需要自定义渲染选项时，可以传入对象数组、特定后缀如邮箱等。",
+              "img": "assets/design/auto-complete/custom.png"
+            },
+            {
+              "name": "自定义输入组件",
+              "desc": "支持自定义输入组件，例如多行文本。",
+              "img": "assets/design/auto-complete/input.png"
+            },
+            {
+              "name": "是否区分大小写",
+              "desc": "区分大小写时则严格按照输入字符串的大小写进行匹配，比如：输入“Please”，含有“Please”的选项会被匹配，而“please”则不会被匹配。",
+              "img": "assets/design/auto-complete/classify.png"
+            },
+            {
+              "name": "类目划分",
+              "desc": "匹配的结果以类目进行分组。",
+              "img": "assets/design/auto-complete/group.png"
+            },
+            {
+              "name": "下拉框的位置",
+              "desc": "根据文本框的位置，可以自定义下拉框的位置，比如：文本框在页面最下方，激活输入后，下拉框可以出现在文本框的上方。",
+              "img": "assets/design/auto-complete/position.png"
+            },
+            {
+              "name": "输入值受限",
+              "desc": "只能选择匹配的下拉框选项，如果输入的值，下拉框里的选项不存在，则输入框失去焦点后，内容清空。",
+              "img": "assets/design/auto-complete/limited.png"
+            }
+          ]
+        },
+        "status": {
+          "name": "状态",
+          "desc": "输入框自动补全状态可分为：正常、禁用、异常（带文本提示）、Toast提示。",
+          "img": "assets/design/auto-complete/status.png"
+        },
+        "size": {
+          "name": "大小",
+          "desc": "有28px、32px、40px三种大小三种不同高度的输入框，以适应不同尺寸布局，通常情况下为32*32px；",
+          "img": "assets/design/auto-complete/size.png"
+        },
+        "rules": {
+          "name": "交互规则",
+          "desc": "文本输入框使用户可以与之交互并输入内容和数据，是表单中的常用控件。*32px；",
+          "sub-name": "单击（Click）",
+          "sub-desc": "文本输入框类组件可用时，激活文本框，光标出现，输入内容后，光标在内容之后。获取焦点后，水印文字不消失，输入字符才消失。",
+          "img": "assets/design/auto-complete/rules.png"
+        }
+      }
+    },
+    "editormd": {
+      "name": "Markdown MD编辑器",
+      "type": "数据录入",
+      "path": "editormd",
+      "description": "Markdown编辑器。",
+      "tmw": "当需进行Markdown编辑时。",
+      "defaultDemo": {
+        "title": "基本使用",
+        "description": "展示editor-md的默认基本功能，支持双向绑定。",
+        "Current value of content.": "content当前值：",
+        "Switching Modes": "切换mode",
+        "The input cannot be empty.": "你的输入不能为空",
+        "Initialization Title": "初始化标题，不使用双向绑定进行传值",
+        "Bidirectional binding": "双向绑定",
+        "preview": "预览",
+        "edit": "编辑",
+        "changeMode": "切换模式"
+      },
+      "toolbarDemo": {
+        "title": "自定义工具栏",
+        "description": "改变工具栏顺序、添加自定义按钮，自定义按钮支持多种传入方式（本例中添加了【引用】【预览开关】按钮）。",
+        "Open Preview": "打开预览",
+        "Turn off preview": "关闭预览",
+        "Customizing Button Sequence and Display": "自定义按钮顺序与显示、引用按钮",
+        "Initialize when init": "需要在init时进行初始化，可获取到template引用",
+        "Default toolbarConfig of the editor": "编辑器默认toolbarConfig为：",
+        "quoting": "引用"
+      },
+      "xssDemo": {
+        "title": "自定义xss过滤规则",
+        "description": "自定义配置指定标签过滤规则。",
+        "This is the input content.": "这是输入的content",
+        "Defines a custom attribute.": "这里定义了一个自定义属性，xss中自定义白名单添加了此属性，控制台查看元素将看到此属性被渲染",
+        "Another custom property is defined": "这里定义了另一个自定义属性，xss白名单中没有添加此属性，控制台查看元素将看到此属性没有被渲染",
+        "Tag name.": "对应tag的名称",
+        "Current tag trustlist attribute array": "当前tag白名单属性数组"
+      },
+      "renderDemo": {
+        "title": "单独渲染md文本",
+        "description": "单独渲染md文本。CustomParse添加的内容，将不会进入到XSS过滤中。",
+        "This is the input content.": "这是输入的content",
+        "Defines a custom attribute.": "这里定义了一个自定义属性，xss中自定义白名单添加了此属性，控制台查看元素将看到此属性被渲染",
+        "Another custom property": "这里定义了另一个自定义属性，xss白名单中没有添加此属性，控制台查看元素将看到此属性没有被渲染",
+        "relative link": "相对链接",
+        "Tag name.": "对应tag的名称",
+        "Current tag trustlist attribute array": "当前tag白名单属性数组",
+        "Added Text": "这里是自定义parse方法添加的文本，",
+        "The content is not filtered by the trustlist.": "将会在markdown被解析后执行，这里内容不会被白名单过滤"
+      },
+      "parseDemo": {
+        "title": "自定义parse方法",
+        "description": "自定义parse方法处理最终输出的html。",
+        "Initialization Content": "初始化内容",
+        "Added Text": "我是自定义parse方法中添加的内容，无论如何我都会在最后"
+      },
+      "imageDemo": {
+        "title": "配置图片文件上传",
+        "description": "配置图片文件上传。设置imageUploadToServer后，编辑器对粘贴操作也将进行监听，若有图片也将触发imageUpload事件。",
+        "Select an image to upload.": "选择一张图片上传至服务器",
+        "After imageUploadToServer is set": "设置imageUploadToServer后，编辑器对粘贴操作也将进行监听，若有图片也将触发imageUpload事件",
+        "Open the file upload entry.": "打开文件上传入口",
+        "Selecting a picture type": "请选择bmp/jpg/jpeg/png/gif/tiff类型图片进行上传",
+        "Limit the image size.": "请选择小于1M的图片进行上传",
+        "Uploading a file": "上传文件",
+        "Failed to upload the image.": "图片上传失败"
+      },
+      "hintDemo": {
+        "title": "配置快速提示",
+        "description": "可用于支持@选择用户等场景。",
+        "Associated Member": "你可以输入@关联成员，输入#关联一个订单号……",
+        "Set Search": "设置搜索debounceTime",
+        "User": "用户",
+        "Order No.": "订单号"
+      },
+      "markedDemo": {
+        "title": "自定义渲染",
+        "description": "自定义从md到html的渲染规则。",
+        "Level-1 Title": "一级标题",
+        "Level-2 Title": "二级标题",
+        "Level-3 Title": "三级标题",
+        "Level-4 Title": "四级标题",
+        "Level-5 Title": "五级标题",
+        "Level 6 Title": "六级标题"
+      },
+      "mermaidDemo": {
+        "title": "mermaid 渲染",
+        "description": "支持mermaid流程图、甘特图、时序图等一些可视图的渲染。",
+        "flowChart": "流程图",
+        "ganttChart": "甘特图",
+        "sequenceChart": "时序图"
+      },
+      "checkedDemo": {
+        "title": "checkbox 渲染",
+        "description": "支持checkbox渲染。"
+      },
+      "tocDemo": {
+        "title": "TOC 渲染",
+        "description": "支持生成TOC目录"
+      },
+      "plantumlDemo": {
+        "title": "Plantuml 渲染",
+        "description": "生成UML图"
+      },
+      "enormousTextDemo": {
+        "title": "大数据量场景处理",
+        "description": "手动获取内容，而非通过事件实时回传，当前可保证编辑无卡顿，渲染会进行延迟渲染（实验功能）。",
+        "Generate 10,000 lines of data.": "生成1W行数据",
+        "Output the content in the editing area.": "控制台输出编辑区内容",
+        "Initialization Title": "初始化标题，不使用双向绑定进行传值",
+        "Incoming Initialization": "可传入初始化content的值",
+        "The change event is closed.": "关闭了change事件，编辑区内容改变，事件将不会被触发",
+        "For details, see codemirror.": "更多editorRef方法，可参考codemirror官方文档",
+        "Data": "这是第${i}行数据"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本使用",
+        "custom-toolbar": "自定义工具栏",
+        "custom-xss": "自定义xss过滤规则",
+        "custom-render": "自定义渲染",
+        "custom-parse": "自定义parse方法",
+        "img-upload": "配置图片文件上传",
+        "quick-suggestion": "快速提示(@用户等)",
+        "single-render-md": "单独渲染md文本",
+        "mermaid-render": "Mermaid渲染",
+        "checked-render": "checkbox渲染",
+        "toc-render": "TOC渲染",
+        "uml-render": "UML渲染",
+        "big-data-process": "大数据量场景处理"
+      }
+    },
+    "avatar": {
+      "name": "Avatar 头像",
+      "type": "数据展示",
+      "path": "avatar",
+      "description": "显示用户头像的组件。",
+      "tmw": "当需要显示用户头像时。",
+      "basicDemo": {
+        "title": "头像显示的基本规则",
+        "description": "头像组件传入'name'属性时，会根据一定的规则显示头像的字段，具体规则参见API。",
+        "cnStart": "中文开头的情况，取最后两个字符：",
+        "enStart": "英文开头的情况，取前面两个字符：",
+        "multi": "多个英文名的情况，取前两个英文名首字母：",
+        "others": "非中英文开头的情况,取前两个字符："
+      },
+      "configDemo": {
+        "title": "头像的基础配置",
+        "description": "头像组件可设置宽度，高度，是否为圆形头像，同时可自定义头像的显示字段，传入自定义图片等。",
+        "smaller": "设置宽度，高度小于30px时，只显示一个字符：",
+        "custome": "传入自定义头像显示字段customText：",
+        "img": "传入imgSrc："
+      },
+      "specialDemo": {
+        "title": "头像的特殊显示",
+        "description": "头像组件会对一些特殊情况进行处理，具体表现为用户不存在或展示默认头像，详细规则参见API。",
+        "notExist": "未传入name,customText,imgSrc，视为使用该头像的用户不存在：",
+        "beNull": "传入name,customText,imgSrc的值为空，视为使用该头像的用户无昵称，使用默认头像："
+      },
+      "anchorLinkValues": {
+        "basic-rules": "头像显示的基本规则",
+        "basic-configuration": "头像的基础配置",
+        "special-display": "头像的特殊显示"
+      }
+    },
+    "ImagePreview": {
+      "name": "ImagePreview 图片预览",
+      "type": "数据展示",
+      "path": "ImagePreview",
+      "description": "预览一张或多张图片的组件。",
+      "tmw": "需要根据用户传入进行图片预览展示或对容器内图片进行预览时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "使用image-preview指令，对容器内图片进行预览。"
+      },
+      "customDemo": {
+        "title": "自定义开启预览窗口",
+        "description": "传入subject，触发next时打开预览。",
+        "previewImage": "预览图片"
+      },
+      "zIndexDemo": {
+        "title": "设置zIndex",
+        "description1": "通过设置zIndex控制弹出效果的层级，设置backDropZIndex控制弹出层背景的层级。",
+        "description2": "可以看到当设置zIndex小于backDropZIndex时，imagePreview会显示在背景下方。",
+        "description3": "可以通过Esc关闭imagePreview。",
+        "previewImage": "预览图片"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "custom-usage": "自定义开启预览窗口",
+        "z-index-usage": "设置zIndex"
+      }
+    },
+    "breadcrumb": {
+      "name": "Breadcrumb 面包屑",
+      "type": "导航",
+      "path": "breadcrumb",
+      "description": "显示当前页面层级的组件。",
+      "tmw": "<div>1. 用户需要了解当前出于什么层级时；</div> <div>2. 用户需要快速返回之前的层级时；</div> <div>3. 用户需要导航至与指定层级相同的任意页面时。</div>",
+      "basicDemo": {
+        "title": "基础面包屑",
+        "itemText": "通过d-breadcrumb-item定义显示内容",
+        "sourceText": "通过传入source显示默认面包屑",
+        "content": "面包屑"
+      },
+      "menuDemo": {
+        "title": "可下拉的面包屑"
+      },
+      "customDemo": {
+        "title": "自定义下拉列表和分隔符的面包屑",
+        "breadText": "面包屑",
+        "anchorText": "锚点",
+        "btnText": "按钮"
+      },
+      "sourceDemo": {
+        "title": "传入source"
+      },
+      "clickBlockDemo": {
+        "title": "点击可拦截"
+      },
+      "anchorLinkValues": {
+        "basic-breadcrumbs": "基础面包屑",
+        "source-config-breadcrumbs": "传入source",
+        "drop-down-breadcrumbs": "可下拉的面包屑",
+        "self-defined-breadcrumbs": "自定义下拉列表和分隔符的面包屑",
+        "click-block-breadcrumbs": "点击可拦截的面包屑"
+      }
+    },
+    "back-top": {
+      "name": "BackTop 回到顶部",
+      "type": "导航",
+      "path": "back-top",
+      "description": "返回页面顶部的操作按钮。",
+      "tmw": "当页面内容区域比较长时；当用户需要频繁返回顶部查看相关内容时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "回到顶部按钮的默认样式，距离底部50px，右侧30px。",
+        "default": "默认样式",
+        "text": "开启后，向下滑动滚动条即可见回到顶部默认按钮："
+      },
+      "customizeDemo": {
+        "title": "自定义",
+        "description": "回到顶部组件可自定义按钮样式，限制宽高：40px * 40px。同时可通过visibleHeight设置按钮可见的滚动高度。",
+        "customizeStyle": "自定义回到顶部按钮的样式，限制宽高：40px * 40px。",
+        "text": "开启开关，向下滑动滚动条展示按钮：",
+        "scrollHeight": "滚动高度达到visibleHeight所设值后展示回到顶部按钮。"
+      },
+      "scrollDemo": {
+        "title": "滚动容器",
+        "description": "通过设置scrollTarget参数，可对特定容器进行返回顶部操作。"
+      },
+      "anchorLinkValues": {
+        "back-top-basic": "基本用法",
+        "back-top-customize": "自定义",
+        "back-top-scroll-container": "滚动容器"
+      }
+    },
+    "icon": {
+      "name": "Icon 图标",
+      "type": "通用",
+      "path": "icon",
+      "description": "常用图标展示场景",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "基础图标的使用形式"
+      },
+      "iconGroupDemo": {
+        "title": "图标组",
+        "description": "常用图标组使用场景"
+      },
+      "anchorLinkValues": {
+        "basic": "基本用法",
+        "icon-group": "图标组"
+      }
+    },
+    "button": {
+      "name": "Button 按钮",
+      "type": "通用",
+      "path": "button",
+      "description": "按钮用于开始一个即时操作。",
+      "tmw": "标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。",
+      "button-primary": {
+        "title": "主要按钮",
+        "ok": "确认",
+        "disabled": "禁用"
+      },
+      "button-common": {
+        "title": "次要按钮",
+        "cancel": "取消",
+        "disabled": "禁用"
+      },
+      "button-primary-and-common": {
+        "title": "主要按钮与次要按钮组合",
+        "description": "主要按钮与次要按钮组合使用时，一个场景通常只有一个主要按钮。",
+        "ok": "确定",
+        "cancel": "取消",
+        "last": "上一步",
+        "next": "下一步"
+      },
+      "button-text": {
+        "title": "文字按钮",
+        "ok": "确定",
+        "cancel": "取消",
+        "disabled": "禁用"
+      },
+      "button-danger": {
+        "title": "警示按钮",
+        "description": "用于标识系统中的关键操作，例如删除场景。",
+        "purchase": "购买"
+      },
+      "button-loading": {
+        "title": "加载中状态"
+      },
+      "button-auto-focus": {
+        "title": "自动获得焦点",
+        "description": "通过autofocus设置按钮自动获得焦点。",
+        "ok": "确定",
+        "cancel": "取消"
+      },
+      "button-icon": {
+        "title": "图标按钮",
+        "new": "新建",
+        "filter": "过滤",
+        "newDisabled": "新建禁用",
+        "filterDisabled": "过滤禁用",
+        "connect": "关联",
+        "run": "执行",
+        "connectDisabled": "关联禁用",
+        "runDisabled": "执行禁用",
+        "select": "请选择",
+        "drop": "下拉选择"
+      },
+      "button-size": {
+        "title": "按钮尺寸",
+        "description": "按钮有4种大小，可以根据业务场景选择合适大小的按钮。",
+        "tiny": "超小号",
+        "small": "小号",
+        "normal": "正常",
+        "large": "大号"
+      },
+      "button-groups": {
+        "title": "按钮组",
+        "description": "将多个按钮作为一组放入按钮组容器中。按钮组可通过size设置尺寸，并与下拉菜单混合使用。",
+        "text": "按钮组有4种大小，可通过size设置所有元素尺寸",
+        "filter": "过滤",
+        "new": "新建",
+        "delete": "删除",
+        "drop": "点击下拉",
+        "itemOne": "菜单一",
+        "itemTwo": "菜单二",
+        "itemThree": "菜单三"
+      },
+      "anchorLinkValues": {
+        "button-primary": "主要按钮",
+        "button-common": "次要按钮",
+        "button-primary-and-common": "主要按钮与次要按钮组合",
+        "button-danger": "警示按钮",
+        "button-text": "文字按钮",
+        "button-loading": "加载中状态",
+        "button-auto-focus": "自动获得焦点",
+        "button-icon": "图标按钮",
+        "button-size": "按钮尺寸",
+        "button-groups": "按钮组"
+      },
+      "design": {
+        "structure": {
+          "name": "结构",
+          "descList": [
+            {
+              "id": 1,
+              "name": "容器"
+            },
+            {
+              "id": 2,
+              "name": "图标"
+            },
+            {
+              "id": 3,
+              "name": "文字"
+            },
+            {
+              "id": 4,
+              "name": "按钮组"
+            }
+          ]
+        },
+        "how-to-use": {
+          "name": "如何使用",
+          "sub-name": "使用说明",
+          "desc": "根据业务需求，定义按钮的功能逻辑，用不同的颜色表达按钮的主次，并在按钮文案中明确描述其业务功能。结合业务场景，选择对应尺寸，如大、中、小尺寸按钮。",
+          "size-list": [
+            {
+              "name": "大号",
+              "font-desc": "字体：14px",
+              "height-desc": "容器高度：40px",
+              "width-desc": "最小宽：96px",
+              "image": "assets/design/button/lg.png"
+            },
+            {
+              "name": "中号",
+              "font-desc": "字体：14px",
+              "height-desc": "容器高度：32px",
+              "width-desc": "最小宽：80px",
+              "image": "assets/design/button/md.png"
+            },
+            {
+              "name": "小号",
+              "font-desc": "字体：12px",
+              "height-desc": "容器高度：28px",
+              "width-desc": "最小宽：64px",
+              "image": "assets/design/button/sm.png"
+            }
+          ]
+        },
+        "button-list": [
+          {
+            "name": "主要按钮",
+            "anchor": "button-primary",
+            "desc": "界面中需要强调某个操作时，需要使用强调型按钮。在界面上很突出，用于强调当前操作、正面引导。典型场景：弹框、主界面按钮。",
+            "image": "assets/design/button/primary.png"
+          },
+          {
+            "name": "次要按钮",
+            "anchor": "button-common",
+            "desc": "常规按钮，用于非主要动作。如果不确定选择哪种按钮，次按钮永远是最安全的选择。",
+            "image": "assets/design/button/common.png"
+          },
+          {
+            "name": "状态按钮",
+            "anchor": "button-danger",
+            "desc": "删除/移动/修改权限等危险操作，一般需要二次确认，指定为警示色，引起用户警惕。",
+            "image": "assets/design/button/danger.png"
+          },
+          {
+            "name": "文字按钮",
+            "anchor": "button-text",
+            "desc": "文本按钮为纯文本按钮，点击执行操作，可最大限度减少按钮对内容的干扰。",
+            "image": "assets/design/button/text.png"
+          },
+          {
+            "name": "图标按钮",
+            "anchor": "button-icon",
+            "desc": "仅图标为按钮。",
+            "image": "assets/design/button/icon.png"
+          },
+          {
+            "name": "包含图标的按钮",
+            "anchor": "button-icon-contain",
+            "desc": "按钮可以嵌入Icon，默认情况下Icon尺寸自动跟随按钮的尺寸变化。",
+            "image": "assets/design/button/icon-contain.png"
+          },
+          {
+            "name": "按钮组",
+            "anchor": "button-group",
+            "desc": "同级多项操作，以按钮组合方式展现。",
+            "image": "assets/design/button/group.png"
+          }
+        ],
+        "layout": {
+          "name": "主、次按钮相对位置",
+          "desc": "面向复杂的工具系统，主、次按钮的相对位置应有灵活的规则。灵活的布局策略通常会考虑到：",
+          "description1": "默认而言，主按钮都在次要按钮的 ⬅️左侧 ",
+          "description2": "特别的，目前主按钮适合放在在次要按钮➡️右侧 的3种已知场景有",
+          "layoutStrategies": [
+            {
+              "title": "操作维度",
+              "describe": "费茨法则（简而言之：屏幕边角可以兜住鼠标，靠边按钮可更轻易被选中）",
+              "img": "assets/design/button/layoutStrategies1.png"
+            },
+            {
+              "title": "认知心理学维度",
+              "describe": "人眼视线的关注规律（简而言之：左上>右上>左下>右下）",
+              "img": "assets/design/button/layoutStrategies2.png"
+            },
+            {
+              "title": "视觉重心维度",
+              "describe": "避免凌空垂吊一个主要按钮等",
+              "img": "assets/design/button/layoutStrategies3.png"
+            }
+          ],
+          "primaryLeft": [
+            {
+              "title": "弹窗",
+              "describe": "按钮大小：32px（大号）",
+              "img": "assets/design/button/primaryLeft1.png"
+            },
+            {
+              "title": "内容区操作",
+              "describe": "按钮大小：32px（中号）",
+              "img": "assets/design/button/primaryLeft2.png"
+            },
+            {
+              "title": "底部操作栏",
+              "describe": "按钮大小：40px（大号）",
+              "img": "assets/design/button/primaryLeft3.png"
+            }
+          ],
+          "primaryRight": [
+            {
+              "title": "服务头（按钮组整体在右侧）",
+              "describe": "按钮大小：28px（小号）",
+              "img": "assets/design/button/primaryRight1.png"
+            },
+            {
+              "title": "一些和标题同一行的再容器中靠右按钮区（和服务header逻辑类似）",
+              "describe": "按钮大小：32px（中号）",
+              "img": "assets/design/button/primaryRight2.png"
+            },
+            {
+              "title": "当按钮是“下一步”时。最后一步的顺序也是“上一步、取消、确定（主按钮）”",
+              "describe": "按钮大小：40px（大号）",
+              "img": "assets/design/button/primaryRight3.png"
+            },
+            {
+              "title": "独立编辑页",
+              "describe": "按钮大小：28px（小号）",
+              "img": "assets/design/button/primaryRight4.png"
+            },
+            {
+              "title": "侧边栏（仅侧边栏可用圆形添加按钮）",
+              "describe": "按钮大小：24px（圆形按钮）",
+              "img": "assets/design/button/primaryRight5.png"
+            }
+          ]
+        }
+      }
+    },
+    "badge": {
+      "name": "Badge 徽标",
+      "type": "数据展示",
+      "path": "badge",
+      "description": "图标右上角的圆形徽标数字。",
+      "tmw": "出现在图标右上角或列表项右方，通过不同的状态色加数字提示用户有消息需要处理时。",
+      "basicDemo": {
+        "title": "基本徽章",
+        "description": "基本徽章类型，当有包裹元素时在右上角显示徽章和数目。",
+        "basic": "标准徽章，通过count参数设置徽章展示的数目，通过status参数可设置徽章状态色",
+        "maxCount": "可通过maxCount参数设置徽章展示的数目最大值，默认为99",
+        "statusColor": "通过bgColor参数设置徽章展示状态色，通过offset参数可设置徽章偏移量",
+        "position": "通过position参数设置徽章位置",
+        "unread": "未读消息"
+      },
+      "dotDemo": {
+        "title": "点状徽章",
+        "description": "点状徽章类型，当有包裹元素且showDot参数为true时为点状徽章，默认在右上角展示小点不显示数目。"
+      },
+      "countDemo": {
+        "title": "计数徽章",
+        "description": "当徽章独立使用且不包裹任何元素时，只展示徽章状态色和数目。",
+        "myCodeHub": "我的代码库",
+        "myFocus": "我关注的",
+        "myManaged": "我管理的",
+        "customFontColor": "通过textColor、bgColor自定义文字、背景颜色",
+        "code": "代码"
+      },
+      "statusDemo": {
+        "title": "状态徽章",
+        "description": "当徽章独立使用、不包裹任何元素且showDot参数为true时为状态徽章，不同状态展示不同色点。"
+      },
+      "positionDemo": {
+        "title": "徽章位置",
+        "description": "通过position参数设置徽章位置。"
+      },
+      "customDemo": {
+        "title": "自定义",
+        "description": "通过bgColor参数设置徽章展示状态色(此时status参数设置的徽章状态色失效)，通过offset参数可设置相对于position的徽章偏移量。通过textColor、bgColor自定义文字、背景颜色。"
+      },
+      "anchorLinkValues": {
+        "badge-basic": "基本徽章",
+        "badge-dot": "点状徽章",
+        "badge-count": "计数徽章",
+        "badge-status": "状态徽章",
+        "position": "徽章位置",
+        "custom": "自定义"
+      }
+    },
+    "card": {
+      "name": "Card 卡片",
+      "type": "数据展示",
+      "path": "card",
+      "description": "通用卡片容器。",
+      "tmw": "基础卡片容器，其中可包含文字，列表，图片，段落，用于概览展示时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "cardTitle": "DEVUI精品实践课",
+        "cardContent": "DEVUI是一种开源的免费的企业中后台产品前端的通用解决方案，其设计基于“致简”，“沉浸”，“灵活”自然与人文相结合…"
+      },
+      "customDemo": {
+        "title": "自定义区域",
+        "cardTitle": "DEVUI精品实践课",
+        "text": "更新于07月31日15:55"
+      },
+      "cardInteractiveDemo": {
+        "title": "可交互卡片"
+      },
+      "mediaDemo": {
+        "title": "使用图片",
+        "description": "通过align可设置d-card-actions操作区域对齐方式：起始对齐、尾部对齐、拉伸对齐。",
+        "cardTitle": "DEVUI精品实践课",
+        "cardContent": "DEVUI是一种开源的免费的企业中后台产品前端的通用解决方案，其设计基于“致简”，“沉浸”，“灵活”自然与人文相结合…"
+      },
+      "anchorLinkValues": {
+        "card-basic": "基本用法",
+        "card-with-media": "使用图片",
+        "card-interactive-usage": "可交互卡片",
+        "card-custom": "自定义区域"
+      }
+    },
+    "carousel": {
+      "name": "Carousel 走马灯",
+      "type": "数据展示",
+      "path": "carousel",
+      "description": "一组轮播的区域。",
+      "tmw": "用于展示图片或者卡片。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "triggerDemo": {
+        "title": "指示器&切换箭头",
+        "description": "arrowTrigger设为always可以使箭头永久显示，dotTrigger设为hover可以使hover到点上就切换。"
+      },
+      "autoplayDemo": {
+        "title": "自动轮播"
+      },
+      "withTransitionProgressDemo": {
+        "title": "显示切换进度条"
+      },
+      "customDemo": {
+        "title": "自定义操作"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "trigger-usage": "指示器&切换箭头",
+        "autoplay-usage": "自动轮播",
+        "custom-usage": "自定义操作",
+        "with-transition-progress-usage": "显示切换进度条"
+      }
+    },
+    "checkbox": {
+      "name": "CheckBox 复选框",
+      "type": "数据录入",
+      "path": "checkbox",
+      "description": "多选框。",
+      "tmw": "<div>1. 在一组选项中进行多项选择；</div> <div>2. 单独使用可以表示在两个状态之间切换，可以和提交操作结合。</div>",
+      "basicDemo": {
+        "title": "基本用法",
+        "selected": "选中状态",
+        "unselected": "未选中状态",
+        "customTitle": "自定义title",
+        "selectedClose": "选中状态-关闭动效",
+        "selectedDisable": "选中状态下禁用",
+        "unselectedDisable": "未选中状态下禁用",
+        "halfSelected": "半选状态",
+        "halfSelectedDisable": "半选状态下禁用",
+        "twoBind": "数据双向绑定",
+        "Custom Selected Color": "自定义选中颜色",
+        "Custom Half-Select Color": "自定义半选颜色",
+        "Customizing a Label Template": "自定义label模板"
+      },
+      "groupDemo": {
+        "title": "使用CheckBoxGroup",
+        "Input object array": "传入对象数组",
+        "Input string array": "传入字符串数组",
+        "Disable Entire Group": "整组禁用",
+        "Custom Selected Color": "自定义选中颜色",
+        "Selected status - disabled": "选中状态-关闭动效",
+        "Multi-line checkbox": "多行checkbox"
+      },
+      "conditionChangeDemo": {
+        "title": "checkbox根据条件终止切换状态",
+        "description": "根据条件判断，label为'条件判断回调禁止选中'的checkbox终止切换状态。",
+        "Conditional Callback Allowed": "条件判断回调允许选中",
+        "Conditional judgment callback interception selected": "条件判断回调拦截选中"
+      },
+      "conditionGroupDemo": {
+        "title": "checkbox-group根据条件终止切换状态",
+        "description": "选项包含'拦截'字段的checkbox无法切换状态。",
+        "stateNotSwitch": "选项包含\"拦截\"字段的checkbox无法切换状态",
+        "intercepts": "拦截"
+      },
+      "anchorLinkValues": {
+        "checkbox-basic": "基本用法",
+        "tabs-group": "使用CheckBoxGroup",
+        "condition-change": "根据条件终止checkbox切换状态",
+        "condition-group": "根据条件终止checkbox-group切换状态"
+      }
+    },
+    "common": {
+      "name": "Common 公共方法",
+      "type": "通用",
+      "path": "common",
+      "description": "提供一些公共的函数。",
+      "tmw": "处理日期字符串转换、文件下载、a标签模拟、懒加载等。",
+      "lazyLoadDemo": {
+        "title": "懒加载指令",
+        "description": "引入util模块中的LazyLoadModule，使用dLazyLoad指令在滚到到容器底部时响应loadMore事件实现懒加载。",
+        "p1": "默认滚动监听使用宿主",
+        "p2": "滚动监听使用其他元素,比如window·"
+      },
+      "pipeDemo": {
+        "dDatePipe": {
+        "title": "日期解析器"
+      },
+        "dSafeNullPipe": {
+          "title": "空值占位管道",
+          "description": "当数据为 ''、null、undefined时可指定任意字符进行占位展示，默认为：'--'"
+        }
+      },
+      "browserDemo": {
+        "title": "当前浏览器名和版本"
+      },
+      "openURLDemo": {
+        "title": "在新标签页打开网页"
+      },
+      "iframePropagateDemo": {
+        "title": "iframe 冒泡事件",
+        "description": "iframe的冒泡事件会传递到父容器。"
+      },
+      "clipboardDemo": {
+        "title": "复制到剪贴板指令"
+      },
+      "helperDownloadDemo": {
+        "title": "下载文件"
+      },
+      "shapeIconHoverableDemo": {
+        "title": "shapeIcon 悬停变色"
+      },
+      "anchorLinkValues": {
+        "lazy-load": "懒加载指令",
+        "browser-version": "当前浏览器名和版本",
+        "date-pipe": "日期解析器",
+        "open-url": "新标签页打开网页",
+        "download-file": "文件下载",
+        "iframe-propagate": "iframe 冒泡事件",
+        "clipboard": "复制到剪贴板指令",
+        "shapeIconHoverable": "shapeIcon 悬停变色"
+      }
+    },
+    "color-picker": {
+      "name": "ColorPicker 颜色选择器",
+      "type": "演进中",
+      "path": "color-picker",
+      "description": "输入或选择颜色的控件。",
+      "tmw": "当用户需要选择颜色时。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "tapDemo": {
+        "title": "配合Dropdown使用"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "with-dropdown": "配合Dropdown使用"
+      }
+    },
+    "design-link": {
+      "name": "Link 链接",
+      "type": "Design tokens",
+      "path": "design-link",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "hrefDemo": {
+        "title": "链接a元素",
+        "description1": "1. 确认已全局引入devui样式表（devui.min.css）；",
+        "description2": "2. 使用 class=\"devui-link\" 修改a标签的样式。"
+      },
+      "anchorLinkValues": {
+        "href-a": "链接a元素"
+      }
+    },
+    "design-color": {
+      "name": "Color 颜色",
+      "type": "Design tokens",
+      "path": "design-color",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "colorDemo": {
+        "title": "颜色",
+        "description1": "1. DevUI整理了颜色规范，包括普通色值和暗黑模式色值，以及列出了这些颜色的使用场景，为了更好的精细化控制和显示，同时对颜色做了分类和语义化变量命名；",
+        "description2": "2. 通过`@import '~ng-devui/styles-var/devui-var.scss';`引入颜色变量后即可使用；",
+        "description3": "3. 若样式表为less文件，则`@import '~ng-devui/styles-var/devui-var.less';`,并将变量前缀'$'改为'@'。",
+        "instance": {
+          "title": "实例",
+          "description": "本实例采用颜色变量，色块会跟随主题化切换而随之变色",
+          "defaultTable": {
+            "tab": "默认主题颜色对照表",
+            "colorVar": "颜色变量",
+            "normalColor": "普通色值",
+            "darkColor": "暗黑色值",
+            "themeValue": "当前主题色值",
+            "description": "描述"
+          },
+          "colorSource": {
+            "devui-global-bg": "全局带底色背景",
+            "devui-glass-morphism-bg": "毛玻璃样式背景色",
+            "devui-global-bg-normal": "全局白色背景",
+            "devui-base-bg": "基础区块背景白色",
+            "devui-base-bg-dark": "基础区块背景深色(固定)",
+            "devui-brand": "品牌色",
+            "devui-brand-foil": "品牌色辅助色、正衬色",
+            "devui-brand-hover": "品牌色高亮色（加亮）",
+            "devui-brand-active": "品牌色激活色（加深）",
+            "devui-brand-active-focus": "品牌色焦点色（重度加深）",
+            "devui-contrast": "品牌色撞色、对比色、反衬色、第二品牌色",
+            "devui-text": "正文文本",
+            "devui-text-weak": "弱化的正文信息（手风琴子项，表头）",
+            "devui-aide-text": "辅助文本、帮助信息（面包屑）",
+            "devui-aide-text-hover": "辅助文本悬浮色，用于标签文本悬浮等场景",
+            "devui-aide-text-stress": "辅助文本、帮助信息里的强调色",
+            "devui-placeholder": "占位符",
+            "devui-light-text": "有色深色背景下字体颜色（固定）",
+            "devui-dark-text": "有色浅色背景下字体颜色（固定）",
+            "devui-link": "链接文本颜色",
+            "devui-link-active": "链接文本悬停/激活颜色",
+            "devui-link-light": "深色背景下链接文本颜色",
+            "devui-link-light-active": "深色背景下链接文本悬停/激活颜色",
+            "devui-line": "边框分割线，仅用于边框",
+            "devui-dividing-line": "内容分割线，用于内容之间的分割",
+            "devui-block": "大面积的不可折叠区块的背景色（例如顶部导航背景色）",
+            "devui-area": "可折叠区块的背景色（展开区域颜色）",
+            "devui-danger": "失败、错误、告警",
+            "devui-warning": "警告、需注意类型提示",
+            "devui-waiting": "等待中",
+            "devui-success": "成功、正确",
+            "devui-info": "通知、一般提示、执行中",
+            "devui-initial": "初始化、未执行",
+            "devui-unavailable": "不可用、禁用状态",
+            "devui-shadow": "阴影色",
+            "devui-light-shadow": "弱化阴影色",
+            "devui-icon-text": "文字图标颜色，同 正文颜色",
+            "devui-icon-fill-weak": "弱化型图标填充色",
+            "devui-shape-icon-fill": "面型svg图标填充色",
+            "devui-shape-icon-fill-hover": "面型svg图标悬停反馈色",
+            "devui-shape-icon-fill-active": "面型svg图标高亮填充色（激活状态）",
+            "devui-shape-icon-fill-disabled": "面型svg图标禁用色",
+            "devui-icon-bg": " svg图标 背景色",
+            "devui-icon-fill": " svg图标 灰色填充色",
+            "devui-icon-fill-hover": "svg图标 灰色填充色悬停反馈色",
+            "devui-icon-fill-active": "svg图标 高亮填充色（激活状态）",
+            "devui-icon-fill-active-hover": "svg图标 高亮填充色悬停反馈色",
+            "devui-form-control-bg": "表单控件背景色",
+            "devui-form-control-line": "表单控件边框色，同 边框分割线",
+            "devui-form-control-line-hover": "表单控件边框悬停反馈色",
+            "devui-form-control-line-active": "表单控件边框激活色，用于获得焦点",
+            "devui-form-control-line-active-hover": "表单控件边框激活色，用于获得焦点且悬停",
+            "devui-list-item-active-bg": "列表类型单选选中背景",
+            "devui-list-item-active-text": "列表类型单选选中背景搭配文本，同 有色深色背景下字体颜色（固定）",
+            "devui-list-item-active-hover-bg": "列表类型单选选中背景悬停反馈色（仅用于分页等）",
+            "devui-list-item-hover-bg": "列表类型普通选项悬停背景",
+            "devui-list-item-hover-text": "列表类型普通选项悬停背景搭配文本",
+            "devui-list-item-selected-bg": "列表类型多选被选中的行色，仅用于表格类",
+            "devui-list-item-strip-bg": "列表类型斑马纹色，仅用于表格类",
+            "devui-disabled-bg": "disabled背景颜色",
+            "devui-disabled-line": "disabled边框颜色",
+            "devui-disabled-text": "disabled文字颜色",
+            "devui-primary-disabled": "主要按钮disabled状态背景颜色",
+            "devui-icon-fill-active-disabled": "svg图标激活状态禁用色",
+            "devui-label-bg": "默认标签化选项背景色",
+            "devui-connected-overlay-bg": "有连接点的弹出菜单层背景色",
+            "devui-connected-overlay-line": "有连接点的弹出菜单层边框色",
+            "devui-fullscreen-overlay-bg": "全屏类型的弹出内容层背景色（模态弹窗）",
+            "devui-feedback-overlay-bg": "信息提示反馈类型的漂浮层背景色（toast、popover）",
+            "devui-feedback-overlay-text": "信息提示反馈类型的漂浮层背景色搭配文本色",
+            "devui-embed-search-bg": "被嵌套的无边框搜索框背景色",
+            "devui-embed-search-bg-hover": "被嵌套的无边框搜索框背景色",
+            "devui-float-block-shadow": "特殊浮层背景色（待修正）",
+            "devui-highlight-overlay": "局部半透明全局浮层背景色（比如底部）",
+            "devui-range-item-hover-bg": "范围内状态下的hover背景色（比如datepicker范围中间日期的hover）",
+            "devui-primary": "主要按钮，同品牌色",
+            "devui-primary-hover": "主要按钮悬停",
+            "devui-primary-active": "主要按钮激活",
+            "devui-contrast-hover": "突出按钮悬停",
+            "devui-contrast-active": "突出按钮激活",
+            "devui-danger-line": "失败边框",
+            "devui-danger-bg": "失败底色",
+            "devui-warning-line": "警告边框",
+            "devui-warning-bg": "警告底色",
+            "devui-info-line": "通知边框",
+            "devui-info-bg": "通知底色",
+            "devui-success-line": "成功边框",
+            "devui-success-bg": "成功底色",
+            "devui-primary-line": "主要边框",
+            "devui-primary-bg": "主要底色",
+            "devui-default-line": "默认边框",
+            "devui-default-bg": "默认底色",
+            "devui-connected-overlay-shadow": "下拉菜单类阴影",
+            "devui-feedback-overlay-shadow": "信息提示类阴影"
+          },
+          "catalogs": {
+            "basic": "基本变量",
+            "text": "文字/图标",
+            "form": "表单",
+            "list": "列表",
+            "disable": "禁用",
+            "specialBackground": "特殊背景色",
+            "button": "按钮",
+            "status": "状态色",
+            "brand": "主题色",
+            "shadow": "阴影色",
+            "border": "边框色",
+            "background": "背景色",
+            "others": "其他"
+          },
+          "catalogsList": {
+            "theme": "主题色",
+            "text": "文字",
+            "border": "边框",
+            "background": "背景",
+            "status": "状态/功能"
+          },
+          "formColor": "完整色板",
+          "colors": {
+            "global-bg": "浅灰色背景body",
+            "bg-white": "顶部导航颜色，背景色",
+            "base-bg-white": "白色背景body",
+            "block-bg-white": "用于按钮和alert提醒条等区域区域，暗黑模式下整块区域别于普通底色",
+            "brand-1": "控件颜色",
+            "brand-2": "点击控件颜色",
+            "brand-3": "选中内容底色，如下拉菜单，表格",
+            "brand-4": "用于浅色的loading背景色",
+            "dark-1": "主要信息",
+            "dark-2": "帮助信息，提示性信息",
+            "dark-3": "占位符",
+            "dark-1-boxshadow-light": "阴影效果",
+            "dark-1-boxshadow": "阴影效果",
+            "dark-1-3": "用于表格内操作图标",
+            "dividing": "分割线颜色，颜色同gray-2",
+            "dropdown-overlay": "用于下拉菜单块白色区域，暗黑模式下稍区别于普通底色",
+            "font-dark": "用于有色浅色背景的深色字体",
+            "font-white": "用于有色背景",
+            "full-screen-overlay": "用于modal等全屏的弹出层",
+            "gray-1": "主要分隔线，如边框",
+            "gray-2": "次要分隔线",
+            "gray-3": "展开区域颜色",
+            "highlight-overlay": "用于底部浮层类操作层",
+            "hover-control": "鼠标悬停控件",
+            "hover-control-light": "深色背景下的鼠标悬停控件",
+            "hover-content": "鼠标悬停底色，入下拉菜单，表格",
+            "huawei-bg": "顶部导航颜色，背景色",
+            "huawei-red": "顶部菜单选中",
+            "icon-gray-bg": "用于表头按钮的灰色底色",
+            "link": "用于a标签或链接",
+            "link-light": "用于深色背景下的a标签或链接",
+            "status-red": "错误，失败，危险操作告警色",
+            "status-yellow": "提示信息",
+            "status-waiting": "等待信息",
+            "status-green": "成功，批准",
+            "status-blue": "运行中，正常",
+            "status-initial": "初始化",
+            "status-unavaliable": "失效，等待，回退， 中止，颜色等于$gray-1",
+            "strip-color": "用于表格类间接行",
+            "tag-label-bgcolor": "标签类型",
+            "hwc-status-danger-border": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-danger-background": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-warning-border": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-warning-background": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-info-border": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-info-background": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-success-border": "用于alert提醒，同步华为云官网规范",
+            "hwc-status-success-background": "用于alert提醒，同步华为云官网规范",
+            "hwc-feedback-overlay-background": "用于tooltips，popover，右上角全局toast，同步华为云官网规范",
+            "hwc-feedback-overlay-font-color": "用于tooltips，popover，右上角全局toast，同步华为云官网规范",
+            "color-bg-primary": "用于重要按钮",
+            "color-bg-primary-hover": "用于重要按钮",
+            "color-bg-primary-active": "用于重要按钮",
+            "hwc-drop-down-search": "用于下拉搜索框",
+            "hwc-drop-down-search-hover": "用于下拉搜索框",
+            "disabled-bg": "disabled背景颜色",
+            "disabled-border": "disabled边框颜色",
+            "disabled-content": "disabled内容颜色"
+          }
+        }
+      },
+      "anchorLinkValues": {
+        "color": "颜色"
+      }
+    },
+    "design-shadow": {
+      "name": "Shadow 阴影",
+      "type": "Design tokens",
+      "path": "design-shadow",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "shadowDemo": {
+        "title": "阴影",
+        "description1": "1. 组件库为用户们提供了阴影变量用于不同的场景，下表列出了这些变量的名称，对应的变量值以及使用场景；",
+        "description2": "2. 通过`@import '~ng-devui/styles-var/devui-var.scss';`引入阴影变量后即可使用；",
+        "description3": "3. 若样式表为less文件，则`@import '~ng-devui/styles-var/devui-var.less';`,并将变量前缀'$'改为'@'。",
+        "instance": {
+          "title": "实例",
+          "description": "阴影对照表",
+          "description2": "阴影颜色对照表",
+          "defaultTable": {
+            "tab": "默认主题阴影对照表",
+            "shadowName": "阴影变量名",
+            "shadowValue": "阴影变量值",
+            "themeValue": "当前主题变量值",
+            "description": "描述"
+          },
+          "oldTable": {
+            "tab": "旧版主题阴影对照表",
+            "shadowName": "阴影变量名",
+            "newShadowName": "新版变量名",
+            "shadowValue": "阴影变量值",
+            "description": "描述"
+          },
+          "colorTable": {
+            "colorVar": "颜色变量",
+            "normalColor": "普通色值",
+            "darkColor": "暗黑色值",
+            "themeValue": "当前主题色值",
+            "description": "描述"
+          },
+          "shadows": {
+            "devui-shadow-length-base": "直接铺陈在页面上方的元素 (card等)",
+            "devui-shadow-length-slide-left": "向左滑动时出现在右侧边缘的阴影 (dataTable固定右侧列向左滑动)",
+            "devui-shadow-length-slide-right": "向右滑动时出现在左侧边缘的阴影 (dataTable固定左侧列向右滑动)",
+            "devui-shadow-length-connected-overlay": "有连接点的弹出(覆盖)层 (DatePicker Cascader Select TagsInput Pagination的下拉菜单等)",
+            "devui-shadow-length-hover": "涉及到hover的地方",
+            "devui-shadow-length-feedback-overlay": "信息提示反馈类 (PopOver Tooltip Toast StepsGuide等)及占位较大的卡片",
+            "devui-shadow-length-fullscreen-overlay": "无连接点的弹出(覆盖)层 (Drawer Modal ImagePreview等)"
+          },
+          "oldShadows": {
+            "hwc-shadow-1": "卡片，警告提示",
+            "hwc-shadow-2": "下拉菜单",
+            "hwc-shadow-3": "tips，全局提示",
+            "hwc-shadow-4": "卡片组件，悬浮",
+            "hwc-shadow-5": "购买浮层",
+            "hwc-shadow-6": "按钮",
+            "hwc-shadow-7": "弹窗",
+            "hwc-shadow-8": "slider滑块",
+            "hwc-shadow-error": "错误提示",
+            "hwc-shadow-warn": "告警提示",
+            "hwc-shadow-prompt": "提示类",
+            "hwc-shadow-success": "成功提示",
+            "hwc-shadow-dark": "深色提示背景阴影"
+          },
+          "shadowColor": {
+            "devui-shadow": "阴影色",
+            "devui-light-shadow": "弱化阴影色",
+            "devui-connected-overlay-shadow": "有连接点的弹出(覆盖)层阴影色",
+            "devui-feedback-overlay-shadow": "信息提示反馈类阴影色",
+            "devui-hover-shadow": "悬浮阴影色",
+            "devui-float-block-shadow": "特殊浮层背景色"
+          }
+        }
+      },
+      "anchorLinkValues": {
+        "shadow": "阴影"
+      }
+    },
+    "design-font": {
+      "name": "Font 字体",
+      "type": "Design tokens",
+      "path": "design-font",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "fontDemo": {
+        "title": "字体",
+        "description1": "1. 组件库为用户们提供了字体相关变量用于不同的场景，下表列出了这些变量的名称，对应的变量值以及使用场景；",
+        "description2": "2. 通过`@import '~ng-devui/styles-var/devui-var.scss';`引入字体变量后即可使用；",
+        "description3": "3. 若样式表为less文件，则`@import '~ng-devui/styles-var/devui-var.less';`,并将变量前缀'$'改为'@'。",
+        "instance": {
+          "title": "实例",
+          "description1": "我是页面或卡片一级标题",
+          "description2": "我是正文，帮助信息，补充信息",
+          "tableTitle": "字体相关变量对照表",
+          "defaultTable": {
+            "tab": "默认字体相关变量对照表",
+            "fontName": "字体相关变量名",
+            "fontValue": "字体相关变量值",
+            "themeValue": "当前主题变量值",
+            "description": "描述"
+          },
+          "oldTable": {
+            "tab": "旧版字体相关变量对照表",
+            "fontName": "旧版字体相关变量名",
+            "newFontName": "新版字体相关变量名",
+            "fontValue": "字体相关变量值",
+            "description": "描述"
+          },
+          "fonts": {
+            "devui-font-size-data-overview": "数据总览",
+            "devui-font-size-price": "购买价格",
+            "devui-font-size-modal-title": "弹窗标题、数字",
+            "devui-font-size-page-title": "页面标题",
+            "devui-font-size-card-title": "卡片标题",
+            "devui-font-size": "正文，帮助信息，补充信息",
+            "devui-font-size-icon": "图标大小",
+            "devui-font-size-sm": "小控件文字大小",
+            "devui-font-size-md": "中控件文字大小",
+            "devui-font-size-lg": "大控件文字大小",
+            "devui-font-title-weight": "标题文字粗细",
+            "devui-font-content-weight": "内容文字粗细",
+            "devui-line-height-base": "规范行高"
+          },
+          "oldFonts": {
+            "font-size-modal-title": "弹框标题",
+            "font-size-primary": "页面标题，一级卡片标题",
+            "font-size-secondary-card-title": "二级卡片标题",
+            "font-size-base": "正文，帮助信息，补充信息",
+            "font-title-weight": "标题文字粗细",
+            "font-content-weight": "内容文字粗细",
+            "line-height-base": "规范行高"
+          }
+        }
+      },
+      "anchorLinkValues": {
+        "font": "字体"
+      }
+    },
+    "design-border-radius": {
+      "name": "BorderRadius 圆角",
+      "type": "Design tokens",
+      "path": "design-border-radius",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "cornerDemo": {
+        "title": "圆角",
+        "description1": "1. 组件库为用户们提供了圆角变量用于不同的场景，下表列出了这些变量的名称，对应的变量值以及使用场景；",
+        "description2": "2. 通过`@import '~ng-devui/styles-var/devui-var.scss';`引入圆角变量后即可使用；",
+        "description3": "3. 若样式表为less文件，则`@import '~ng-devui/styles-var/devui-var.less';`,并将变量前缀'$'改为'@'。",
+        "instance": {
+          "title": "实例",
+          "tableTitle": "圆角变量对照表",
+          "table": {
+            "cornerName": "圆角变量名",
+            "cornerValue": "圆角变量值",
+            "themeValue": "当前主题圆角值",
+            "description": "描述"
+          },
+          "borderRadius": {
+            "devui-border-radius": "一般圆角",
+            "devui-border-radius-feedback": "反馈类圆角",
+            "devui-border-radius-card": "卡片圆角"
+          }
+        }
+      },
+      "anchorLinkValues": {
+        "border-radius": "圆角"
+      }
+    },
+    "design-animation": {
+      "name": "Animation 动效",
+      "type": "Design tokens",
+      "path": "design-animation",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "AnimationDemo": {
+        "title": "动效",
+        "description1": "1. 组件库为用户们提供了圆角变量用于不同的场景，下表列出了这些变量的名称，对应的变量值以及使用场景；动效使用参考https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition",
+        "description2": "2. 通过`@import '~ng-devui/styles-var/devui-var.scss';`引入圆角变量后即可使用；",
+        "description3": "3. 若样式表为less文件，则`@import '~ng-devui/styles-var/devui-var.less';`,并将变量前缀'$'改为'@'。",
+        "instance": {
+          "title": "Instance",
+          "tableTitle": "动效变量表",
+          "table": {
+            "animationName": "动效变量名",
+            "animationValue": "动效变量值",
+            "description": "描述"
+          },
+          "animation": {
+            "devui-animation-duration-slow": "动效时长参数，常用于大型元素出现消失，状态变化等场景",
+            "devui-animation-duration-base": "动效时长参数，常用于常规元素出现消失，状态变化等场景",
+            "devui-animation-duration-fast": "动效时长参数，常用于提示类小型元素出现消失，状态变化等场景",
+            "devui-animation-ease-in": "元素离场动效曲线，常用于元素消失的场景",
+            "devui-animation-ease-out": "元素入场动效曲线，常用于元素出现的场景",
+            "devui-animation-ease-in-out": "元素转场动效曲线，常用于内容切换场景",
+            "devui-animation-ease-in-out-smooth": "元素转场动效曲线，常用于悬浮，高亮等状态切换场景",
+            "devui-animation-linear": "线性动效曲线，常用于背景遮罩层出现消失的场景"
+          }
+        }
+      },
+      "anchorLinkValues": {
+        "animation": "animation"
+      }
+    },
+    "design-z-index": {
+      "name": "ZIndex 层级",
+      "type": "Design tokens",
+      "path": "design-z-index",
+      "description": "组件库公共样式规范。",
+      "tmw": "当需要查看组件库相关样式，使用场景以及变更时。",
+      "ZIndexDemo": {
+        "title": "层级",
+        "description1": "1. 组件库为用户们提供了层级变量用于不同的场景，下表列出了这些变量的名称，对应的变量值以及使用场景；",
+        "description2": "2. 通过`@import '~ng-devui/styles-var/devui-var.scss';`引入层级变量后即可使用；",
+        "description3": "3. 若样式表为less文件，则`@import '~ng-devui/styles-var/devui-var.less';`,并将变量前缀'$'改为'@'；",
+        "description4": "4. 若存在遮罩，则遮罩基于对应z-index值-1；",
+        "description5": "5. 内容层，根据需要设置，zIndex需小于临时层；",
+        "description6": "6. 背景层，根据需要设置，zIndex需小于内容层。",
+        "title2": "层级规则",
+        "description7": "按照交互形式分为背景层、内容层、临时层。层级的前后顺序为，临时层>内容层>背景层，顺序不可更改。",
+        "subTitle1": "1. 临时层",
+        "description8": "操作或任务相关的临时层，一般承载当前需要临时处理的任务或者需要接受的反馈等，高于内容层。",
+        "description9": "分为两种模态：一种是内容区不可进行操作，被蒙版遮罩禁用，用户必须聚焦处理弹窗内容才可继续其他操作（弹窗、模态抽屉）、一种是内容区可进行操作，无蒙版（非模态抽屉、轻量级弹窗、悬浮菜单、使用指南）",
+        "subTitle2": "2. 内容层",
+        "description10": "主要承载页面信息、组件、手风琴等页面元素。",
+        "subTitle3": "3. 背景层",
+        "description11": "页面背景层永远置于页面底部，页面背景层颜色统一为#EEF0F5，颜色中立柔和，方便凸显和聚焦内容层。",
+        "instance": {
+          "title": "Instance",
+          "tableTitle": "层级变量表",
+          "table": {
+            "zIndexName": "层级变量名",
+            "zIndexValue": "层级变量值",
+            "description": "描述"
+          },
+          "zIndex": {
+            "devui-z-index-full-page-overlay": "全屏覆盖类元素",
+            "devui-z-index-pop-up": "提示类信息，popover，tooltip等",
+            "devui-z-index-dropdown": "下拉菜单，dropdown等, 兼容, 取值待重新定义",
+            "devui-z-index-modal": "弹窗",
+            "devui-z-index-drawer": "抽屉板",
+            "devui-z-index-framework": "框架类元素，header,sideMenu等"
+          }
+        }
+      },
+      "anchorLinkValues": {
+        "z-index": "z-index"
+      }
+    },
+    "codemirror": {
+      "name": "CodeMirror 代码编辑器",
+      "type": "扩展服务",
+      "path": "codemirror",
+      "description": "代码显示区域。",
+      "tmw": "用于日志、shell脚本等内容展示或者代码编写。",
+      "basicDemo": {
+        "title": "基础用法",
+        "description": "配置主题和模式。"
+      },
+      "eventDemo": {
+        "title": "事件监听"
+      },
+      "anchorLinkValues": {
+        "basic": "基础用法",
+        "event": "事件监听"
+      }
+    },
+    "datatable": {
+      "name": "DataTable 表格",
+      "type": "数据展示",
+      "path": "datatable",
+      "description": "展示行列数据。",
+      "tmw": "<div>1. 当有大量结构化的数据需要展现时；</div> <div>2. 当需要对数据进行排序、过滤、自定义操作等复杂行为时。</div>",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "简单表格，展示列表数据\n支持两种实现方式，方式一通过自定义head、body模板和其中的行、单元格来实现，方式二通过配置column来实现。"
+      },
+      "asyncDemo": {
+        "title": "异步加载数据、配置列及空数据模板",
+        "description": "模拟异步加载数据、支持配置动态列、使用#noResultTemplateRef配置空数据模板。"
+      },
+      "cellMergeDemo": {
+        "title": "单元格合并",
+        "description": "支持使用colspan、rowspan等属性来设置单元格的合并，只能通过自定义head、body模板和其中的行、单元格来实现。"
+      },
+      "checkOptionsDemo": {
+        "title": "自定义表格选中操作",
+        "description": "通过设置checkOptions来配置表头选中的下拉项及操作\n支持两种实现方式，方式一通过自定义head的行来实现，方式二通过配置column来实现。"
+      },
+      "dragColumnDemo": {
+        "title": "列拖拽",
+        "description": "应用于列内容有对比诉求，属于低频操作，默认不展示，当鼠标移入表头显示标识，支持用户快速对列进行排序。"
+      },
+      "dragRowDemo": {
+        "title": "行拖拽",
+        "description": "支持使用DragDrop组件来实现表格的行拖拽功能，只能通过自定义head、body模板和其中的行、单元格来实现。"
+      },
+      "batchDragRowDemo": {
+        "title": "批量行拖拽",
+        "description": "支持使用DragDrop组件来实现表格的批量行拖拽功能，请用Ctrl按键和鼠标多选并进行拖拽，只能通过自定义head、body模板和其中的行、单元格来实现。"
+      },
+      "editableDemo": {
+        "title": "编辑单元格",
+        "description": "支持两种实现方式，方式一通过自定义body模板中的单元格来实现，方式二通过配置column来实现。"
+      },
+      "expandRowDemo": {
+        "title": "扩展行",
+        "description": "支持两种实现方式，方式一通过自定义body模板中的行来实现，方式二通过配置column来定义table，并配置input和行数据来实现。"
+      },
+      "fixColumnDemo": {
+        "title": "固定列",
+        "description": "当表格列过多时，固定列有利于用户在左右滑动屏幕时，能够便捷地进行数据定位与对比，通过fixedLeft、fixedRight来配置\n支持两种实现方式，方式一通过自定义head、body模板和其中的行、单元格来实现，方式二通过配置column来实现。"
+      },
+      "fixHeightVirtualScrollDemo": {
+        "title": "表头固定虚拟滚动",
+        "description": "使用fixHeader设置表头固定，并启动虚拟滚动，高度自适应。"
+      },
+      "headerGroupingDemo": {
+        "title": "表头分组",
+        "description": "支持两种实现方式，方式一通过自定义head模板中th的colspan、rowspan来实现，方式二通过配置column的advancedHeader来实现。"
+      },
+      "interactionDemo": {
+        "title": "表格交互",
+        "description": "支持列排序、列过滤、自定义过滤模板、选中、调整列宽\n支持两种实现方式，方式一通过自定义head、body模板和其中的行、单元格实现，方式二通过配置column来实现。"
+      },
+      "memoryDemo": {
+        "title": "表格列宽记忆",
+        "description": "通过缓存来记忆列宽, 刷新后列宽不变。"
+      },
+      "lazyDemo": {
+        "title": "懒加载",
+        "description": "使用lazy启用懒加载，当滚动表格底部时到触发loadMore事件实现懒加载。"
+      },
+      "maxHeightDemo": {
+        "title": "表头固定",
+        "description": "使用fixHeader设置表头固定，使之不跟随滚动。"
+      },
+      "mutiDragRowDemo": {
+        "title": "批量行拖拽",
+        "description": "支持使用DragDrop组件来实现表格的批量行拖拽功能，请用Ctrl按键和鼠标多选并进行拖拽，只能通过自定义head、body模板和其中的行、单元格来实现。"
+      },
+      "virtualScrollTreeTableBasicDemo": {
+        "title": "大数据量树形表格基本用法",
+        "description": "当需要展示10000~100000条树形数据时，为使操作流畅，请使用这种表格。"
+      },
+      "virtualScrollTreeTableOperationDemo": {
+        "title": "大数据量树形表格操作功能",
+        "description": "大数据量树形表格的各种基本操作，增添、修改、删除、查询、复制/剪切功能。"
+      },
+      "virtualScrollTreeTableInteractionDemo": {
+        "title": "大数据量树形表格交互",
+        "description": "大数据量树形表格的高级操作，拖拽、复选、批量删除、继承原本数据表格的大部分功能。"
+      },
+      "virtualScrollTreeTableMultiDragDemo": {
+        "title": "大数据树形表格批量拖拽",
+        "description": "按住ctrl批量选择行并进行批量拖拽"
+      },
+      "mutilStylesDemo": {
+        "title": "表格样式"
+      },
+      "dynamicColDemo": {
+        "title": "动态列及动态表格样式配置器"
+      },
+      "treeTableDemo": {
+        "title": "树形表格",
+        "description": "通过nestedColumn属性和行数据的children、$isChildTableOpen字段来配置渲染树形表格\n支持两种实现方式，方式一通过自定义head、body模板和其中的行、单元格来实现，方式二通过配置column来实现。"
+      },
+      "virtualScrollDemo": {
+        "title": "虚拟滚动",
+        "description": "使用virtualScroll启用虚拟滚动，行高须确定且相同，如果行高高于默认的40px，须配置virtualItemSize\n若初始状态无数据，需要对class为`cdk-virtual-scroll-viewport`的元素设定高度，并且建议对`d-data-table`元素和noResult模板设定定位。"
+      },
+      "allDemo": {
+        "tab1": "自定义模板",
+        "tab2": "配置column"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "mutil-styles": "表格样式",
+        "dynamic-cols": "动态列及样式配置器",
+        "async-loading": "异步加载数据",
+        "table-interaction": "表格交互",
+        "table-memory": "表格列宽记忆",
+        "table-check-options": "自定义表格选中操作",
+        "lazy-loading-of-list-data": "懒加载",
+        "virtual-scroll": "虚拟滚动",
+        "table-fixing": "表头固定",
+        "fixed-virtual-scroll": "表头固定虚拟滚动",
+        "header-grouping": "表头分组",
+        "edit-cell": "编辑单元格",
+        "expand-row": "扩展行",
+        "tree-form": "树形表格",
+        "fixed-column": "固定列",
+        "column-dragging": "列拖拽",
+        "cell-merge": "单元格合并",
+        "drag-row": "行拖拽",
+        "muti-drag-row": "批量行拖拽",
+        "virtual-scroll-tree-table-basic": "大数据量树形表格基本用法",
+        "virtual-scroll-tree-table-operation": "大数据量树形表格操作功能",
+        "virtual-scroll-tree-table-interaction": "大数据量树形表格交互",
+        "virtual-scroll-tree-table-multi-drag": "大数据量树形表格批量拖拽"
+      }
+    },
+    "datepickerPro": {
+      "name": "DatePickerPro 日期选择器",
+      "type": "数据录入",
+      "path": "datepickerPro",
+      "description": "输入或选择日期的组件。",
+      "tmw": "当用户需要输入一个日期时；需要点击标准输入框，弹出日期面板进行选择时。"
+    },
+    "dashboard": {
+      "name": "Dashboard 仪表盘",
+      "type": "演进中",
+      "path": "dashboard",
+      "description": "仪表盘支持各类挂件",
+      "tmw": "作为容器承载各类内容",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "支持拖拽排序，缩放大小，添加，删除，禁止调整单个大小，禁止移动单个，锁定位置等等",
+        "addWidget": "添加一个widget",
+        "popWidget": "删除最后一个widget",
+        "coordinates": "坐标",
+        "size": "宽高",
+        "lock": "锁定",
+        "position": "位置",
+        "dragMove": "拖拽移动",
+        "dragSize": "拖拽大小",
+        "independentUse": "独立使用"
+      },
+      "configDemo": {
+        "title": "更多设置",
+        "description": "支持配置只读静态，配置上空浮动，连续紧凑排列，从外部拖拽添加，拖拽到垃圾桶删除等",
+        "dragAdd": "拖动此卡片到右侧添加",
+        "dragDelete": "拖动仪表盘的卡片到这里删除",
+        "source": "来源：",
+        "data": "数据",
+        "drag": "拖拽",
+        "layout": "布局",
+        "columns": "列数",
+        "placeHolder1": "数字，取值范围 1 - 12， 超过12列请参考api配置",
+        "rowHeight": "行高",
+        "placeHolder2": "数字或字符串， 数字单位为px",
+        "margins": "边距",
+        "minRowHeight": "最小行高",
+        "placeHolder3": "数字，0 表示不限制",
+        "maxRowHeight": "最大行高",
+        "configuration": "配置",
+        "static": "静态",
+        "permittedOverhead": "允许上空",
+        "animation": "动画",
+        "forbiddenMoving": "禁止移动",
+        "forbiddenResizing": "禁止调整大小",
+        "showGrid": "显示网格",
+        "operation": "操作",
+        "autoArrangement": "自动连续紧凑排列"
+      },
+      "solutionDemo": {
+        "title": "解决方案",
+        "description": "提供完整的库添加解决方案"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "more-config": "更多设置",
+        "solution": "解决方案"
+      }
+    },
+    "datepicker": {
+      "name": "DatePicker 日期选择器",
+      "type": "数据录入",
+      "path": "datepicker",
+      "description": "输入或选择日期的组件。",
+      "tmw": "当用户需要输入一个日期时；需要点击标准输入框，弹出日期面板进行选择时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "basic": "基本用法",
+        "setCss": "设置cssClass",
+        "disableTitle": "disabled态，可采用本效果，或是参考下方dateRangePicker自行设置的效果"
+      },
+      "clearButtonDemo": {
+        "clear": "清除",
+        "today": "今天",
+        "title": "自定义清除按钮",
+        "description": "通过 customViewTemplate 增加清除按钮， 可以通过clearAll()来触发, 可给clearAll()传入参数以定义不同reason。"
+      },
+      "templateDemo": {
+        "selectYesterday": "选择昨天",
+        "selectTomorrow": "选择明天",
+        "select": "选择",
+        "title": "自定义操作区",
+        "description": "通过 customViewTemplate 自定义快捷设置日期或自定义操作区内容， 可以通过chooseDate(dateString: string)来设置日期。"
+      },
+      "formatDemo": {
+        "reset": "重置",
+        "title": "格式化",
+        "description": "通过dateFormat设置日期的格式。"
+      },
+      "limitDemo": {
+        "title": "限制最大最小日期",
+        "limit": "限制",
+        "limitTogether": "同时限制"
+      },
+      "setModeDemo": {
+        "title": "设置日期选择器的类型",
+        "yearPicker": "设置年选择器 mode='year'",
+        "monthPicker": "设置年月选择器 mode='month'",
+        "description": "只选择截止到年，月，周，不一定需要准确的具体的某天，比如：可以是1999年，可以是1994年8月，可以是1994年8月15日，如果不设置，则默认选择到日。分为年和月两种模式。"
+      },
+      "rangeDemo": {
+        "selectToday": "选择今天",
+        "selectStart": "选择迭代开始日期",
+        "selectWeek": "选择一周后",
+        "selectEnd": "选择迭代结束日期",
+        "title": "范围日期选择器",
+        "description": "与单日日期选择器相同，范围日期选择器展开时默认选中当前日期。范围日期选择器包含开始日期选择器和结束日期选择器，用户可以选择一段日期。"
+      },
+      "rangeClearDemo": {
+        "clearTitle": "日期范围选择器:可给clearAll()传入参数以定义不同reason，everyRange方法仅提供参考，具体请业务自行处理",
+        "clear": "清除",
+        "title": "日期范围选择器 自定义操作区及清除按钮",
+        "description": "日期范围选择器:可给clearAll()传入参数以定义不同reason，everyRange方法仅提供参考，具体请业务自行处理。"
+      },
+      "rangePickerDemo": {
+        "rangePicker": "日期范围选择器(选择完成时自动隐藏):",
+        "valuedRangePicker": "已赋值的日期范围选择器(默认：选择完成时保持打开):",
+        "cssRangePicker": "日期范围选择器(设置cssClass):",
+        "title": "日期范围选择器 集成模式"
+      },
+      "rangeDisableDemo": {
+        "rangePicker": "日期范围选择器:",
+        "title": "日期范围选择器 禁止输入态",
+        "description": "禁止输入只提供一种思路，datepicker本身自带disabled状态不可选，请根据业务情况自行操作。"
+      },
+      "rangeFormatDemo": {
+        "formaterRange": "日期范围选择器(设置format):",
+        "configRange": "日期范围选择器(设置dateConfig):",
+        "title": "日期范围选择器 格式化"
+      },
+      "rangeRestrictedDemo": {
+        "limitRange": "日期范围选择器 限制开始和截止范围，everyRange方法仅提供参考，具体请业务自行处理:",
+        "limitStartRange": "日期范围选择器 限制开始范围:",
+        "limitEndRange": "日期范围选择器 限制截止范围:",
+        "title": "日期范围选择器 可选范围"
+      },
+      "rangeTimeDemo": {
+        "dateTimeRange": "日期时间范围选择器:",
+        "valuedTimeRange": "日期时间范围选择器 已赋值:",
+        "title": "日期范围选择器 选择时间"
+      },
+      "rangeTodayDemo": {
+        "rangePicker": "日期范围选择器:",
+        "selectYesterday": "选择昨天",
+        "selectWeek": "选择上周",
+        "selectToday": "选择今天",
+        "selectTomorrow": "选择明天",
+        "title": "日期范围选择器 自定义操作选择日期",
+        "description": "通过 chooseDate 结合 rangeStart 和 rangeEnd 设置自定义日期。"
+      },
+      "twoDatePickerDemo": {
+        "twoRangePicker": "双日期选择器 选择完成后隐藏",
+        "keepOpenedPicker": "双日期选择器 (设置cssClass)选择完成后保持打开",
+        "disabledPicker": "双日期选择器 禁用(仅提供参考，或参考dateRangePicker进行设置)",
+        "title": "双日期选择器"
+      },
+      "twoDatepickerFormatDemo": {
+        "formaterRange": "双日期选择器 格式化",
+        "configRange": "双日期选择器 设置dateConfig",
+        "title": "双日期选择器 格式化"
+      },
+      "appendToBodyDemo": {
+        "title": "附着在body上"
+      },
+      "buttonDemo": {
+        "title": "日期选择按钮",
+        "description": "可以通过按钮唤出Datepicker。"
+      },
+      "anchorLinkValues": {
+        "datepicker-default": "基本用法",
+        "datepicker-set-mode": "设置日期选择器的类型",
+        "datepicker-min-max": "限制最大最小日期",
+        "datepicker-append-to-body": "附着在body上",
+        "datepicker-range": "范围日期选择器",
+        "datepicker-range-basic": "日期范围选择器 集成模式",
+        "datepicker-range-format": "日期范围选择器 格式化",
+        "datepicker-range-disabled": "日期范围选择器 禁止输入态",
+        "datepicker-range-restricted-range": "日期范围选择器 可选范围",
+        "datepicker-range-time": "日期范围选择器 选择时间",
+        "datepicker-clear-button": "日期范围选择器 自定义操作区、清除",
+        "datepicker-range-today": "日期范围选择器 自定义操作选择日期",
+        "datepicker-format": "格式化",
+        "custom-view-template": "自定义操作区",
+        "date-picker-clear-button": "自定义清除按钮",
+        "date-picker-button": "日期选择按钮",
+        "two-date-picker-basic": "双日期选择器",
+        "two-date-picker-format": "双日期选择器 格式化"
+      }
+    },
+    "echarts": {
+      "name": "Echarts 可视化图表",
+      "type": "扩展服务",
+      "path": "echarts",
+      "description": "图表可视化组件。",
+      "tmw": "当需要向用户直观可视化展示统计数据时使用。",
+      "changeBgDemo": {
+        "changeBg": "修改背景色",
+        "clickChange": "点击切换饼图背景",
+        "title": "修改chart背景色",
+        "description": "支持背景颜色实时修改。"
+      },
+      "instanceDemo": {
+        "listener": "监听事件",
+        "clickTime": "点击次数",
+        "title": "获取echarts实例",
+        "description": "获取echarts实例，进行api调用。"
+      },
+      "basicDemo": {
+        "title": "渲染一个饼图",
+        "description": "简单用法，渲染一个圆饼图。"
+      },
+      "anchorLinkValues": {
+        "render-pie": "渲染一个饼图",
+        "chart-bg": "修改chart背景色",
+        "chart-ins": "获取echarts实例"
+      }
+    },
+    "multi-auto-complete": {
+      "name": "MultiAutoComplete 多项自动补全",
+      "type": "数据录入",
+      "path": "multi-auto-complete",
+      "description": "匹配可能的选项输入组件。",
+      "tmw": "当用户需要在若干选项当中选择多个进行输入时。",
+      "defaultDemo": {
+        "title": "基本用法",
+        "description": "通过 source 设置数据源。",
+        "Please select": "请选择"
+      },
+      "arrayDemo": {
+        "title": "自定义匹配方法",
+        "description": "通过 searchFn 自定义数据的匹配方法和返回的数据格式，如果你需要实现数据的清空与复制操作，可使用自定义按钮的方式。",
+        "Choose three options": "请至少选择三个选项",
+        "emptied": "清空",
+        "replicated": "复制",
+        "Select Object": "选择对象",
+        "Run the browser copy command.": "执行浏览器复制命令",
+        "Copy succeeded.": "复制成功",
+        "Data replicated successfully": "数据已成功复制至剪切板"
+      },
+      "disabledDemo": {
+        "title": "使用禁用",
+        "description": "设置 disabled 禁用整个组件，也可传入 disabledKey 禁用单个选项。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "auto-complete-array": "自定义匹配方法",
+        "auto-complete-disabled": "使用禁用"
+      }
+    },
+    "form": {
+      "name": "Form 表单",
+      "type": "数据录入",
+      "path": "form",
+      "description": "具有数据收集、校验和提交功能的表单，包含复选框、单选框、输入框、下拉选择框等元素。",
+      "tmw": "需要进行数据收集、数据校验、数据提交功能时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "基本用法当中，Label是在数据框的上面。",
+        "d-form-item-title": "表单项 d-form-item",
+        "d-form-item-description": "表单项，包含表单Label和具体表单输入组件。",
+        "d-form-label-title": "表单项 d-form-label",
+        "d-form-label-description": "表单项Label，描述该项表单关键字，包括帮助信息、是否必填等功能。",
+        "d-form-control-title": "控件容器 d-form-control",
+        "d-form-control-description": "表单项控件容器，里面容纳不同的表单输入组件。",
+        "d-form-operation-title": "操作区容器 d-form-operation",
+        "d-form-operation-description": "操作区域容器，用来放置按钮等元素。",
+        "That's the plan name.": "这是计划名，计划名字，计划名",
+        "Plan Name": "计划名",
+        "Plan Description": "计划描述",
+        "Radio box": "单选框",
+        "Multiple options": "多选项",
+        "Label Options": "标签选项",
+        "Label": "标签",
+        "switch": "开关",
+        "Execution Date": "执行日",
+        "Submit": "提交",
+        "cancels": "取消",
+        "Option": "选项",
+        "Manual execution": "手工执行",
+        "Daily Scheduled Execution": "每日定时执行",
+        "Weekly scheduled execution": "每周定时执行",
+        "Monday": "周一",
+        "tuesday": "周二",
+        "Wednesday": "周三",
+        "thursday": "周四",
+        "friday": "周五",
+        "Saturday": "周六",
+        "Sunday": "周日",
+        "Option (Multiple Choices with Delete)": "选项(多选带删除)"
+      },
+      "labelHorizontalDemo": {
+        "title": "label 横向排列",
+        "description": "Label左右布局方式。",
+        "Plan Name": "计划名",
+        "Short Name": "输入一个符合阅读习惯的短名字，最多30个字符，不能是系统字段，且不能与已有的字段重名",
+        "Plan Description": "计划描述",
+        "Radio box": "单选框",
+        "check box": "多选框",
+        "Label Options": "标签选项",
+        "Single Option": "单选项",
+        "Label": "标签",
+        "switch": "开关",
+        "Execution Date": "执行日",
+        "Submit": "提交",
+        "cancels": "取消",
+        "Select your execution cycle": "选择您的执行周期，推荐选择周一，周三，周五",
+        "Option": "选项",
+        "Manual execution": "手工执行",
+        "Daily Scheduled Execution": "每日定时执行",
+        "Weekly scheduled execution": "每周定时执行",
+        "Monday": "周一",
+        "tuesday": "周二",
+        "Wednesday": "周三",
+        "thursday": "周四",
+        "friday": "周五",
+        "Saturday": "周六",
+        "Sunday": "周日",
+        "Option (Multiple Choices with Delete)": "选项(多选带删除)"
+      },
+      "modalDemo": {
+        "title": "弹框表单",
+        "description": "弹框表单，弹框建议是400px，550px，700px，900px，建议宽高比是16: 9、3: 2。",
+        "Pop-up form": "弹框表单",
+        "ok": "确定",
+        "cancels": "取消"
+      },
+      "multiColDemo": {
+        "title": "多列表单",
+        "description": "多列表单。",
+        "That's the plan name.": "这是计划名，计划名字，计划名",
+        "Plan Name": "计划名",
+        "Radio box": "单选框",
+        "check box": "多选框",
+        "Label Options": "标签选项",
+        "switch": "开关",
+        "Execution Date": "执行日",
+        "Submit": "提交",
+        "cancels": "取消",
+        "Option": "选项",
+        "Manual execution": "手工执行",
+        "Daily Scheduled Execution": "每日定时执行",
+        "Weekly scheduled execution": "每周定时执行",
+        "Monday": "周一",
+        "tuesday": "周二",
+        "Wednesday": "周三",
+        "thursday": "周四",
+        "friday": "周五",
+        "Saturday": "周六",
+        "Sunday": "周日",
+        "Option (Multiple Choices with Delete)": "选项(多选带删除)"
+      },
+      "templateValidateDemo": {
+        "title": "模板驱动表单验证",
+        "description": "模板中绑定<code>ngModel、ngGroupModel、ngForm</code>的元素，可使用<code>dValidateRules</code>配置校验规则。"
+      },
+      "innerValidatorDemo": {
+        "title": "验证单个元素，使用内置校验器，配置error message",
+        "subtitle": "我们还内置了诸多校验器，可以前往 API 中查看更多信息。",
+        "description": "<p> 当前<code>DevUI</code>支持的内置校验器有：<code>required、minlength、maxlength、min、max、requiredTrue、email、pattern、whitespace</code>。</p><p>若需限制用户输入不能全为空格，可使用<code>whitespace</code>内置校验器</p><p>若需限制用户输入长度，将最大限制设置为实际校验值<code>+1</code>是一个好的办法。</p><p>除<code>pattern</code>外，其他内置校验器我们也提供了内置的错误提示信息，在你未自定义提示消息时，我们将使用默认的提示信息。</p><p><code>message</code>配置支持<code>string</code>与<code>object</code>两种形式（支持国际化词条配置，如<code>'zh-cn'</code>，默认将取<code>'default'</code>）。</p>"
+      },
+      "customerValidatorDemo": {
+        "title": "验证单个元素，自定义校验器",
+        "description": "<ul><li>一个校验器需要一个唯一的<code>id</code>标识，你可显式声明此<code>id</code>，也可声明一个与保留字不冲突的<code>key</code>，此<code>key</code>将被识别为<code>id</code>， 其<code>value</code>作为校验器。</li><li>自定义校验器，你可以简单返回<code>true | false </code>来标识当前校验是否通过， 也可以返回<code>string | null</code>，来标识当前是否错误并返回错误消息，适用于动态错误提示。</li><li>如果是异步校验器，你需要将你的值以<code>Observable</code>对象方式返回。</li><li>更多地，<code>DevUI</code>兼容原生<code>angular</code>校验器， 你可将<code>isNgValidator</code>设置为<code>true</code>。</li></ul>"
+      },
+      "customErrorStrategyDemo": {
+        "title": "验证单个元素，配置错误更新策略errorStrategy、校验时机updateOn",
+        "description": "<ul> <li> 设置<code>errorStrategy</code>元素初始化时若校验不通过，错误是否会进行提示， 默认配置为<code>dirty</code>，若需要在初始化时将错误抛出，可配置为<code>pristine</code>。 </li> <li><code>errorStrategy</code>可继承。</li> <li> 设置<code>updateOn</code>，指定校验的时机。 校验器<code>updateOn</code>基于你绑定的模型的<code>updateOn</code>设置， 在模板中你可以通过<code>ngModelOptions</code>来指定， 默认为<code>change</code>，可选值还有<code>blur</code>、<code>submit</code>， 设置为<code>submit</code>，则当元素所在表单进行提交时将触发校验。 </li> </ul>"
+      },
+      "customMessageShowDemo": {
+        "title": "验证单个元素，自定义管理消息提示",
+        "description": "<ul> <li>配置<code>messageShowType</code>可选择消息自动提示的方式，默认为<code>popover</code>。</li> <li>设置为<code>popover</code>错误信息将在元素聚焦时以<code>popover</code>形式呈现。</li> <li>设置为<code>text</code>错误信息将自动以文本方式显示在元素下方(需要与表单控件容器配合使用)。</li> <li> 设置为<code>none</code>错误信息将不会自动呈现到视图， 可在模板中获取<code>message</code>或通过监听<code>messageChange</code>事件获取错误<code>message</code>， 或在模板中直接通过引用获取。 </li> <li>此配置可继承。</li> </ul> <ul> <li> 配置<code>popPosition</code>可在消息提示方式为<code>popover</code>时，自定义<code>popover</code>内容弹出方向。 默认为<code >['right', 'bottom']</code >。 </li> <li>此配置可继承。</li> </ul>"
+      },
+      "debounceTimeDemo": {
+        "title": "验证单个元素，自定义asyncDebounceTime",
+        "description": "<ul> <li>我们对于异步校验器，提供默认<code>300ms debounce time</code>。</li> <li>也可在<code>dValidateRules</code>中设置<code>asyncDebounceTime</code>显示设置（单位<code>ms</code>）。</li> <li>若你的同步校验器也需要<code>debounce time</code>，则其表现已为异步校验，你可将其转换为异步校验器。</li> <li>此配置可继承。</li> </ul>"
+      },
+      "validateTemplateForm": {
+        "title": "Form验证与提交",
+        "description": "<ul> <li><code>dValidateRules</code>也可作用于已绑定<code>ngForm、ngModelGroup</code>元素上， 进行表单状态与错误消息的统一管理。</li> <li>对于非边框类元素，建议在<code>d-form-item</code>容器上配置<code>dHasFeedback</code>为<code>true</code> 进行错误反馈提示。</li> <li>对于<code>dForm</code>，可使用<code>dFormSubmit、dFormReset</code> 指令关联将用于触发提交与重置操作的元素。</li> <li>若表单设置了异步校验，可将对应按钮<code>loading</code>与表单<code>pending</code>状态关联起来。</li> </ul>"
+      },
+      "userRegisterDemo": {
+        "title": "Form验证与提交，用户注册场景",
+        "description": "<ul> <li>针对表单场景复杂的校验规则，我们推荐在控制器中组织，可更好地组织与复用你的校验规则。</li> <li>对于自动错误提示的方式，在<code>form</code>中， 建议在<code>dForm</code>层统一设置<code>messageShowType</code>。</li> <li> 对于由<code>dFormSubmit</code>触发的提交事件， 你可在<code>dForm</code>层绑定<code>dSubmit</code>监听， 可获取到当前<code>form</code>验证状态与对应的<code>directive</code>引用。 </li> <li> 若表单在提交时，已不在视觉中心，那么你可以使用一个提示来引导用户视觉，对于表单提交时的提示，我们推荐使用<code>d-toast</code>显示。 </li> </ul>"
+      },
+      "validateReactiveDemo": {
+        "title": "响应式表单验证",
+        "description": "模板中绑定<code>formGroup、formControlName、formControl</code>，使用<code>dValidateRules</code>配置校验规则。<p>推荐阅读<a class='devui-link' href=\"https://angular.cn/guide/reactive-forms\" target=\"_blank\">【Angular响应式表单】</a></p>"
+      },
+      "customStatusDemo": {
+        "title": "指定表单Feedback状态",
+        "description": "你可通过对<code>d-form-control</code>设置<code>feedbackStatus</code>手动指定反馈状态。当前已支持状态：<code>success、error、pending</code>。"
+      },
+      "validateSyncDemo": {
+        "title": "表单协同验证",
+        "description": "在一些场景下，你的多个表单组件互相依赖，需共同校验（如注册场景中的密码输入与确认密码），此时你需要用协同验证指令<code>dValidateSyncKey</code>来为需要系统校验的组件指定相同的<code>key</code><code>dValidateSyncKey</code>指令支持模板驱动表单与响应式表单，以下示例以模板驱动表单为例：<code>password</code>与<code>confirmPassword</code>设置相同的<code>dValidateSyncKey</code>值，在其中一个组件值变更时，另一个组件也将进行校验。"
+      },
+      "validateCrossComponentDemo": {
+        "title": "跨组件验证",
+        "description": "<ul><li>当前<code>Angular Form</code>默认暂不支持跨组件共享表单校验状态，对于响应式表单，你可使用统一管理<code>model</code>，向下透传的方式进行组件组织。</li><li>针对模板驱动表单，你可使用在子组件声明时进行容器注入的方式，将你需要的<code>ngModelGroup</code>或<code>NgForm</code>容器进行注入，以供模板中表单元素自动获取父容器。</li></ul>"
+      },
+      "validateUpdate": {
+        "title": "更新校验规则",
+        "description": "你可以调用<code>dValidateRules</code>指令提供的<code>updateRules</code>方法进行校验规则更新。"
+      },
+      "reactiveCrossComponent": {
+        "title": "响应式表单跨组件验证"
+      },
+      "templateCrossComponent": {
+        "title": "模板驱动表单跨组件验证"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "demo-label-horizontal": "label 横向排列",
+        "demo-modal": "弹框表单",
+        "demo-multi-col": "多列表单",
+        "demo-filter": "表单过滤",
+        "demo-validate-template": "在表单中使用校验器",
+        "demo-validate-reactive": "响应式表单验证",
+        "demo-custom-status": "指定表单状态",
+        "demo-validate-sync": "表单协同验证",
+        "demo-validate-cross-component": "跨组件表单验证",
+        "demo-validate-update": "更新验证规则",
+        "demo-inner-validator": "使用内置校验器",
+        "demo-custom-validator": "自定义校验器",
+        "demo-error-strategy": "配置错误更新策略，校验时机",
+        "demo-custom-message": "自定义错误提示",
+        "demo-debounce-time": "自定义 debounce time",
+        "demo-user-register": "在用户注册场景中使用"
+      }
+    },
+    "fullscreen": {
+      "name": "Fullscreen 全屏",
+      "type": "通用",
+      "path": "fullscreen",
+      "description": "全屏组件。",
+      "tmw": "当用户需要将某一区域进行全屏展示时。",
+      "immersiveDemo": {
+        "title": "沉浸式全屏",
+        "description": "充满整个显示器屏幕的沉浸式全屏。",
+        "fullscreen": "全屏",
+        "exitFullscreen": "退出全屏"
+      },
+      "normalDemo": {
+        "title": "普通全屏",
+        "description": "充满当前浏览器窗口的普通全屏。",
+        "fullscreen": "全屏",
+        "exitFullscreen": "退出全屏"
+      },
+      "customDemo": {
+        "title": "自定义全屏",
+        "description": "通过调用函数方法在指定容器中触发全屏。",
+        "fullscreen": "全屏",
+        "exitFullscreen": "退出全屏"
+      },
+      "anchorLinkValues": {
+        "immersive-full-screen": "沉浸式全屏",
+        "general-full-screen": "普通全屏",
+        "custom-full-screen": "自定义全屏"
+      }
+    },
+    "transfer": {
+      "name": "Transfer 穿梭框",
+      "type": "数据录入",
+      "path": "transfer",
+      "description": "双栏穿梭选择框。",
+      "tmw": "需要在多个可选项中进行多选时。穿梭选择框可用只管的方式在两栏中移动数据，完成选择行为。其中左边一栏为source，右边一栏为target。最终返回两栏的数据，提供给开发者使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "穿梭框基本用法。",
+        "sourceTitle": "源标题",
+        "targetTitle": "目标标题",
+        "disabled:": "禁用：",
+        "option1": "选项1（包含此选项禁止transfer）",
+        "option2": "选项2",
+        "option3": "选项3",
+        "option4": "选项4",
+        "option5": "选项5",
+        "option6": "选项6",
+        "option7": "选项7",
+        "option8": "选项8",
+        "option9": "选项9",
+        "option10": "选项10",
+        "option11": "选项11",
+        "option12": "选项12",
+        "option13": "选项13",
+        "option14": "选项14",
+        "option15": "选项15",
+        "option16": "选项16",
+        "option17": "选项17",
+        "option18": "选项18",
+        "option19": "选项19",
+        "option20": "选项20",
+        "option21": "选项21"
+      },
+      "searchDemo": {
+        "title": "搜索穿梭框",
+        "description": "在数据很多的情况下，可以对数据进行搜索和过滤。",
+        "sourceTitle": "源标题",
+        "targetTitle": "目标标题",
+        "disabled:": "禁用：",
+        "option1": "选项1",
+        "option2": "选项2",
+        "option3": "选项3",
+        "option4": "选项4",
+        "option5": "选项5",
+        "option6": "选项6",
+        "option7": "选项7",
+        "option8": "选项8",
+        "option9": "选项9",
+        "option10": "选项10",
+        "option11": "选项11",
+        "option12": "选项12",
+        "option13": "选项13",
+        "option14": "选项14",
+        "option15": "选项15",
+        "option16": "选项16",
+        "option17": "选项17",
+        "option18": "选项18",
+        "option19": "选项19"
+      },
+      "sortDemo": {
+        "title": "排序穿梭框",
+        "description": "可以对穿梭框源和目标框的数据进行排序。",
+        "sourceTitle": "源标题",
+        "targetTitle": "目标标题",
+        "disabled:": "禁用：",
+        "option1": "选项1",
+        "option2": "选项2",
+        "option3": "选项3",
+        "option4": "选项4",
+        "option5": "选项5",
+        "option6": "选项6",
+        "option7": "选项7",
+        "option8": "选项8",
+        "option9": "选项9",
+        "option10": "选项10",
+        "option11": "选项11",
+        "option12": "选项12",
+        "option13": "选项13",
+        "option14": "选项14",
+        "option15": "选项15",
+        "option16": "选项16",
+        "option17": "选项17",
+        "option18": "选项18",
+        "option19": "选项19",
+        "option20": "选项20",
+        "option21": "选项21"
+      },
+      "customDemo": {
+        "title": "自定义穿梭框",
+        "description": "可以对穿梭框内容的显示进行自定义。",
+        "sourceTitle": "源标题",
+        "targetTitle": "目标标题",
+        "disabled:": "禁用：",
+        "option1": "选项1",
+        "option2": "选项2",
+        "option3": "选项3",
+        "option4": "选项4",
+        "option5": "选项5",
+        "option6": "选项6",
+        "option7": "选项7",
+        "option8": "选项8",
+        "option9": "选项9",
+        "option10": "选项10",
+        "option11": "选项11",
+        "option12": "选项12",
+        "option13": "选项13",
+        "option14": "选项14",
+        "option15": "选项15",
+        "option16": "选项16",
+        "option17": "选项17",
+        "option18": "选项18",
+        "option19": "选项19",
+        "option20": "选项20",
+        "option21": "选项21"
+      },
+      "vitrualScrollDemo": {
+        "title": "虚拟滚动"
+      },
+      "anchorLinkValues": {
+        "transfer-demo-base": "基本用法",
+        "transfer-demo-search": "搜索穿梭框",
+        "transfer-demo-sort": "排序穿梭框",
+        "transfer-demo-custom": "自定义穿梭框",
+        "transfer-demo-virtual-scroll": "虚拟滚动"
+      }
+    },
+    "dragdrop": {
+      "name": "DragDrop 拖拽",
+      "type": "通用",
+      "path": "dragdrop",
+      "description": "拖拽组件。",
+      "tmw": "当需要使用数个操作步骤，且步骤的顺序需要灵活调整时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "从一个container拖动到另外一个container，并支持排序。",
+        "Default dragging": "默认拖拽",
+        "Dragable Item": "可拖拽项",
+        "Place Sort Area": "放置排序区",
+        "Placement Area (No Sorting)": "放置区（无排序）",
+        "(Do not drag)": "(禁止拖拽)"
+      },
+      "treeDemo": {
+        "title": "多层树状拖拽",
+        "description": "排序允许拖拽到元素上，支持层级嵌套。",
+        "Multi-layer tree dragging": "多层树状拖拽",
+        "Candidate area": "备选区",
+        "Tree Sorting Area": "树状排序区"
+      },
+      "followDemo": {
+        "title": "拖拽实体元素跟随",
+        "description": "允许拖拽时候非半透明元素跟随。也可以使用appendToBody：当拖拽离开后源位置的父对象会被销毁的话，需要把克隆体附着到body上防止被销毁。 默认会通过复制样式保证克隆到body的实体的样式是正确的，但部分深度依赖DOM节点位置的样式和属性可能会失败，需要手动调整部分样式。",
+        "Drag Entity Elements to Follow": "拖拽实体元素跟随",
+        "Dragable Item": "可拖拽项",
+        "Place Sort Area": "放置排序区",
+        "Attaching the clone entity to the body": "克隆实体附着到body上",
+        "AppendToBody of dragFollowOptions is used in the following scenarios: If the parent object in the source location is destroyed after being dragged out, attach the clone to the body to prevent it from being destroyed. By default, the style of the cloned body is copied to ensure that the style of the cloned body is correct. However, some styles and attributes that depend on the DOM node location may fail. In this case, you need to manually adjust some styles.": "dragFollowOptions的appendToBody使用场景说明：当拖拽离开后源位置的父对象会被销毁的话，需要把克隆体附着到body上防止被销毁。默认会通过复制样式保证克隆到body的实体的样式是正确的，但部分深度依赖DOM节点位置的样式和属性可能会失败，需要手动调整部分样式。"
+      },
+      "switchDemo": {
+        "title": "越边交换",
+        "description": "设置switchWhileCrossEdge允许越过边缘的时候交换。注意：不可与dropOnItem一起用，dropOnItem为true的时候无效。",
+        "Move the mouse over the edge of the element.": "鼠标越过元素边缘发生交换",
+        "Drag-and-drop sorting exchange": "拖拽排序交换"
+      },
+      "positionDemo": {
+        "title": "外部放置位置：就近，前面，后面",
+        "description": "使用defaultDropPostion配置排序器之外的区域拖拽元素放下的时候默认加到列表的前面或者后面，默认为就近('closest')。",
+        "Drag-and-drop items": "可拖放项",
+        "Drag and drop here Add to top": "拖放到此处加到顶部",
+        "Drag and drop here Add to bottom": "拖放到此处加到底部",
+        "Drag and drop here Add nearest": "拖放到此处加到最近处"
+      },
+      "dropScrollDemo": {
+        "title": "拖拽滚动容器增强",
+        "description": "搭配使用dDropScrollEnhanced指令允许拖拽到边缘的时候加速滚动条向两边滚动。",
+        "Drag an element to the edge of the scroll bar to trigger scrolling.": "拖拽元素到滚动条边缘区块触发滚动",
+        "Show drag-and-drop scrolling area": "显示拖拽滚动感应区域",
+        " Active area. Drag to trigger scrolling.": "活跃区域，拖拽可触发滚动",
+        " Inactive area, elements under which elements are dragged are placed.": "非活跃区域，拖拽元素会放在其下的元素"
+      },
+      "originPlaceholderDemo": {
+        "title": "源占位符",
+        "description": "使用originPlaceholder显示源位置的占位符，示例消失动画。",
+        "Drag from here. The source placeholder disappears directly after being placed.": "从这里拖，源占位符在放置之后<strong>直接</strong>消失",
+        " Drag from here, the source placeholder disappears after the <strong> delay</strong>": "从这里拖，源占位符在放置之后<strong>延迟</strong>消失",
+        "Drag from here, the source placeholder disappears after it is placed. <strong> Animation</strong>": "从这里拖，源占位符在放置之后<strong>动画</strong>消失"
+      },
+      "batchDragDemo": {
+        "title": "批量拖拽",
+        "description": "使用batchDrag指令标记可以批量拖拽，请用ctrl按键和鼠标选中多个并进行拖拽",
+        "Batch dragging is supported. Press Ctrl to select multiple items and drag them.": "支持批量拖拽，请用ctrl按键和鼠标选中多个并进行拖拽",
+        "Show Source Placeholders": "显示源占位符",
+        "crossover exchange": "越边交换",
+        "Clear Selected": "清空已选"
+      },
+      "crossDimensionDemo": {
+        "title": "二维拖拽和拖拽预览",
+        "description": "使用dDragDropSyncBox指令、dDragSync指令、dDropSync指令协同拖拽，实现二维拖拽；使用dDragPreview配置拖拽预览，使用d-drag-preview-clone-dom-ref 完成拖拽节点预览的克隆。",
+        "Owner": "责任人",
+        "To be allocated": "待分配",
+        "Lin Huahua": "林花花",
+        "Wang Xiaoming": "王小明",
+        "Newly created": "新建",
+        "Ongoing": "进行中",
+        "Completed": "已完成"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "multi-level-tree-drag": "多层树状拖拽",
+        "drag-entity-elements-to-follow": "拖拽实体元素跟随",
+        "cross-edge-switching": "越边交换",
+        "external-location": "外部放置位置",
+        "drag-and-roll-container-enhancement": "拖拽滚动容器增强",
+        "source-placeholder": "源占位符",
+        "batch-drag-and-drop": "批量拖拽",
+        "2D-drag-and-drop-preview": "二维拖拽和拖拽预览"
+      }
+    },
+    "drawer": {
+      "name": "Drawer 抽屉板",
+      "type": "反馈",
+      "path": "drawer",
+      "description": "屏幕边缘滑出的浮层面板组件。",
+      "tmw": "<div>1. 抽屉从父窗体边缘滑入，覆盖住部分父窗体内容。用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到到原任务。</div>      <div>2. 当需要一个附加的面板来控制父窗体内容，这个面板在需要时呼出。比如，控制界面展示样式，往界面中添加内容。</div>      <div>3. 当需要在当前任务流中插入临时任务，创建或预览附加内容。比如展示协议条款，创建子对象。</div>",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "基本用法，可以控制全屏、关闭和设置宽度。"
+      },
+      "undestroyableDemo": {
+        "title": "关闭后不销毁",
+        "description": "关闭后不销毁，需要手动销毁，适用于不需要关闭立即销毁的场景。",
+        "openSlider": "打开侧滑窗",
+        "manualDestroy": "手动销毁",
+        "closeManualDestroy": "关闭后可手动销毁，打开状态调用无效"
+      },
+      "templateDemo": {
+        "title": "自定义模板",
+        "description": "自定义抽屉板模板。"
+      },
+      "resizeDemo": {
+        "title": "动态调整宽度",
+        "description": "侧滑宽度动态可调整"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "do-not-destroy-after-closing": "关闭后不销毁",
+        "template": "自定义模板",
+        "resize": "动态调整宽度"
+      }
+    },
+    "dropdown": {
+      "name": "DropDown 下拉菜单",
+      "type": "导航",
+      "path": "dropdown",
+      "description": "按下弹出列表组件。",
+      "tmw": "当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "",
+        "More Operations": "更多操作",
+        "Text box": "输入框",
+        "Disable Options": "禁用选项",
+        "Newly created": "新建",
+        "Deleted": "删除",
+        "Menu 1": "菜单一",
+        "Menu 2": "菜单二",
+        "Menu 3": "菜单三",
+        "Menu 4": "菜单四",
+        "Attach to the body to prevent it from being blocked by the scroll bar.": "附着到body上防止被滚动条遮挡"
+      },
+      "hoverDemo": {
+        "title": "悬浮下拉",
+        "description": "通过trigger设置下拉的触发方式（点击或悬浮）。",
+        "Menu 1": "菜单一",
+        "Menu 2": "菜单二",
+        "Menu 3": "菜单三"
+      },
+      "focusDemo": {
+        "title": "聚焦的时候自动的展开和初始化的时候自动聚焦",
+        "description": "通过toggleOnFocus设置tab按键等聚焦的时候自动展开；通过autoFocus设置初始化的时候自动聚焦；两者可结合使用也可分开使用。",
+        "When you press Tab to navigate to the dropdown Toggle object, the menu is automatically expanded.": "tab键导航到dropdown的Toggle对象的时候，会自动展开菜单",
+        "More Operations": "更多操作",
+        "Disable Options": "禁用选项",
+        "Newly created": "新建",
+        "Deleted": "删除",
+        "Menu 1": "菜单一",
+        "Menu 2": "菜单二",
+        "Menu 3": "菜单三",
+        "Menu 4": "菜单四",
+        "The focus is automatically performed during initialization. It can be automatically expanded with toggleOnFocus or used independently.": "初始化的时候会自动focus；搭配toggleOnFocus可以自动展开，也可单独使用",
+        "Initialization/Destruction": "初始化/销毁",
+        "Text box": "输入框"
+      },
+      "closeScopeDemo": {
+        "title": "关闭触发点设置",
+        "description": "通过closeScope设置关闭的触发点，blank：非菜单区域点击才会触发，all：菜单区域也会触发，none:仅下拉区域可以点击关闭，或者自行手动关闭。",
+        "The drop-down menu is closed only after you click the menu.": "点击菜单外才会关闭的下拉菜单",
+        "Click the drop-down button.": "点击下拉",
+        "Text box": "输入框",
+        "Menu 1": "菜单一",
+        "Menu 2": "菜单二",
+        "Menu 3": "菜单三",
+        "Self-closed": "自行关闭",
+        "Click the last menu item to close it.": "点击最后一个菜单项进行关闭",
+        "Menu 1 Disable": "菜单一禁用",
+        "Close": "关闭"
+      },
+      "appendToBodyDemo": {
+        "title": "使用appendToBody的时候设置展开位置处理，更换对齐对象",
+        "description": "通过appendToBodyDirections设置展开位置的优先级列表；通过alignOrigin更换默认对齐对象。",
+        "Align with regions Use bottom left (right aligned below), top left (right aligned above display)": "与区域对齐使用左下（右对齐下），左上（右对齐上方显示）",
+        "Align the area.": "对齐区域",
+        "Drop-down button": "下拉按钮",
+        "Disable Options": "禁用选项",
+        "Newly created": "新建",
+        "Deleted": "删除",
+        "Using Centered Display": "使用居中显示",
+        "Creating a Content": "新建内容操作",
+        "Deleted content": "删除内容等"
+      },
+      "manuallyDemo": {
+        "title": "手动控制下拉",
+        "description": "通过 trigger 设置手动控制下拉。"
+      },
+      "set-is-openDemo": {
+        "title": "通过设置isOpen控制下拉"
+      },
+      "addIconDemo": {
+        "title": "支持添加图标",
+        "description": "",
+        "Newly created": "新建",
+        "Delete": "刪除",
+        "Menu 1": "菜单一",
+        "Menu 2": "菜单二",
+        "Menu 3": "菜单三",
+        "Menu 4": "菜单四"
+      },
+      "multiLevelDemo": {
+        "title": "多级下拉菜单",
+        "description": "",
+        "Click": "单击",
+        "More options": "更多选择",
+        "Content 1": "内容1",
+        "Content 1-1": "内容1-1",
+        "Content 1-1-1": "内容1-1-1",
+        "Content 1-1-2": "内容1-1-2",
+        "Content 1-1-3": "内容1-1-3",
+        "Content 1-2": "内容1-2",
+        "Content 1-2-1": "内容1-2-1",
+        "Content 2": "内容2",
+        "hovering": "悬停",
+        "Click to expand the menu. The menu is automatically closed when you exit.": "单击展开，离开菜单自动关闭"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "turn-off-trigger-point-settings": "关闭触发点设置",
+        "suspension-drop-down": "悬浮下拉",
+        "manually-control": "手动控制下拉",
+        "dropdown-set-is-open": "通过isOpen控制下拉",
+        "auto-expand-and-auto-focus": "自动展开和自动聚焦",
+        "when-using-appendtobody": "设置展开位置处理",
+        "add-icon": "支持添加图标",
+        "multi-level-drop-down-menu": "多级下拉菜单"
+      }
+    },
+    "editable-select": {
+      "name": "EditableSelect 可输入下拉选择框",
+      "type": "数据录入",
+      "path": "editable-select",
+      "description": "同时支持输入和下拉选择的输入框。",
+      "tmw": "当需要同时支持用户输入数据和选择已有数据的时候使用，加入输入联想功能，方便用户搜索已有数据。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "通过 source 设置数据源，使用 enableSelectedValueList 控制在已选值时是否显示全部选项。"
+      },
+      "objectDemo": {
+        "title": "使用对象数组",
+        "description": "对象数组默认读取 label 属性，可使用 value Parser 和 formatter 方法自定义显示值和格式。"
+      },
+      "disableDataDemo": {
+        "title": "设置禁用选项",
+        "description": "支持禁用指定数据。"
+      },
+      "searchFunctionDemo": {
+        "title": "自定义匹配方法",
+        "description": "通过 searchFn 自定义数据匹配方法。"
+      },
+      "async-data-function": {
+        "title": "异步获取数据源并设置匹配方法",
+        "description": "支持异步设置数据源并设置匹配方法。"
+      },
+      "lazyLoadDemo": {
+        "title": "数据懒加载",
+        "description": "数据懒加载。"
+      },
+      "customAreaDemo": {
+        "title": "自定义区域",
+        "description": "通过传入模板自定义区域"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "object-source": "使用对象数组",
+        "disable-data-with-source": "设置禁用选项",
+        "with-search-function": "自定义匹配方法",
+        "async-data-with-function": "异步获取数据源并设置匹配方法",
+        "lazy-load": "数据懒加载",
+        "custom-area-usage": "自定义区域"
+      }
+    },
+    "editorx": {
+      "name": "EditorX 富文本",
+      "type": "数据录入",
+      "path": "editorx",
+      "description": "富文本编辑器。",
+      "tmw": "当需要对富文本内容进行编辑时。",
+      "defaultDemo": {
+        "title": "默认示例",
+        "description": "展示EditorX的默认功能。"
+      },
+      "customToolbarDemo": {
+        "title": "自定义工具栏",
+        "description": "自定义工具栏图标+自定义工具栏分组+收起不常用的工具按钮。"
+      },
+      "readOnlyModeDemo": {
+        "title": "只读模式",
+        "description": "只读模式，没有工具栏，没有字数统计。按保存按钮或快捷键 Ctrl+S 可以变成只读模式，按编辑按钮可以变成编辑模式。"
+      },
+      "expandToolbarDemo": {
+        "title": "扩展工具栏",
+        "description": "添加工具栏-自定义触发事件-操作editor对象。"
+      },
+      "initWithObjDemo": {
+        "title": "使用对象进行初始化",
+        "description": "使用 object 格式对象对编辑器进行初始化（而不是默认的 html 格式），object 格式是更适合持久化存储的格式，也是推荐存储到后台的格式。"
+      },
+      "uploadDemo": {
+        "title": "图片和文件上传",
+        "description": "图片和文件上传到服务器，需要将示例中的上传接口替换成真实的后台接口才能正确运行。"
+      },
+      "charStatisticsDemo": {
+        "title": "字符统计",
+        "description": "统计当前输入的字符数、单词数、HTML字符数，并可定制展示的模板。"
+      },
+      "customFullScreenDemo": {
+        "title": "定制全屏模式",
+        "description": "默认是沉浸式全屏，可以通过配置成普通全屏，并可定制全屏层级。"
+      },
+      "globalHrefDemo": {
+        "title": "全局链接",
+        "description": "全局链接。"
+      },
+      "richTextInDrawerDemo": {
+        "title": "抽屉板中的富文本",
+        "description": "在抽屉板中使用富文本编辑器。"
+      },
+      "xssDemo": {
+        "title": "XSS",
+        "description": "XSS。"
+      },
+      "anchorLinkValues": {
+        "default-example": "默认示例",
+        "custom-toolbar": "自定义工具栏",
+        "read-only-mode": "只读模式",
+        "expand-toolbar": "扩展工具栏",
+        "init-with-obj": "使用对象进行初始化",
+        "upload": "图片和文件上传",
+        "char-statistics": "字符统计",
+        "custom-full-screen": "定制全屏模式",
+        "global-href": "全局链接",
+        "rich-text-in-drawer": "抽屉板中的富文本",
+        "xss": "XSS"
+      }
+    },
+    "loading": {
+      "name": "Loading 加载提示",
+      "type": "反馈",
+      "path": "loading",
+      "description": "提示用户页面正在执行指令，需要等待。",
+      "tmw": "当执行指令时间较长（需要数秒以上）时，向用户展示正在执行的状态。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "展示加载表格数据的场景中的基本使用方法。",
+        "click me!": "clickme!",
+        "FirstName": "FirstName",
+        "LastName": "LastName",
+        "UserName": "UserName"
+      },
+      "customDemo": {
+        "title": "自定义样式",
+        "description": "通过 templateRef 自定义loading样式。",
+        "Loading Style 2": "loading样式2",
+        "Loading Style 3": "loading样式3",
+        "Text loading": "文字加载"
+      },
+      "promiseDemo": {
+        "title": "多promise",
+        "description": "支持多个promise。",
+        "click": "click"
+      },
+      "subscriptionDemo": {
+        "title": "使用Subscription方式",
+        "description": "使用Subscription方式控制loading的显示。",
+        "click": "click"
+      },
+      "showLoadingDemo": {
+        "title": "使用showLoading控制",
+        "description": "使用showLoading的true或false控制loading的显示。",
+        "click me!": "clickme!",
+        "FirstName": "FirstName",
+        "LastName": "LastName",
+        "UserName": "UserName"
+      },
+      "fullScreenDemo": {
+        "title": "服务方式调用",
+        "description": "使用服务的方式全屏加载loading组件或者在指定宿主上加载loading组件"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "custom-style": "自定义样式",
+        "multi-promise": "多promise",
+        "use-subscription-mode": "使用Subscription方式",
+        "show-loading": "使用showLoading控制",
+        "full-screen": "服务方式调用"
+      }
+    },
+    "modal": {
+      "name": "Modal 模态弹窗",
+      "type": "反馈",
+      "path": "modal",
+      "description": "模态对话框。",
+      "tmw": "<div>1. 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。</div>      <div>2. 弹窗起到与用户进行交互的作用，用户可以在对话框中输入信息、阅读提示、设置选项等操作。</div>",
+      "basicDemo": {
+        "title": "标准对话框",
+        "description": "使用dialogService可拖拽的标准对话框。"
+      },
+      "maximizeDemo":{
+        "title":"最大化对话框",
+        "description":"使用showMaximizeBtn可设置最大化/退出最大化按钮的显示/隐藏"
+      },
+      "customizeDemo": {
+        "title": "自定义对话框",
+        "description": "使用modalService可以自定义对话框内的所有内容。"
+      },
+      "hideDemo": {
+        "title": "拦截对话框关闭",
+        "description": "通过 beforeHidden 设置在关闭弹出框时的拦截方法。"
+      },
+      "tipsDemo": {
+        "title": "信息提示",
+        "description": "各种类型的信息提示框。"
+      },
+      "warningDemo": {
+        "title": "警告弹出框",
+        "description": "标准警告弹出框。"
+      },
+      "basicUpdateDemo": {
+        "title": "更新标准弹出框按钮状态",
+        "description": "通过update方法来更新dialog配置的buttons配置。"
+      },
+      "autofocusDemo": {
+        "title": "配置按钮自动获得焦点",
+        "description": "配置dialogService的buttons中的autofocus属性可以设置按钮自动获得焦点，可以通过回车直接触发按钮点击。"
+      },
+      "templateDemo": {
+        "title": "自定义弹出框内容模板",
+        "description": "支持传入contentTemplate属性来配置弹出框内容模板。"
+      },
+      "templateFixedDemo": {
+        "title": "通过外层fixed同时避免滚动和抖动",
+        "description": "通过外层fixed同时避免滚动和抖动，在使用这种方式时，页面内所有fixed元素需要给定具体的位置值，使用默认定位值会导致位置偏移。"
+      },
+      "casesDemo": {
+        "title": "场景案例",
+        "description": "模拟真实场景。"
+      },
+      "anchorLinkValues": {
+        "standard-dialog": "标准对话框",
+        "maximize-dialog":"最大化对话框",
+        "custom-dialog": "自定义对话框",
+        "intercept-dialog-closed": "拦截对话框关闭",
+        "message-hint": "信息提示",
+        "update-button-options": "更新弹出框按钮状态",
+        "configure-button-to-get-focus-automatically": "配置按钮自动获得焦点",
+        "template-content": "配置弹出框内容模板",
+        "template-fixed": "通过外层fixed同时避免滚动和抖动",
+        "cases": "场景案例"
+      }
+    },
+    "pagination": {
+      "name": "Pagination 分页",
+      "type": "导航",
+      "path": "pagination",
+      "description": "分页器。",
+      "tmw": "当加载/渲染所有数据将花费很多时间时，可以切换页码浏览数据。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "",
+        "Standard Size": "标准尺寸",
+        "Medium size": "中等尺寸",
+        "Large size": "大尺寸",
+        "Custom Style": "自定义样式",
+        "Set total to 0.": "设置total为0",
+        "Go to": "跳转至"
+      },
+      "liteDemo": {
+        "title": "极简模式",
+        "description": "极简模式适用于一些有大量信息的页面，可以简化页面的复杂度。",
+        "Common Simplified Mode": "普通极简模式",
+        "Total number of records": "总条数",
+        "Set total to 0.": "设置total为0",
+        "Set total to 20.": "设置total为20",
+        "Set total to 30000.": "设置total为30000",
+        "Set total to 100000.": "设置total为100000",
+        "Set index to 2.": "设置index为2",
+        "Set index to 3.": "设置index为3",
+        "Ultra-simplified mode": "超极简模式",
+        "Setting drop-down menu with extensible settings": "带可拓展设置的设置下拉菜单",
+        "Display Field": "显示字段",
+        "Click Settings.": "点击设置",
+        "Display Mode": "显示方式"
+      },
+      "widgetsDemo": {
+        "title": "多种配置",
+        "description": "支持设置输入跳转、显示跳转按钮；设置pageSize等功能。"
+      },
+      "additionalDemo": {
+        "title": "特殊情况",
+        "description": "特殊场景下分页器的显示。",
+        "Set total to 0.": "设置total为0",
+        "Set total to 5.": "设置total为5",
+        "Set total to 15.": "设置total为15"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "minimalist-model": "极简模式",
+        "multiple-configurations": "多种配置",
+        "exceptional-case": "特殊情况"
+      }
+    },
+    "panel": {
+      "name": "Panel 面板",
+      "type": "通用",
+      "path": "panel",
+      "description": "内容面板，用于内容分组。",
+      "tmw": "当页面内容需要进行分组显示时使用，一般包含头部、内容区域、底部三个部分。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "typeDemo": {
+        "title": "多种类型",
+        "description": "面板类型分为default、primary、success，danger、warning、info、ghost。"
+      },
+      "conditionChangeDemo": {
+        "title": "根据条件阻止折叠",
+        "description": "根据条件判断，当panel展开时，点击阻止折叠按钮，将无法折叠panel。当panel折叠时不影响操作。",
+        "Prevent Folding": "阻止折叠"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "multiple-types": "多种类型",
+        "condition-change": "根据条件阻止折叠"
+      }
+    },
+    "popover": {
+      "name": "Popover 悬浮提示",
+      "type": "反馈",
+      "path": "popover",
+      "description": "简单的文字提示气泡框。",
+      "tmw": "用来通知用户非关键性问题或提示某控件处于某特殊情况。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "manualDemo": {
+        "title": "手动控制显示",
+        "description": "通过visible控制弹框显示实现表单验证，使用visible控制必须令controlled参数为默认值false。",
+        "nameErrMsg": "输入长度不能小于4个字符!"
+      },
+      "customizeDemo": {
+        "title": "基本用法",
+        "description": "支持传入TemplateRef类型。",
+        "customizeTip": "自定义提示",
+        "isCustomizeTip": "这是一个自定义提示",
+        "customizeTipLink": "自定义提示，带链接",
+        "learnMore": "学习更多"
+      },
+      "scrollElementDemo": {
+        "title": "父容器设置",
+        "description": "scrollElement配置，这里默认是 window，默认可以不传，只有当页面的滚动不在 window 上的时候才需要传递。"
+      },
+      "hoverDelayTimeDemo": {
+        "title": "延时触发",
+        "description": "仅需要在 trigger 为 hover 的时候，鼠标移入的时长超过 [mouseEnterDelay] 毫秒之后才会触发，以防止用户无意划过导致的闪现，默认值是150毫秒；鼠标移出之后，再经过[mouseLeaveDelay]毫秒后，Popover组件才会隐藏，默认值是100毫秒。"
+      },
+      "positionDemo": {
+        "title": "弹出位置",
+        "description": "总共支持12个弹出位置。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "manual-control-display": "手动控制显示",
+        "custom-prompt-content": "自定义提示内容",
+        "parent-container-settings": "父容器设置",
+        "hover-delay-time": "延时触发",
+        "position": "弹出位置"
+      }
+    },
+    "progress": {
+      "name": "Progress 进度条",
+      "type": "数据展示",
+      "path": "progress",
+      "description": "进度条。",
+      "tmw": "<div>1. 当操作需要较长的时间时，向用户展示操作进度。</div> <div>2. 当操作需要打断现有界面或后台运行，需要较长时间时。</div> <div>3. 当需要显示一个操作完成的百分比或已完成的步骤/总步骤时。</div>",
+      "basicDemo": {
+        "title": "线形进度条",
+        "description": "可配置在中间、右端或随进度显示的文字和自定义模板。"
+      },
+      "circleDemo": {
+        "title": "环形进度条",
+        "description": "可配置在环形中间显示文字或自定义模板。"
+      },
+      "multipleDemo": {
+        "title": "自定义多色进度条",
+        "description": "可配置多段不同色值或渐变色。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "线形进度条",
+        "circle-usage": "环形进度条",
+        "multiple-usage": "自定义多色进度条"
+      }
+    },
+    "quadrant-diagram": {
+      "name": "Quadrant Diagram 象限图",
+      "type": "演进中",
+      "path": "quadrant-diagram",
+      "description": "象限图。",
+      "tmw": "根据需求对事务进行区域划分与价值排序，可用于管理事务的优先级。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "customizeDemo": {
+        "title": "配置自定义象限图",
+        "description": "需要单独设置可放置的区域，将dropScope的值设置为'devui-quadrant-diagram'。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "custom-quadrant": "配置自定义象限图"
+      }
+    },
+    "radio": {
+      "name": "Radio 单选框",
+      "type": "数据录入",
+      "path": "radio",
+      "description": "单选框。",
+      "tmw": "用户要从一个数据集中选择单个选项，且能并排查看所有可选项，选项数量在2~7之间时，建议使用单选按钮。",
+      "basicDemo": {
+        "title": "互相独立的单选项"
+      },
+      "conditionChangeDemo": {
+        "title": "radio根据条件终止切换操作",
+        "description": "根据条件判断，第二项禁止跳转。"
+      },
+      "conditionRadioGroupDemo": {
+        "title": "radio-group根据条件终止切换操作",
+        "description": "根据条件判断，第二个radio-group禁止跳转。"
+      },
+      "disabledDemo": {
+        "title": "禁用"
+      },
+      "horizontalDemo": {
+        "title": "横向排列"
+      },
+      "verticalDemo": {
+        "title": "竖向排列"
+      },
+      "customDemo": {
+        "title": "自定义单选项",
+        "description": "数组源可为普通数组、对象数组等。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "互相独立的单选项",
+        "condition-change": "条件切换",
+        "condition-radio-group": "radio-group条件切换",
+        "disabled": "禁用",
+        "horizontal": "横向排列",
+        "vertical": "竖向排列",
+        "custom": "自定义单选项"
+      }
+    },
+    "rate": {
+      "name": "Rate 等级评估",
+      "type": "数据展示",
+      "path": "rate",
+      "description": "等级评估。",
+      "tmw": "用户对一个产品进行评分时可以使用。",
+      "basicDemo": {
+        "title": "动态模式",
+        "currentStar": "当前有2颗星"
+      },
+      "onlyReadDemo": {
+        "title": "只读模式"
+      },
+      "customizeDemo": {
+        "title": "动态模式-自定义"
+      },
+      "halfDemo": {
+        "title": "半选模式"
+      },
+      "clearDemo": {
+        "title": "清空模式"
+      },
+      "typeDemo": {
+        "title": "设置颜色"
+      },
+      "templateDemo": {
+        "title": "自定义模板"
+      },
+      "anchorLinkValues": {
+        "read-only-mode": "只读模式",
+        "dynamic-mode": "动态模式",
+        "dynamic-mode-Custom": "动态模式-自定义",
+        "half-demo": "半选模式",
+        "clear-demo": "清空模式",
+        "using-the-type-parameter": "设置颜色",
+        "template": "自定义模板"
+      }
+    },
+    "search": {
+      "name": "Search 搜索框",
+      "type": "通用",
+      "path": "search",
+      "description": "搜索框。",
+      "tmw": "当用户需要在数据集中搜索所需数据时，输入所需数据的内容（或部分内容），返回所有匹配内容的搜索结果。",
+      "basicDemo": {
+        "title": "基本用法",
+        "small": "小尺寸",
+        "middle": "标准尺寸",
+        "large": "大尺寸",
+        "disable": "禁用",
+        "searchLeft": "搜索图标左置",
+        "autoFoucs": "自动对焦",
+        "insertKey": "请输入关键字"
+      },
+      "leftIconDemo": {
+        "title": "搜索图标左置"
+      },
+      "ngModelDemo": {
+        "title": "双向绑定"
+      },
+      "autoFocusDemo": {
+        "title": "自动对焦"
+      },
+      "no-borderDemo": {
+        "title": "无边框"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "bidirectional-binding": "双向绑定",
+        "icon-left": "搜索图标左置",
+        "auto-focus": "自动对焦",
+        "search-no-border": "无边框"
+      }
+    },
+    "select": {
+      "name": "Select 下拉选择框",
+      "type": "数据录入",
+      "path": "select",
+      "description": "下拉选择框。",
+      "tmw": "用户可以从多个选项中选择一项或几项；仅支持用户在下拉选项中选择和搜索系统提供的选项，不支持输入。",
+      "SelectBasicDemo": {
+        "title": "基本用法",
+        "description": "通过options配置数据源  通过 overview、size 配置样式 通过 direction 配置展开方向。",
+        "Large size": "大尺寸",
+        "Standard Size": "标准尺寸",
+        "Small size": "小尺寸",
+        "Option": "选项",
+        "New Option": "新增选项",
+        "Asynchronous option 1": "异步选项1"
+      },
+      "CustomSearchDemo": {
+        "title": "自定义搜索功能",
+        "description": "通过isSearch、searchFn开启搜索功能并自定搜索方法，searchPlaceholder定义搜索框显示文字 通过 multiple 启用多选功能。",
+        "Single-choice custom search method": "单选自定搜索方法",
+        "Search My Options": "搜索我的选项",
+        "Multi-choice self-defined search method": "多选自定搜索方法",
+        "Select at least three options.": "请至少选择三个选项",
+        "Option": "选项"
+      },
+      "SelectAllDemo": {
+        "title": "全选下拉选项",
+        "description": "多选下拉中通过isSelectAll启用全选功能。",
+        "Current Select": "Current Select",
+        "Option": "选项"
+      },
+      "SelectTemplateDemo": {
+        "title": "自定义模板",
+        "description": "通过模板配置下拉选项和已选项。",
+        "Single choice": "单选",
+        "Use templates only for lists": "只在列表使用模板",
+        "Use the same template in the list and selected items": "在列表和选中项使用相同模板",
+        "Use different templates in lists and selected items": "在列表和选中项使用不同模板",
+        "Multiple Choices": "多选",
+        "Use different templates for the list and selected items. Use built-in templates in some cases.": "在列表和选中项使用不同模板，某些情况下使用内置模板"
+      },
+      "AllowClearValueDemo": {
+        "title": "允许清空值",
+        "description": "通过修改ngModel变量清空选中值",
+        "test": "选项"
+      },
+      "CustomAreaDemo": {
+        "title": "自定义区域",
+        "description": "使用customViewTemplate定义自定义区域。",
+        "Custom Area": "自定义区域",
+        "Selected xx items": "已选xx项",
+        "Option": "选项"
+      },
+      "CustomAreaDirectionDemo": {
+        "title": "自定义区域方向和选中",
+        "description": "",
+        "Customizing Area Orientation and Selecting": "自定义区域方向和选中",
+        "Customize the region and change the width alignment by appendToBody.": "自定义区域和通过appendToBody改变宽度对齐",
+        "Recent Selections": "最近选择",
+        "Option": "选项"
+      },
+      "AppendToBodyDemo": {
+        "title": "附着到Body上",
+        "description": "使用appendToBody使得附着到body上，不被带滚动条的容器遮挡。",
+        "Select from the drop-down list box": "下拉选择",
+        "Option": "选项"
+      },
+      "DisabledDemo": {
+        "title": "禁用",
+        "description": "通过disabled禁用下拉，通过选项对象的$disabled禁用选项，通过选项对象的$immutable禁止修改选项。",
+        "Disable All": "全部禁用",
+        "Disable an item": "禁用某一项",
+        "Disable an item, Tags cannot be operated independently. You can select or deselect all tags.": "禁用某一项,标签不可单独操作，全选仍可以选中和取消",
+        "Disable an item, Use immutable to disable changes. Select all and deselect all.": "禁用某一项,使用immutable禁止变更，全选不可选中和取消",
+        " The immutable parameter cannot be changed and is not displayed as disabled. To disable the immutable parameter, use the disabled parameter.": "immutable只控制不能变更，不会显示为禁用状态，禁用状态请使用disabled。",
+        "Option": "选项"
+      },
+      "LabelizationDemo": {
+        "title": "标签化",
+        "description": "通过extraConfig.labelization配置标签化：1.enable为true时启用，已选项显示为可删除的标签 2.overflow配置超长的样式，具体参考api。",
+        "Extra-long line feed": "超长换行",
+        "Change default": "改变默认值",
+        "Current Select": "当前选中",
+        "Overlong single line, vertical scroll bar": "超长单行、出现竖向滚动条",
+        "Maximum width of a tag in an ultra-long row.": "超长单行，配置标签的最大宽度",
+        "This is an extra long option.": "这是一个超长的选项",
+        "Option": "选项"
+      },
+      "ObjectFilterDemo": {
+        "title": "使用对象",
+        "description": "使用对象数组，通过filterKey配置对象显示字段。",
+        "Current Select": "CurrentSelect",
+        "Option": "选项",
+        "Search": "Search"
+      },
+      "LazyLoadVirtualScrollDemo": {
+        "title": "虚拟滚动或懒加载",
+        "description": "使用virtualScroll在大数据量下用虚拟滚动；使用 enableLazyLoad 在大数据量下用懒加载。",
+        "Virtual scrolling": "虚拟滚动",
+        "Scroll to the bottom lazy loading data": "滚动到底部懒加载数据",
+        "Scroll to the bottom to lazy load data using a custom loading template": "滚动到底部使用自定义loading模板懒加载数据",
+        "Option": "选项",
+        "Asynchronous Options": "异步选项",
+        "Test": "Test"
+      },
+      "LoadingDemo": {
+        "title": "异步加载显示加载中",
+        "description": "",
+        "Lazy loading: Change the options mode.": "懒加载：改变options方式",
+        "Lazy loading: The searchFn mode is used.": "懒加载：使用searchFn方式",
+        "Option": "选项"
+      },
+      "UserLimitSelectedNumberDemo": {
+        "title": "用户场景：限制选中个数",
+        "description": "",
+        "maxselectnumber:2,disabled:1": "maxselectnumber:2,disabled:1",
+        "Option": "选项"
+      },
+      "MultiKeepOrderDemo": {
+        "title": "设置已选项顺序源数组顺序或选中顺序",
+        "description": "通过keepMultipleOrder配置多选的时候已选项维持原数组顺序：'origin'源数组排序,'user-select'用户选择顺序排序。",
+        "Current Selec": "Current Select",
+        "Option": "选项"
+      },
+      "UserSearchNLazyLoadDemo": {
+        "title": "用户场景：自定义搜索的懒加载",
+        "description": "",
+        "Search and lazy loading are used together.": "搜索和懒加载同时使用",
+        "Current Select": "Current Select",
+        "This is a longer option for testing.": "这是一个用来测试的比较长的选项",
+        "Option": "选项",
+        "New Option": "新增选项"
+      },
+      "UserMailSearchDemo": {
+        "title": "用户场景：自定义搜索和模板结合邮箱搜索",
+        "description": "",
+        "Search by name or email address": "搜索支持名字和邮箱搜索",
+        "Name:": "名称：",
+        "E-mail address:": "邮箱：",
+        "Option": "选项"
+      },
+      "ModelValueDemo": {
+        "title": "ngModel值处理",
+        "description": "",
+        "Current Select": "CurrentSelect",
+        "Option": "选项"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "object-filter": "使用对象",
+        "custom-search": "自定义搜索功能",
+        "select-all": "全选下拉选项",
+        "select-template": "自定义模板",
+        "labelization": "标签化",
+        "disabled": "禁用",
+        "allow-clear-value": "允许清空值",
+        "append-to-body": "附着到Body上",
+        "lazy-load-virtual-scroll": "虚拟滚动 或 懒加载",
+        "async-loading": "异步加载显示加载中",
+        "custom-area": "自定义区域",
+        "custom-area-direction": "自定义区域方向和选中",
+        "multi-keep-order": "设置已选项顺序源数组顺序或选中顺序",
+        "user-limit-selected-number": "用户场景：限制选中个数",
+        "user-search-n-lazyload": "用户场景：自定义搜索的懒加载",
+        "user-mail-search": "用户场景：自定义搜索和模板结合 —— 邮箱搜索",
+        "model-value": "ngModel值处理"
+      },
+      "design": {
+        "structure": {
+          "name": "结构",
+          "basic": {
+            "name": "基础选择",
+            "img": "assets/design/select/structure.png",
+            "descList": [
+              {
+                "title": "标签：",
+                "content": "默认状态：按需显示，内容标题，告知用户当前下拉选择的内容。"
+              },
+              {
+                "title": "触发器：",
+                "content": "整个框的区域都可点击触发：点击触发展开选项列表，三角形朝上；再次点击收起选项列表，三角线朝下。"
+              },
+              {
+                "title": "内容录入区：",
+                "content": "默认状态：显示占位文字，格式为“请选择“（具体文案不做规定）;显示已选结果时：单选项若文案过长显示不下，则显示'...'"
+              },
+              {
+                "title": "选项列表区：",
+                "content": "展开选择列表; 列表内容可分组。"
+              }
+            ]
+          },
+          "muti": {
+            "name": "多项选择",
+            "img": "assets/design/select/structure2.png",
+            "descList": [
+              {
+                "title": "已选标签：",
+                "content": "不限制特定字符长度，无论所选选项字符数量多少，均保持右侧距选项清除图标安全距离4px。超出可显示数量；也可设置自适应拓展内容录入区高度。"
+              },
+              {
+                "title": "清空：",
+                "content": "当已有选项，鼠标移到输入框中时，点击则可删除全部已选选项。可按需选择是否使用。"
+              },
+              {
+                "title": "滚动条：",
+                "content": "内容录入区：当选项数量展示超出三行时，显示竖向滚动条，滚动条最低高度32px；选项列表区：当选项数量超出当前高度时，允许显示竖向滚动条，滚动条最低高度80px。"
+              },
+              {
+                "title": "复选框：",
+                "content": "当选项被选中后，会按照列表排列顺序依次展现在上方选择框中；当全选状态下时，选框只单独显示“全选”选项。"
+              },
+              {
+                "title": "选项文字：",
+                "content": "选项字体默认使用常规体积；“全选”选项字体均使用中黑体。"
+              },
+              {
+                "title": "已选选项：",
+                "content": "不限制特定字符长度，字符右侧距离背景已选选框安全距离16px。"
+              },
+              {
+                "title": "选项背景：",
+                "content": "选项背景整体宽度和高度由业务根据具体场景自行确定，若不定义，高度默认支持显示到12项，超出则显示滚动条；默认与下拉框宽度保持一致，可选择比下拉宽更框，但不可更窄，背景距离滚动条保持左侧安全距离4px，选项选中背景右侧距滚动条保持安全距离8px。"
+              }
+            ]
+          }
+        },
+        "how-to-use": {
+          "name": "如何使用",
+          "descList": [
+            "适用于用户可以快速做出选择的场景；",
+            "常规下拉菜可根据业务具体场景自行调整高度或宽度，若不定义，高度默认支持显示到12项，超出则右侧显示滚动条下拉，若下拉框存在多级，取最大级的宽度做为宽度标准。"
+          ]
+        },
+        "selectList": [
+          {
+            "name": "基础选择",
+            "desc": "",
+            "image": "assets/design/select/basic.png"
+          },
+          {
+            "name": "多级菜单",
+            "desc": "下拉框存在多级状态下，取最大级的宽度做为宽度标准，当选择完成后，单选下拉框内可同时展示父级/子级内容，选项层级建议不超过 3 层。",
+            "image": "assets/design/select/muti.png"
+          },
+          {
+            "name": "选择即改变",
+            "desc": "选框内实时更新已选选项",
+            "image": "assets/design/select/change.png"
+          },
+          {
+            "name": "带标题下拉",
+            "desc": "当选择操作完成后，单选下拉框内仅单独展示所选选项文字内容（标题不做同步展示）",
+            "image": "assets/design/select/title.png"
+          },
+          {
+            "name": "带图标下拉",
+            "desc": "当选择操作完成后，常规状态下，下拉框内选项文案及所搭配图标同步展示；多级状态下，只展示子级文案及所搭配图标",
+            "image": "assets/design/select/icon.png"
+          },
+          {
+            "name": "多项选择",
+            "desc": "以Tag形式展示已选择项；点击标签后的“x”号则移除该标签。触发器后面的“x”号则清除全部选项。  ",
+            "image": "assets/design/select/options.png",
+            "image2": "assets/design/select/options2.png"
+          },
+          {
+            "name": "可输入搜索",
+            "desc": "当选项超过25个时，建议开启可输入搜索功能，帮助用户快速找到指定相关内容。",
+            "image": "assets/design/select/input.png"
+          }
+        ]
+      }
+    },
+    "cascader": {
+      "name": "Cascader 级联菜单",
+      "type": "演进中",
+      "path": "cascader",
+      "description": "下拉级联菜单。",
+      "tmw": "<div>1. 需要从一组相关联的数据集合进行选择，例如省市区，公司层级，事物分类等。</div> <div>2. 从一个较大的数据集合中进行选择时，用多级分类进行分隔，方便选择。</div>",
+      "basicDemo": {
+        "hoverMode": "hover展开模式",
+        "select": "请选择",
+        "clickMode": "click展开模式",
+        "empty": "数据为空",
+        "title": "基本用法",
+        "disableMode": "禁用模式"
+      },
+      "lazyloadDemo": {
+        "loadChildren": "点击加载子菜单",
+        "title": "点击加载子菜单",
+        "select": "请选择"
+      },
+      "multipleDemo": {
+        "title": "多选模式",
+        "multiple": "多选模式",
+        "select": "请选择"
+      },
+      "parentSelectDemo": {
+        "title": "父级可选择",
+        "description": "该模式下可点击选择非叶子节点，在多选模式下，可以通过checkboxRelation选择checkbox的父子状态联动方式。",
+        "single": "单选",
+        "dependence": "多选父子独立",
+        "select": "请选择",
+        "relationDownward": "多选向子项关联",
+        "relationUpward": "多选向父项关联"
+      },
+      "searchDemo": {
+        "title": "搜索模式",
+        "singleSearch": "单选搜索",
+        "multipleSearch": "多选搜索",
+        "select": "请选择"
+      },
+      "templateDemo": {
+        "title": "模板类型",
+        "templateMode": "模板类型",
+        "select": "请选择",
+        "custom": "自定义"
+      },
+      "header-templateDemo": {
+        "title": "下拉头模板"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "multiple-cascader": "多选类型",
+        "search-cascader": "搜索类型",
+        "parent-cascader": "父级可选",
+        "template-cascader": "模板类型",
+        "lazyload-cascader": "点击加载",
+        "cascader-header-template": "下拉头模板"
+      }
+    },
+    "status": {
+      "name": "Status 状态",
+      "type": "通用",
+      "path": "status",
+      "description": "传达交互结果的组件。",
+      "tmw": "表示一个任务的执行结果时使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "Succeeded": "成功",
+        "erroneous": "错误",
+        "warnings": "警告",
+        "Initialize": "初始化",
+        "Waiting": "等待",
+        "running": "运行",
+        "Invalid": "无效"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法"
+      }
+    },
+    "sticky": {
+      "name": "Sticky 便贴",
+      "type": "通用",
+      "path": "sticky",
+      "description": "便签组件。",
+      "tmw": "当用户在滚动屏幕时，需要某个区域内容在段落或者浏览器可视区域可见时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "Global Text": "全局文本，需要更改容器为滚动条所在容器。出现后，可以一直贴着屏幕顶部。",
+        "Global Button": "全局按钮",
+        "base-info": "基本信息",
+        "issue-list": "需求列表",
+        "case-list": "用例列表",
+        "quarlity-result": "质量评估",
+        "The basic information is displayed.": "这里显示基本信息。",
+        "The requirement list is displayed.": "这里显示需求列表。",
+        "The test case list is displayed.": "这里显示用例列表。",
+        "The quality assessment is displayed here.": "这里显示质量评估。",
+        "Tips": "小贴士",
+        "page-roll": "滚动页面的时候，sticky会随着滚动。",
+        "para-roll": "段落滚动到的时候，sticky会跟着被托走。",
+        "view": "view可以调整视窗的顶部和底部，比如顶部被固定导航块覆盖时候，应将top的值置为导航的高度。",
+        "container": "container可以切换判断滚动状态的容器。"
+      },
+      "scrollTargetDemo": {
+        "title": "更换滚动容器",
+        "description": "可以通过设置scrollTarget来更改滚动容器。",
+        "Global Text": "全局文本，需要更改容器为滚动条所在容器。出现后，可以一直贴着屏幕顶部。",
+        "Global Button": "全局按钮",
+        "base-info": "基本信息",
+        "issue-list": "需求列表",
+        "case-list": "用例列表",
+        "quarlity-result": "质量评估",
+        "The basic information is displayed.": "这里显示基本信息。",
+        "The requirement list is displayed.": "这里显示需求列表。",
+        "The test case list is displayed.": "这里显示用例列表。",
+        "The quality assessment is displayed here.": "这里显示质量评估。",
+        "Tips": "小贴士",
+        "page-roll": "滚动页面的时候，sticky会随着滚动。",
+        "para-roll": "段落滚动到的时候，sticky会跟着被托走。",
+        "view": "view可以调整视窗的顶部和底部，比如顶部被固定导航块覆盖时候，应将top的值置为导航的高度。",
+        "container": "container可以切换判断滚动状态的容器。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "scroll-target": "更换滚动容器"
+      }
+    },
+    "nav-sprite": {
+      "name": "NavSprite 导航精灵",
+      "type": "导航",
+      "path": "nav-sprite",
+      "description": "导航精灵组件",
+      "tmw": "针对某块阅读区域生成阅读目录，提高阅读效率。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": ""
+      },
+      "spriteDemo": {
+        "title": "精灵用法",
+        "description": ""
+      },
+      "scrollDemo": {
+        "title": "指定容器用法",
+        "description": "指定容器用法"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "sprite-usage": "精灵用法",
+        "scroll-usage": "指定容器用法"
+      }
+    },
+    "tabs": {
+      "name": "Tabs 页签",
+      "type": "导航",
+      "path": "tabs",
+      "description": "页签组件。",
+      "tmw": "用户需要通过平级的区域将大块内容进行收纳和展现，保持界面整洁。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": ""
+      },
+      "withoutContentDemo": {
+        "title": "禁用页签",
+        "description": "",
+        "activeID:": "activeID:"
+      },
+      "customDemo": {
+        "title": "自定义模板",
+        "description": ""
+      },
+      "typePillsDemo": {
+        "title": "Pills类型",
+        "description": ""
+      },
+      "typeOptionsDemo": {
+        "title": "Options类型",
+        "description": ""
+      },
+      "typeSliderDemo": {
+        "title": "Slider类型",
+        "description": ""
+      },
+      "typeWrappedDemo": {
+        "title": "Wrapped类型",
+        "description": ""
+      },
+      "sizeDemo": {
+        "title": "页签尺寸",
+        "description": "页签有4种大小，可以根据业务场景选择合适大小的尺寸。"
+      },
+      "beforeChangeDemo": {
+        "title": "拦截tab切换",
+        "description": "使用beforeChange拦截页签切换。"
+      },
+      "addDeleteDemo": {
+        "title": "添加 / 删除",
+        "description": "添加和删除页签。"
+      },
+      "bigDataDemo": {
+        "title": "大数据展示",
+        "description": "可选择直接开启和自动判断两种模式"
+      },
+      "configurableTabsDemo": {
+        "title": "自定义Tabs显示与排列",
+        "description": "通过引入transfer组件，实现tabs的自定义显示。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "no-set-content": "禁用页签",
+        "custom-template": "自定义模板",
+        "type-pills": "Pills类型",
+        "type-options": "Options类型",
+        "type-slider": "Slider类型",
+        "type-wrapped": "Wrapped类型",
+        "size": "页签尺寸",
+        "intercept-tab-switch": "拦截tab切换",
+        "add-delete": "添加 / 删除",
+        "big-data": "大数据展示",
+        "custom-tabs-display-and-arrangement": "自定义Tabs显示与排列"
+      }
+    },
+    "tags": {
+      "name": "Tags 标签",
+      "type": "数据展示",
+      "path": "tags",
+      "description": "标签展示组件。",
+      "tmw": "用户需要展示多个标签时。",
+      "customDemo": {
+        "title": "单个标签",
+        "description": "通过labelStyle属性定义标签样式。"
+      },
+      "basicDemo": {
+        "title": "标签组",
+        "description": "标签组可传入字符串数组或对象数组，在对象数组中，可通过displayProperty，titleProperty设置标签显示值和title显示值，通过labelStyle设置标签样式。"
+      },
+      "hideDemo": {
+        "title": "多标签超出隐藏",
+        "description": "当标签组总宽度超过定宽宽度且hideBeyondTags为true时隐藏多余标签，点击+x后弹窗显示剩余标签"
+      },
+      "anchorLinkValues": {
+        "single-tag": "单个标签",
+        "tags-group": "标签组",
+        "hide-tags": "多标签超出隐藏"
+      }
+    },
+    "tags-input": {
+      "name": "TagsInput 标签输入",
+      "type": "数据录入",
+      "path": "tags-input",
+      "description": "输入标签组件。",
+      "tmw": "当用户需要输入多个标签时。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "asyncDemo": {
+        "title": "异步数据源"
+      },
+      "customizeDemo": {
+        "title": "自定义",
+        "description": "标签中包含 'item' 才能输入"
+      },
+      "virtualScrollDemo": {
+        "title": "虚拟滚动"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "customize": "自定义",
+        "async-input": "异步数据源",
+        "virtual-scroll": "虚拟滚动"
+      }
+    },
+    "time-axis": {
+      "name": "Time Axis 时间轴",
+      "type": "数据展示",
+      "path": "time-axis",
+      "description": "时间轴展示组件。",
+      "tmw": "当需要向用户展示时间进度和每个时间点的事件状态时。",
+      "allStatesDemo": {
+        "timeLeft": "时间点在左侧",
+        "timeBottom": "时间点在底部",
+        "title": "设置时间位置",
+        "description": "仅当direction 为 vertical 时定义时间参数位置。"
+      },
+      "directionDemo": {
+        "title": "设置方向",
+        "description": "通过 direction 配置时间线排列方向。"
+      },
+      "alternativeModeDemo": {
+        "title": "时间节点内容方向自定义",
+        "description": "时间节点内容方向自定义。"
+      },
+      "seperateWayDemo": {
+        "title": "时间节点单独使用",
+        "description": "支持每个时间节点独自定义。"
+      },
+      "templateDemo": {
+        "description": "描述。",
+        "title": "内容使用模板自定义"
+      },
+      "htmlContentDemo": {
+        "title": "内容使用html"
+      },
+      "customDotDemo": {
+        "title": "时间点自定义"
+      },
+      "singleDemo": {
+        "title": "单边模式",
+        "description": "通过设置mode为 top|bottom|left|right 将时间轴设置为指定位置展示内容的单边模式"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "设置时间位置",
+        "direction": "设置方向",
+        "custom-dot": "时间点自定义",
+        "content-with-html": "内容使用html",
+        "content-with-template": "内容使用模板自定义",
+        "content-with-alternative-mode": "时间节点内容方向自定义",
+        "seperate-way": "时间节点单独使用",
+        "single": "单边模式"
+      }
+    },
+    "toast": {
+      "name": "Toast 全局通知",
+      "type": "反馈",
+      "path": "toast",
+      "description": "全局信息提示组件。",
+      "tmw": "当需要向用户全局展示提示信息时使用，显示数秒后消失。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "common时不展示图标。"
+      },
+      "styleDemo": {
+        "title": "自定义样式"
+      },
+      "lifeDemo": {
+        "title": "超时时间",
+        "description": "当设置超时时间、没有标题时，则不展示标题和关闭按钮。"
+      },
+      "singleDemo": {
+        "title": "每个消息使用单独的超时时间",
+        "description": "当设置超时时间模式为single时，每个消息使用自身的life作为超时时间，如果未设置则按severity判断，severity也未设置时默认超时时间为5000毫秒。"
+      },
+      "appendDemo": {
+        "title": "追加显示",
+        "description": "在指定数量范围内追加显示新消息，而不是清空原有消息，需注意新消息插入后会重置已有消息的持续时间"
+      },
+      "serviceDemo": {
+        "title": "服务方式调用",
+        "description": "使用服务的方式创建toast全局通知。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "life": "超时时间",
+        "style": "自定义样式",
+        "toast-service": "服务方式调用",
+        "single": "每个消息使用单独的超时时间",
+        "append": "追加显示"
+      }
+    },
+    "tooltip": {
+      "name": "Tooltip 提示",
+      "type": "反馈",
+      "path": "tooltip",
+      "description": "文字提示组件。",
+      "tmw": "用户鼠标移动到文字上，需要进一步的提示时使用。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "delayDemo": {
+        "title": "延时触发",
+        "description": "鼠标移入的时长超过 [mouseEnterDelay] 毫秒之后才会触发，以防止用户无意划过导致的闪现，默认值是150毫秒；鼠标移出之后，再经过[mouseLeaveDelay]毫秒后，toolTip组件才会隐藏，默认值是100毫秒。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "delay-trigger": "延时触发"
+      }
+    },
+    "read-tip": {
+      "name": "ReadTip 阅读提示",
+      "type": "反馈",
+      "path": "read-tip",
+      "description": "阅读提示组件。",
+      "tmw": "当html文档中需要对特定内容进行提示时使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "通过设置selector选择需要显示readtip的元素，传入title和content设置显示的内容。"
+      },
+      "multiDemo": {
+        "title": "包括多个提示的readtip",
+        "description": "传入多个rule，设置不同元素的readtip显示模式。"
+      },
+      "templateDemo": {
+        "title": "传入模板显示内容",
+        "description": "可以通过传入template自定义需要显示的内容，传入template时不必再传入title和content。"
+      },
+      "asyncDemo": {
+        "title": "异步获取数据"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "multi-usage": "包括多个提示的readtip",
+        "template-usage": "传入模板显示内容",
+        "async-usage": "异步获取数据"
+      }
+    },
+    "mention": {
+      "name": "Mention 提及",
+      "type": "反馈",
+      "path": "mention",
+      "description": "提及组件。",
+      "tmw": "用于在输入中提及某人或某事，常用于发布、聊天或评论功能。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "关联给定信息列表里面的某条信息。"
+      },
+      "asyncDemo": {
+        "title": "异步用法",
+        "description": "关联异步数据。"
+      },
+      "prefixDemo": {
+        "title": "自定义前缀",
+        "description": "自定义一个或多个前缀。"
+      },
+      "customDemo": {
+        "title": "自定义模板",
+        "description": "自定义列表单条展示模板。"
+      },
+      "toggleDemo": {
+        "title": "是否使用间隔符",
+        "description": "为避免与其他内容混淆，前缀符 + 关键字前后有间隔符才能分别触发和结束组件，默认间隔符为半角空格。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "async-usage": "异步用法",
+        "custom-prefix": "自定义前缀",
+        "custom-template": "自定义模板",
+        "use-separator": "是否使用间隔符"
+      }
+    },
+    "toggle": {
+      "name": "Toggle 开关",
+      "type": "数据录入",
+      "path": "toggle",
+      "description": "开/关切换组件。",
+      "tmw": "当两种状态需要来回切换控制时，比如启用/禁用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "basic": "基本样式",
+        "disable": "禁用状态",
+        "large": "自定义样式(大尺寸)",
+        "sure": "确定",
+        "cancel": "取消"
+      },
+      "twoBindingDemo": {
+        "title": "双向绑定"
+      },
+      "callbackDemo": {
+        "title": "回调事件"
+      },
+      "customDemo": {
+        "title": "自定义样式"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "two-binding": "双向绑定",
+        "callback": "回调事件",
+        "custom": "自定义样式"
+      }
+    },
+    "tree": {
+      "name": "Tree 树",
+      "type": "数据展示",
+      "path": "tree",
+      "description": "一种表现嵌套结构的组件。",
+      "tmw": "文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "渲染一棵基本树。",
+        "Parent node": "父节点",
+        "unfold": "展开",
+        "Leaf node": "叶子节点",
+        "No child node": "没有子节点",
+        "Dynamic loading": "动态加载",
+        "folding": "折叠"
+      },
+      "checkControlDemo": {
+        "title": "可勾选树",
+        "description": "通过OperableTree的 checkableRelation 控制check时父子节点的表现。",
+        "Parent node": "父节点",
+        "unfold": "展开",
+        "Leaf node": "叶子节点",
+        "No child node": "没有子节点",
+        "Dynamic loading": "动态加载",
+        "folding": "折叠"
+      },
+      "treeFactoryDemo": {
+        "title": "常用treeFactory函数",
+        "description": ""
+      },
+      "customKeyDemo": {
+        "title": "自定义键值名",
+        "description": "自定义树节点显示的键值名",
+        "Subnode": "子节点",
+        "Parent node": "父节点"
+      },
+      "customLoadingDemo": {
+        "title": "节点懒加载",
+        "Leaf node": "叶子节点",
+        "No child node": "没有子节点",
+        "Dynamic loading": "动态加载",
+        "Parent node": "父节点",
+        "unfold": "展开",
+        "folding": "折叠"
+      },
+      "customizeDemo": {
+        "title": "自定义图标",
+        "description": "自定义操作按钮图标、节点图标。",
+        "Parent node": "父节点",
+        "Subnode": "子节点",
+        "Status": "状态"
+      },
+      "draggableDemo": {
+        "title": "可拖拽树",
+        "description": "通过OperableTree的 draggable 属性配置节点的拖拽功能，并支持外部元素拖拽入树。",
+        "Parent node": "父节点",
+        "Subnode": "子节点",
+        "external dragable element": "外部可拖动元素"
+      },
+      "mergeNodeDemo": {
+        "title": "合并节点",
+        "description": "当节点下只有一个子节点时，合并该节点。",
+        "Parent node": "父节点",
+        "Leaf node": "叶子节点"
+      },
+      "operateBtnDemo": {
+        "title": "操作按钮",
+        "description": "可定义外部操作按钮、虚浮按钮。",
+        "Parent node": "父节点",
+        "Subnode": "子节点"
+      },
+      "searchFilterDemo": {
+        "title": "搜索过滤",
+        "description": "通过treeFactory中的searchTree方法可以搜索节点或者过滤节点。",
+        "Parent node": "父节点",
+        "Subnode": "子节点"
+      },
+      "virtualScrollDemo": {
+        "title": "大数据量下的可操作树",
+        "description": "使用虚拟滚动处理大数据量的加载问题，同时处理大数据量操作耗时长卡顿的问题。",
+        "Parent node": "父节点",
+        "Try dynamic lazy loading": "试试动态懒加载",
+        "Subnode": "子节点",
+        "Parent node with 1000 child nodes": "拥有1000子节点的父节点",
+        "Node loading": "节点加载",
+        "Subnode loading": "子节点加载",
+        "I'm an extra data ID.": "我是额外数据id",
+        "I'm an extra data name.": "我是额外的数据名称",
+        "New node": "新节点",
+        "Add a node.": "新增一个节点",
+        "Leaf node": "叶子节点",
+        "unfold": "展开"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "merge-node": "合并节点",
+        "lazy-loading": "节点懒加载",
+        "check-control-tree": "可勾选树",
+        "custom-key": "自定义键值名",
+        "operation-button": "操作按钮",
+        "search-filtering": "搜索过滤",
+        "custom-icon": "自定义图标",
+        "drag-and-drop-tree": "可拖拽树",
+        "tree-factory": "常用treeFactory函数",
+        "virtual-scroll": "大数据量可操作树"
+      }
+    },
+    "typography": {
+      "name": "Typography 文字排版",
+      "type": "演进中",
+      "path": "typography",
+      "description": "文字排版。",
+      "tmw": "当需要对标题、段落、帮助文字进行排版时。",
+      "titleDemo": {
+        "title": "标题用法",
+        "description": "通过d-title标签定义标题样式。"
+      },
+      "textDemo": {
+        "title": "文本用法",
+        "description": "通过d-text标签定义文本样式。"
+      },
+      "customizeDemo": {
+        "title": "自定义用法",
+        "description": "自定义编辑时的显示模板。"
+      },
+      "editableDemo": {
+        "title": "可编辑用法",
+        "description": "可自定义初始模板、编辑模板，也可设置内容字符串、内容投影等形式。支持直接点击编辑和操作图标按钮编辑、复制等。"
+      },
+      "textOverflowDemo": {
+        "title": "文本溢出缩略",
+        "description": "支持单行和多行场景，优先使用样式方式处理。",
+        "singleLineContent": "DevUI组件库源自于华为内部大量业务的多年沉淀，支持灵活配置的组件才能满足不同诉求。",
+        "multiRowContent": "DevUI是面向企业中后台产品的开源前端解决方案，其设计价值观基于\"至简\"、\"沉浸\"、\"灵活\"三种自然与人文相结合的理念，旨在为设计师、前端开发者提供标准的设计体系，并满足各类落地场景，是一款企业级开箱即用的产品。",
+        "singleLineTitle": "使用样式处理单行文本",
+        "multiRowIsWebkitTitle": "如果浏览器支持webkit使用样式处理多行文本",
+        "multiRowNotWebkitTitle": "使用计算方式处理多行文本",
+        "multiRowExpandTitle": "设置展开收起显示多行文本"
+      },
+      "adaptiveInputDemo": {
+        "title": "自适应内容输入框",
+        "description": "编辑时将单行input扩展为textarea，结束后恢复。使用户在使用单行input时更方便的输入和阅读大量文本内容。"
+      },
+      "anchorLinkValues": {
+        "title-usage": "标题用法",
+        "text-usage": "文本用法",
+        "editable-usage": "可编辑用法",
+        "text-overflow": "文本溢出缩略",
+        "adaptive-input": "自适应内容输入框"
+      }
+    },
+    "upload": {
+      "name": "Upload 上传",
+      "type": "数据录入",
+      "path": "upload",
+      "description": "文件上传组件。",
+      "tmw": "当需要将文件上传到后端服务器时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "单文件上传、拖动文件上传、ngModel双向绑定、禁止上传。",
+        "singleText": "单文件",
+        "clickToUpload": "点击上传",
+        "dragable": "单文件支持拖动上传",
+        "dragToUpload": "请拖动文件上传",
+        "auto": "自动上传",
+        "disabled": "禁止上传"
+      },
+      "multiDemo": {
+        "title": "多文件上传",
+        "description": "多文件上传，支持拖动文件上传、禁止上传。",
+        "multiText": "多文件上传",
+        "dragable": "多文件支持拖动上传",
+        "multiList": "多文件列表展示",
+        "disabled": "多文件上传禁止"
+      },
+      "autoDemo": {
+        "title": "自动上传",
+        "description": "通过autoUpload设置自动上传。"
+      },
+      "customizeDemo": {
+        "title": "自定义",
+        "description": "自定义上传按钮，通过preloadFilesRef设置已选择文件列表模板，通过uploadedFilesRef设置已上传文件列表模版。"
+      },
+      "dynamicDemo": {
+        "title": "动态上传参数",
+        "description": "用户可通过beforeUpload动态修改上传参数。",
+        "text": "上传前动态修改上传参数"
+      },
+      "areaDemo": {
+        "title": "任意区域上传",
+        "description": "用户可通过dUpload指令支持文件任意区域上传。"
+      },
+      "sliceDemo": {
+        "title": "分片上传",
+        "description": "用户可通过设置分片上传的大小进行分片上传。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "multi-files": "多文件上传",
+        "auto-upload": "自动上传",
+        "custom": "自定义",
+        "dynamic-upload-options": "动态上传参数",
+        "customize-area-upload": "任意区域上传",
+        "upload-slice": "分片上传"
+      }
+    },
+    "user-guide": {
+      "name": "UserGuide 用户指引",
+      "type": "导航",
+      "path": "user-guide",
+      "description": "可远程编排步骤的用户指南，支持编排多套指南，除基本的视觉指引提示外还可与用户进行交互。",
+      "basicDemo": {
+        "title": "组件方式",
+        "description": "在需要使用的页面引入该组件，页面左下角会显示用户指引悬浮入口，点击后选取想要体验的教程即可开始指引。"
+      },
+      "serviceWayDemo": {
+        "title": "服务方式",
+        "description": "以服务方式使用user-guide。将接口暴露给用户，开启某套教程的入口方式用户可自定义。此方式需要在使用user-guide的component中引入UserGuideService。"
+      },
+      "anchorLinkValues": {
+        "user-guide-basic": "组件方式",
+        "user-guide-service-way": "服务方式"
+      }
+    },
+    "input-number": {
+      "name": "InputNumber 数字输入框",
+      "type": "数据录入",
+      "path": "input-number",
+      "description": "数字输入框组件。",
+      "tmw": "当需要获取标准数值时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "传入size可定制大小。"
+      },
+      "disabledDemo": {
+        "title": "禁止输入态",
+        "description": "当 disabled 为 true 的时候是禁止用户输入的状态。"
+      },
+      "emptyDemo": {
+        "title": "允许空值",
+        "description": "当 allowEmpty 为 true 的时候允许输入框的值为空，空值返回为 null ，传入数据可以为 undefined 或 null。"
+      },
+      "placeholderAndMaxLengthDemo": {
+        "title": "设置placeholder和最大长度",
+        "description": "可传入placeholder提示，也可以使用maxLength限制最大输入长度。"
+      },
+      "regDemo": {
+        "title": "正则限制",
+        "description": "允许传入正则或正则字符串限制输入，输入时会优先匹配传入的正则，不输入则不限制。"
+      },
+      "decimalLimitDemo": {
+        "title": "限制小数",
+        "Limit Decimal": "限制小数"
+      },
+      "anchorLinkValues": {
+        "number-basic": "基本用法",
+        "number-disabled": "禁止输入态",
+        "number-empty": "允许空值",
+        "number-placeholder-maxlength": "设置placeholder和最大长度",
+        "number-reg": "正则限制",
+        "decimal-limit": "限制小数"
+      }
+    },
+    "tree-select": {
+      "name": "TreeSelect 树形选择框",
+      "type": "数据录入",
+      "path": "tree-select",
+      "description": "树形选择框。",
+      "tmw": "文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "",
+        "Standard: Single Select": "Standard:SingleSelect",
+        "Standard: Multiple Select": "Standard:MultipleSelect",
+        "Custom Width: Single Select": "CustomWidth:SingleSelect",
+        "Disabled: Single Select": "Disabled:SingleSelect"
+      },
+      "labelizationDemo": {
+        "title": "标签化配置",
+        "description": "",
+        "Standard: Single Select": "Standard:SingleSelect",
+        "Standard: Multiple Select": "Standard:MultipleSelect",
+        "AllowClear:SingleSelect(allowUnselectparametermustbetrueandenablelabelizationDemomustbefalse, whichisthedefaultvalue)": "AllowClear:SingleSelect(allowUnselectparametermustbetrueandenablelabelizationDemomustbefalse,whichisthedefaultvalue)",
+        "Standard: Multiple Select(Disabled)": "Standard:MultipleSelect(Disabled)"
+      },
+      "leafOnlyDemo": {
+        "title": "仅叶节点可选",
+        "description": "",
+        "Leaf Only: Single Select": "LeafOnly:SingleSelect",
+        "Leaf Only: Multiple Select": "LeafOnly:MultipleSelect"
+      },
+      "hooksDemo": {
+        "title": "初始化完成时调用的钩子",
+        "description": "",
+        "Open on init: Single Select": "Open on init: Single Select"
+      },
+      "searchableDemo": {
+        "title": "可简易搜索树",
+        "description": "",
+        "Standard: Single Select": "Standard: Single Select",
+        "Standard: Multiple Select": "Standard: Multiple Select"
+      },
+      "appendToDemo": {
+        "title": "Append To Element 能力",
+        "description": "",
+        "Standard: Single Select Append To Body": "Standard: Single Select Append To Body",
+        "Standard: Multiple Select Append To Body": "Standard: Multiple Select Append To Body",
+        "Custom Width: Single Select Append To Body": "Custom Width: Single Select Append To Body",
+        "click me!": "clickme!"
+      },
+      "customIconDemo": {
+        "title": "自定义列表选项的 icon 及已选中选项",
+        "description": "",
+        "Standard: iconTemplatePosition": "Standard: iconTemplatePosition",
+        "Standard: iconTemplateInput": "Standard: itemTemplateInput + iconTemplateInput"
+      },
+      "keysDemo": {
+        "title": "自定义key",
+        "description": "",
+        "Standard: treeNodeIdKey": "Standard: treeNodeIdKey",
+        "Standard: treeNodeChildrenKey": "Standard: treeNodeChildrenKey",
+        "Standard: treeNodeTitleKey": "Standard: treeNodeTitleKey"
+      },
+      "customTemplateDemo": {
+        "title": "自定义区域",
+        "description": "使用customViewTemplate定义自定义区域,customViewDirection自定义方向，在自定义区域使用let-selectComponent的值。"
+      },
+      "iconParentDemo": {
+        "title": "自定义节点展开关闭图标",
+        "description": "",
+        "Standard: iconParent": "Standard: iconParent"
+      },
+      "virtualScrollDemo": {
+        "title": "虚拟滚动"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "labelization": "标签化配置",
+        "leaf-only": "仅叶节点可选",
+        "init-hooks": "初始化完成时调用的钩子",
+        "simple-search": "可简易搜索树",
+        "append-to-element": "Append To Element 能力",
+        "custom-icon": "自定义列表选项的 icon 及已选中选项",
+        "keys": "自定义key",
+        "custom-template": "自定义区域",
+        "icon-parent": "展开关闭icon",
+        "virtual-scroll": "虚拟滚动"
+      }
+    },
+    "slider": {
+      "name": "Slider 滑动输入条",
+      "type": "数据录入",
+      "path": "slider",
+      "description": "滑动输入条。",
+      "tmw": "当用户需要在数值区间内进行选择时使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "ngModel": "双向绑定",
+        "stepLimit": "限制步长"
+      },
+      "disabledDemo": {
+        "title": "禁止输入态",
+        "description": "当 disabled 为 true 的时候是禁止用户输入的状态。"
+      },
+      "customDemo": {
+        "title": "异定制Popover的显示内容",
+        "description": "通过 tipsRenderer 参数传入函数定制Popover内的显示内容。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "slider-disabled": "禁止输入态",
+        "slider-formatter": "异定制Popover的显示内容"
+      }
+    },
+    "splitter": {
+      "name": "Splitter 分割器",
+      "type": "布局",
+      "path": "splitter",
+      "description": "页面分割器。",
+      "tmw": "需要动态调整不同页面布局区域大小的时候选择使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "leftPane": "左侧面板",
+        "leftPaneContent": "左侧内容区域，宽度30%, 最小宽度20%",
+        "rightPane": "右侧面板",
+        "rightPaneContent": "右侧内容区域"
+      },
+      "verticalDemo": {
+        "title": "垂直布局用法",
+        "topPane": "上面板",
+        "topPaneContent": "高度200px",
+        "midPane": "中间面板",
+        "midPaneContent": "高度自适应",
+        "bottomPane": "下面板",
+        "bottomPaneContent": "高度100px, 不可调节"
+      },
+      "combineDemo": {
+        "title": "组合布局用法",
+        "leftPane": "左侧面板",
+        "leftPaneContent": "左侧内容区域，宽度30%, 最小宽度20%",
+        "topPane": "顶部面板",
+        "topPaneContent": "高度50%",
+        "bottomPane": "底部面板",
+        "bottomPaneContent": "高度自适应",
+        "bottomPane2": "底部面板",
+        "bottomPaneContent2": "高度自适应"
+      },
+      "directionDemo": {
+        "title": "指定折叠收起方向",
+        "leftPane": "左侧面板",
+        "leftPaneContent": "左侧内容区域，宽度30%, 最小宽度20%",
+        "midPane": "中间面板",
+        "midPaneContent": "中间内容区域, 指定折叠收起方向为向前收起",
+        "rightPane": "右侧面板",
+        "rightPaneContent": "右侧内容区域"
+      },
+      "shrinkDemo": {
+        "title": "折叠收缩显示菜单",
+        "rightPane": "右侧面板",
+        "rightPaneContent": "右侧内容区域",
+        "content1": "内容一",
+        "childContent1": "子内容1",
+        "childContent2": "子内容2",
+        "childContent3": "子内容3",
+        "content2": "内容二",
+        "content3": "内容三",
+        "content4": "内容四",
+        "content5": "内容五"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "vertical-layout": "垂直布局用法",
+        "combine-layout": "组合布局用法",
+        "certain-unfold-direction": "指定折叠收起方向",
+        "shrink-show-menu": "折叠收缩显示菜单"
+      }
+    },
+    "layout": {
+      "name": "Layout 布局",
+      "type": "布局",
+      "path": "layout",
+      "description": "页面的布局方式，包含响应式栅格、Flex、间距、响应式Class、响应式Style、典型布局容器等。",
+      "tmw": "当用户需要使用Flex布局、间距设置、响应式布局、典型布局等时。",
+      "basicDemo": {
+        "title": "栅格基本用法",
+        "description": "响应式断点分别对应（px）：ss > 0, ms >= 360, mm >= 768, ml >= 1024, xs >= 1280, sm >= 1440, md >= 1600, lg >= 1760, xl >= 1920，合并设置时，使用 ss 断点即代表通用设置。"
+      },
+      "gutterDemo": {
+        "title": "栅格间距（Gutter）",
+        "description": "通过栅格内区块Padding方式实现间隔。"
+      },
+      "spaceDemo": {
+        "title": "栅格间距（Space）",
+        "description": "通过栅格内区块Margin方式实现间隔。"
+      },
+      "offsetDemo": {
+        "title": "左右偏移"
+      },
+      "alignJustifyDemo": {
+        "title": "对齐"
+      },
+      "orderDemo": {
+        "title": "排序",
+        "description": "Order: 0, 1, 2, ..., 24."
+      },
+      "flexDemo": {
+        "title": "Flex使用",
+        "description": "[dFlex]是通用的，你可以在其他地方同样使用。"
+      },
+      "spaceGutterDemo": {
+        "title": "间距（通用）",
+        "description": "[dGutter]与[dSpace]是通用的，你可以在其他地方同样使用。"
+      },
+      "classDemo": {
+        "title": "响应式Class",
+        "description": "响应式Class设置支持，可合并多个断点范围内设置的Class。"
+      },
+      "styleDemo": {
+        "title": "响应式Style",
+        "description": "响应式Style设置支持，可合并多个断点范围内设置的Style。"
+      },
+      "layoutContainerDemo": {
+        "title": "布局容器"
+      },
+      "layoutContainerDemo1": {
+        "title": "布局容器场景1",
+        "description": "常用上中下布局。"
+      },
+      "layoutContainerDemo2": {
+        "title": "布局容器场景2",
+        "description": "常用上中下布局及侧边栏布局。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "栅格基本用法",
+        "gutter": "栅格间距（Gutter）",
+        "space": "栅格间距（Space）",
+        "offset": "左右偏移",
+        "align-justify": "对齐",
+        "order": "排序",
+        "flex": "Flex使用",
+        "space-gutter": "间距（通用）",
+        "class": "响应式Class",
+        "style": "响应式Style",
+        "layout-container": "布局容器",
+        "layout-container-scenario1": "布局容器场景1",
+        "layout-container-scenario2": "布局容器场景2"
+      }
+    },
+    "gantt": {
+      "name": "Gantt 甘特图",
+      "type": "演进中",
+      "path": "gantt",
+      "description": "甘特图。",
+      "tmw": "当用户需要通过条状图来显示项目，进度和其他时间相关的系统进展的内在关系随着时间进展的情况时。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description1": "d-gantt-scale（时间轴）容器作为时间轴标线的定位父级元素，须设置position或者是table、td、th、body元素。",
+        "description2": "d-gantt-scale（时间轴）容器和d-gantt-bar（时间条）容器宽度须通过GanttService提供的方法根据起止时间计算后设置，初始化之后还须订阅ganttScaleConfigChange动态设置。",
+        "description3": "时间条move、resize事件会改变该时间条起止时间和时间轴的起止时间，订阅时间条resize、move事件和ganttScaleConfigChange来记录变化。",
+        "description4": "响应时间条move、resize事件调整最外层容器的滚动以获得更好的体验。"
+      },
+      "withDataDemo": {
+        "title": "与datatable组件结合的甘特图"
+      },
+      "anchorLinkValues": {
+        "gantt-basic": "基本用法",
+        "gantt-in-datatable": "与datatable组件结合的甘特图"
+      }
+    },
+    "text-input": {
+      "name": "Text-input 文本框",
+      "type": "数据录入",
+      "path": "text-input",
+      "description": "文本输入框。",
+      "tmw": "需要手动输入文字使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "placeholder": "请输入内容"
+      },
+      "sizeDemo": {
+        "title": "尺寸"
+      },
+      "passwordVisibleDemo": {
+        "title": "密码框"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "size": "尺寸",
+        "password-input": "密码框"
+      },
+      "design": {
+        "structure": {
+          "name": "结构",
+          "desc": "不同类型的输入框，其结构也有所不同，具体如下所示：",
+          "image": "assets/design/text-input/structure.png",
+          "descList": [
+            {
+              "title": "标签：",
+              "content": "默认状态：按需显示，内容标题，告知用户当前输入的内容。"
+            },
+            {
+              "title": "输入框：",
+              "content": "默认状态：圆角，4px；承载用户的具体输入。"
+            },
+            {
+              "title": "占位符：",
+              "content": "默认状态：按需显示，内容提示说明;可利用占位符告知用户填写格式，或邀请用户进行输入。"
+            },
+            {
+              "title": "前置标签：",
+              "content": "默认状态：按需显示，前置标签名或图标; 告知用户输入文本的类型。"
+            },
+            {
+              "title": "后置标签：",
+              "content": "默认状态：按需显示，后置标签名或图标; 一般为单位，和前置的类型相关联。"
+            },
+            {
+              "title": "类型：",
+              "content": "默认状态：按需显示，类型名称; 用户可选择输入内容的类型。"
+            },
+            {
+              "title": "分隔符：",
+              "content": "默认状态：圆点，4px; 固定符号，不需要用户输入。"
+            },
+            {
+              "title": "可见/隐藏图标：",
+              "content": "默认状态：图标，默认为不可见图标; 可以切换密码可见性，每次点击均切换是否可见性。"
+            },
+            {
+              "title": "字数提示：",
+              "content": "字数提示：默认状态：分数形式，默认分子为0，分母按需显示; 对输入的内容进行字数统计，一般用于有字数限制的输入框内。"
+            },
+            {
+              "title": "连接符：",
+              "content": "默认状态：横线，默认分子为0，分母按需显示; 连接前后两个输入框，视情况而定，可有可无。"
+            }
+          ]
+        },
+        "how-to-use": {
+          "name": "如何使用",
+          "layout": {
+            "name": "布局",
+            "layoutList": [
+              {
+                "image": "assets/design/text-input/layout1.png",
+                "desc": "推荐",
+                "descList": [
+                  "1、更好的阅读路径 ",
+                  "2、更好的标题字长兼容性",
+                  "3、更整齐的排版",
+                  "4、更好的拓展挂件兼容性"
+                ]
+              },
+              {
+                "image": "assets/design/text-input/layout2.png",
+                "desc": "慎用",
+                "descList": [
+                  "仅在空间有限的可折叠区域使用左右排版，比如高级搜索组件中"
+                ]
+              }
+            ]
+          },
+          "when-to-use": {
+            "name": "何时使用",
+            "desc1": "当需要用户输入文本内容时，可带前缀或后缀。",
+            "desc2": "可与其它组件组合使用，如组合成一个分类输入框，还可以进行大小选择。"
+          },
+          "sceneName": "场景",
+          "sceneList": [
+            {
+              "name": "基本用法",
+              "desc": "最基础的单行文本输入框，按状态可分为正常、禁用、错误等。通常在需要输入少量内容的场景下使用。",
+              "image": "assets/design/text-input/basic.png"
+            },
+            {
+              "name": "前、后预置文本输入框",
+              "desc": "在输入框前后加入一些特定的纯展示标签或图标，通常在需要提高辨识效率时使用，且前后置标签或图标不允许编辑和删除。",
+              "image": "assets/design/text-input/input.png"
+            },
+            {
+              "name": "分类输入框",
+              "desc": "当用户需要输入的表单域内容有多种类型时，应该使用分类输入文本框，先通过下拉菜单选择类型，根据不同类型输入不同的内容。",
+              "image": "assets/design/text-input/classify.png"
+            },
+            {
+              "name": "IP输入框",
+              "desc": "当用户需要分区输入表单域内容时，应该使用分区输入框，用户可以自定义分隔符，比如设置为“·”、“-”、“｜”或“/”等符号。例如输入IP地址，IPv4共32位，用“·”分为4段，每段地址的取值范围位0-255，如不在该区域内不允许上屏，直接强转为最大值。",
+              "image": "assets/design/button/structure.png",
+              "desc2": "例如：IPv6共128位，用“：”分成8段，每段地址的取值范围为0000-ffff。IPv6地址不区分大小写，如果有一组或连续几组都是0，可简写成“::”，只能有一个“::”。",
+              "image2": "assets/design/text-input/ip.png"
+            },
+            {
+              "name": "密码输入框",
+              "desc": "当需要输入密码等账号信息时，用“·”来显示密码，并可通过显示/隐藏图标来控制密码可见性。用于强安全信息输入的场景。",
+              "image": "assets/design/text-input/password.png"
+            },
+            {
+              "name": "组合输入框",
+              "desc": "多个输入框相组合，或与其他控件（如下拉）组合，可通过“-”连接，也可不通过任何符号连接。用于一些固定组合或者固定格式输入的场景，以方便识别，如输入电话号码。",
+              "image": "assets/design/text-input/combine.png"
+            },
+            {
+              "name": "字数限制",
+              "descList": [
+                "设置输入框最大输入字数，在最右侧显示字数统计，多用于有字数限制的场景，如名称；超过最大字数时会展示错误状态；如果右侧配置了字数统计，那么输入框则不可再配置其他类型内容。",
+                "一个中文汉字表示两个字符长度，一个英文字符或数字表示一个字符长度。"
+              ],
+              "image": "assets/design/text-input/limited.png"
+            },
+            {
+              "name": "可清空内容输入框",
+              "desc": "带清空操作的输入框，当用户需要清空输入框里的内容时，点击图标可快捷清空输入的所有内容。",
+              "image": "assets/design/text-input/clear.png"
+            },
+            {
+              "name": "辅助信息",
+              "descList": [
+                "当使用占位符文本不能满足合理地提示用户要求，或者在用户输入时需要强调一些关键信息时，可以使用辅助信息。",
+                "辅助信息区分两种形式：图标Tips 和 帮助文本。对于需要在用户填写时特别强调的，建议使用帮助文本显示在文本框下方；其他情况建议图标Tips的方式，以免给用户带来过大的信息负荷。",
+                "文本框下方的帮助文本和图标Tips只能选其一，不可同时出现在同一个输入框文本上。"
+              ],
+              "image": "assets/design/text-input/support.png"
+            }
+          ],
+          "status": {
+            "name": "状态及校验",
+            "desc": "输入框状态可分为：正常、禁用、异常（带文本提示）、Toast提示。",
+            "image": "assets/design/text-input/status.png"
+          },
+          "size": {
+            "name": "大小",
+            "desc": "有28px、32px、40px三种大小三种不同高度的输入框，以适应不同尺寸布局，通常情况下为32*32px；",
+            "image": "assets/design/text-input/size.png"
+          },
+          "rules": {
+            "name": "交互规则",
+            "desc": "文本输入框使用户可以与之交互并输入内容和数据，是表单中的常用控件。",
+            "sub-name": "单击（Click）",
+            "sub-desc": "文本输入框类组件可用时，激活文本框，光标出现，输入内容后，光标在内容之后。获取焦点后，水印文字不消失，输入字符才消失。",
+            "image": "assets/design/text-input/rules.png"
+          }
+        }
+      }
+    },
+    "textarea": {
+      "name": "Textarea 多行文本框",
+      "type": "数据录入",
+      "path": "textarea",
+      "description": "文本输入区域。",
+      "tmw": "需要手动输入文字，并且文字内容较多时使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "placeholder": "请输入内容"
+      },
+      "resizeDemo": {
+        "title": "调整大小",
+        "placeholder": "请输入内容"
+      },
+      "countDemo": {
+        "title": "监听输入及最大字数"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "resize": "调整大小",
+        "count": "监听输入及最大字数"
+      }
+    },
+    "steps-guide": {
+      "name": "StepsGuide 操作指引",
+      "type": "导航",
+      "path": "steps-guide",
+      "description": "引导用户了解业务使用逻辑组件。",
+      "tmw": "业务推出新特性，或复杂的业务逻辑需要指引用户时使用。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": "设定一组操作指引信息顺序显示。",
+        "Current Step": "当前步骤",
+        "Operation Output": "操作输出"
+      },
+      "positionDemo": {
+        "title": "弹出位置",
+        "description": "总共支持 8 个弹出位置。"
+      },
+      "customDemo": {
+        "title": "自定义",
+        "description": "自定义操作指引信息弹出的位置和元素。"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "position": "弹出位置",
+        "custom": "自定义"
+      }
+    },
+    "polyfill": {
+      "name": "Polyfills 腻子脚本",
+      "type": "扩展服务",
+      "path": "polyfill",
+      "description": "用于实现一些低版本浏览器（主要是IE）不支持的API。",
+      "tmw": "需要解决低版本浏览器不支持的方法时。",
+      "basicDemo": {
+        "title": "使用方法",
+        "description": "目前由于实现方法较少，且主要供富文本组件使用，因此当前腻子脚本文件存放于富文本模块下。 可以在 src/polyfills.ts 中插入：import 'ng-devui/add-ons/editorx/polyfill'; 由于腻子脚本只是一段独立执行的js代码，也可以直接用静态资源的方式插入页面来使用。",
+        "name": "腻子脚本",
+        "license": "授权方式",
+        "size": "大小",
+        "browser": "浏览器",
+        "des": "描述",
+        "remove": "把对象从它所属的 DOM 树中删除",
+        "matches": "判断是否匹配指定选择器字符串，各低版本浏览器分别实现了带有自身前缀的MatchesSelector方法，比如 msMatchesSelector",
+        "closest": "匹配特定选择器且离当前元素最近的祖先元素（也可以是当前元素本身）",
+        "event": "在 DOM 中出现的事件",
+        "forEach": "顺序遍历节点的集合的方法"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "使用方法"
+      }
+    },
+    "time-picker": {
+      "name": "TimePicker 时间选择器",
+      "type": "演进中",
+      "path": "time-picker",
+      "description": "输入或选择时间的控件。",
+      "tmw": "当用户需要输入一个时间，可以点击标准输入框，弹出面板进行选择。",
+      "basicDemo": {
+        "basic": "基本用法",
+        "defaultValue": "设置初始赋值，默认打开",
+        "setDisable": "设置disabled",
+        "title": "基本用法"
+      },
+      "customDemo": {
+        "template": "传入模板",
+        "chooseNow": "选择现在",
+        "chooseTime": "选择22点",
+        "title": "传入模板"
+      },
+      "formatDemo": {
+        "setting": "设置format、最大值和最小值",
+        "title": "格式化、最大值和最小值"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "format": "格式化",
+        "custom": "传入模板"
+      }
+    },
+    "number-trans": {
+      "name": "NumberTranslate 数字格式转换器",
+      "type": "数据展示",
+      "path": "number-trans",
+      "description": "数字格式转换",
+      "tmw": "需要对数字进行格式转换时使用",
+      "basicDemo": {
+        "beforeTrans": "转换前",
+        "afterTrans": "转换后",
+        "title": "转换示例"
+      }
+    },
+    "relative-time": {
+      "name": "RelativeTime 人性化时间转换",
+      "type": "数据展示",
+      "path": "relative-time",
+      "description": "相对时间。",
+      "tmw": "需要通过当前时间来显示相对时间时使用。",
+      "basicDemo": {
+        "beforeTrans": "转换前",
+        "afterTrans": "转换后",
+        "title": "转换示例",
+        "description": "引入RelativeTimeModule，使用dRelativeTime管道转换日期。"
+      },
+      "customDemo": {
+        "title": "自定义比较时间示例",
+        "description": "不与当前时间作比较，自定义比较时间,如下与'2015-5-20 12:00:00'时间作比较。"
+      }
+    },
+    "category-search": {
+      "name": "CategorySearch 分类搜索",
+      "type": "数据录入",
+      "path": "category-search",
+      "description": "按类型搜索组件",
+      "tmw": "需要结合单选，多选，日期选择，树形选择等多种类型辅助用户简单而精确的筛选所需数据。",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": ""
+      },
+      "customDemo": {
+        "title": "自定义展示模板",
+        "description": "自定义分类下拉展示模板"
+      },
+      "extendDemo": {
+        "title": "自定义扩展按钮",
+        "description": "通过输入添加选项并禁用扩展按钮，使用自定义扩展按钮重置选项"
+      },
+      "autoScrollDemo": {
+        "title": "大数据量优化展示",
+        "description": ""
+      },
+      "anchorLinkValues": {
+        "basicDemo": "基本用法",
+        "customDemo": "自定义展示模板",
+        "extendDemo": "自定义扩展按钮",
+        "autoScrollDemo": "大数据量优化展示"
+      }
+    },
+    "datepicker-pro": {
+      "name": "DatepickerPro 日期选择",
+      "type": "演进中",
+      "path": "datepicker-pro",
+      "description": "输入或选择日期的组件。",
+      "tmw": "当用户需要输入一个日期时；需要点击标准输入框，弹出日期面板进行选择时。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "markedTypeDemo": {
+        "title": "日期标记"
+      },
+      "showTimeDemo": {
+        "title": "显示时间"
+      },
+      "templateDemo": {
+        "title": "自定义扩展区域"
+      },
+      "monthYearDemo": {
+        "title": "年月选择器"
+      },
+      "rangePickerDemo": {
+        "title": "范围选择器"
+      },
+      "hostTemplateDemo": {
+        "title": "自定义宿主"
+      },
+      "rangeTemplateDemo": {
+        "title": "范围模式的模板使用"
+      },
+      "static-panelDemo": {
+        "title": "日历面板模式",
+        "ensure": "确认"
+      },
+      "select-type": {
+        "title": "业务场景：select类型日期选择器",
+        "changeStart": "切换起始"
+      },
+      "tab-typeDemo": {
+        "title": "业务场景：tab切换多种选择类型",
+        "ensure": "确认"
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "mark-type": "日期标记",
+        "show-time": "显示时间",
+        "template": "自定义扩展区域",
+        "monthYear": "年月选择器",
+        "rangePicker": "范围选择器",
+        "host-template": "自定义宿主",
+        "rangeTemplate": "范围模式的模板使用",
+        "datepicker-pro-static-panel": "日历面板模式",
+        "select-type": "业务场景：select类型日期选择器",
+        "tab-typeDemo": "业务场景：tab切换多种选择类型"
+      }
+    },
+    "trend": {
+      "name": "Trend 趋势",
+      "type": "数据录入",
+      "path": "trend",
+      "description": "带趋势的数字展示",
+      "tmw": "展示单个数据及其趋势。",
+      "basicDemo": {
+        "title": "基本用法"
+      },
+      "trend-icon-template": {
+        "title": "自定义趋势图标"
+      },
+      "showTrendDemo": {
+        "title": "控制趋势显示"
+      },
+      "trendPositionDemo": {
+        "title": "趋势显示位置"
+      },
+      "customTrendStyleDemo": {
+        "title": "自定义趋势数字样式"
+      },
+      "withSubtextDemo": {
+        "title": "趋势带辅助文本",
+        "description": "如果实际使用需要带百分号，分数如 95%, 222/250 时可以自定义样式"
+      },
+      "anchorLinkValues": {
+        "basicDemo": "基本用法",
+        "trend-icon-template": "自定义趋势图标",
+        "show-trend-usage": "控制趋势显示",
+        "trend-position-usage": "趋势显示位置",
+        "custom-trend-style-usage": "自定义趋势数字样式",
+        "with-subtext-usage": "趋势带辅助文本"
+      }
+    },
+    "line-chart": {
+      "name": "Line Chart 折线图",
+      "type": "模板图表",
+      "path": "line-chart",
+      "description": "基本数据的折线图",
+      "tmw": "展示基本的数据线性变化",
+      "line-chartDemo": {
+        "title": "基础折线图"
+      },
+      "threshold-chartDemo": {
+        "title": "阈值线模板"
+      },
+      "compare-chartDemo": {
+        "title": "对比模板"
+      },
+      "anchorLinkValues": {
+        "echarts-temp-line-chart": "基础折线图",
+        "threshold-temp-line-chart": "阈值线模板"
+      }
+    },
+    "hex-bin-chart": {
+      "name": "Hex Bin Chart 分箱图",
+      "type": "模板图表",
+      "path": "hex-bin-chart",
+      "description": "离散的数据对比",
+      "tmw": "展示离散数据的数据对比",
+      "auto-chartDemo": {
+        "title": "自动布局分箱图"
+      },
+      "anchorLinkValues": {
+        "auto-chartDemo": "自动布局分箱图"
+      }
+    },
+    "map-chart": {
+      "name": "Map Chart 地图",
+      "type": "模板图表",
+      "path": "map-chart",
+      "description": "地区数据展示",
+      "tmw": "展示基本的数据线性变化",
+      "china-province": {
+        "title": "省级数据中国地图"
+      },
+      "china-city-province": {
+        "title": "市级数据中国地图"
+      },
+      "anchorLinkValues": {
+        "china-province": "省级数据中国地图",
+        "china-city-province": "市级数据中国地图"
+      }
+    },
+    "bar-chart": {
+      "name": "Bar Chart 柱状图",
+      "type": "模板图表",
+      "path": "bar-chart",
+      "description": "基本数据的折线图",
+      "tmw": "展示基本的数据线性变化",
+      "echarts-bar-chart": {
+        "title": "基础柱状图"
+      },
+      "echarts-bar-stacked": {
+        "title": "堆积柱状图"
+      },
+      "echarts-bar-two": {
+        "title": "双向柱状图"
+      },
+      "echarts-bar-line": {
+        "title": "折线柱模板"
+      },
+      "echarts-bar-horizontal": {
+        "title": "横向柱状图模板"
+      },
+      "anchorLinkValues": {
+        "echarts-bar-chart": "基础柱状图",
+        "echarts-bar-stacked": "堆积柱状图",
+        "echarts-bar-two": "双向柱状图",
+        "echarts-bar-line": "折线柱模板",
+        "echarts-bar-horizontal": "横向柱状图模板"
+      }
+    },
+    "radar-chart": {
+      "name": "Radar Chart 雷达图",
+      "type": "模板图表",
+      "path": "radar-chart",
+      "description": "雷达图",
+      "tmw": "展示关联数据的占比对比",
+      "radar-chartDemo": {
+        "title": "雷达图"
+      },
+      "anchorLinkValues": {
+        "radar-chartDemo": "基础雷达图"
+      }
+    },
+    "scatter-chart": {
+      "name": "Scatter Chart 散点图",
+      "type": "模板图表",
+      "path": "scatter-chart",
+      "description": "散点图",
+      "tmw": "展示坐标系中的离散数据",
+      "basic-scatter-chartDemo": {
+        "title": "基础散点图"
+      },
+      "anchorLinkValues": {
+        "basic-scatter-chartDemo": "散点图"
+      }
+    },
+    "pie-chart": {
+      "name": "Pie Chart 饼图",
+      "type": "模板图表",
+      "path": "pie-chart",
+      "description": "饼图",
+      "tmw": "展示坐标系中的百分占比数据",
+      "basic-pie-chartDemo": {
+        "title": "基础饼图"
+      },
+      "rose-pie-chartDemo": {
+        "title": "玫瑰饼图"
+      },
+      "anchorLinkValues": {
+        "basic-pie-chartDemo": "饼图",
+        "rose-pie-chartDemo": "玫瑰饼图"
+      }
+    },
+    "chart-card": {
+      "name": "Chart Card 图表卡片",
+      "type": "模板图表",
+      "path": "chart-card",
+      "description": "图表卡片",
+      "tmw": "用固定布局的卡片展示图表",
+      "basic-card": {
+        "title": "基础卡片"
+      },
+      "anchorLinkValues": {
+        "basic-card": "基础卡片"
+      }
+    },
+    "funnel-chart": {
+      "name": "Funnel Chart 漏斗图",
+      "type": "模板图表",
+      "path": "funnel-chart",
+      "description": "漏斗图",
+      "tmw": "用漏斗图展示排序关系的数据",
+      "basic-chart": {
+        "title": "漏斗图"
+      },
+      "anchorLinkValues": {
+        "basic-chart": "基础漏斗图"
+      }
+    },
+    "chart-marker": {
+      "name": "Chart Marker 图表标记器",
+      "type": "模板图表",
+      "path": "chart-marker",
+      "description": "图表标记器",
+      "tmw": "用于对二维坐标系进行标记及信息记录",
+      "basic-marker": {
+        "title": "图表标记器"
+      }
+    },
+    "chart-toolbox": {
+      "name": "Chart Toolbox 图表工具栏",
+      "type": "模板图表",
+      "path": "chart-toolbox",
+      "description": "图表工具栏",
+      "tmw": "提供一些图表交互工具",
+      "basic-marker": {
+        "title": "图表工具栏"
+      }
+    },
+    "echart-temp-basic": {
+      "shared-card": "分享卡片",
+      "shared-link-image": "分享链接或者图片",
+      "download-image": "下载Chart图片"
+    },
+    "chart-form": {
+      "name": "Chart Form 图表配置表单生成器",
+      "type": "模板图表",
+      "path": "chart-form",
+      "description": "图表配置表单生成器",
+      "tmw": "快速生成图表的配置表单",
+      "basic-form": {
+        "title": "图表配置表单生成器"
+      }
+    },
+    "action-steps": {
+      "name": "步骤编排",
+      "type": "演进中",
+      "path": "action-steps",
+      "description": "步骤编排",
+      "tmw": "步骤编排",
+      "basicDemo": {
+        "title": "基本用法",
+        "description": ""
+      },
+      "typeDemo": {
+        "title": "状态与类型",
+        "description": ""
+      },
+      "customDemo": {
+        "title": "自定义配置",
+        "description": ""
+      },
+      "anchorLinkValues": {
+        "basic-usage": "基本用法",
+        "type-usage": "状态与类型",
+        "custom-usage": "自定义配置"
+      }
+    },
+    "config-provider": {
+      "name": "自定义Config容器",
+      "type": "演进中",
+      "path": "config-provider",
+      "description": "自定义Config容器，可使用容器进行局部主题化等配置。",
+      "tmw": "需要自定义局部容器配置项时。",
+      "themeDemo": {
+        "title": "局部主题化",
+        "description": "使用themeId（已初始化）或直接使用theme自定义配置局部主题。"
+      },
+      "anchorLinkValues": {
+        "custom-theme": "局部主题化"
+      }
+    }
+  },
+  "footer": {
+    "desc": "找到我们",
+    "github": "Github",
+    "team": "DevUI团队",
+    "design": "DevUI Design",
+    "group": "官方交流群",
+    "tabDesign": "设计"
+  }
+}

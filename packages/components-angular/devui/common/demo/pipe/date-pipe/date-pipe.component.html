@@ -1,0 +1,39 @@
+<pre>
+    Year:
+    date(y/MM/dd) {{ date | dDatePipe: 'y/MM/dd' }}
+    date(yy/MM/dd) {{ date | dDatePipe: 'yy/MM/dd' }}
+    date(yyyy/MM/dd) {{ date | dDatePipe: 'yyyy/MM/dd' }}
+
+    Month:
+    date(y/M/dd) {{ date | dDatePipe: 'y/M/dd' }}
+    date(y/MM/dd) {{ date | dDatePipe: 'y/MM/dd' }}
+    date(MMM dd, y) {{ date | dDatePipe: 'MMM dd, y' }}
+    date(MMMM dd, y) {{ date | dDatePipe: 'MMMM dd, y' }}
+
+    Week in A Year: 
+    date(y w) {{ date | dDatePipe: 'y w' }}
+    
+    Day in A Month:
+    date(y/M/d) {{ date1 | dDatePipe: 'y/M/d' }}
+    date(y/MM/dd) {{ date1 | dDatePipe: 'y/M/dd' }}
+
+    Day in A Week:
+    date(y/M/d E) {{ date1 | dDatePipe: 'y/M/d E' }}
+    date(y/M/d EEEE) {{ date1 | dDatePipe: 'y/M/d EEEE' }}
+    date(y/M/d EEEEE) {{ date1 | dDatePipe: 'y/M/d EEEEE' }}
+
+    Week in A Month:
+    date(y/M/d W) {{ date1 | dDatePipe: 'y/M/d W' }}
+
+    Time: 
+    date(y/M/d a) {{ date1 | dDatePipe: 'y/M/d a' }}
+
+    Hour, Miniute, Second:
+    date(y/M/d hh:mm:ss) {{ date | dDatePipe: 'y/M/d hh:mm:ss' }}
+
+    Hour: 
+    date(y/M/d HH:mm:ss) {{ date | dDatePipe: 'y/M/d HH:mm:ss' }}
+
+    Time Zone: 
+    date(y/M/d HH:mm:ss zzzz) {{ date | dDatePipe: 'y/M/d HH:mm:ss zzzz' }}
+</pre>

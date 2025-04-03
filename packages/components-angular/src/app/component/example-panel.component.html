@@ -1,0 +1,71 @@
+<div class="devui-content-container">
+  <h1>
+    <span>{{ componentName }}</span>
+  </h1>
+
+  <div class="devui-docs-header">
+    <div class="devui-docs-header-description">{{ description }}</div>
+  </div>
+
+  <div class="devui-tabs-containter">
+    <div class="devui-banner-container">
+      <img [src]="imgPrefix + 'banner/' + curComponentData.banner + '.png'" />
+    </div>
+    <div class="devui-component-icon">
+      <img [src]="imgPrefix + curComponentData.folderName + '/' + curComponentData.lowerName + '.png'" (error)="imgError($event)" />
+    </div>
+  </div>
+
+  <div class="examples-viewer">
+    <div class="examples-viewer-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div class="devui-docs-footer">
+    <div>
+      <div class="devui-docs-footer-title">{{ footer.desc }}</div>
+      <div class="devui-docs-footer-content">
+        <div class="content-foot">
+          <a rel="noopener noreferrer" href="https://gitcode.com/DevCloudFE" target="_blank" class="devui-docs-footer-link">
+            <img width="16" height="16" [src]="imgPrefix + 'footer/gitcode.svg'" />
+            <span>GitCode</span>
+          </a>
+        </div>
+        <div class="content-foot">
+          <a rel="noopener noreferrer" href="https://github.com/DevCloudFE/ng-devui" target="_blank" class="devui-docs-footer-link">
+            <img [src]="imgPrefix + 'footer/github.svg'" />
+            <span>{{ footer.github }}</span>
+          </a>
+        </div>
+
+        <div class="content-foot">
+          <a rel="noopener noreferrer" href="https://juejin.cn/user/712139267650141" target="_blank" class="devui-docs-footer-link">
+            <img [src]="imgPrefix + 'footer/juejin.svg'" />
+            <span>{{ footer.team }}</span>
+          </a>
+        </div>
+
+        <div class="content-foot">
+          <a rel="noopener noreferrer" href="https://zhuanlan.zhihu.com/devui" target="_blank" class="devui-docs-footer-link">
+            <img [src]="imgPrefix + 'footer/zhihu.svg'" />
+            <span>{{ footer.design }}</span></a
+          >
+        </div>
+
+        <div class="content-foot" style="position: relative">
+          <a class="wechat-info">
+            <img [src]="imgPrefix + 'footer/wechat.svg'" />
+            <span>{{ footer.group }}</span>
+            <img class="wechat-img" [src]="imgPrefix + 'footer/wechat.jpg'" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="devui-docs-footer-desc">
+      <img [src]="imgPrefix + 'footer/logo.svg'" alt="" />
+      <span>粤A2-20044005号</span>
+    </div>
+  </div>
+</div>

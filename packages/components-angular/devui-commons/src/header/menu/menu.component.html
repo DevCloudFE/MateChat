@@ -1,0 +1,18 @@
+<div class="header-menu-container"  *ngIf="!showMobileMenu">
+  <div
+    class="header-menu-item"
+    *ngFor="let item of menuList"
+    (click)="onSelect(item)"
+    [ngClass]="{ 'menu-selected-item': item === selectedItem }"
+  >
+    <a *ngIf="item.href" class="menu-link" [href]="item.href" rel="noopener noreferrer" [target]="item.target ? item.target : '_blank'">
+      <div class="logo" [innerHTML]="item.icon | safe: 'html'"></div>
+      <div class="text">{{ curLanguage === 'zh-cn' ? item.name : item.enName }}</div>
+    </a>
+ 
+  </div>
+</div>
+<div class="mobile-menu" *ngIf="showMobileMenu">
+
+
+</div>

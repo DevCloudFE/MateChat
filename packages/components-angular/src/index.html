@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>DevUI</title>
+    <base href="/" />
+    <meta name="keywords" content="angular,devui,ng-devui,web,组件库,DevUI Design of Angular,DevUI Design,开源,open source" />
+    <meta
+      name="description"
+      content="DevUI是一款开源免费的企业中后台产品前端的通用解决方案，其设计价值观基于高效、开放、可信、乐趣四种自然与人文相结合的理念，旨在为设计师、前端开发者提供标准的设计体系，并满足各类落地场景，是一款企业级开箱即用的产品。全部代码开源并遵循 MIT 协议，任何企业、组织及个人均可免费使用。目前支持 Angular ^19.0.0 版本。"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="DevUI Design" />
+    <meta name="author" content="DevUI Team" />
+    <meta property="og:url" content="https://devui.design/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DevUI Design Of Angular" />
+    <meta property="og:site_name" content="DevUI Design Of Angular" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:description" content="DevUI Design, 一款开源免费的企业中后台产品前端的通用解决方案" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body class="devui-body">
+    <d-app-root></d-app-root>
+    <script>
+      var isProd = location.href.indexOf('devui.design') > -1;
+      var cdnURL = isProd
+        ? 'https://res.devcloud.huaweicloud.com/obsdevui/furion-cdn.min.js'
+        : 'https://static-devcloud.rnd.huawei.com/furion-cdn.min.js';
+      !(function (x, n) {
+        window[n] = window[n] || {};
+        window[n].config = {
+          appId: isProd ? '64933B16D8044837BE235CAA2D1AF964' : '451F6C9BA90844A08BC2E1976B7132FC',
+        };
+        var o = document.createElement('script');
+        (o.src = x), (o.async = !0);
+        var d = document.body.firstChild;
+        document.body.insertBefore(o, d);
+      })(cdnURL, '__fr');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "name": "ng-devui",
+  "version": "19.0.0-alpha.1",
+  "license": "MIT",
+  "description": "DevUI components based on Angular",
+  "keywords": [
+    "angular",
+    "devui",
+    "frontend"
+  ],
+  "homepage": "https://devui.design",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevCloudFE/ng-devui"
+  },
+  "bugs": {
+    "url": "https://github.com/DevCloudFE/ng-devui/issues"
+  },
+  "dependencies": {
+    "@angular/cdk": "^19.0.0",
+    "date-fns": "^2.20.0",
+    "lodash-es": "^4.17.15",
+    "@popperjs/core": "^2.5.4",
+    "css-vars-ponyfill": "^2.3.2",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0"
+  },
+  "exports": {
+    "./devui-for-mobile.css": {
+      "style": "./devui-for-mobile.css"
+    },
+    "./devui-layout.css": {
+      "style": "./devui-layout.css"
+    },
+    "./styles-var/devui-var.scss": {
+      "style": "./styles-var/devui-var.scss"
+    },
+    "./styles-var/devui-var.less": {
+      "style": "./styles-var/devui-var.less"
+    },
+    "./theme-collection/extend-theme.css": {
+      "style": "./theme-collection/extend-theme.css"
+    },
+    "./theme-collection/overwrite-style.css": {
+      "style": "./theme-collection/overwrite-style.css"
+    },
+    "./styles-var/webpack-config-add-theme": {
+      "default": "./styles-var/webpack-config-add-theme.js"
+    }
+  }
+}

@@ -1,0 +1,149 @@
+@import '../styles-var/devui-var.scss';
+
+body[ui-theme='infinity-theme'],
+body[ui-theme='sweet-theme'],
+body[ui-theme='provence-theme'],
+body[ui-theme='deep-theme'],
+body[ui-theme='galaxy-theme'] {
+  @import './overwrite-style.scss';
+}
+
+body[ui-theme='sweet-theme'] {
+  .devui-datepicker-pro-panel {
+    --devui-list-item-active-bg: var(--devui-brand, #ec66ab);
+    --devui-list-item-active-text: var(--devui-light-text, #ffffff);
+  }
+}
+
+body[ui-theme='deep-theme'] {
+  .devui-table {
+    --devui-dividing-line: var(--devui-zinc-30, #d5d5db);
+  }
+
+  d-radio,
+  d-radio-group,
+  d-checkbox,
+  d-toggle {
+    --devui-brand: var(--devui-blue-50, #5e7ce0);
+    --devui-icon-fill-active-disabled: var(--devui-blue-20, #beccfa);
+  }
+
+  d-button .devui-btn.devui-btn-text {
+    --devui-brand-active: var(--devui-blue-60, #526ecc);
+  }
+
+  d-select {
+    --devui-list-item-active-bg: var(--devui-blue-10, #e9edfa);
+  }
+
+  d-editable-select .devui-match-highlight {
+    color: var(--devui-blue-50, #5e7ce0);
+  }
+
+  d-tabs {
+    --devui-tab-options-bg: var(--devui-blue-60, #526ecc);
+  }
+
+  d-progress {
+    --devui-brand: var(--devui-lime-50, #5cb300);
+  }
+
+  .devui-datepicker-pro-panel,
+  .devui-calendar-panel {
+    --devui-list-item-active-bg: var(--devui-blue-50, #5e7ce0);
+    --devui-list-item-active-text: var(--devui-white-5, #ffffff);
+    --devui-list-item-hover-bg: var(--devui-blue-5, #f2f5fc);
+  }
+
+  d-slider .devui-slider {
+    .devui-slider-track,
+    .devui-slider-handle {
+      --devui-brand: var(--devui-blue-50, #5e7ce0);
+    }
+  }
+
+  .editor-container .ql-editor a {
+    --devui-brand: var(--devui-blue-50, #5e7ce0);
+  }
+}
+
+body[ui-theme='infinity-theme'] {
+  d-tabs .devui-nav-container {
+    --devui-brand: #252b3a;
+    --devui-brand-active: #252b3a;
+  }
+
+  .devui-datepicker-pro-panel {
+    --devui-list-item-active-bg: var(--devui-brand, #5e7ce0);
+    --devui-list-item-active-text: var(--devui-light-text, #ffffff);
+    --devui-list-item-hover-bg: var(--devui-list-item-active-hover-bg, #f2f5fc);
+  }
+
+  .devui-table,
+  .devui-fix-header {
+    --devui-list-item-strip-bg: #f8f8fa;
+  }
+}
+
+body[ui-theme='newInfinity-theme'],
+body[ui-theme='infinity-theme'] {
+  * ::-webkit-scrollbar-thumb {
+    --devui-line: #dbdbdb;
+    --devui-placeholder: #c2c2c2;
+  }
+}
+
+body[ui-theme='galaxy-theme'] {
+  d-tabs .devui-nav-slider {
+    --devui-tab-slider-bg: #313131;
+    --devui-text: #a3a3a3;
+    --devui-brand-active: #ffffff;
+    --devui-base-bg: #3f3f3f;
+  }
+
+  d-button .devui-btn-common {
+    --devui-block: transparent;
+  }
+
+  d-button .devui-btn-primary:disabled {
+    --devui-light-text: #838383;
+  }
+
+  .devui-table .devui-month-table .devui-table-date.devui-table-date-selected span,
+  .devui-month-panel .devui-month-list .devui-month-item.devui-table-month-selected span,
+  .year-list-panel .devui-year-list .devui-year-title.devui-active-year,
+  .devui-table .devui-month-table .devui-table-date.devui-table-date-marked span::after {
+    background-color: #ced1db !important;
+  }
+
+  .devui-table .devui-month-table .devui-table-date.devui-table-date-marked.devui-table-date-selected span::after {
+    background-color: #4660b8 !important;
+  }
+
+  .devui-checkbox.disabled .devui-checkbox-material,
+  .devui-radio.disabled .devui-radio-material {
+    --devui-icon-fill-active-disabled: #2a3c85;
+  }
+}
+
+body[ui-theme='infinity-theme'],
+body[ui-theme='sweet-theme'],
+body[ui-theme='provence-theme'],
+body[ui-theme='deep-theme'] {
+  .devui-form-item .devui-form-label .devui-form-span {
+    color: $devui-aide-text;
+  }
+}
+
+body[ui-theme='newInfinity-theme'] {
+  d-accordion {
+    .devui-accordion-item-title:not(.disabled) {
+      &.devui-router-active > a,
+      &.active:not(.open) {
+        color: $devui-text-weak;
+        background: $devui-list-item-selected-bg;
+        font-weight: normal;
+      }
+    }
+  }
+}

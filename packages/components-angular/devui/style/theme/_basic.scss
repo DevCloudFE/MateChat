@@ -1,0 +1,183 @@
+// Color
+// 取色规则1： 所有使用颜色均需要在色板中选择
+// 取色规则2： 除标签等用于功能分类及black,white的取色可以增加透明度(eg: rgba($devui-white-5,0.3)，其余场景均不允许
+// need to run `node scripts/themeable/transfer-sass-var-to-theme-data.js ` when modified
+
+$devui-blue-5: #e6eeff;
+$devui-blue-10: #cedefd;
+$devui-blue-20: #9dbdfc;
+$devui-blue-30: #6b9bfa;
+$devui-blue-40: #3979f9;
+$devui-blue-50: #0a59f7;
+$devui-blue-60: #0950de;
+$devui-blue-70: #0039bd;
+$devui-blue-80: #002794;
+$devui-blue-90: #00196b;
+$devui-blue-100: #000f42;
+
+$devui-sky-5: #e8fcfd;
+$devui-sky-10: #c9f6f9;
+$devui-sky-20: #a4ecf1;
+$devui-sky-30: #7ddfe7;
+$devui-sky-40: #55ccd9;
+$devui-sky-50: #2cb8c9;
+$devui-sky-60: #1c94a4;
+$devui-sky-70: #127180;
+$devui-sky-80: #094c57;
+$devui-sky-100: #04282f;
+
+$devui-green-5: #e7fbf2;
+$devui-green-10: #bcf2db;
+$devui-green-20: #8fe5c2;
+$devui-green-30: #63d5a8;
+$devui-green-40: #36c18d;
+$devui-green-50: #09aa71;
+$devui-green-60: #058358;
+$devui-green-70: #036142;
+$devui-green-80: #02422e;
+$devui-green-100: #00291d;
+
+$devui-lime-5: #f2fbe9;
+$devui-lime-10: #dff4cc;
+$devui-lime-20: #c6e9a8;
+$devui-lime-30: #a8db81;
+$devui-lime-40: #87c859;
+$devui-lime-50: #62b42e;
+$devui-lime-60: #488e20;
+$devui-lime-70: #316614;
+$devui-lime-80: #1b3e0a;
+$devui-lime-100: #0c2004;
+
+$devui-yellow-5: #fefce0;
+$devui-yellow-10: #fdf8b8;
+$devui-yellow-20: #fef08a;
+$devui-yellow-30: #fde55c;
+$devui-yellow-40: #fcd72e;
+$devui-yellow-50: #fcc800;
+$devui-yellow-60: #d19f00;
+$devui-yellow-70: #9e7400;
+$devui-yellow-80: #614500;
+$devui-yellow-100: #2e1f00;
+
+$devui-orange-5: #fef5e8;
+$devui-orange-10: #fde2bd;
+$devui-orange-20: #fcce92;
+$devui-orange-30: #f9b766;
+$devui-orange-40: #f69e39;
+$devui-orange-50: #f4840c;
+$devui-orange-60: #c76207;
+$devui-orange-70: #954304;
+$devui-orange-80: #642802;
+$devui-orange-100: #3d1601;
+
+$devui-red-5: #fee7e8;
+$devui-red-10: #fabdc1;
+$devui-red-20: #f59297;
+$devui-red-30: #ee696f;
+$devui-red-40: #e7434a;
+$devui-red-50: #e02128;
+$devui-red-60: #c7000b;
+$devui-red-70: #850f12;
+$devui-red-80: #59080a;
+$devui-red-100: #350305;
+
+$devui-magenta-5: #fee5f2;
+$devui-magenta-10: #fcc3e0;
+$devui-magenta-20: #f99ac7;
+$devui-magenta-30: #f470ab;
+$devui-magenta-40: #ed448a;
+$devui-magenta-50: #e61866;
+$devui-magenta-60: #c40054;
+$devui-magenta-70: #811439;
+$devui-magenta-80: #540d24;
+$devui-magenta-100: #330614;
+
+$devui-purple-5: #f7edfe;
+$devui-purple-10: #e8cffe;
+$devui-purple-20: #d9b1fd;
+$devui-purple-30: #cb8efb;
+$devui-purple-40: #bf68fa;
+$devui-purple-50: #b62bf7;
+$devui-purple-60: #8a21bc;
+$devui-purple-70: #651b8b;
+$devui-purple-80: #520673;
+$devui-purple-100: #36004d;
+
+$devui-gray-5: #f3f3f3;
+$devui-gray-10: #dfdfdf;
+$devui-gray-20: #c9c9c9;
+$devui-gray-30: #aeaeae;
+$devui-gray-40: #939393;
+$devui-gray-50: #777777;
+$devui-gray-60: #595959;
+$devui-gray-70: #393939;
+$devui-gray-80: #2a2a2a;
+$devui-gray-90: #191919;
+$devui-gray-100: #000000;
+
+$devui-slate-5: #fafafa;
+$devui-slate-10: #f5f5f5;
+$devui-slate-20: #f0f0f0;
+$devui-slate-30: #e6e6e6;
+$devui-slate-40: #dbdbdb;
+$devui-slate-50: #c2c2c2;
+$devui-slate-60: #808080;
+$devui-slate-70: #595959;
+$devui-slate-80: #333333;
+$devui-slate-90: #191919;
+$devui-slate-100: #000000;
+
+$devui-zinc-5: #f7f7f9;
+$devui-zinc-10: #f2f2f3;
+$devui-zinc-20: #e2e2e6;
+$devui-zinc-30: #d5d5db;
+$devui-zinc-40: #c7c7d1;
+$devui-zinc-50: #aeaebd;
+$devui-zinc-60: #9696a3;
+$devui-zinc-70: #7a7a85;
+$devui-zinc-80: #63636b;
+$devui-zinc-90: #494952;
+$devui-zinc-100: #37373d;
+
+$devui-dark-gray-5: #16181a;
+$devui-dark-gray-10: #202124;
+$devui-dark-gray-20: #292a2e;
+$devui-dark-gray-30: #2e2f33;
+$devui-dark-gray-40: #323338;
+$devui-dark-gray-50: #393a3e;
+$devui-dark-gray-60: #4e5057;
+$devui-dark-gray-70: #696c75;
+$devui-dark-gray-80: #868a99;
+$devui-dark-gray-90: #acb0bd;
+$devui-dark-gray-100: #ced1db;
+
+$devui-dark-slate-5: #0e111a;
+$devui-dark-slate-10: #141721;
+$devui-dark-slate-20: #1a1e29;
+$devui-dark-slate-30: #232633;
+$devui-dark-slate-40: #2c303e;
+$devui-dark-slate-50: #33384b;
+$devui-dark-slate-60: #444b61;
+$devui-dark-slate-70: #626a85;
+$devui-dark-slate-80: #878ea8;
+$devui-dark-slate-90: #a3aac2;
+$devui-dark-slate-100: #c1c7db;
+
+$devui-dark-zinc-5: #1a1a1c;
+$devui-dark-zinc-10: #212124;
+$devui-dark-zinc-20: #28282b;
+$devui-dark-zinc-30: #2f2f33;
+$devui-dark-zinc-40: #353537;
+$devui-dark-zinc-50: #3d3d42;
+$devui-dark-zinc-60: #4b4b52;
+$devui-dark-zinc-70: #575861;
+$devui-dark-zinc-80: #767680;
+$devui-dark-zinc-90: #9898a3;
+$devui-dark-zinc-100: #b7b7c7;
+
+$devui-white-5: #ffffff;
+$devui-black-5: #000000;
+
+// 滚动条宽度
+$devui-scrollbar-width: 8px;
+$devui-scrollbar-width-sm: 4px;

@@ -1,0 +1,23 @@
+@import '~ng-devui/styles-var/devui-var.scss';
+
+.input-group {
+  display: flex;
+  height: auto;
+
+  input {
+    width: 200px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  button {
+    padding: 4px 8px;
+    font-size: 14px;
+    text-align: center;
+    color: $devui-text;
+    outline: none !important;
+    border: 1px solid $devui-form-control-line;
+    border-left: none;
+    height: inherit;
+  }
+}

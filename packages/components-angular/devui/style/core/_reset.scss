@@ -1,0 +1,178 @@
+@import '../theme/color';
+@import '../core/font';
+
+body {
+  margin: 0;
+  padding: 0;
+  color: $devui-text;
+  font-size: $devui-font-size;
+  font-family: $font-family;
+  line-height: $devui-line-height-base;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: button;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited {
+  text-decoration: none;
+}
+
+:-ms-input-placeholder {
+  color: $devui-placeholder;
+}
+
+::-moz-placeholder {
+  color: $devui-placeholder;
+}
+
+::-webkit-input-placeholder {
+  color: $devui-placeholder;
+}
+
+//******************滚动条*************************/
+.devui-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.devui-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.devui-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: $devui-line;
+}
+
+.devui-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: $devui-placeholder; // TODO: Color-Question
+}
+
+.devui-scroll-overlay {
+  overflow: auto;
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: $devui-line;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: $devui-placeholder;
+    }
+  }
+}
+
+body > * ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+@-moz-document url-prefix() {
+  body * {
+    scrollbar-width: thin;
+
+    .devui-tbody-wrapper,
+    .devui-year-list,
+    .devui-canlender-panel-year-list,
+    .devui-fix-header,
+    .devui-month-list {
+      scrollbar-width: none;
+    }
+
+    .devui-year-list:hover {
+      scrollbar-width: thin;
+    }
+
+    .scroll-view.overflow-overlay {
+      scrollbar-color: transparent transparent;
+
+      &:hover {
+        scrollbar-color: $devui-placeholder transparent;
+      }
+    }
+
+    .viewport-wrapper.overflow-overlay {
+      scrollbar-color: transparent transparent;
+
+      &:hover {
+        scrollbar-color: $devui-placeholder transparent;
+      }
+    }
+
+    .devui-scroll-overlay {
+      scrollbar-color: transparent transparent;
+
+      &:hover {
+        scrollbar-color: $devui-line transparent;
+      }
+    }
+
+    .drawer-content {
+      scrollbar-color: transparent transparent;
+
+      &:hover {
+        scrollbar-color: $devui-placeholder transparent;
+      }
+    }
+  }
+}
+
+body > * ::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body *::-moz-scrollbar-track {
+  background-color: transparent;
+}
+
+body > * ::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: $devui-line;
+}
+
+body > * ::-webkit-scrollbar-thumb:hover {
+  background-color: $devui-placeholder; // TODO: Color-Question
+}
+
+body > * ::-webkit-scrollbar-corner {
+  background-color: transparent;
+}

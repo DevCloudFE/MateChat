@@ -1,0 +1,15 @@
+<div>
+  <div class="input-group">
+    <input dTextInput type="text" [(ngModel)]="value" placeholder="Copied content" />
+    <button
+      class="icon icon-copy"
+      type="button"
+      dClipboard
+      [content]="value"
+      [position]="'right'"
+      (copyResultEvent)="copyResultEvent($event)"
+    ></button>
+  </div>
+  <br />
+  <pre>{{ result | json }}</pre>
+</div>
