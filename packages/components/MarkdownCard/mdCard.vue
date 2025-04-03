@@ -202,7 +202,8 @@ overflow-x: auto;
 
 :deep(.mc-think-block) {
   color: $devui-aide-text;
-  border-left: 2px solid $devui-line;
+  border-left: 1px solid $devui-line;
   padding-left: 8px;
+  margin-bottom: 1rem;
 }
 </style>

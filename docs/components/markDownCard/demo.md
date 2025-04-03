@@ -91,9 +91,9 @@ onMounted(() => {
 
 :::
 
-### \<think\>标签支持
+### think标签支持
 
-支持自定义的 \<think\> 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示
+支持自定义的 think 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示
 
 :::demo
 
@@ -113,13 +113,6 @@ onMounted(() => {
           <i :class="btnIcon"></i>
         </div>
         <McMarkdownCard :enableThink="true" :content="msg.content" :theme="theme"></McMarkdownCard>
-        <template #bottom>
-          <div class="bubble-bottom-operations">
-            <i class="icon-copy-new"></i>
-            <i class="icon-like"></i>
-            <i class="icon-dislike"></i>
-          </div>
-        </template>
       </McBubble>
     </template>
   </div>
@@ -278,11 +271,6 @@ onMounted(() => {
 
 <style lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
-.custom-think-class {
-  border-left: 4px solid var(--devui-primary); // 左边框竖线
-  padding-left: 12px; // 内边距
-}
-
 .think-toggle-btn {
   display: flex;
   gap: 8px;
