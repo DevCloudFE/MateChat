@@ -1,0 +1,11 @@
+<section>
+  <d-tabs [(activeTab)]="tabActiveId" [isHidden]="true">
+    <d-tab *ngFor="let item of tabItems" [disabled]="item?.disabled" [id]="item.id">
+      <ng-template dTabTitle>
+        <i class="{{ item.icon }}"></i>
+        {{ item.title }}
+      </ng-template>
+      <div>{{ item.content }}</div>
+    </d-tab>
+  </d-tabs>
+</section>

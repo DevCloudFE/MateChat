@@ -33,7 +33,7 @@
 # fork && git clone
 ...
 # dev
-npm i 
+npm install --prefix . 
 npm start
 
 ```

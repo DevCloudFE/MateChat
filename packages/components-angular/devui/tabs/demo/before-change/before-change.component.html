@@ -1,0 +1,10 @@
+<section>
+  <d-tabs [(activeTab)]="tabActiveId" [beforeChange]="beforeChange">
+    <d-tab *ngFor="let item of tabItems" [id]="item.id">
+      <ng-template dTabTitle>
+        {{ item.title }}
+      </ng-template>
+      {{ item.content }}
+    </d-tab>
+  </d-tabs>
+</section>

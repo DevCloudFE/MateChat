@@ -1,0 +1,24 @@
+<section dLoading>
+  <h3>Scroll mode: normal</h3>
+  <d-button id="normal" bsStyle="common" (btnClick)="activateRandomTab()">Activate Random Tab</d-button>
+  <d-tabs [type]="'wrapped'" [scrollMode]="true" [(activeTab)]="normalTabActiveId">
+    <d-tab *ngFor="let item of staticData" [id]="item.id">
+      <ng-template dTabTitle let-position="position">
+        <!-- Title only in the right drop-down list -->
+        <span [title]="position === 'list' ? item.title : ''">{{ item.title }}</span>
+      </ng-template>
+    </d-tab>
+  </d-tabs>
+  <br />
+  <h3>Scroll mode: auto</h3>
+  <d-button id="auto" [showLoading]="showLoading" bsStyle="common" (btnClick)="getData()">Load Data</d-button>
+  <d-tabs [type]="'wrapped'" [scrollMode]="'auto'" [scrollModeOperationTpl]="clear" [(activeTab)]="autoTabActiveId">
+    <d-tab *ngFor="let item of dynamicData" [id]="item.id">
+      <ng-template dTabTitle>{{ item.title }}</ng-template>
+    </d-tab>
+  </d-tabs>
+</section>
+
+<ng-template #clear>
+  <i class="clear-button icon-clearup" (click)="clearAll()"></i>
+</ng-template>

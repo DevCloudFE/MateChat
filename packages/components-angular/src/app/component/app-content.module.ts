@@ -16,6 +16,7 @@ import { GetStartedComponent } from './get-started.component';
 import { GlobalConfigComponent } from './global-config.component';
 import { ComponentsOverviewComponent } from './overview.component';
 import { ThemeGuideComponent } from './theme-guide.component';
+import { TabsModule } from 'ng-devui/tabs';
 
 export function hljsLanguages() {
   return [
@@ -40,6 +41,7 @@ export function hljsLanguages() {
     SafePipeModule,
     TranslateModule,
     DevuiCommonsModule,
+    TabsModule,
     DevUIModule.forRoot(),
     RouterModule.forChild([
       {

@@ -4,12 +4,12 @@
   export let label = "Default Label"; // 按钮文本
   export let icon = ""; // 按钮图标类名
   export let size = "md"; // 按钮大小，支持 sm、md、lg
-  export let loading = false;   // 是否显示加载状态
-  export let disabled = false;  // 是否禁用按钮
-  export let styleType = "border-gradient";   // 按钮样式类型
+  export let loading = false; // 是否显示加载状态
+  export let disabled = false; // 是否禁用按钮
+  export let styleType = "border-gradient"; // 按钮样式类型
   export let shape = "capsule"; // 按钮形状，支持 capsule、round、circle
   export let width = ""; // 按钮宽度
-  export let onClick = (e) => {};   // 点击事件处理函数
+  export let onClick = (e) => {}; // 点击事件处理函数
   export let slots = {
     suffix: null,
   };
@@ -29,21 +29,28 @@
   });
 </script>
 
-<button
-  class="mc-button {disabled ? 'disabled' : ''} button-{styleType} mc-button--{size} mc-button--{shape}"
-  style={width ? `width: ${width};` : ''}
-  on:click={btnClick}
->
-  {#if loading}
-    <i class="loading-icon"></i>
-  {/if}
-  {#if icon}
-    <i class="icon {icon}"></i>
-  {/if}
-  <slot>
-    <span class="mc-button-content">{label}</span></slot>
-  <div class="native-slot" bind:this={expandSlotContainer}></div>
-</button>
+<div class="mc-button-wrapper">
+  <button
+    class="mc-button {disabled
+      ? 'disabled'
+      : ''} button-{styleType} mc-button--{size} mc-button--{shape}"
+    style={width ? `width: ${width};` : ""}
+    on:click={btnClick}
+  >
+    {#if loading}
+      <i class="loading-icon"></i>
+    {/if}
+    {#if icon}
+      <i class="icon {icon}"></i>
+    {/if}
+    <slot>
+      <span class="mc-button-content">{label}</span></slot
+    >
+    {#if slots.suffix}
+      <div class="suffix-slot" bind:this={expandSlotContainer}></div>
+    {/if}
+  </button>
+</div>
 
 <style lang="scss">
   @import "@devui-design/icons/icomoon/devui-icon.css";
@@ -59,6 +66,11 @@
     .mc-button--#{$size} {
       height: $value;
     }
+  }
+
+  .mc-button-wrapper {
+    position: relative;
+    z-index: 0;
   }
 
   .mc-button {
@@ -197,5 +209,4 @@
       width: map-get($button-size, lg);
     }
   }
-  
 </style>

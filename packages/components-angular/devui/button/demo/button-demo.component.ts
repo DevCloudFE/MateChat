@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'd-demo-button',
     templateUrl: './button-demo.component.html',
+    styleUrls: ['./button-demo.component.scss'],
     standalone: false
 })
 export class ButtonDemoComponent implements OnInit, OnDestroy {
@@ -79,6 +80,20 @@ export class ButtonDemoComponent implements OnInit, OnDestroy {
     );
   }
 
+  btnClick(event: MouseEvent) {
+    console.log('btnClick', event);
+  }
+
+  refresh(event: MouseEvent) {
+    console.log('refresh', event);
+  }
+  arrowDown(event: MouseEvent) {
+    console.log('arrowDown', event);
+  }
+  arrowUp(event: MouseEvent) {
+    console.log('arrowUp', event);
+  }
+  
   setNavValues(values) {
     this.navItems = [
       { dAnchorLink: 'button-primary', value: values['button-primary'] },
