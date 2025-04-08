@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { resolve, join } from "path";
-
+import sveltePreprocess from "svelte-preprocess";
 // 动态读取 src/components 目录下的所有 .svelte 文件
 const componentsDir = resolve(__dirname, "components/index.ts");
 export default defineConfig({
@@ -19,7 +19,7 @@ export default defineConfig({
         preserveModules: true, // 预构建模块
         entryFileNames: (chunkInfo) => {
           return `${chunkInfo.name.replace(
-            "/component-svelte/components",
+            "/components-svelte/components",
             ""
           )}.js`;
         }, // 输出文件名
@@ -31,11 +31,16 @@ export default defineConfig({
       emitCss: false,
       compilerOptions: {
         dev: true, // 开启开发模式
-      }
+      },
+      preprocess: sveltePreprocess({
+        scss: {
+          prependData: `@import 'devui-theme/styles-var/devui-var.scss';`, // 全局引入 SCSS 变量
+        },
+      }),
     }),
   ],
   server: {
     port: 3000, // 开发服务器端口
     open: true, // 自动打开浏览器
-  }
+  },
 });

@@ -5,6 +5,7 @@ export default {
       items: [
         { text: 'Introduction 介绍', link: '/components/introduction/demo' },
         { text: 'List 列表', link: '/components/list/demo' },
+        { text: 'Button 按钮', link: '/components/button/demo' },
       ],
     },
     {

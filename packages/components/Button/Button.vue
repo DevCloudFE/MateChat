@@ -1,35 +1,43 @@
 <template>
-    <div ref="mcButton">
+    <div ref="mcButton" :class="$attrs.class" class="mc-button-vue">
     </div>
+    <slot></slot>
     <div ref="slot">
-        <slot name="expand"></slot>
+        <slot name="suffix"></slot>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, defineProps, defineEmits } from 'vue';
-import  Button  from '@components-js/Button/Button.svelte'; 
+import Button from '@components-js/Button/Button.svelte';
 
 // 定义 Vue 组件的 props
 const props = defineProps({
-    content: {
+    styleType: {
         type: String,
-        default: 'Default Content',
-    },
-    styles: {
-        type: Object,
-        default: () => ({
-            color: 'black',
-            fontSize: '16px',
-        }),
     },
     label: {
         type: String,
-        default: 'Default Label',
+        default: 'Default',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    shape: {
+        type: String,
+        default: 'capsule',
+    },
+    size: {
+        type: String,
+        default: 'md',
+    },
+    width: {
+        type: String,
+        default: '',
     },
 });
 
-// 定义 emit 事件
 const emit = defineEmits(['click']);
 
 const mcButton = ref<HTMLElement | null>(null);
@@ -38,15 +46,20 @@ let nativeComponent: Button | null = null;
 
 onMounted(() => {
     if (mcButton.value) {
-        // 创建 NativeComponent 实例并挂载到 ref 元素上
         nativeComponent = new Button({
             target: mcButton.value,
             props: {
-                content: props.content,
-                styles: props.styles,
                 label: props.label,
+                disabled: props.disabled,
+                shape: props.shape,
+                size: props.size,
+                width: props.width,
+                styleType: props.styleType,
+                slots: {
+                    suffix: slot.value,
+                },
                 onClick: (event: MouseEvent) => {
-                    emit('click', event); // 通过 Vue 的 emit 抛出事件
+                    emit('click', event);
                 },
             },
         });
@@ -54,16 +67,11 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    // 销毁 NativeComponent 实例
     if (nativeComponent) {
-        nativeComponent.destroy();
+        nativeComponent?.destroy();
         nativeComponent = null;
     }
 });
 </script>
 
-<style scoped lang="scss">
-// ::v-deep {
-//     @import '../../components-js/Button/button.style.scss';
-// }
-</style>
+<style scoped lang="scss"></style>

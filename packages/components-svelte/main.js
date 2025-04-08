@@ -1,10 +1,9 @@
-import App from "./components/Button/Button.svelte"; // 替换为你的组件路径
+import "@devui-design/icons/icomoon/devui-icon.css";
+import App from "./app.svelte";
 
 const app = new App({
   target: document.getElementById("app"),
-  props: {
-    label: "Click Me",
-  },
+  props: {}
 });
 
 export default app;
