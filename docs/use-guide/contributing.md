@@ -25,27 +25,33 @@
 
    在此之前，请确保你已经正确安装和配置了 Git 工具。
 
-3. 确保你的计算机中正确安装了 Node.js 和 npm：
+3. 确保你的计算机中正确安装了 Node.js 和 pnpm：
 
    在终端（如 Powershell 或 Fish Shell）中执行以下指令：
 
    ```bash
    node -v
-   npm -v
+   pnpm -v
    ```
 
-   如果你看到类似`v22.12.0`和`10.9.0`的版本号，说明你已经正确安装了 Node.js 和 npm。
+   如果你看到类似`v22.12.0`和`9.15.4`的版本号，说明你已经正确安装了 Node.js 和 pnpm。
+
+   如果出现了异常，请在安装了 Node.js 环境后安装`pnpm`：
+
+   ```bash
+   npm install -g pnpm
+   ```
 
 4. 安装 Node.js 依赖：
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 5. 启动开发服务器：
 
    ```bash
-   npm run docs:dev
+   pnpm run docs:dev
    ```
 
 ## 参与贡献

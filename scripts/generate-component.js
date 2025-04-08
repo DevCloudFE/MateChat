@@ -1,10 +1,10 @@
 import fs from 'fs-extra';
-import { IgnoreDirs, ComponentsDir, ComponentIndexFile } from './const.js';
+import { ignoreDirs, componentsDir, componentIndexFile } from './const.js';
 import { resolveFilesInfo, parseExport, createIndexTemplate } from './utils.js';
 
 function generateComponent() {
   const exportModules = [];
-  const filesInfo = resolveFilesInfo(ComponentsDir, IgnoreDirs);
+  const filesInfo = resolveFilesInfo(componentsDir, ignoreDirs);
 
   filesInfo.forEach((item) => {
     exportModules.push(parseExport(item));
@@ -12,7 +12,7 @@ function generateComponent() {
 
   const template = createIndexTemplate(exportModules);
 
-  fs.writeFile(ComponentIndexFile, template, 'utf-8');
+  fs.writeFile(componentIndexFile, template, 'utf-8');
 }
 
 generateComponent();

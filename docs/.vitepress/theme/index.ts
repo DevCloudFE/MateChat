@@ -2,7 +2,7 @@ import { Layout } from '../../theme-default';
 import { registerComponents } from './register-components';
 import DevUI from 'vue-devui';
 import 'vue-devui/style.css';
-import MateChat from '../../../components/index';
+import MateChat from '@matechat/core';
 import '@devui-design/icons/icomoon/devui-icon.css';
 
 import i18n from '../../i18n';

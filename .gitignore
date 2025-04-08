@@ -14,12 +14,15 @@ dist-ssr
 coverage
 *.local
 package-lock.json
+pnpm-workspace.yaml
 
 /cypress/videos/
 /cypress/screenshots/
 
 cache
+/packages/components/index.ts
 /components/index.ts
+.temp
 
 # Editor directories and files
 .vscode/*

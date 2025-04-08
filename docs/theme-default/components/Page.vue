@@ -1,5 +1,5 @@
 <template>
-  <Header class="page-header" @themeUpdate="themeUpdate($event)"></Header>
+  <Header class="page-header" />
   <div class="page-container">
     <SideMenu v-if="!frontmatter.isPlayground" class="side-menu" />
     <div ref="containerEl" :class="['main-container', { 'main-container-playground': frontmatter.isPlayground }]">
@@ -8,7 +8,6 @@
         <h2 v-if="page.relativePath.includes('components')" class="description">{{ frontmatter.desc }}</h2>
         <ContentSlider
           v-if="page.relativePath.includes('components')"
-          :isDark="isDark"
           :bannerSrc="frontmatter.bannerSrc"
           :iconSrc="frontmatter.iconSrc"
         />
@@ -31,7 +30,7 @@ import Header from './common/Header.vue';
 import { useActiveAnchor } from '../composables/outline';
 
 const containerEl = ref<HTMLElement>();
-const { page, frontmatter, isDark } = useData();
+const { page, frontmatter } = useData();
 
 useActiveAnchor(containerEl);
 
@@ -47,10 +46,6 @@ const handleResize = () => {
   } else {
     sideMenu.style.width = '320px';
   }
-};
-
-const themeUpdate = (event) => {
-  isDark.value = event;
 };
 
 onMounted(() => {
@@ -114,7 +109,7 @@ onUnmounted(() => {
 .content-nav {
   font-size: $devui-font-size-sm;
   position: fixed;
-  top: 80px;  
+  top: 80px;
   right: 40px;
   z-index: 10;
   width: 200px;

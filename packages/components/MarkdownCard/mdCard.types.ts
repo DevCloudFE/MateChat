@@ -1,5 +1,10 @@
+import type {
+  Options,
+  PluginSimple,
+  PluginWithOptions,
+  PluginWithParams,
+} from 'markdown-it';
 import type { PropType } from 'vue';
-import type { Options } from 'markdown-it';  
 
 export interface CustomXssRule {
   key: string;
@@ -11,11 +16,17 @@ export interface CodBlockData {
   language: string;
 }
 
+export type CodeBlockSlot = {
+  actions?: () => void;
+  header?: () => void;
+  content?: () => void;
+};
+
 export type Theme = 'light' | 'dark';
 
 export interface MdPlugin {
-  plugin: any;
-  opts?: Object;
+  plugin: PluginSimple | PluginWithOptions | PluginWithParams;
+  opts?: unknown;
 }
 
 export const mdCardProps = {
@@ -24,9 +35,21 @@ export const mdCardProps = {
     default: '',
   },
 
+  enableThink: {
+    type: Boolean,
+    default: false,
+  },
+
+  thinkOptions: {
+    customClass: {
+      type: String,
+      default: '',
+    },
+  },
+
   mdOptions: {
     type: Object as PropType<Options>,
-    default: () => ({})
+    default: () => ({}),
   },
 
   mdPlugins: {
@@ -41,6 +64,6 @@ export const mdCardProps = {
 
   theme: {
     type: String as PropType<Theme>,
-    default: 'light'
-  }
-}
+    default: 'light',
+  },
+};

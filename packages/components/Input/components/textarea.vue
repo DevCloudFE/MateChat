@@ -12,6 +12,8 @@
     @compositionstart="onCompositionStart"
     @compositionend="onCompositionEnd"
     @keydown="onKeydown"
+    @focus="onFocus"
+    @blur="onBlur"
   ></textarea>
 </template>
 
@@ -76,6 +78,14 @@ const onKeydown = (e: KeyboardEvent) => {
     inputValue.value = '';
   }
 };
+
+const onFocus = (e: FocusEvent) => {
+  rootEmits('focus', e);
+}
+
+const onBlur = (e: FocusEvent) => {
+  rootEmits('blur', e);
+}
 </script>
 
 <style lang="scss">

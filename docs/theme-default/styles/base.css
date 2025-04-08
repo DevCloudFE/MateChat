@@ -112,10 +112,10 @@ blockquote {
   margin: 0;
 }
 
-pre,
-code,
-kbd,
-samp {
+body pre,
+body code,
+body kbd,
+body samp {
   font-family: var(--vp-font-family-mono);
 }
 

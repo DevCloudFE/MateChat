@@ -1,11 +1,10 @@
-import { fileURLToPath, URL } from 'node:url';
-
 import { defineConfig } from 'vite';
+import path from 'node:path';
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@matechat/core': fileURLToPath(new URL('../components', import.meta.url)),
+      '@matechat/core': path.resolve(__dirname, '../packages/components'),
     },
   },
 });

@@ -2,13 +2,13 @@ import path from 'path';
 import fs from 'fs-extra';
 import traverse from '@babel/traverse';
 import babelParser from '@babel/parser';
-import { IndexFileName } from './const.js';
+import { indexFileName } from './const.js';
 
 export function resolveFilesInfo(targetDir, ignoreDirs = []) {
   return fs
     .readdirSync(targetDir)
     .filter((itemDir) => fs.statSync(path.resolve(targetDir, itemDir)).isDirectory() && !ignoreDirs.includes(itemDir))
-    .map((itemDir) => ({ name: itemDir, indexPath: path.resolve(targetDir, itemDir, IndexFileName) }));
+    .map((itemDir) => ({ name: itemDir, indexPath: path.resolve(targetDir, itemDir, indexFileName) }));
 }
 
 export function parseExport(fileInfo) {

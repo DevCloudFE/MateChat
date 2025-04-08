@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import Prompt from '../components/Prompt/Prompt.vue';
+import Prompt from '@matechat/core/Prompt/Prompt.vue';
 
 const prompts = {
   title: 'Inspirational Sparks and Marvelous Tips',

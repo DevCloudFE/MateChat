@@ -49,5 +49,5 @@ export interface InputContext {
   rootEmits: (event: string, ...args: any[]) => void;
 }
 
-export const inputEmits = ['change', 'submit', 'cancel'];
+export const inputEmits = ['change', 'submit', 'cancel', 'focus', 'blur'];
 export const inputInjectionKey = 'mc-input';

@@ -122,6 +122,82 @@ const onSubmit = (e) => {
 
 :::
 
+### 自定义发送按钮
+
+通过`button`插槽自定义发送按钮，实现按钮disable、loading等状态和按钮图标、按钮文案的自定义
+
+:::demo
+
+```vue
+<template>
+  <McInput :value="inputValue" :maxLength="2000" :loading="loading" showCount @change="onInputChange" @submit="onSubmit" @cancel="onCancel">
+    <template #button>
+      <div
+        class="my-button"
+        :class="{ 'disabled': !loading && !inputValue}"
+        @click="onConfirm"
+      >
+        <span class="mc-button-content">
+          <!-- 此处可自定义图标及其文案 -->
+          <span>{{ loading ? '停止' : '发送' }}</span>
+        </span>
+      </div>
+    </template>
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const inputValue = ref('');
+const loading = ref(false);
+
+const onInputChange = (e) => {
+  inputValue.value = e;
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  inputValue.value = '';
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
+  console.log('input submit---', e);
+};
+const onCancel = () => {
+  loading.value = false;
+  console.log('input cancel');
+};
+
+const onConfirm = () => {
+   if(loading.value) {
+    onCancel();
+   } else {
+    onSubmit();
+   }
+}
+</script>
+
+<style scoped lang="scss">
+.my-button {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: #5e7ce0;
+  padding: 0 16px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.disabled {
+  background: #beccfa;
+}
+
+</style>
+```
+
+:::
+
 ### 自定义插槽
 
 通过`head`插槽自定义输入框顶部的内容，通过`extra`自定义发送按钮左侧的内容。

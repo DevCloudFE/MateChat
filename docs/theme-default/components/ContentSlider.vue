@@ -51,14 +51,10 @@ const props = defineProps({
     type: String,
     default: '/defaultIcon.png',
   },
-  isDark: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const basicSrc = '/png/contentSlider';
-const { page } = useData();
+const { isDark } = useData();
 const route = useRoute();
 const router = useRouter();
 const id = ref('demo');

@@ -3,6 +3,7 @@
 html {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
+  overflow-y: scroll; //这是为了兼容ie8，不支持:root, vw
 }
 
 html:hover {
@@ -60,4 +61,19 @@ body {
 
 button.copy {
   display: none;
+}
+
+// 以下13行是防止滚动条显示与隐藏时页面抖动
+:root {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+:root body {
+  position: absolute;
+}
+
+#app {
+  width: 100vw;
+  overflow: hidden;
 }

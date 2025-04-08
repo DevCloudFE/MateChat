@@ -1,20 +1,20 @@
-import path from 'path';
-import fs from 'fs-extra';
-import { defineConfig, build } from 'vite';
+import path from 'node:path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import fs from 'fs-extra';
+import { build, defineConfig } from 'vite';
 import {
-  ComponentsDir,
-  BuildLibOutputDir,
-  IgnoreDirs,
-  ComponentIndexFile,
-  BuildLibOutputIndexFile,
-  BuildLibOutputIndexDtsFile,
+  buildLibOutputDir,
+  buildLibOutputIndexDtsFile,
+  buildLibOutputIndexFile,
+  componentIndexFile,
+  componentsDir,
+  ignoreDirs,
 } from './const.js';
 import { resolveFilesInfo } from './utils.js';
 
 async function buildComponents() {
-  const filesInfo = resolveFilesInfo(ComponentsDir);
+  const filesInfo = resolveFilesInfo(componentsDir, ['node_modules', 'dist']);
 
   for (let i = 0; i < filesInfo.length; i++) {
     await buildSingle(filesInfo[i]);
@@ -33,7 +33,16 @@ async function buildSingle(itemFile) {
       plugins: [vue(), vueJsx()],
       build: {
         rollupOptions: {
-          external: ['vue', '@floating-ui/dom', '@vue/shared', 'lodash-es', /@matechat\/core/, 'markdown-it', 'highlight.js', 'xss'],
+          external: [
+            'vue',
+            '@floating-ui/dom',
+            '@vue/shared',
+            'lodash-es',
+            /@matechat\/core/,
+            'markdown-it',
+            'highlight.js',
+            'xss',
+          ],
         },
         lib: {
           entry: itemFile.indexPath,
@@ -41,7 +50,7 @@ async function buildSingle(itemFile) {
           fileName: 'index',
           formats: ['es'],
         },
-        outDir: path.resolve(BuildLibOutputDir, `./${itemFile.name}`),
+        outDir: path.resolve(buildLibOutputDir, `./${itemFile.name}`),
       },
     }),
   );
@@ -49,22 +58,29 @@ async function buildSingle(itemFile) {
 
 // 自动引入index.css
 function autoImportCss() {
-  const ignore = [...IgnoreDirs, 'Locale'];
-  fs.readdirSync(BuildLibOutputDir)
-    .filter((itemDir) => fs.statSync(path.resolve(BuildLibOutputDir, itemDir)).isDirectory() && !ignore.includes(itemDir))
-    .map((itemDir) => ({ indexPath: path.resolve(BuildLibOutputDir, itemDir, 'index.js') }))
-    .forEach((itemDir) => {
-      const fileContent = fs.readFileSync(itemDir.indexPath);
-      const outputFileContent = `import "./index.css";\n` + fileContent;
-      fs.outputFile(itemDir.indexPath, outputFileContent, 'utf-8');
-    });
+  const ignore = [...ignoreDirs, 'Locale'];
+  const itemDirs = fs
+    .readdirSync(buildLibOutputDir)
+    .filter(
+      (itemDir) =>
+        fs.statSync(path.resolve(buildLibOutputDir, itemDir)).isDirectory() &&
+        !ignore.includes(itemDir),
+    )
+    .map((itemDir) => ({
+      indexPath: path.resolve(buildLibOutputDir, itemDir, 'index.js'),
+    }));
+  for (const itemDir of itemDirs) {
+    const fileContent = fs.readFileSync(itemDir.indexPath);
+    const outputFileContent = `import "./index.css";\n${fileContent}`;
+    fs.outputFile(itemDir.indexPath, outputFileContent, 'utf-8');
+  }
 }
 
 // 复制components/index.ts的内容到dist/index.js
 function copyIndex() {
-  const fileContent = fs.readFileSync(ComponentIndexFile, 'utf-8');
-  fs.ensureFileSync(BuildLibOutputIndexFile);
-  fs.outputFileSync(BuildLibOutputIndexFile, fileContent, 'utf-8');
+  const fileContent = fs.readFileSync(componentIndexFile, 'utf-8');
+  fs.ensureFileSync(buildLibOutputIndexFile);
+  fs.outputFileSync(buildLibOutputIndexFile, fileContent, 'utf-8');
 }
 
 // 生成index.d.ts
@@ -75,7 +91,7 @@ function generateIndexDts() {
       install: typeof install;
   };
   export default _default;`;
-  fs.outputFileSync(BuildLibOutputIndexDtsFile, fileStr, 'utf8');
+  fs.outputFileSync(buildLibOutputIndexDtsFile, fileStr, 'utf8');
 }
 
 buildComponents();

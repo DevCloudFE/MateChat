@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { demoblockPlugin, VitePluginDemoblock } from 'vitepress-theme-demoblock';
+import vueI18n from "@intlify/unplugin-vue-i18n/vite";
 import sideBarEn from './theme/themeConfig/sideBar-en';
 import sideBarZh from './theme/themeConfig/sideBar-zh';
 
@@ -16,7 +17,10 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [VitePluginDemoblock()],
+    plugins: [
+      VitePluginDemoblock(),
+      vueI18n({ ssr: true })
+    ],
     ssr: {
       noExternal: ['devui-theme', 'vue-devui', 'xss'],
     },

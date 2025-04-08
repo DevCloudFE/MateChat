@@ -14,7 +14,8 @@ bannerSrc: '/bubbleBanner.png'
 | mdOptions        | `object`                          | {}       | 设置 markdown 对字符串的处理方式， 可参考[markdown-it](https://www.npmjs.com/package/markdown-it?activeTab=readme)|
 | mdPlugins       | [MdPlugin[]](#mdplugin)       | []       | 设置 markdown-it 插件|
 | customXssRules       | [CustomXssRule[]](#customxssrule)       | []       | 自定义 xss 对某种 tag 的过滤方式，每条规则需要指定 tag, 并给出需要加入白名单的属性数组|
-
+| enableThink | `boolean`                       | false         | 是否开启\<think\>标签识别                                 |
+| thinkOptions | [`ThinkOptions`](#thinkoptions)                       | --         | \<think\>标签配置，自定义样式等                                       |
 
 
 ### 代码块插槽
@@ -63,5 +64,13 @@ type Theme = 'light' | 'dark';
 interface CodeBlockData {
   code: string;
   language: string;
+}
+``` 
+
+#### ThinkOptions
+
+```ts
+interface ThinkOptions {
+  customClass: string;
 }
 ``` 

@@ -25,6 +25,8 @@ iconSrc: '/inputIcon.png'
 | change | `(e: string) => void` | 输入内容变化时触发的事件，返回值为当前输入的内容 |
 | submit | `(e: string) => void` | 发送时触发的事件，返回值为当前输入的内容         |
 | cancel | `() => void`          | 当状态为发送中，点击暂停回答按钮时触发的事件     |
+| focus | `(e: FocusEvent) => void` | 聚焦输入框时触发的事件         |
+| blur | `(e: FocusEvent) => void` | 输入框失焦时触发的事件         |
 
 ### 插槽
 

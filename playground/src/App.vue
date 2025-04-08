@@ -7,54 +7,29 @@
         </div>
       </template>
     </McHeader>
-    <McLayoutContent
-      v-if="startPage"
-      style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px"
-    >
-      <McIntroduction
-        :logoImg="'https://matechat.gitcode.com/logo2x.svg'"
-        :title="'MateChat'"
-        :subTitle="'Hi，欢迎使用 MateChat'"
-        :description="description"
-      ></McIntroduction>
-      <McPrompt
-        :list="introPrompt.list"
-        :direction="introPrompt.direction"
-        class="intro-prompt"
-        @itemClick="onSubmit($event.label)"
-      ></McPrompt>
+    <McLayoutContent v-if="startPage"
+      style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
+      <McIntroduction :logoImg="'https://matechat.gitcode.com/logo2x.svg'" :title="'MateChat'"
+        :subTitle="'Hi，欢迎使用 MateChat'" :description="description"></McIntroduction>
+      <McPrompt :list="introPrompt.list" :direction="introPrompt.direction" class="intro-prompt"
+        @itemClick="onSubmit($event.label)"></McPrompt>
     </McLayoutContent>
     <McLayoutContent v-else>
       <template v-for="(msg, idx) in messages" :key="idx">
-        <McBubble
-          v-if="msg.from === 'user'"
-          :content="msg.content"
-          :align="'right'"
-          :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/png/demo/userAvatar.svg' }"
-        >
+        <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'"
+          :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/png/demo/userAvatar.svg' }">
         </McBubble>
-        <McBubble v-else :content="msg.content" :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/logo.svg' }"> </McBubble>
+        <McBubble v-else :content="msg.content" :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/logo.svg' }">
+        </McBubble>
       </template>
     </McLayoutContent>
     <div class="shortcut" style="display: flex; align-items: center; gap: 8px">
-      <McPrompt
-        v-if="!startPage"
-        :list="simplePrompt"
-        :direction="'horizontal'"
-        style="flex: 1"
-        @itemClick="onSubmit($event.label)"
-      ></McPrompt>
-      <d-button
-        style="margin-left: auto"
-        icon="add"
-        shape="circle"
-        title="新建对话"
-        size="sm"
-        @click="
-          startPage = true;
-          messages = [];
-        "
-      />
+      <McPrompt v-if="!startPage" :list="simplePrompt" :direction="'horizontal'" style="flex: 1"
+        @itemClick="onSubmit($event.label)"></McPrompt>
+      <d-button style="margin-left: auto" icon="add" shape="circle" title="新建对话" size="sm" @click="
+        startPage = true;
+      messages = [];
+      " />
     </div>
     <McLayoutSender>
       <McInput :value="inputValue" :maxLength="2000" @change="(e) => (inputValue = e)" @submit="onSubmit">
@@ -128,7 +103,7 @@ const inputFootIcons = [
   { icon: 'icon-add', text: '附件' },
 ];
 
-const messages = ref<any[]>([
+const messages = ref([
   {
     from: 'user',
     content: '你好',
@@ -199,7 +174,7 @@ const onSubmit = (evt) => {
   }
 
   .input-foot-right {
-    & > *:not(:first-child) {
+    &>*:not(:first-child) {
       margin-left: 8px;
     }
   }

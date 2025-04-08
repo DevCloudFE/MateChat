@@ -5,10 +5,10 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export const IndexFileName = 'index.ts';
-export const IgnoreDirs = ['PopperTrigger'];
-export const ComponentsDir = path.resolve(__dirname, '../components');
-export const ComponentIndexFile = path.resolve(ComponentsDir, `./${IndexFileName}`);
-export const BuildLibOutputDir = path.resolve(__dirname, '../dist');
-export const BuildLibOutputIndexFile = path.resolve(BuildLibOutputDir, './mate-chat.js');
-export const BuildLibOutputIndexDtsFile = path.resolve(BuildLibOutputDir, './index.d.ts');
+export const indexFileName = 'index.ts';
+export const ignoreDirs = ['PopperTrigger', 'node_modules', 'dist'];
+export const componentsDir = path.resolve(__dirname, '../packages/components');
+export const componentIndexFile = path.resolve(componentsDir, `./${indexFileName}`);
+export const buildLibOutputDir = path.resolve(__dirname, '../packages/components/dist');
+export const buildLibOutputIndexFile = path.resolve(buildLibOutputDir, './mate-chat.js');
+export const buildLibOutputIndexDtsFile = path.resolve(buildLibOutputDir, './index.d.ts');

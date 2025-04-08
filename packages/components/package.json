@@ -18,7 +18,9 @@
   },
   "module": "mate-chat.js",
   "types": "index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
     "@vue/shared": "^3.5.13",

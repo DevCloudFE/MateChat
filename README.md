@@ -1,13 +1,14 @@
-
 [![star](https://gitcode.com/DevCloudFE/MateChat/star/badge.svg)](https://gitcode.com/DevCloudFE/MateChat/issues) 
 
-<a href="https://matechat.gitcode.com/" target="_blank" rel="noopener noreferrer" style="width: 200px; margin: 0 auto; display: flex">
+<div align="center">
     <img alt="MateChat Logo" src="https://matechat.gitcode.com/logo.svg" width="48" style="max-width:100%;">
-    <span align="center" style="font-size: 24px; margin-left: 8px; display: inline-block; padding-top: 14px">MateChat</span>
-</a>
+    <a href="https://matechat.gitcode.com/" target="_blank" rel="noopener noreferrer" style="font-size: 20px">
+        <p>MateChat</p>
+    </a>
+</div>
 <p align="center">前端智能化场景解决方案UI库，轻松构建你的AI应用。已服务于华为内部多个应用智能化改造，并助力CodeArts、InsCode AI IDE等智能化助手搭建。</p>
 
-![example](./src/assets/example1.png)
+![example](./public/example1.png)
 
 ## 🌈 特性
 
@@ -410,8 +411,8 @@ const fetchData = async (ques) => {
 ```bash
 git clone git@gitcode.com:DevCloudFE/MateChat.git
 cd matechat
-npm i
-npm run docs:dev
+pnpm i
+pnpm run docs:dev
 ```
 
 ## 📅 特性规划

@@ -110,7 +110,7 @@ import { themeServiceInstance } from '../../index';
 import { useI18n } from 'vue-i18n';
 import { useLangs } from '../../composables/langs';
 import { useRouter } from 'vitepress';
-const emit = defineEmits(['themeUpdate']);
+import { APPEARANCE_KEY } from '../../../shared';
 const i18n = useI18n();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 const { theme, page, isDark } = useData();
@@ -156,6 +156,11 @@ onMounted(() => {
       isZh.value = false;
     }
   }
+  if (typeof window !== 'undefined') {
+    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQueryListDark.addListener(windowThemeChange); // 添加主题变动监控事件
+    windowThemeChange(mediaQueryListDark);
+  }
 });
 
 const go = (link: string) => {
@@ -170,20 +175,23 @@ const toggleAppearance = inject('toggle-appearance', (isGalaxy) => {
   isDark.value = isGalaxy;
 });
 
-function setTheme(key: ThemeKey) {
-  isGalaxy.value = !isGalaxy.value;
-  typeof localStorage !== 'undefined' && localStorage.setItem('theme', key);
-  themeServiceInstance?.applyTheme(ThemeConfig[key]);
-  toggleAppearance(isGalaxy.value);
-  emit('themeUpdate', isGalaxy.value);
+function windowThemeChange(mediaQueryListEvent) {
+  const vpTheme = typeof localStorage !== 'undefined' && localStorage.getItem(APPEARANCE_KEY);
+  if (vpTheme === 'auto') {
+    isGalaxy.value = !!mediaQueryListEvent.matches; // matches 存在则 系统是深色主题
+    changeDevUiTheme(isGalaxy.value);
+  }
 }
 
 function themeChange(change) {
-  const key = change ? ThemeKey.Galaxy : ThemeKey.Infinity;
-  localStorage.setItem('theme', key);
-  themeServiceInstance?.applyTheme(ThemeConfig[key]);
+  changeDevUiTheme(change);
   toggleAppearance(isGalaxy.value);
-  emit('themeUpdate', isGalaxy.value);
+}
+
+function changeDevUiTheme(change) {
+  const key = change ? ThemeKey.Galaxy : ThemeKey.Infinity;
+  typeof localStorage !== 'undefined' && localStorage.setItem('theme', key);
+  themeServiceInstance?.applyTheme(ThemeConfig[key]);
 }
 
 function collapseSideMenu() {
@@ -209,7 +217,7 @@ function onDropdown(status: boolean) {
   justify-content: space-between;
   align-items: center;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 48px;
   background-color: $devui-base-bg;
   transition: 0.5s;

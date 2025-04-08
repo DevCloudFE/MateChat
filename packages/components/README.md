@@ -409,8 +409,8 @@ const fetchData = async (ques) => {
 ```bash
 git clone git@gitcode.com:DevCloudFE/MateChat.git
 cd matechat
-npm i
-npm run docs:dev
+pnpm i
+pnpm run docs:dev
 ```
 
 ## 📅 特性规划

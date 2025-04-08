@@ -1,12 +1,12 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "components/**/*.vue",
-    "components/**/*.ts",
-    "components/**/*.tsx"
+    "**/env.d.ts",
+    "playground/**/*",
+    "playground/**/*.vue",
+    "packages/**/*.vue",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
@@ -14,8 +14,8 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@matechat/core/*": ["./components/*"]
+      "@matechat/playground/*": ["./playground/*"],
+      "@matechat/core/*": ["./packages/components/*"]
     }
   }
 }
