@@ -11,9 +11,11 @@
   export let width = ""; // 按钮宽度
   export let onClick = (e) => {}; // 点击事件处理函数
   export let slots = {
+    icon: null,
     suffix: null,
   };
 
+  let iconSlotContainer;
   let expandSlotContainer;
 
   const btnClick = (e) => {
@@ -22,9 +24,11 @@
   };
 
   onMount(() => {
-    console.log("mouted", slots, expandSlotContainer);
     if (slots.suffix && expandSlotContainer) {
-      expandSlotContainer.appendChild(slots.suffix); // 将传递的 DOM 节点挂载到插槽位置
+      expandSlotContainer.appendChild(slots.suffix); 
+    }
+    if (slots.icon && iconSlotContainer) {
+      iconSlotContainer.appendChild(slots.icon); 
     }
   });
 </script>
@@ -43,6 +47,9 @@
     {#if icon}
       <i class="icon {icon}"></i>
     {/if}
+    {#if slots.icon}
+      <div class="icon-slot" bind:this={iconSlotContainer}></div>
+    {/if}
     <slot>
       <span class="mc-button-content">{label}</span></slot
     >
@@ -60,6 +67,14 @@
     sm: 28px,
     md: 32px,
     lg: 40px,
+  );
+  $button-gradient-bg: linear-gradient(
+    90deg,
+    #93d6f9,
+    #abee88,
+    #fdc68d,
+    #fa9d8e,
+    #f48ae1
   );
 
   @each $size, $value in $button-size {
@@ -92,7 +107,6 @@
   }
 
   .mc-button.disabled {
-    background-color: $devui-disabled-bg;
     color: $devui-disabled-text;
     cursor: not-allowed;
   }
@@ -121,8 +135,8 @@
       bottom: 0;
       border-radius: 100px;
       background: linear-gradient(90deg, #97c6fb, #97c6fb);
-      -webkit-filter: blur(8px);
-      filter: blur(8px);
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
       z-index: -1;
     }
   }
@@ -138,14 +152,7 @@
       right: -1px;
       bottom: -1px;
       border-radius: 100px;
-      background: linear-gradient(
-        90deg,
-        #93d6f9,
-        #abee88,
-        #fdc68d,
-        #fa9d8e,
-        #f48ae1
-      );
+      background: $button-gradient-bg;
       z-index: -1;
     }
 
@@ -157,21 +164,18 @@
       right: 0;
       bottom: 0;
       border-radius: 100px;
-      background: linear-gradient(
-        90deg,
-        #93d6f9,
-        #abee88,
-        #fdc68d,
-        #fa9d8e,
-        #f48ae1
-      );
-      filter: blur(6px);
+      background: $button-gradient-bg;
+      filter: blur(4px);
       z-index: -1;
     }
   }
 
+  .icon-slot {
+    margin-right: 4px;
+  }
+
   .mc-button--sm {
-    height: 24px;
+    height: map-get($button-size, sm);
     padding: 0 12px;
     font-size: 12px;
   }
@@ -181,7 +185,7 @@
     font-size: 14px;
   }
   .mc-button--lg {
-    height: 40px;
+    height: map-get($button-size, lg);
     padding: 12px 20px;
     font-size: 16px;
   }

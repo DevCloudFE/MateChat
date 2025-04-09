@@ -1,6 +1,6 @@
 ---
-title: Button 按钮
-desc: 用于AI场景的炫彩按钮组件
+title: AIButton 智能按钮
+desc: 用于AI场景的智能按钮组件
 bannerSrc: '/bubbleBanner.png'
 ---
 
@@ -23,14 +23,19 @@ import { McButton } from '@matechat/core';
       <McButton label="Primary" @click="btnClick"></McButton>
     </div>
     <div class="btn-demo-wrap">
-      <McButton label="Primary" styleType="border-blue"  @click="btnClick"></McButton>
+      <McButton label="Primary" @click="btnClick">
+        <template #icon><img style="height:18px;width:18px" src="/logo.svg" /></template>
+      </McButton>
+    </div>
+    <!-- <div class="btn-demo-wrap">
+      <McButton label="Secondary" styleType="border-blue"  @click="btnClick"></McButton>
     </div>
         <div class="btn-demo-wrap">
-      <McButton label="Primary" styleType="border-black"  @click="btnClick"></McButton>
+      <McButton label="Common" styleType="border-black"  @click="btnClick"></McButton>
     </div>
         <div class="btn-demo-wrap">
-      <McButton label="Primary" styleType="border-none"  @click="btnClick"></McButton>
-    </div>
+      <McButton label="Black" styleType="border-none"  @click="btnClick"></McButton>
+    </div> -->
   </div>
 </template>
 <script setup>
@@ -52,7 +57,7 @@ const btnClick = () => {
 
 ```vue
 <template>
-  <div>
+  <div class="shape">
     <div class="btn-demo-wrap">
       <McButton label="Primary" @click="btnClick"></McButton>
     </div>
@@ -73,6 +78,10 @@ const btnClick = () => {
 .btn-demo-wrap {
   margin-bottom: 20px;
 }
+.shape {
+  display: flex;
+  gap: 24px;
+}
 </style>
 ```
 :::
@@ -85,7 +94,7 @@ const btnClick = () => {
 <template>
   <div>
     <div class="btn-demo-wrap">
-      <McButton size="md" label="Primary" :disabled="true" @click="btnClick"></McButton>
+      <McButton size="md" label="Disabled" :disabled="true" @click="btnClick"></McButton>
        <McButton size="md" label="处理中..." :disabled="true" @click="btnClick"></McButton>
     </div>
   </div>
@@ -146,6 +155,7 @@ const btnClick = () => {
   <div>
     <div class="btn-demo-wrap">
       <McButton  label="待处理" @click="btnClick">
+        <template #icon><img style="height:18px;width:18px" src="/logo.svg" /></template>
         <template #suffix>
           <span class="split-line"></span>
           <i class="icon icon-arrow-up-l" @click="arrowUp"></i>

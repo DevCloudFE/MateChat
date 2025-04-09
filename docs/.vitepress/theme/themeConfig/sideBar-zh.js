@@ -5,7 +5,6 @@ export default {
       items: [
         { text: 'Introduction 介绍', link: '/components/introduction/demo' },
         { text: 'List 列表', link: '/components/list/demo' },
-        { text: 'Button 按钮', link: '/components/button/demo' },
       ],
     },
     {
@@ -29,7 +28,10 @@ export default {
     },
     {
       text: '演进中',
-      items: [{ text: 'MarkDown 卡片', link: '/components/markDownCard/demo' }],
+      items: [
+        { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
+        { text: 'AIButton 智能按钮', link: '/components/button/demo' },
+      ],
     },
   ],
   '/design/': [

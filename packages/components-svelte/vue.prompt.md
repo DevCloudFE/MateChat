@@ -22,6 +22,7 @@
 3. Vue 组件的插槽需要先定义插槽，通过 Vue 的 `useSlots` 获取插槽的真实元素，并通过props的slots属性传递给 Svelte 组件。
 4. Vue 组件在 `onMounted` 时初始化 Svelte 组件，并在 `onBeforeUnmount` 时销毁 Svelte 组件。
 5. Vue 组件不需要style标签样式。
+6. watch监听vue组件的props变化，并使用$set更新svelte组件
 
 生成的 Vue 组件文件名为 `{vueComponentName}`，请输出完整代码。
 ```
@@ -358,6 +359,28 @@ onMounted(() => {
         });
     }
 });
+
+// 监听 props 的变化并更新 Svelte 组件
+watch(
+    () => props,
+    (newProps) => {
+        if (nativeComponent) {
+            nativeComponent.$set({
+                label: newProps.label,
+                disabled: newProps.disabled,
+                shape: newProps.shape,
+                size: newProps.size,
+                width: newProps.width,
+                styleType: newProps.styleType || 'border-gradient',
+                slots: {
+                    icon: slots.icon ? iconSlot.value : null,
+                    suffix: slots.suffix ? slot.value : null,
+                },
+            });
+        }
+    },
+    { deep: true } // 深度监听
+);
 
 onBeforeUnmount(() => {
     if (nativeComponent) {

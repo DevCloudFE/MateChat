@@ -271,3 +271,74 @@ const onSubmit = (e) => {
 ```
 
 :::
+
+
+### 使用智能按钮
+
+通过`button`插槽自定义发送按钮，实现按钮disable、loading等状态和按钮图标、按钮文案的自定义
+
+:::demo
+
+```vue
+<template>
+  <McInput :value="inputValue" :maxLength="2000" :loading="loading" showCount @change="onInputChange" @submit="onSubmit" @cancel="onCancel">
+    <template #button>
+      <McButton :label="loading ? '处理中...' : '发送'" @click="onConfirm">
+        <template #icon><img style="height:18px;width:18px" src="/logo.svg" /></template>
+      </McButton>
+    </template>
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+import { McButton } from '@matechat/core';
+
+const inputValue = ref('');
+const loading = ref(false);
+
+const onInputChange = (e) => {
+  inputValue.value = e;
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  inputValue.value = '';
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
+  console.log('input submit---', e);
+};
+const onCancel = () => {
+  loading.value = false;
+  console.log('input cancel');
+};
+
+const onConfirm = () => {
+   if(loading.value) {
+    onCancel();
+   } else {
+    onSubmit();
+   }
+}
+</script>
+
+<style scoped lang="scss">
+.my-button {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: #5e7ce0;
+  padding: 0 16px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.disabled {
+  background: #beccfa;
+}
+
+</style>
+```
+
+:::

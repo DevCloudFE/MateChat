@@ -1,6 +1,6 @@
 ---
-title: Button 按钮
-desc: 用于AI场景的炫彩按钮组件
+title: AIButton 智能按钮
+desc: 用于AI场景的智能按钮组件
 bannerSrc: '/bubbleBanner.png'
 ---
 
