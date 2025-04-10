@@ -1,8 +1,10 @@
-import { createApp } from 'vue';
-import './style.css';
-import App from './App.vue';
-import MateChat from '@matechat/core';
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import "./style.css";
+import App from "./App.vue";
+import MateChat from "@matechat/core";
+import VueDevui from "vue-devui";
 
-createApp(App)
-  .use(MateChat)
-  .mount('#app');
+const pinia = createPinia();
+
+createApp(App).use(pinia).use(MateChat).use(VueDevui).mount("#app");
