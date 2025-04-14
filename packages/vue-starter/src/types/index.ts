@@ -1,1 +1,1 @@
-export * from "./type-chatview";
+export * from "./type-chat-view";
