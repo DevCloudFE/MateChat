@@ -10,6 +10,7 @@ import {
   componentIndexFile,
   buildLibOutputIndexFile,
   buildLibOutputIndexDtsFile,
+  svelteComponentsOutputDir,
 } from './const.js';
 import { resolveFilesInfo } from './utils.js';
 import { buildSvelteComponents } from './build-svelte.js';
@@ -35,6 +36,11 @@ async function buildSingle(itemFile) {
       configFile: false,
       publicDir: false,
       plugins: [vue(), vueJsx()],
+      resolve: {
+        alias: {
+          '@components-js': svelteComponentsOutputDir,
+        },
+      },
       build: {
         rollupOptions: {
           external: ['vue', '@floating-ui/dom', '@vue/shared', 'lodash-es', /@matechat\/core/, 'markdown-it', 'highlight.js', 'xss'],

@@ -15,3 +15,4 @@ export const buildLibOutputIndexDtsFile = path.resolve(buildLibOutputDir, './ind
 
 export const componentsSvelteDir = path.resolve(__dirname, '../packages/components-svelte/components/index.ts');
 export const svelteOutputDir = path.resolve(__dirname, '../packages/components-js');
+export const svelteComponentsOutputDir = path.resolve(__dirname, '../packages/components-js/packages');
