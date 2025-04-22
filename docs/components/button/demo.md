@@ -23,7 +23,7 @@ import { McButton } from '@matechat/core';
       <McButton label="Primary" @click="btnClick"></McButton>
     </div>
     <div class="btn-demo-wrap">
-      <McButton label="Primary" @click="btnClick">
+      <McButton label="智能辅助按钮" @click="btnClick">
         <template #icon><img style="height:18px;width:18px" src="/logo.svg" /></template>
       </McButton>
     </div>
@@ -64,9 +64,9 @@ const btnClick = () => {
     <div class="btn-demo-wrap">
       <McButton label="+" shape="circle"  @click="btnClick"></McButton>
     </div>
-        <div class="btn-demo-wrap">
+        <!-- <div class="btn-demo-wrap">
       <McButton label="round" shape="round"  @click="btnClick"></McButton>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>

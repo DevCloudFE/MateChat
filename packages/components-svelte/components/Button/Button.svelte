@@ -25,10 +25,10 @@
 
   onMount(() => {
     if (slots.suffix && expandSlotContainer) {
-      expandSlotContainer.appendChild(slots.suffix); 
+      expandSlotContainer.appendChild(slots.suffix);
     }
     if (slots.icon && iconSlotContainer) {
-      iconSlotContainer.appendChild(slots.icon); 
+      iconSlotContainer.appendChild(slots.icon);
     }
   });
 </script>
@@ -37,7 +37,9 @@
   <button
     class="mc-button {disabled
       ? 'disabled'
-      : ''} button-{styleType} mc-button--{size} mc-button--{shape}"
+      : ''} button-{styleType} mc-button--{size} mc-button--{shape} {slots.icon
+      ? 'mc-button--suffix'
+      : ''}"
     style={width ? `width: ${width};` : ""}
     on:click={btnClick}
   >
@@ -64,9 +66,9 @@
   @import "devui-theme/styles-var/devui-var.scss";
 
   $button-size: (
-    sm: 28px,
-    md: 32px,
-    lg: 40px,
+    sm: 26px,
+    md: 30px,
+    lg: 38px,
   );
   $button-gradient-bg: linear-gradient(
     90deg,
@@ -76,10 +78,12 @@
     #fa9d8e,
     #f48ae1
   );
+  $button-padding: 0 13px;
 
   @each $size, $value in $button-size {
     .mc-button--#{$size} {
       height: $value;
+      margin: 1px;
     }
   }
 
@@ -94,50 +98,21 @@
     justify-content: center;
     position: relative;
     height: map-get($button-size, md);
-    padding: 8px 16px;
+    padding: $button-padding;
     color: $devui-text;
     border: none;
     border-radius: 100px;
     white-space: nowrap;
     cursor: pointer;
 
-    .icon {
+    .icon,
+    .icon-slot {
       margin-right: 4px;
     }
-  }
 
-  .mc-button.disabled {
-    color: $devui-disabled-text;
-    cursor: not-allowed;
-  }
-
-  .button-border-none {
-    color: #fff;
-    background-color: #191919;
-  }
-
-  .button-border-black {
-    color: #191919;
-    background-color: #fff;
-    border: 1px solid #191919;
-  }
-
-  .button-border-blue {
-    border: 1px solid #97c6fb;
-    background-color: $devui-base-bg;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 100px;
-      background: linear-gradient(90deg, #97c6fb, #97c6fb);
-      -webkit-filter: blur(4px);
-      filter: blur(4px);
-      z-index: -1;
+    &.disabled {
+      color: $devui-disabled-text;
+      cursor: not-allowed;
     }
   }
 
@@ -170,34 +145,25 @@
     }
   }
 
-  .icon-slot {
-    margin-right: 4px;
+  .mc-button--suffix {
+    padding-left: 11px;
   }
 
   .mc-button--sm {
     height: map-get($button-size, sm);
-    padding: 0 12px;
     font-size: 12px;
   }
   .mc-button--md {
     height: map-get($button-size, md);
-    padding: 8px 16px;
     font-size: 14px;
   }
   .mc-button--lg {
     height: map-get($button-size, lg);
-    padding: 12px 20px;
     font-size: 16px;
   }
 
   .mc-button--capsule {
     border-radius: 100px;
-  }
-  .mc-button--round {
-    border-radius: 4px;
-    &::after {
-      border-radius: 4px;
-    }
   }
 
   .mc-button--circle {
