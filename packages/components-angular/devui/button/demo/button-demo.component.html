@@ -5,10 +5,10 @@
     <div class="devui-demo-text"></div>
     <!-- <d-codebox id="components-button-common" [sourceData]="commonSource"> -->
     <div class="demo-container">
-      <d-button demo [disabled]="false" (btnClick)="btnClick($event)"></d-button>
-      <d-button demo [disabled]="false" styleType="border-blue" (btnClick)="btnClick($event)"></d-button>
-      <d-button demo [disabled]="false" styleType="border-black" (btnClick)="btnClick($event)"></d-button>
-      <d-button demo [disabled]="false" styleType="border-none" (btnClick)="btnClick($event)"></d-button>
+      <d-button demo [disabled]="false" [label]="label" (btnClick)="btnClick($event)"></d-button>
+      <d-button demo [disabled]="false" label="angular button" styleType="border-blue" (btnClick)="btnClick($event)"></d-button>
+      <d-button demo [disabled]="false" label="angular button" styleType="border-black" (btnClick)="btnClick($event)"></d-button>
+      <d-button demo [disabled]="false" label="angular button" styleType="border-none" (btnClick)="btnClick($event)"></d-button>
     </div>
     <ng-template #suffixTemplate>
       <span class="split-line"></span>

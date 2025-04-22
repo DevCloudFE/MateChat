@@ -3,10 +3,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 @Component({
-    selector: 'd-demo-button',
-    templateUrl: './button-demo.component.html',
-    styleUrls: ['./button-demo.component.scss'],
-    standalone: false
+  selector: 'd-demo-button',
+  templateUrl: './button-demo.component.html',
+  styleUrls: ['./button-demo.component.scss'],
+  standalone: false,
 })
 export class ButtonDemoComponent implements OnInit, OnDestroy {
   commonSource = [
@@ -14,7 +14,7 @@ export class ButtonDemoComponent implements OnInit, OnDestroy {
     { title: 'TS', language: 'typescript', code: require('./common/common.component.ts?raw') },
   ];
 
-  iconSource= [
+  iconSource = [
     { title: 'HTML', language: 'xml', code: require('./icon/icon.component.html?raw') },
     { title: 'TS', language: 'typescript', code: require('./icon/icon.component.ts?raw') },
     { title: 'SCSS', language: 'css', code: require('./icon/icon.component.scss?raw') },
@@ -80,8 +80,10 @@ export class ButtonDemoComponent implements OnInit, OnDestroy {
     );
   }
 
+  label = 'Button';
   btnClick(event: MouseEvent) {
     console.log('btnClick', event);
+    this.label = 'Button Clicked!';
   }
 
   refresh(event: MouseEvent) {
@@ -93,7 +95,7 @@ export class ButtonDemoComponent implements OnInit, OnDestroy {
   arrowUp(event: MouseEvent) {
     console.log('arrowUp', event);
   }
-  
+
   setNavValues(values) {
     this.navItems = [
       { dAnchorLink: 'button-primary', value: values['button-primary'] },

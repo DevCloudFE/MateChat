@@ -13,6 +13,8 @@ import {
   ViewEncapsulation,
   ViewChild,
   ViewContainerRef,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { AnimationNumberDuration } from 'ng-devui/utils';
 import Button from '../../../components-js/packages/Button/button.svelte';
@@ -34,11 +36,12 @@ export type IButtonSize = 'lg' | 'md' | 'sm' | 'xs';
   standalone: false,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class ButtonComponent implements AfterContentChecked, AfterViewInit {
+export class ButtonComponent implements AfterContentChecked, AfterViewInit, OnChanges {
   @Input() type: IButtonType = 'button';
   @Input() styleType: IButtonStyle = 'border-gradient';
   @Input() shape: 'circle';
   @Input() size: IButtonSize = 'md';
+  @Input() label: string;
   /**
    * @deprecated
    * 原左右按钮用按钮组实现
@@ -60,7 +63,7 @@ export class ButtonComponent implements AfterContentChecked, AfterViewInit {
         shape: this.shape,
         icon: this.icon,
         disabled: this.disabled,
-        label: 'angular button',
+        label: this.label,
         styleType: this.styleType,
         size: this.size,
         width: this.width,
@@ -87,6 +90,24 @@ export class ButtonComponent implements AfterContentChecked, AfterViewInit {
   // 新增click事件，解决直接在host上使用click，在disabled状态下还能触发事件
   onClick(event) {
     this.showClickWave(event);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // 检测到输入属性变化时更新 Svelte 组件的 props
+    if (this.nativeButton) {
+      this.nativeButton.$set({
+        shape: this.shape,
+        icon: this.icon,
+        disabled: this.disabled,
+        styleType: this.styleType,
+        label: this.label,
+        size: this.size,
+        width: this.width,
+        slots: {
+          suffix: this.suffixContainer ? this.suffixContainer.nativeElement : null,
+        },
+      });
+    }
   }
 
   showClickWave(event) {
