@@ -1,11 +1,14 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import dayjs from "dayjs";
 import type { IMessage } from "@/types";
 import { customerAvatar, aiModelAvatar } from "@/mock-data/mock-chat-view";
-import { useChatStatusStore } from "./chat-status";
+import { useChatStatusStore } from "./status-store";
+import { useChatHistoryStore } from "./history-store";
 
 export const useChatMessageStore = defineStore("chat-message", () => {
   const chatStatusStore = useChatStatusStore();
+  const chatHistoryStore = useChatHistoryStore();
   const messages = ref<IMessage[]>([]);
   const messageChangeCount = ref(0);
 
@@ -15,7 +18,13 @@ export const useChatMessageStore = defineStore("chat-message", () => {
     }
     if (!messages.value.length) {
       chatStatusStore.startChat = true;
+      chatStatusStore.newChatId();
     }
+    chatHistoryStore.addHistory(
+      chatStatusStore.chatId,
+      dayjs().format("YYYY-MM-DD"),
+      messages.value
+    );
     messages.value.push({
       from: "user",
       content: question,
@@ -46,6 +55,11 @@ export const useChatMessageStore = defineStore("chat-message", () => {
         );
         messageChangeCount.value++;
       }
+      chatHistoryStore.addHistory(
+        chatStatusStore.chatId,
+        dayjs().format("YYYY-MM-DD"),
+        messages.value
+      );
     }, 1000);
   };
 

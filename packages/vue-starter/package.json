@@ -18,8 +18,10 @@
   "dependencies": {
     "@devui-design/icons": "^1.4.0",
     "@matechat/core": "^1.4.0",
+    "dayjs": "^1.11.13",
     "devui-theme": "^0.0.7",
     "pinia": "^3.0.2",
+    "uuid": "^11.1.0",
     "vue": "^3.5.13",
     "vue-devui": "^1.6.32",
     "vue-router": "^4.5.0"

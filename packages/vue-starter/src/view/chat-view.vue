@@ -1,6 +1,5 @@
 <template>
   <div class="chat-view-container">
-    <Header />
     <ChatProcess v-if="chatStatusStore.startChat" />
     <Welcome v-else />
     <div class="new-convo-button">
@@ -23,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import { Header } from "@view/header";
 import { Welcome } from "@view/welcome";
 import { ChatModel } from "@view/chat-model";
 import { ChatPrompt } from "@view/prompt";
@@ -45,9 +43,8 @@ const onNewConvo = () => {
 @import "devui-theme/styles-var/devui-var.scss";
 
 .chat-view-container {
-  width: 100%;
-  min-width: 500px;
-  height: calc(100vh - 180px);
+  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
