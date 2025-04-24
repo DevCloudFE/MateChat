@@ -4,11 +4,11 @@ import { ref } from "vue";
 
 export const useChatStatusStore = defineStore("chat-status", () => {
   const startChat = ref(false);
-  const chatId = ref("");
+  const currentChatId = ref("");
 
   const newChatId = () => {
-    chatId.value = uuidv4();
+    currentChatId.value = uuidv4();
   };
 
-  return { startChat, chatId, newChatId };
+  return { startChat, currentChatId, newChatId };
 });

@@ -3,8 +3,7 @@
     <ChatProcess v-if="chatStatusStore.startChat" />
     <Welcome v-else />
     <div class="new-convo-button">
-      <ChatPrompt v-if="chatStatusStore.startChat" />
-      <div v-else class="agent-knowledge">
+      <div class="agent-knowledge">
         <ChatModel />
         <span class="agent-knowledge-dividing-line"></span>
         <Knowledge />
@@ -24,7 +23,6 @@
 <script setup lang="ts">
 import { Welcome } from "@view/welcome";
 import { ChatModel } from "@view/chat-model";
-import { ChatPrompt } from "@view/prompt";
 import { Knowledge } from "@view/knowledge";
 import { Input } from "@view/input";
 import { ChatProcess } from "@view/chat-process";
@@ -48,6 +46,7 @@ const onNewConvo = () => {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding-top: 12px;
 
   .new-convo-button {
     padding: 0 12px;

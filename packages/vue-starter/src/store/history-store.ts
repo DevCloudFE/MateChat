@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { shallowRef } from "vue";
+import { ref } from "vue";
 import type { HistoryList, IMessage } from "@/types";
 
 export const useChatHistoryStore = defineStore("chat-history", () => {
-  const historyList = shallowRef<HistoryList>([]);
+  const historyList = ref<HistoryList>([]);
 
   const addHistory = (chatId: string, date: string, messages: IMessage[]) => {
     const index = historyList.value.findIndex((item) => item.chatId === chatId);
@@ -15,5 +15,10 @@ export const useChatHistoryStore = defineStore("chat-history", () => {
     }
   };
 
-  return { addHistory };
+  const deleteHistory = (chatId: string) => {
+    const index = historyList.value.findIndex((item) => item.chatId === chatId);
+    historyList.value.splice(index, 1);
+  };
+
+  return { historyList, addHistory, deleteHistory };
 });

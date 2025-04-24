@@ -21,7 +21,7 @@ export const useChatMessageStore = defineStore("chat-message", () => {
       chatStatusStore.newChatId();
     }
     chatHistoryStore.addHistory(
-      chatStatusStore.chatId,
+      chatStatusStore.currentChatId,
       dayjs().format("YYYY-MM-DD"),
       messages.value
     );
@@ -56,7 +56,7 @@ export const useChatMessageStore = defineStore("chat-message", () => {
         messageChangeCount.value++;
       }
       chatHistoryStore.addHistory(
-        chatStatusStore.chatId,
+        chatStatusStore.currentChatId,
         dayjs().format("YYYY-MM-DD"),
         messages.value
       );
