@@ -21,14 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
 import {
   useChatHistoryStore,
   useChatMessageStore,
   useChatStatusStore,
-} from "@/store";
-import type { IHistoryItem } from "@/types";
-import HistoryItem from "./history-item.vue";
+} from '@/store';
+import type { IHistoryItem } from '@/types';
+import { useI18n } from 'vue-i18n';
+import HistoryItem from './history-item.vue';
 
 const { t } = useI18n();
 const chatHistoryStore = useChatHistoryStore();
@@ -36,14 +36,14 @@ const chatMessageStore = useChatMessageStore();
 const chatStatusStore = useChatStatusStore();
 
 const { proxy } = getCurrentInstance();
-const searchKey = ref("");
-const activeHistoryId = ref("");
+const searchKey = ref('');
+const activeHistoryId = ref('');
 const renderList = ref<IHistoryItem[]>([]);
 
 const onSearch = (e: string) => {
   if (e) {
     renderList.value = chatHistoryStore.historyList.filter((item) =>
-      item.messages[0].content.includes(e)
+      item.messages[0].content.includes(e),
     );
   } else {
     renderList.value = chatHistoryStore.historyList;
@@ -57,9 +57,9 @@ const onHistoryClick = (e: IHistoryItem) => {
 const onHistoryDelete = (e: IHistoryItem) => {
   chatHistoryStore.deleteHistory(e.chatId);
   proxy.$notificationService.open({
-    type: "success",
-    title: t("history.deleteHistoryTipTitle"),
-    content: t("deleteSuccess"),
+    type: 'success',
+    title: t('history.deleteHistoryTipTitle'),
+    content: t('deleteSuccess'),
   });
   if (chatStatusStore.currentChatId === e.chatId) {
     chatStatusStore.startChat = false;
@@ -68,8 +68,8 @@ const onHistoryDelete = (e: IHistoryItem) => {
 };
 
 watch(chatHistoryStore.historyList, () => {
-  searchKey.value = "";
-  onSearch("");
+  searchKey.value = '';
+  onSearch('');
 });
 </script>
 
@@ -79,7 +79,8 @@ watch(chatHistoryStore.historyList, () => {
 .history-container {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  min-width: 240px;
+  width: 25%;
   height: 100%;
   padding: 12px;
   color: $devui-text;

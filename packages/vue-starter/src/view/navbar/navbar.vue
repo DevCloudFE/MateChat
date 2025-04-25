@@ -34,6 +34,7 @@ import SwitchLang from './switch-lang.vue';
   justify-content: space-between;
   align-items: center;
   width: 80px;
+  height: 100%;
   padding: 0 8px;
   box-sizing: border-box;
 
