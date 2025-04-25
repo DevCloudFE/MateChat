@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import ChatView from "@view/chat-view.vue";
-import { NavBar } from "@view/navbar";
-import { History } from "@view/history";
-import { useLang, useTheme } from "@/hooks";
+import { useLang, useTheme } from '@/hooks';
+import ChatView from '@view/chat-view.vue';
+import { History } from '@view/history';
+import { NavBar } from '@view/navbar';
 
 useLang();
 useTheme();
@@ -27,7 +27,7 @@ useTheme();
   height: 100vh;
   padding: 8px 8px 8px 0;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #b369ff, #7b79ff);
+  background: var(--mc-gradient-base-bg, linear-gradient(135deg, #b369ff, #7b79ff));
 
   .matechat-content {
     flex: 1;

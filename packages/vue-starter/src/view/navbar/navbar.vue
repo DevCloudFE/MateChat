@@ -12,6 +12,7 @@
     </div>
     <div class="navbar-bottom">
       <SwitchLang />
+      <Theme />
       <d-tooltip position="right" :content="$t('navbar.systemSetting')">
         <i class="icon-setting system-setting"></i>
       </d-tooltip>
@@ -20,7 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import SwitchLang from "./switch-lang.vue";
+import Theme from '../theme/theme.vue';
+import SwitchLang from './switch-lang.vue';
 </script>
 
 <style scoped lang="scss">
@@ -40,6 +42,7 @@ import SwitchLang from "./switch-lang.vue";
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 16px;
     width: 100%;
   }
 
@@ -93,7 +96,7 @@ import SwitchLang from "./switch-lang.vue";
     }
   }
 
-  .system-setting {
+  ::v-deep .system-setting {
     font-size: 16px;
     cursor: pointer;
   }
