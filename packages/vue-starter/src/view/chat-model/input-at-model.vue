@@ -1,7 +1,7 @@
 <template>
   <span class="container" @click="emits('click')">
     <i class="icon-at"></i>
-    智能体
+    {{ $t("agent") }}
   </span>
 </template>
 
@@ -13,8 +13,13 @@ const emits = defineEmits(["click"]);
 @import "devui-theme/styles-var/devui-var.scss";
 
 .container {
-  font-size: $devui-font-size-sm;
+  display: flex;
+  align-items: center;
   color: $devui-text;
   cursor: pointer;
+
+  i {
+    font-size: $devui-font-size;
+  }
 }
 </style>

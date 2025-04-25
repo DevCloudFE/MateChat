@@ -12,8 +12,9 @@
 import ChatView from "@view/chat-view.vue";
 import { NavBar } from "@view/navbar";
 import { History } from "@view/history";
-import { useTheme } from "@/hooks";
+import { useLang, useTheme } from "@/hooks";
 
+useLang();
 useTheme();
 </script>
 

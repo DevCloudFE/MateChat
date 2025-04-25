@@ -7,18 +7,21 @@
         <div class="chat-icon-box active">
           <i class="icon-develop-collaboration"></i>
         </div>
-        <span>对话</span>
+        <span>{{ $t("navbar.chat") }}</span>
       </div>
     </div>
     <div class="navbar-bottom">
-      <d-tooltip position="right" content="系统设置">
+      <SwitchLang />
+      <d-tooltip position="right" :content="$t('navbar.systemSetting')">
         <i class="icon-setting system-setting"></i>
       </d-tooltip>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SwitchLang from "./switch-lang.vue";
+</script>
 
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";

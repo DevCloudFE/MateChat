@@ -8,13 +8,18 @@
         <span class="agent-knowledge-dividing-line"></span>
         <Knowledge />
       </div>
-      <d-button
-        icon="add"
-        shape="circle"
-        title="新建对话"
-        size="sm"
-        @click="onNewConvo"
-      />
+      <div class="new-chat-setting">
+        <d-tooltip position="top" :content="$t('chatSetting')">
+          <i class="icon-infrastructure chat-setting-icon"></i>
+        </d-tooltip>
+        <d-button
+          icon="add"
+          shape="circle"
+          :title="$t('newChat')"
+          size="sm"
+          @click="onNewConvo"
+        />
+      </div>
     </div>
     <Input />
   </div>
@@ -67,6 +72,21 @@ const onNewConvo = () => {
       height: 14px;
       margin: 0 12px;
       background-color: $devui-line;
+    }
+  }
+
+  .new-chat-setting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .chat-setting-icon {
+      font-size: $devui-font-size;
+      cursor: pointer;
+
+      &:hover {
+        color: $devui-brand-active;
+      }
     }
   }
 }

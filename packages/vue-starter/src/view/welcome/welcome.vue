@@ -3,24 +3,21 @@
     <McIntroduction
       logo-img="/logo2x.svg"
       title="MateChat"
-      sub-title="Hi，欢迎使用 MateChat"
-      :description="[
-        'MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。',
-        '作为AI模型，MateChat 提供的答案可能不总是确定或准确的，但您的反馈可以帮助 MateChat 做的更好。',
-      ]"
+      :sub-title="`Hi，${$t('welcome.welcomeTo')} MateChat`"
+      :description="[$t('welcome.description1'), $t('welcome.description2')]"
     ></McIntroduction>
     <WelcomePrompt />
     <div class="guess-question">
       <div class="guess-title">
-        <div>猜你想问</div>
+        <div>{{ $t("welcome.guessYouWantAsk") }}</div>
         <div>
           <i class="icon-recover"></i>
-          <span>换一批</span>
+          <span>{{ $t("welcome.change") }}</span>
         </div>
       </div>
       <div class="guess-content">
         <span
-          v-for="(item, index) in guessQuestions"
+          v-for="(item, index) in list"
           :key="index"
           @click="onItemClick(item)"
         >
@@ -32,11 +29,21 @@
 </template>
 
 <script setup lang="ts">
-import { useChatMessageStore } from "@/store";
-import { mockAnswer, guessQuestions } from "@/mock-data/mock-chat-view";
+import { useChatMessageStore, useLangStore } from "@/store";
+import {
+  mockAnswer,
+  guessQuestionsCn,
+  guessQuestionsEn,
+} from "@/mock-data/mock-chat-view";
 import { WelcomePrompt } from "@view/prompt";
+import { LangType } from "@/types";
 
+const langStore = useLangStore();
 const chatMessageStore = useChatMessageStore();
+
+const list = computed(() =>
+  langStore.currentLang === LangType.CN ? guessQuestionsCn : guessQuestionsEn
+);
 
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {

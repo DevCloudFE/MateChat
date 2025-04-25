@@ -12,16 +12,18 @@
     ></i>
     <template #content>
       <div class="history-operate-menu-item" @click="modalVisible = true">
-        删除
+        {{ $t("delete") }}
       </div>
     </template>
   </d-popover>
-  <d-modal v-model="modalVisible" title="确认删除">
-    <div>是否确认删除此条对话？</div>
+  <d-modal v-model="modalVisible" :title="$t('confirmDelete')">
+    <div>{{ $t("history.deleteHistoryConfirmTxt") }}</div>
     <template #footer>
       <d-modal-footer>
-        <d-button variant="solid" @click="onConfirm">确认</d-button>
-        <d-button @click="modalVisible = false">取消</d-button>
+        <d-button variant="solid" @click="onConfirm">
+          {{ $t("confirm") }}
+        </d-button>
+        <d-button @click="modalVisible = false">{{ $t("cancel") }}</d-button>
       </d-modal-footer>
     </template>
   </d-modal>
