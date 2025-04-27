@@ -8,7 +8,7 @@ export const LLMModules: Array<LLMModuleConfig> = [
     modelName: 'qwen-plus',
     stream: true,
     enable: true,
-    enableMock: true,
+    enableMock: false,
   },
   {
     name: '硅基流动',

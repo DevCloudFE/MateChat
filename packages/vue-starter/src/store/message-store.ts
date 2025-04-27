@@ -96,10 +96,11 @@ export const useChatMessageStore = defineStore('chat-message', () => {
     return currentModel ? currentModel : LLMModules[0];
   };
 
-  const onMessageChange = () => {
+  const onMessageChange = (content: string) => {
     messages.value.at(-1).loading = false;
-    messages.value[messages.value.length - 1].content =
-      messages.value[messages.value.length - 1].content + content;
+    messages.value[messages.value.length - 1].content = messages.value[
+      messages.value.length - 1
+    ].content += content;
   };
 
   return { messages, messageChangeCount, ask, getCurrentModel };
