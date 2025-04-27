@@ -7,18 +7,23 @@
         <div class="chat-icon-box active">
           <i class="icon-develop-collaboration"></i>
         </div>
-        <span>对话</span>
+        <span>{{ $t("navbar.chat") }}</span>
       </div>
     </div>
     <div class="navbar-bottom">
-      <d-tooltip position="right" content="系统设置">
+      <SwitchLang />
+      <Theme />
+      <d-tooltip position="right" :content="$t('navbar.systemSetting')">
         <i class="icon-setting system-setting"></i>
       </d-tooltip>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Theme from '../theme/theme.vue';
+import SwitchLang from './switch-lang.vue';
+</script>
 
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
@@ -29,6 +34,7 @@
   justify-content: space-between;
   align-items: center;
   width: 80px;
+  height: 100%;
   padding: 0 8px;
   box-sizing: border-box;
 
@@ -37,6 +43,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 16px;
     width: 100%;
   }
 
@@ -90,7 +97,7 @@
     }
   }
 
-  .system-setting {
+  ::v-deep .system-setting {
     font-size: 16px;
     cursor: pointer;
   }

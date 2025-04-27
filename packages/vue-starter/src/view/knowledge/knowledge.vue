@@ -1,8 +1,8 @@
 <template>
-  <d-tooltip position="top" content="加紧开发中，敬请期待～">
+  <d-tooltip position="top" :content="$t('underDevelop')">
     <div class="knowledge-wrapper">
       <i class="icon-operation-log"></i>
-      <span>添加知识</span>
+      <span>{{ $t("knowledge.addKnowledge") }}</span>
     </div>
   </d-tooltip>
 </template>

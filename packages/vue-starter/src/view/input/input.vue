@@ -10,13 +10,15 @@
         <div class="input-foot-wrapper">
           <div class="input-foot-left">
             <InputAtModel @click="onModelClick" />
-            <d-tooltip position="top" content="加紧开发中，敬请期待～">
-              <span>
+            <d-tooltip position="top" :content="$t('underDevelop')">
+              <span class="input-word-container">
                 <i class="icon-standard"></i>
-                词库
+                {{ $t("thesaurus") }}
               </span>
             </d-tooltip>
             <InputAppendix />
+            <InputAudio />
+            <InputOnlineSearch />
             <span class="input-foot-dividing-line"></span>
             <span class="input-foot-maxlength">
               {{ inputValue.length }}/2000
@@ -29,7 +31,7 @@
               :disabled="!inputValue"
               @click="inputValue = ''"
             >
-              清空输入
+              {{ $t("input.clearInput") }}
             </d-button>
           </div>
         </div>
@@ -43,6 +45,8 @@ import { ref } from "vue";
 import { useChatMessageStore, useChatModelStore } from "@/store";
 import { InputAtModel } from "@view/chat-model";
 import { InputAppendix } from "@view/appendix";
+import { InputAudio } from "@view/audio";
+import { InputOnlineSearch } from "@view/online-search";
 
 const chatMessageStore = useChatMessageStore();
 const chatModelStore = useChatModelStore();
@@ -82,6 +86,15 @@ const onModelClick = () => {
       display: flex;
       align-items: center;
       gap: 8px;
+
+      .input-word-container {
+        display: flex;
+        align-items: center;
+
+        i {
+          font-size: $devui-font-size-icon;
+        }
+      }
 
       span {
         font-size: $devui-font-size-sm;

@@ -1,25 +1,22 @@
 <template>
   <d-tooltip position="top" :content="$t('underDevelop')">
-    <span class="container">
-      <i class="icon-add"></i>
-      {{ $t("appendix") }}
+    <span class="input-online-search-container">
+      <d-switch v-model="checked" size="sm"></d-switch>
+      {{ $t("onlineSearch") }}
     </span>
   </d-tooltip>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const checked = ref(false);
+</script>
 
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
 
-.container {
+.input-online-search-container {
   display: flex;
   align-items: center;
   color: $devui-text;
-  cursor: pointer;
-
-  i {
-    font-size: $devui-font-size-icon;
-  }
 }
 </style>

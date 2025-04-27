@@ -1,10 +1,10 @@
 <template>
   <div class="history-container">
-    <div class="history-title">对话历史</div>
+    <div class="history-title">{{ $t("history.chatHistory") }}</div>
     <d-search
       v-model="searchKey"
       is-keyup-search
-      placeholder="搜索聊天"
+      :placeholder="$t('history.searchChat')"
       @search="onSearch"
     />
     <div class="history-list-box">
@@ -12,6 +12,7 @@
         v-for="(item, index) in renderList"
         :key="index"
         :itemData="item"
+        :class="{ active: item.chatId === activeHistoryId }"
         @click="() => onHistoryClick(item)"
         @delete="() => onHistoryDelete(item)"
       />
@@ -24,23 +25,25 @@ import {
   useChatHistoryStore,
   useChatMessageStore,
   useChatStatusStore,
-} from "@/store";
-import type { IHistoryItem } from "@/types";
-import HistoryItem from "./history-item.vue";
+} from '@/store';
+import type { IHistoryItem } from '@/types';
+import { useI18n } from 'vue-i18n';
+import HistoryItem from './history-item.vue';
 
+const { t } = useI18n();
 const chatHistoryStore = useChatHistoryStore();
 const chatMessageStore = useChatMessageStore();
 const chatStatusStore = useChatStatusStore();
 
 const { proxy } = getCurrentInstance();
-const searchKey = ref("");
-const activeHistoryId = ref("");
+const searchKey = ref('');
+const activeHistoryId = ref('');
 const renderList = ref<IHistoryItem[]>([]);
 
 const onSearch = (e: string) => {
   if (e) {
     renderList.value = chatHistoryStore.historyList.filter((item) =>
-      item.messages[0].content.includes(e)
+      item.messages[0].content.includes(e),
     );
   } else {
     renderList.value = chatHistoryStore.historyList;
@@ -48,13 +51,15 @@ const onSearch = (e: string) => {
 };
 const onHistoryClick = (e: IHistoryItem) => {
   activeHistoryId.value = e.chatId;
+  chatStatusStore.currentChatId = e.chatId;
+  chatMessageStore.messages = e.messages;
 };
 const onHistoryDelete = (e: IHistoryItem) => {
   chatHistoryStore.deleteHistory(e.chatId);
   proxy.$notificationService.open({
-    type: "success",
-    title: "删除历史提示",
-    content: "删除成功",
+    type: 'success',
+    title: t('history.deleteHistoryTipTitle'),
+    content: t('deleteSuccess'),
   });
   if (chatStatusStore.currentChatId === e.chatId) {
     chatStatusStore.startChat = false;
@@ -63,8 +68,8 @@ const onHistoryDelete = (e: IHistoryItem) => {
 };
 
 watch(chatHistoryStore.historyList, () => {
-  searchKey.value = "";
-  onSearch("");
+  searchKey.value = '';
+  onSearch('');
 });
 </script>
 
@@ -74,7 +79,8 @@ watch(chatHistoryStore.historyList, () => {
 .history-container {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  min-width: 240px;
+  width: 25%;
   height: 100%;
   padding: 12px;
   color: $devui-text;

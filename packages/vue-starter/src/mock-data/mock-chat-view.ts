@@ -2,7 +2,7 @@ import quickSortMd from "../mock-data/quicksort.md?raw";
 import helpMd from "../mock-data/help.md?raw";
 import type { IMessageAvatar } from "../types/type-chat-view";
 
-export const introPrompt = {
+export const introPromptCn = {
   direction: "horizontal",
   list: [
     {
@@ -25,26 +25,41 @@ export const introPrompt = {
     },
   ],
 };
+export const introPromptEn = {
+  direction: "horizontal",
+  list: [
+    {
+      value: "quickSort",
+      label: "Help me write a quick sort",
+      iconConfig: { name: "icon-info-o", color: "#5e7ce0" },
+      desc: "Use js to quickly implement a usable quick sort",
+    },
+    {
+      value: "helpMd",
+      label: "What can you do for me?",
+      iconConfig: { name: "icon-star", color: "rgb(255, 215, 0)" },
+      desc: "Understand what the current big model can do for you",
+    },
+    {
+      value: "bindProjectSpace",
+      label: "How to bind a project space",
+      iconConfig: { name: "icon-priority", color: "#3ac295" },
+      desc: "How to bind a project in the cloud space",
+    },
+  ],
+};
 
-export const guessQuestions = [
+export const guessQuestionsCn = [
   { label: "怎么绑定项目空间" },
   { label: "最近执行流水线列表" },
   { label: "帮我写一个快速排序" },
   { label: "使用 js 格式化时间" },
 ];
-
-export const simplePrompt = [
-  {
-    value: "quickSort",
-    iconConfig: { name: "icon-info-o", color: "#5e7ce0" },
-    color: "rgb(255, 215, 0)",
-    label: "帮我写一个快速排序",
-  },
-  {
-    value: "helpMd",
-    iconConfig: { name: "icon-star", color: "rgb(255, 215, 0)" },
-    label: "你可以帮我做些什么？",
-  },
+export const guessQuestionsEn = [
+  { label: "How to bind a project space" },
+  { label: "List of recently executed pipelines" },
+  { label: "Help me write a quick sort" },
+  { label: "Use js to format time" },
 ];
 
 export const mockAnswer = {

@@ -1,6 +1,6 @@
 <template>
   <McPrompt
-    :list="introPrompt.list"
+    :list="list"
     :direction="'horizontal'"
     class="intro-prompt"
     @itemClick="onItemClick($event)"
@@ -8,10 +8,22 @@
 </template>
 
 <script setup lang="ts">
-import { useChatMessageStore } from "@/store";
-import { introPrompt, mockAnswer } from "@/mock-data/mock-chat-view";
+import { useChatMessageStore, useLangStore } from "@/store";
+import {
+  introPromptCn,
+  introPromptEn,
+  mockAnswer,
+} from "@/mock-data/mock-chat-view";
+import { LangType } from "@/types";
 
+const langStore = useLangStore();
 const chatMessageStore = useChatMessageStore();
+
+const list = computed(() =>
+  langStore.currentLang === LangType.CN
+    ? introPromptCn.list
+    : introPromptEn.list
+);
 
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
