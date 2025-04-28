@@ -1,18 +1,17 @@
-export interface LLMModuleConfig {
-  name: string;
-  provider: string;
-  baseURL: string;
+import type { LLMProviders } from './constant';
+
+export interface LLMModelsConfig {
+  providerKey: LLMProviders;
   apiKey: string;
-  modelName: string;
-  stream: boolean;
-  enable?: boolean;
-  enableMock?: boolean;
+  apiPath: string;
+  models: string[];
+  available: boolean;
 }
 
 export interface ModelOption {
   label: string;
   modelName: string;
-  provider: string;
+  providerKey: LLMProviders;
 }
 
 export interface ChatRequest {
@@ -25,6 +24,6 @@ export interface ChatRequest {
 }
 
 export interface CustomApiKey {
-  provider: string;
+  providerKey: string;
   apiKey: string;
 }

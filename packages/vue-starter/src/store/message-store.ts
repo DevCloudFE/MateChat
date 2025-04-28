@@ -1,6 +1,5 @@
 import { aiModelAvatar, customerAvatar } from '@/mock-data/mock-chat-view';
-import type { OpenAiService } from '@/models';
-import { getClientApi } from '@/models';
+import { Client, type LLMService } from '@/models';
 import { MODEL_CONFIGS } from '@/models/config';
 import type { IMessage } from '@/types';
 import dayjs from 'dayjs';
@@ -16,7 +15,7 @@ export const useChatMessageStore = defineStore('chat-message', () => {
   const chatModelStore = useChatModelStore();
   const messages = ref<IMessage[]>([]);
   const messageChangeCount = ref(0);
-  let client: OpenAiService;
+  let client: LLMService;
 
   function ask(question: string, answer?: string) {
     if (question === '') {
@@ -76,7 +75,7 @@ export const useChatMessageStore = defineStore('chat-message', () => {
           onMessage: onMessageChange,
         },
       };
-      client = getClientApi(chatModelStore.currentModel?.provider || '');
+      client = new Client(chatModelStore.currentModel?.providerKey).client;
       client.chat(request).then((res) => {
         messages.value.at(-1).loading = false;
         messages.value[messages.value.length - 1].content = res;

@@ -16,23 +16,26 @@
 </template>
 
 <script setup lang="ts">
-import { MODELS } from '@/models/constant';
+import { LLM_MODELS } from '@/models/config';
 import type { ModelOption } from '@/models/types';
 import { useChatModelStore } from '@/store';
 import { ref } from 'vue';
 
 const chatModelStore = useChatModelStore();
 const isAgentOpen = ref(false);
-const agentList = ref<ModelOption[]>(
-  MODELS.map((model, index) => {
-    return {
-      label: model.modelName,
-      modelName: model.modelName,
-      provider: model.provider,
-      active: index === 0,
-    };
-  }),
-);
+const agentList = ref<ModelOption[]>([]);
+
+for (const item of LLM_MODELS) {
+  if (item.models?.length) {
+    for (const model of item.models) {
+      agentList.value.push({
+        label: model,
+        modelName: model,
+        providerKey: item.providerKey,
+      });
+    }
+  }
+}
 
 const selectedAgent = ref(agentList.value[0]);
 chatModelStore.currentModel = selectedAgent.value;
