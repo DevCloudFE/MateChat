@@ -1,6 +1,7 @@
 import { aiModelAvatar, customerAvatar } from '@/mock-data/mock-chat-view';
-import { OpenAiService } from '@/models';
-import { LLMModules } from '@/models/config';
+import type { OpenAiService } from '@/models';
+import { getClientApi } from '@/models';
+import { MODEL_CONFIGS } from '@/models/config';
 import type { IMessage } from '@/types';
 import dayjs from 'dayjs';
 import { defineStore } from 'pinia';
@@ -49,9 +50,7 @@ export const useChatMessageStore = defineStore('chat-message', () => {
       loading: true,
     });
 
-    const model = getCurrentModel();
-
-    if (model.enableMock) {
+    if (MODEL_CONFIGS.enableMock) {
       /* 模拟流式数据返回 */
       setTimeout(async () => {
         messages.value.at(-1).loading = false;
@@ -77,7 +76,7 @@ export const useChatMessageStore = defineStore('chat-message', () => {
           onMessage: onMessageChange,
         },
       };
-      client = new OpenAiService(getCurrentModel());
+      client = getClientApi(chatModelStore.currentModel?.provider || '');
       client.chat(request).then((res) => {
         messages.value.at(-1).loading = false;
         messages.value[messages.value.length - 1].content = res;
@@ -90,12 +89,6 @@ export const useChatMessageStore = defineStore('chat-message', () => {
     }
   };
 
-  const getCurrentModel = () => {
-    const model = chatModelStore.currentModel;
-    const currentModel = LLMModules.find((item) => item.name === model);
-    return currentModel ? currentModel : LLMModules[0];
-  };
-
   const onMessageChange = (content: string) => {
     messages.value.at(-1).loading = false;
     messages.value[messages.value.length - 1].content = messages.value[
@@ -103,5 +96,5 @@ export const useChatMessageStore = defineStore('chat-message', () => {
     ].content += content;
   };
 
-  return { messages, messageChangeCount, ask, getCurrentModel };
+  return { messages, messageChangeCount, ask };
 });

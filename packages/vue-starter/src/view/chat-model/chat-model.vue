@@ -16,28 +16,30 @@
 </template>
 
 <script setup lang="ts">
-import { LLMModules } from '@/models/config';
+import { MODELS } from '@/models/constant';
+import type { ModelOption } from '@/models/types';
 import { useChatModelStore } from '@/store';
 import { ref } from 'vue';
 
 const chatModelStore = useChatModelStore();
 const isAgentOpen = ref(false);
-const agentList = ref(
-  LLMModules.filter((model) => model.enable).map((model, index) => {
+const agentList = ref<ModelOption[]>(
+  MODELS.map((model, index) => {
     return {
-      label: model.name,
-      value: model.name,
+      label: model.modelName,
+      modelName: model.modelName,
+      provider: model.provider,
       active: index === 0,
     };
   }),
 );
 
 const selectedAgent = ref(agentList.value[0]);
-chatModelStore.currentModel = selectedAgent.value.label;
+chatModelStore.currentModel = selectedAgent.value;
 
 const onSelectModel = (val) => {
   selectedAgent.value = val;
-  chatModelStore.currentModel = selectedAgent.value.label;
+  chatModelStore.currentModel = val;
 };
 </script>
 
