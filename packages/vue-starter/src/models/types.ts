@@ -12,6 +12,7 @@ export interface ModelOption {
   label: string;
   modelName: string;
   providerKey: LLMProviders;
+  active: boolean;
 }
 
 export interface ChatRequest {

@@ -32,6 +32,7 @@ for (const item of LLM_MODELS) {
         label: model,
         modelName: model,
         providerKey: item.providerKey,
+        active: false,
       });
     }
   }
@@ -39,10 +40,15 @@ for (const item of LLM_MODELS) {
 
 const selectedAgent = ref(agentList.value[0]);
 chatModelStore.currentModel = selectedAgent.value;
+selectedAgent.value.active = true;
 
 const onSelectModel = (val) => {
+  for (const item of agentList.value) {
+    item.active = item.label === val.label;
+  }
   selectedAgent.value = val;
   chatModelStore.currentModel = val;
+  chatModelStore.currentModelName = val.modelName;
 };
 </script>
 
