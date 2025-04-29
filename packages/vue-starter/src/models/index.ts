@@ -1,5 +1,4 @@
-import { MODEL_CONFIGS } from './config';
-import { LLMProviders } from './constant';
+import { LLMClientKey, type LLMProviders } from './config';
 import { OpenAiService } from './openai';
 import type { ChatRequest } from './types';
 
@@ -9,15 +8,9 @@ export abstract class LLMService {
 
 export class Client {
   public client: LLMService;
-  constructor(providerKey: LLMProviders) {
-    switch (providerKey) {
-      case LLMProviders.SILICON_FLOW:
-        this.client = new OpenAiService(providerKey);
-        break;
-      case LLMProviders.DEEP_SEEK:
-        this.client = new OpenAiService(providerKey);
-        break;
-      case LLMProviders.QWEN:
+  constructor(clientName: LLMClientKey, providerKey: LLMProviders) {
+    switch (clientName) {
+      case LLMClientKey.openai:
         this.client = new OpenAiService(providerKey);
         break;
       default:

@@ -32,6 +32,7 @@ for (const item of LLM_MODELS) {
         label: model,
         modelName: model,
         providerKey: item.providerKey,
+        clientKey: item.clientKey,
         active: false,
       });
     }

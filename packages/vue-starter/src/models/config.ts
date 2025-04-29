@@ -1,10 +1,19 @@
-import { LLMProviders } from './constant';
 import type { LLMModelsConfig } from './types';
 
 export const MODEL_CONFIGS = {
   stream: true,
   enableMock: false,
 };
+
+export enum LLMProviders {
+  SILICON_FLOW = 'siliconflow',
+  DEEP_SEEK = 'deepseek',
+  QWEN = 'qwen',
+}
+
+export enum LLMClients {
+  openai = 'openai',
+}
 
 export const LLM_MODELS: LLMModelsConfig[] = [
   {
@@ -14,6 +23,7 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     apiKey: 'sk-gshxufdodqxappusrorsnxlycysazdiowmvjnvnlbuznvngm',
     models: ['deepseek-ai/DeepSeek-R1'],
     available: true,
+    clientKey: LLMClients.openai,
   },
   {
     // deepseek
@@ -22,6 +32,7 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     apiKey: 'sk-d6aaf62a31fa44e7b4cc308746a876cc',
     models: ['deepseek-reasoner'],
     available: true,
+    clientKey: LLMClients.openai,
   },
   {
     // 通义千问
@@ -30,5 +41,6 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     apiKey: 'sk-1da33fb5253e4bc884b3e0c167012d65',
     models: ['qwen-plus'],
     available: true,
+    clientKey: LLMClients.openai,
   },
 ];

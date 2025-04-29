@@ -1,4 +1,4 @@
-import type { LLMProviders } from './constant';
+import type { LLMClientKey, LLMProviders } from './config';
 
 export interface LLMModelsConfig {
   providerKey: LLMProviders;
@@ -6,12 +6,14 @@ export interface LLMModelsConfig {
   apiPath: string;
   models: string[];
   available: boolean;
+  clientKey: LLMClientKey;
 }
 
 export interface ModelOption {
   label: string;
   modelName: string;
   providerKey: LLMProviders;
+  clientKey: LLMClientKey;
   active: boolean;
 }
 
