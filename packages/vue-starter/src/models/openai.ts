@@ -8,7 +8,6 @@ export class OpenAiService implements LLMService {
   private client: OpenAI;
   private currentModel = useChatModelStore().currentModel;
 
-  // Todo 页面配置apiKey
   private customAPIKey = useChatModelStore().customAPIKey;
 
   constructor(providerKey: string) {
@@ -51,7 +50,6 @@ export class OpenAiService implements LLMService {
     }
   }
 
-  // Todo: 终止流式
   async chatStream(request: ChatRequest): Promise<string> {
     try {
       if (!this.currentModel) {

@@ -75,9 +75,12 @@ export const useChatMessageStore = defineStore('chat-message', () => {
           onMessage: onMessageChange,
         },
       };
+      if (!chatModelStore.currentModel) {
+        return;
+      }
       client = new Client(
-        chatModelStore.currentModel?.clientKey,
-        chatModelStore.currentModel?.providerKey,
+        chatModelStore.currentModel.clientKey,
+        chatModelStore.currentModel.providerKey,
       ).client;
       client.chat(request).then((res) => {
         messages.value.at(-1).loading = false;

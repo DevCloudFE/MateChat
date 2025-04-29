@@ -11,7 +11,7 @@ export enum LLMProviders {
   QWEN = 'qwen',
 }
 
-export enum LLMClients {
+export enum LLMClientKey {
   openai = 'openai',
 }
 
@@ -23,7 +23,7 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     apiKey: 'sk-gshxufdodqxappusrorsnxlycysazdiowmvjnvnlbuznvngm',
     models: ['deepseek-ai/DeepSeek-R1'],
     available: true,
-    clientKey: LLMClients.openai,
+    clientKey: LLMClientKey.openai,
   },
   {
     // deepseek
@@ -32,7 +32,7 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     apiKey: 'sk-d6aaf62a31fa44e7b4cc308746a876cc',
     models: ['deepseek-reasoner'],
     available: true,
-    clientKey: LLMClients.openai,
+    clientKey: LLMClientKey.openai,
   },
   {
     // 通义千问
@@ -41,6 +41,6 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     apiKey: 'sk-1da33fb5253e4bc884b3e0c167012d65',
     models: ['qwen-plus'],
     available: true,
-    clientKey: LLMClients.openai,
+    clientKey: LLMClientKey.openai,
   },
 ];

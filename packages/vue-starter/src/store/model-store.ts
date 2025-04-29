@@ -7,7 +7,6 @@ export const useChatModelStore = defineStore('chat-model', () => {
 
   const currentModelName = ref<string>('');
 
-  // Todo: 页面配置apiKey
   const customAPIKey = ref<CustomApiKey[]>([]);
 
   return { currentModel, customAPIKey, currentModelName };
