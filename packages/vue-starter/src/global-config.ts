@@ -1,3 +1,3 @@
 export default {
-  displayShape: "Assistant",
+  displayShape: "Immersive",
 };

@@ -47,6 +47,7 @@ import { History } from "@view/history";
   .navbar-right {
     .icon-history {
       display: none;
+      cursor: pointer;
     }
   }
 
