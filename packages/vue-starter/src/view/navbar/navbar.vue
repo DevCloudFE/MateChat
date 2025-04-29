@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import Theme from '../theme/theme.vue';
-import SwitchLang from './switch-lang.vue';
+import { Theme } from "@/view/theme";
+import SwitchLang from "./switch-lang.vue";
 </script>
 
 <style scoped lang="scss">
@@ -100,6 +100,12 @@ import SwitchLang from './switch-lang.vue';
   ::v-deep .system-setting {
     font-size: 16px;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .navbar-container {
+    display: none;
   }
 }
 </style>

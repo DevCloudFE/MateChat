@@ -8,32 +8,20 @@
     >
       <template #extra>
         <div class="input-foot-wrapper">
-          <div class="input-foot-left">
-            <InputAtModel @click="onModelClick" />
-            <d-tooltip position="top" :content="$t('underDevelop')">
-              <span class="input-word-container">
-                <i class="icon-standard"></i>
-                {{ $t("thesaurus") }}
-              </span>
-            </d-tooltip>
-            <InputAppendix />
-            <InputAudio />
-            <InputOnlineSearch />
-            <span class="input-foot-dividing-line"></span>
-            <span class="input-foot-maxlength">
-              {{ inputValue.length }}/2000
+          <InputAtModel @click="onModelClick" />
+          <d-tooltip position="top" :content="$t('underDevelop')">
+            <span class="input-word-container">
+              <i class="icon-standard"></i>
+              {{ $t("thesaurus") }}
             </span>
-          </div>
-          <div class="input-foot-right">
-            <d-button
-              icon="op-clearup"
-              shape="round"
-              :disabled="!inputValue"
-              @click="inputValue = ''"
-            >
-              {{ $t("input.clearInput") }}
-            </d-button>
-          </div>
+          </d-tooltip>
+          <InputAppendix />
+          <InputAudio />
+          <InputOnlineSearch />
+          <span class="input-foot-dividing-line"></span>
+          <span class="input-foot-maxlength">
+            {{ inputValue.length }}/2000
+          </span>
         </div>
       </template>
     </McInput>
@@ -76,48 +64,36 @@ const onModelClick = () => {
 
   .input-foot-wrapper {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 100%;
+    gap: 8px;
     margin-right: 8px;
 
-    .input-foot-left {
+    .input-word-container {
       display: flex;
       align-items: center;
-      gap: 8px;
+      font-size: $devui-font-size;
 
-      .input-word-container {
-        display: flex;
-        align-items: center;
-
-        i {
-          font-size: $devui-font-size-icon;
-        }
-      }
-
-      span {
-        font-size: $devui-font-size-sm;
-        color: $devui-text;
-        cursor: pointer;
-      }
-
-      .input-foot-dividing-line {
-        width: 1px;
-        height: 14px;
-        background-color: $devui-line;
-      }
-
-      .input-foot-maxlength {
-        font-size: $devui-font-size-sm;
-        color: $devui-aide-text;
+      i {
+        font-size: $devui-font-size-icon;
       }
     }
 
-    .input-foot-right {
-      & > *:not(:first-child) {
-        margin-left: 8px;
-      }
+    span {
+      color: $devui-text;
+      cursor: pointer;
+    }
+
+    .input-foot-dividing-line {
+      width: 1px;
+      height: 14px;
+      background-color: $devui-line;
+    }
+
+    .input-foot-maxlength {
+      font-size: $devui-font-size-sm;
+      color: $devui-aide-text;
     }
   }
 }

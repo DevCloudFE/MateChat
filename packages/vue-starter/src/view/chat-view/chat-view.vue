@@ -1,5 +1,6 @@
 <template>
   <div class="chat-view-container">
+    <NavbarTop />
     <ChatProcess v-if="chatStatusStore.startChat" />
     <Welcome v-else />
     <div class="new-convo-button">
@@ -31,6 +32,7 @@ import { ChatModel } from "@view/chat-model";
 import { Knowledge } from "@view/knowledge";
 import { Input } from "@view/input";
 import { ChatProcess } from "@view/chat-process";
+import NavbarTop from "./navbar-top.vue";
 import { useChatMessageStore, useChatStatusStore } from "@/store";
 
 const chatMessageStore = useChatMessageStore();
@@ -47,6 +49,7 @@ const onNewConvo = () => {
 
 .chat-view-container {
   flex: 1;
+  width: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -88,6 +91,12 @@ const onNewConvo = () => {
         color: $devui-brand-active;
       }
     }
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .navbar-container {
+    display: none;
   }
 }
 </style>

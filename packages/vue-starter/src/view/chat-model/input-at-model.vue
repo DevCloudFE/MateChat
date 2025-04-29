@@ -16,6 +16,7 @@ const emits = defineEmits(["click"]);
   display: flex;
   align-items: center;
   color: $devui-text;
+  font-size: $devui-font-size;
   cursor: pointer;
 
   i {
