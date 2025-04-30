@@ -3,10 +3,15 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
-	"workspaces": [
-		"packages/*",
-		"playground"
-	],
+	"workspaces": {
+		"packages": [
+			"packages/*",
+			"playground"
+		],
+		"nohoist": [
+			"packages/components-ng/**"
+		]
+	},
 	"scripts": {
 		"generate": "node ./scripts/generate-component.js",
 		"playground:dev": "pnpm generate && pnpm --filter @matechat/playground dev",
