@@ -25,6 +25,7 @@
   );
 }
 .main-content {
+  position: relative;
   flex: 1;
   display: flex;
   border-radius: 12px;

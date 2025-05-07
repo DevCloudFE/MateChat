@@ -27,18 +27,24 @@
 </template>
 
 <script setup lang="ts">
-import { Welcome } from "@view/welcome";
-import { ChatModel } from "@view/chat-model";
-import { Knowledge } from "@view/knowledge";
-import { Input } from "@view/input";
-import { ChatProcess } from "@view/chat-process";
-import NavbarTop from "./navbar-top.vue";
-import { useChatMessageStore, useChatStatusStore } from "@/store";
+import {
+  useChatHistoryStore,
+  useChatMessageStore,
+  useChatStatusStore,
+} from '@/store';
+import { ChatModel } from '@view/chat-model';
+import { ChatProcess } from '@view/chat-process';
+import { Input } from '@view/input';
+import { Knowledge } from '@view/knowledge';
+import { Welcome } from '@view/welcome';
+import NavbarTop from './navbar-top.vue';
 
+const chatHistoryStore = useChatHistoryStore();
 const chatMessageStore = useChatMessageStore();
 const chatStatusStore = useChatStatusStore();
 
 const onNewConvo = () => {
+  chatHistoryStore.setActiveHistoryId('');
   chatStatusStore.startChat = false;
   chatMessageStore.messages = [];
 };
