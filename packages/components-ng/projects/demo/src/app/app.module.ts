@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LibModule } from 'lib';
-import { ButtonModule } from 'lib';
+import { McButtonModule } from 'projects/lib/src/button';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { ButtonModule } from 'lib';
     BrowserModule,
     AppRoutingModule,
     LibModule,
-    ButtonModule,
+    McButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

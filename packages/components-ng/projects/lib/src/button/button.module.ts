@@ -8,5 +8,5 @@ import { ButtonComponent } from './button.component';
   declarations: [ButtonComponent],
   providers: [],
 })
-export class ButtonModule {
+export class McButtonModule {
 }

@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'demo';
+
+
+  btnClick(event: MouseEvent) {
+    console.log(event);
+  }
 }

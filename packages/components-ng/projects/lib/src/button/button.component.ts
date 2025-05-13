@@ -33,7 +33,7 @@ export type IButtonPosition = 'left' | 'right' | 'default';
 export type IButtonSize = 'lg' | 'md' | 'sm' | 'xs';
 
 @Component({
-  selector: 'd-button',
+  selector: 'mc-button',
   templateUrl: './button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
