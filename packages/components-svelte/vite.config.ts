@@ -2,7 +2,10 @@ import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { resolve, join } from "path";
 import sveltePreprocess from "svelte-preprocess";
+import copy from "rollup-plugin-copy";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 // 动态读取 src/components 目录下的所有 .svelte 文件
+
 const componentsDir = resolve(__dirname, "components/index.ts");
 export default defineConfig({
   root: resolve(__dirname),
@@ -37,6 +40,15 @@ export default defineConfig({
           prependData: `@import 'devui-theme/styles-var/devui-var.scss';`, // 全局引入 SCSS 变量
         },
       }),
+    }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "package-js.json",
+          dest: "../components-js",
+          rename: "package.json",
+        },
+      ],
     }),
   ],
   server: {

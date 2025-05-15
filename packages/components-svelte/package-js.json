@@ -1,0 +1,22 @@
+{
+  "name": "@matechat/js",
+  "version": "1.3.0",
+  "license": "MIT",
+  "description": "前端智能化场景解决方案UI库，轻松构建你的AI应用。",
+  "keywords": [
+    "AI",
+    "GPT",
+    "Chat",
+    "vue-components",
+    "vue3",
+    "devui"
+  ],
+  "homepage": "https://matechat.gitcode.com/",
+  "repository": {
+    "type": "git",
+    "url": "git@gitcode.com:DevCloudFE/MateChat.git"
+  },
+  "module": "packages/index.js",
+  "dependencies": {},
+  "peerDependencies": {}
+}

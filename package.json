@@ -66,6 +66,7 @@
 		"svelte": "^4.2.19",
 		"svelte-preprocess": "^6.0.3",
 		"vite": "^6.0.1",
+		"vite-plugin-static-copy": "^3.0.0",
 		"vitepress": "^1.5.0",
 		"vitepress-theme-demoblock": "^3.0.7"
 	},
