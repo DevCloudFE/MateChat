@@ -1,3 +1,4 @@
-import History from "./history.vue";
+import HistoryContainer from './history-container.vue';
+import HistoryList from './history.vue';
 
-export { History };
+export { HistoryList, HistoryContainer };

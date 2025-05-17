@@ -1,13 +1,8 @@
 <template>
-  <div ref="historyContainer" class="history-container">
+  <div class="history-list-container">
     <div class="history-header">
       <div class="history-header-left">
         <span class="history-title">{{ $t("history.chatHistory") }}</span>
-      </div>
-      <div class="history-header-right">
-        <div class="history-nav-icon" @click="handleToggleHistory">
-          <i class="icon-nav-collapse" />
-        </div>
       </div>
     </div>
     <d-search
@@ -27,9 +22,6 @@
       />
     </div>
   </div>
-  <div v-if="!isExpand" class="history-nav-icon history-expand" @click="handleToggleHistory">
-    <i class="icon-nav-expand" />
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -48,10 +40,8 @@ const chatMessageStore = useChatMessageStore();
 const chatStatusStore = useChatStatusStore();
 
 const { proxy } = getCurrentInstance();
-const historyContainer = ref<HTMLElement>();
 const searchKey = ref('');
 const renderList = ref<IHistoryItem[]>([]);
-const isExpand = ref(true);
 
 const onSearch = (e: string) => {
   if (e) {
@@ -80,20 +70,6 @@ const onHistoryDelete = (e: IHistoryItem) => {
   }
 };
 
-const handleToggleHistory = () => {
-  const container = historyContainer.value;
-  if (container) {
-    container.classList.toggle('stow');
-    if (isExpand.value) {
-      setTimeout(() => {
-        isExpand.value = false;
-      }, 300);
-    } else {
-      isExpand.value = true;
-    }
-  }
-};
-
 watch(
   chatHistoryStore.historyList,
   () => {
@@ -107,26 +83,15 @@ watch(
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
 
-.history-container {
+.history-list-container {
   display: flex;
   flex-direction: column;
   gap: 12px;
   min-width: 240px;
   max-width: 420px;
-  width: 25%;
   height: 100%;
   padding: 12px;
   color: $devui-text;
-  border-right: 1px solid $devui-line;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-
-  &.stow {
-    width: 0;
-    min-width: 0;
-    padding: 12px 0;
-    border: none;
-  }
 
   .history-header {
     display: flex;
@@ -151,22 +116,6 @@ watch(
     flex: 1;
     margin-top: 8px;
     overflow: auto;
-  }
-}
-
-.history-nav-icon {
-  height: fit-content;
-  padding: 0 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $devui-shape-icon-fill-hover;
-  }
-
-  &.history-expand {
-    position: absolute;
-    top: 16px;
-    left: 16px;
   }
 }
 </style>

@@ -4,20 +4,24 @@
       <NavBar v-if="displayShape === DisplayShape.Immersive" />
     </template>
     <template #content>
-      <History v-if="displayShape === DisplayShape.Immersive" />
+      <template v-if="displayShape === DisplayShape.Immersive">
+        <HistoryContainer>
+          <HistoryList></HistoryList>
+        </HistoryContainer>
+      </template>
       <ChatView />
     </template>
   </Layout>
 </template>
 
 <script setup lang="ts">
-import { useLang, useTheme } from "@/hooks";
-import { ChatView } from "@view/chat-view";
-import { History } from "@view/history";
-import { Layout } from "@view/layout";
-import { NavBar } from "@view/navbar";
-import GlobalConfig from "@/global-config";
-import { DisplayShape } from "@/global-config-types";
+import GlobalConfig from '@/global-config';
+import { DisplayShape } from '@/global-config-types';
+import { useLang, useTheme } from '@/hooks';
+import { ChatView } from '@view/chat-view';
+import { HistoryContainer, HistoryList } from '@view/history';
+import { Layout } from '@view/layout';
+import { NavBar } from '@view/navbar';
 
 const displayShape = GlobalConfig.displayShape;
 useLang();

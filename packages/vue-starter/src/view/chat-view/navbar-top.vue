@@ -7,7 +7,7 @@
       <d-popover :position="['bottom-end']" class="navbar-top-history-menu">
         <i class="icon-history"></i>
         <template #content>
-          <History class="navbar-top-history" />
+          <HistoryList class="navbar-top-history" />
         </template>
       </d-popover>
       <SwitchLang />
@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { Theme } from "@/view/theme";
-import { SwitchLang } from "@/view/navbar";
-import { History } from "@view/history";
+import { SwitchLang } from '@/view/navbar';
+import { Theme } from '@/view/theme';
+import { HistoryList } from '@view/history';
 </script>
 
 <style scoped lang="scss">
@@ -70,6 +70,7 @@ import { History } from "@view/history";
 }
 
 .navbar-top-history {
+  width: 100%;
   border-right: none;
 }
 
