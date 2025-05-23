@@ -1,16 +1,9 @@
 {
   "name": "@matechat/core",
-  "version": "1.3.0",
+  "version": "1.5.1",
   "license": "MIT",
   "description": "前端智能化场景解决方案UI库，轻松构建你的AI应用。",
-  "keywords": [
-    "AI",
-    "GPT",
-    "Chat",
-    "vue-components",
-    "vue3",
-    "devui"
-  ],
+  "keywords": ["AI", "GPT", "Chat", "vue-components", "vue3", "devui"],
   "homepage": "https://matechat.gitcode.com/",
   "repository": {
     "type": "git",
@@ -18,9 +11,7 @@
   },
   "module": "mate-chat.js",
   "types": "index.d.ts",
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": ["**/*.css"],
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
     "@vue/shared": "^3.5.13",

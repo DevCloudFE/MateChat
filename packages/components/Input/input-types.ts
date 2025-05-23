@@ -1,18 +1,26 @@
-import type { ExtractPropTypes, PropType, Ref } from 'vue';
+import type { ExtractPropTypes, PropType, Ref } from "vue";
 
 export enum DisplayType {
-  Simple = 'simple',
-  Full = 'full',
+  Simple = "simple",
+  Full = "full",
+}
+export enum InputVariant {
+  Bordered = "bordered",
+  BorderLess = "borderless",
+}
+export enum SendBtnVariant {
+  Simple = "simple",
+  Full = "full",
 }
 export enum SubmitShortKey {
-  Enter = 'enter',
-  ShiftEnter = 'shiftEnter',
+  Enter = "enter",
+  ShiftEnter = "shiftEnter",
 }
 
 export const inputProps = {
   value: {
     type: String,
-    default: '',
+    default: "",
   },
   placeholder: {
     type: String,
@@ -24,6 +32,14 @@ export const inputProps = {
   displayType: {
     type: String as PropType<DisplayType>,
     default: DisplayType.Full,
+  },
+  variant: {
+    type: String as PropType<InputVariant>,
+    default: InputVariant.Bordered,
+  },
+  sendBtnVariant: {
+    type: String as PropType<SendBtnVariant>,
+    default: SendBtnVariant.Full,
   },
   loading: {
     type: Boolean,
@@ -49,5 +65,5 @@ export interface InputContext {
   rootEmits: (event: string, ...args: any[]) => void;
 }
 
-export const inputEmits = ['change', 'submit', 'cancel', 'focus', 'blur'];
-export const inputInjectionKey = 'mc-input';
+export const inputEmits = ["change", "submit", "cancel", "focus", "blur"];
+export const inputInjectionKey = "mc-input";

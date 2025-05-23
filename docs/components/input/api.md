@@ -7,26 +7,28 @@ iconSrc: '/inputIcon.png'
 
 ### 参数
 
-| 参数名         | 类型                                        | 默认值  | 说明                                         |
-| -------------- | ------------------------------------------- | ------- | -------------------------------------------- |
-| value          | `string`                                    | ''      | 输入框的值                                   |
-| placeholder    | `string`                                    | --      | 输入框占位文字                               |
-| disabled       | `boolean`                                   | false   | 是否禁用输入框                               |
-| displayType    | [DisplayType](#displaytype)                 | 'full'  | 输入框的形态                                 |
-| loading        | `boolean`                                   | false   | 是否发送中，为true时，点击发送按钮可暂停回答 |
-| showCount      | `boolean`                                   | false   | 是否显示字数统计                             |
-| maxLength      | `number`                                    | --      | 输入框的最大字数                             |
-| submitShortKey | [SubmitShortKey](#submitshortkey) `\| null` | 'enter' | 发送快捷键，null表示不使用快捷键发送         |
+| 参数名         | 类型                                        | 默认值     | 说明                                           |
+| -------------- | ------------------------------------------- | ---------- | ---------------------------------------------- |
+| value          | `string`                                    | ''         | 输入框的值                                     |
+| placeholder    | `string`                                    | --         | 输入框占位文字                                 |
+| disabled       | `boolean`                                   | false      | 是否禁用输入框                                 |
+| displayType    | [DisplayType](#displaytype)                 | 'full'     | 输入框的形态                                   |
+| loading        | `boolean`                                   | false      | 是否发送中，为 true 时，点击发送按钮可暂停回答 |
+| showCount      | `boolean`                                   | false      | 是否显示字数统计                               |
+| maxLength      | `number`                                    | --         | 输入框的最大字数                               |
+| submitShortKey | [SubmitShortKey](#submitshortkey) `\| null` | 'enter'    | 发送快捷键，null 表示不使用快捷键发送          |
+| variant        | [InputVariant](#inputvariant)               | 'bordered' | 输入框的形态                                   |
+| sendBtnVariant | [SendBtnVariant](#sendbtnvariant)           | 'full'     | 发送按钮的形态                                 |
 
 ### 事件
 
-| 事件名 | 类型                  | 说明                                             |
-| ------ | --------------------- | ------------------------------------------------ |
-| change | `(e: string) => void` | 输入内容变化时触发的事件，返回值为当前输入的内容 |
-| submit | `(e: string) => void` | 发送时触发的事件，返回值为当前输入的内容         |
-| cancel | `() => void`          | 当状态为发送中，点击暂停回答按钮时触发的事件     |
-| focus | `(e: FocusEvent) => void` | 聚焦输入框时触发的事件         |
-| blur | `(e: FocusEvent) => void` | 输入框失焦时触发的事件         |
+| 事件名 | 类型                      | 说明                                             |
+| ------ | ------------------------- | ------------------------------------------------ |
+| change | `(e: string) => void`     | 输入内容变化时触发的事件，返回值为当前输入的内容 |
+| submit | `(e: string) => void`     | 发送时触发的事件，返回值为当前输入的内容         |
+| cancel | `() => void`              | 当状态为发送中，点击暂停回答按钮时触发的事件     |
+| focus  | `(e: FocusEvent) => void` | 聚焦输入框时触发的事件                           |
+| blur   | `(e: FocusEvent) => void` | 输入框失焦时触发的事件                           |
 
 ### 插槽
 
@@ -34,6 +36,7 @@ iconSrc: '/inputIcon.png'
 | ------ | ------ | -------------------------------------------------------- |
 | head   | --     | 自定义输入框顶部的内容                                   |
 | prefix | --     | 自定义输入框左侧的内容                                   |
+| suffix | --     | 自定义输入框右侧的内容                                   |
 | extra  | --     | 自定义发送按钮左侧的内容，仅在`displayType='full'`时生效 |
 | button | --     | 自定义输入框的发送按钮                                   |
 
@@ -52,6 +55,24 @@ iconSrc: '/inputIcon.png'
 enum DisplayType {
   Simple = 'simple', // prefix插槽、输入框和发送按钮在同一行，不支持extra插槽
   Full = 'full', // prefix插槽和输入框在同一行，extra插槽和发送按钮在下方
+}
+```
+
+#### InputVariant
+
+```ts
+enum InputVariant {
+  Bordered = 'bordered',
+  BorderLess = 'borderless',
+}
+```
+
+#### SendBtnVariant
+
+```ts
+enum SendBtnVariant {
+  Simple = 'simple', // 圆形按钮，仅显示图标，不显示文字
+  Full = 'full', // 圆角按钮，同时显示图标和文字
 }
 ```
 

@@ -35,3 +35,4 @@ cache
 *.sw?
 
 *.tsbuildinfo
+auto-imports.d.ts

@@ -107,7 +107,7 @@ createApp(App).use(MateChat).mount('#app');
         icon="add"
         shape="circle"
         title="新建对话"
-        size="sm"
+        size="md"
         @click="newConversation"
       />
     </div>
@@ -124,7 +124,7 @@ createApp(App).use(MateChat).mount('#app');
               <span class="input-foot-maxlength">{{ inputValue.length }}/2000</span>
             </div>
             <div class="input-foot-right">
-              <Button icon="op-clearup" shape="round" :disabled="!inputValue" @click="inputValue = ''">清空输入</Button>
+              <Button icon="op-clearup" shape="round" :disabled="!inputValue" @click="inputValue = ''"><span class="demo-button-content">清空输入</span></Button>
             </div>
           </div>
         </template>
@@ -185,17 +185,7 @@ const inputFootIcons = [
   { icon: 'icon-add', text: '附件' },
 ];
 
-const messages = ref<any[]>([
-  {
-    from: 'user',
-    content: '你好',
-  },
-  {
-    from: 'model',
-    content: '你好，我是 MateChat',
-    id: 'init-msg',
-  },
-]);
+const messages = ref<any[]>([]);
 
 const newConversation = () => {
   startPage.value = true;
@@ -224,7 +214,7 @@ const onSubmit = (evt) => {
 .container {
   width: 1000px;
   margin: 20px auto;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 82px);
   padding: 20px;
   gap: 8px;
   background: #fff;
@@ -253,7 +243,8 @@ const onSubmit = (evt) => {
     gap: 8px;
 
     span {
-      font-size: 12px;
+      font-size: 14px;
+      line-height: 18px;
       color: #252b3a;
       cursor: pointer;
     }
@@ -265,12 +256,16 @@ const onSubmit = (evt) => {
     }
 
     .input-foot-maxlength {
-      font-size: 12px;
+      font-size: 14px;
       color: #71757f;
     }
   }
 
   .input-foot-right {
+    .demo-button-content {
+      font-size: 14px;
+    }
+
     & > *:not(:first-child) {
       margin-left: 8px;
     }

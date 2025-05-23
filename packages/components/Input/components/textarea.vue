@@ -70,8 +70,8 @@ const onKeydown = (e: KeyboardEvent) => {
     rootProps.submitShortKey === SubmitShortKey.Enter
       ? !e.shiftKey
       : rootProps.submitShortKey === SubmitShortKey.ShiftEnter
-        ? e.shiftKey
-        : false;
+      ? e.shiftKey
+      : false;
   if (shiftKey && e.key === 'Enter' && !lock) {
     e.preventDefault();
     rootEmits('submit', inputValue.value);
@@ -96,6 +96,7 @@ const onBlur = (e: FocusEvent) => {
   height: 64px;
   padding: 4px 0;
   color: $devui-text;
+  font-size: var(--devui-font-size, 14px);
   background-color: $devui-form-control-bg;
   vertical-align: middle;
   outline: none;

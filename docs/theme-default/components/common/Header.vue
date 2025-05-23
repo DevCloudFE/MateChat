@@ -22,7 +22,7 @@
               </li>
               <li v-show="showTheme">
                 <div class="theme">
-                  <d-switch color="var(--devui-base-bg-dark)" v-model="isGalaxy" @change="themeChange($event)">
+                  <d-switch color="var(--devui-base-bg-dark)" v-model="isGalaxy" @change="toggleThemeWithTransition">
                     <template #checkedContent>
                       <i class="icon-dark"></i>
                     </template>
@@ -42,7 +42,7 @@
         </template>
       </d-dropdown>
 
-      <div class="nav-list">
+    <div class="nav-list">
         <a
           v-for="(item, index) in theme.nav"
           :key="index"
@@ -62,7 +62,7 @@
       <div class="release">
         <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
           <div class="version">
-            <span>1.3.0</span>
+            <span>1.5.1</span>
             <i class="icon-chevron-down-2"></i>
           </div>
           <template #menu>
@@ -81,7 +81,7 @@
       <div v-if="showTheme" class="header-menu-splitter"></div>
       <div v-show="showTheme" class="theme">
         <div>
-          <d-switch color="var(--devui-base-bg-dark)" v-model="isGalaxy" @change="themeChange($event)">
+          <d-switch color="var(--devui-base-bg-dark)" v-model="isGalaxy" @change="toggleThemeWithTransition">
             <template #checkedContent>
               <i class="icon-dark"></i>
             </template>
@@ -102,15 +102,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, inject } from 'vue';
+import { galaxyTheme, infinityTheme } from 'devui-theme';
 import { useData } from 'vitepress';
-import { ThemeKey, LocaleKey } from '../datas/type';
-import { infinityTheme, galaxyTheme } from 'devui-theme';
-import { themeServiceInstance } from '../../index';
-import { useI18n } from 'vue-i18n';
-import { useLangs } from '../../composables/langs';
 import { useRouter } from 'vitepress';
+import { computed, inject, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { APPEARANCE_KEY } from '../../../shared';
+import { useLangs } from '../../composables/langs';
+import { themeServiceInstance } from '../../index';
+import { LocaleKey, ThemeKey } from '../datas/type';
+const emit = defineEmits(['themeUpdate']);
 const i18n = useI18n();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 const { theme, page, isDark } = useData();
@@ -119,9 +120,17 @@ const isZh = ref(true);
 const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
 
-const iconMap = ['/png/header/instruction.png', '/png/header/components.png', '/png/header/demo.png'];
+const iconMap = [
+  '/png/header/instruction.png',
+  '/png/header/components.png',
+  '/png/header/demo.png',
+];
 
-const activeIconMap = ['/png/header/instructionActive.png', '/png/header/componentsActive.png', '/png/header/demoActive.png'];
+const activeIconMap = [
+  '/png/header/instructionActive.png',
+  '/png/header/componentsActive.png',
+  '/png/header/demoActive.png',
+];
 
 const props = defineProps({
   isScroll: {
@@ -157,7 +166,9 @@ onMounted(() => {
     }
   }
   if (typeof window !== 'undefined') {
-    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const mediaQueryListDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    );
     mediaQueryListDark.addListener(windowThemeChange); // 添加主题变动监控事件
     windowThemeChange(mediaQueryListDark);
   }
@@ -176,16 +187,12 @@ const toggleAppearance = inject('toggle-appearance', (isGalaxy) => {
 });
 
 function windowThemeChange(mediaQueryListEvent) {
-  const vpTheme = typeof localStorage !== 'undefined' && localStorage.getItem(APPEARANCE_KEY);
+  const vpTheme =
+    typeof localStorage !== 'undefined' && localStorage.getItem(APPEARANCE_KEY);
   if (vpTheme === 'auto') {
     isGalaxy.value = !!mediaQueryListEvent.matches; // matches 存在则 系统是深色主题
     changeDevUiTheme(isGalaxy.value);
   }
-}
-
-function themeChange(change) {
-  changeDevUiTheme(change);
-  toggleAppearance(isGalaxy.value);
 }
 
 function changeDevUiTheme(change) {
@@ -194,9 +201,36 @@ function changeDevUiTheme(change) {
   themeServiceInstance?.applyTheme(ThemeConfig[key]);
 }
 
+function toggleThemeWithTransition(change) {
+  // 检查是否支持View Transitions API
+  const supportsViewTransition =
+    typeof document !== 'undefined' && 'startViewTransition' in document;
+
+  const key = change ? ThemeKey.Galaxy : ThemeKey.Infinity;
+
+  if (!supportsViewTransition) {
+    localStorage.setItem('theme', key);
+    themeServiceInstance?.applyTheme(ThemeConfig[key]);
+    toggleAppearance(isGalaxy.value);
+    emit('themeUpdate', isGalaxy.value);
+
+    return;
+  }
+
+  // 使用View Transitions API实现动画切换
+  document.startViewTransition(async () => {
+    localStorage.setItem('theme', key);
+    themeServiceInstance?.applyTheme(ThemeConfig[key]);
+    toggleAppearance(isGalaxy.value);
+    emit('themeUpdate', isGalaxy.value);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  });
+}
+
 function collapseSideMenu() {
   const sideMenu = document.querySelector('.side-menu') as HTMLElement;
-  sideMenu.style.width = !sideMenu.style.width || sideMenu.style.width === '0px' ? '230px' : '0px';
+  sideMenu.style.width =
+    !sideMenu.style.width || sideMenu.style.width === '0px' ? '230px' : '0px';
 }
 
 function onDropdown(status: boolean) {
@@ -429,6 +463,28 @@ function onDropdown(status: boolean) {
 @media (max-width: 320px) {
   .nav-drop-menu {
     width: 320px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  .dark::view-transition-old(root) {
+    z-index: 1;
+  }
+  .dark::view-transition-new(root) {
+    z-index: 999;
+  }
+
+  :root:not(.dark)::view-transition-old(root) {
+    z-index: 999;
+  }
+  :root:not(.dark)::view-transition-new(root) {
+    z-index: 1;
   }
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
-  <div :class="['mc-input', { 'mc-input-disabled': disabled }]">
+  <div :class="inputClasses">
     <slot name="head" />
     <div class="mc-input-content">
       <slot name="prefix" />
       <Textarea />
+      <slot name="suffix" />
       <slot v-if="displayType === DisplayType.Simple" name="button">
         <Button />
       </slot>
@@ -12,7 +13,8 @@
       <div class="mc-input-foot-left">
         <slot name="extra" />
         <span v-if="showCount" class="mc-input-foot-count">
-          {{ inputValue.length }}{{ !(maxLength ?? false) ? '' : `/${maxLength}` }}
+          {{ inputValue.length
+          }}{{ !(maxLength ?? false) ? "" : `/${maxLength}` }}
         </span>
       </div>
       <slot name="button">
@@ -23,18 +25,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, provide } from 'vue';
-import Textarea from './components/textarea.vue';
-import Button from './components/button.vue';
-import { inputProps, inputEmits, inputInjectionKey, DisplayType } from './input-types';
+import { ref, watch, provide, computed } from "vue";
+import Textarea from "./components/textarea.vue";
+import Button from "./components/button.vue";
+import {
+  inputProps,
+  inputEmits,
+  inputInjectionKey,
+  DisplayType,
+  InputVariant,
+} from "./input-types";
 
 const props = defineProps(inputProps);
 const emits = defineEmits(inputEmits);
 
-const inputValue = ref('');
+const inputValue = ref("");
+const inputClasses = computed(() => ({
+  "mc-input": true,
+  "mc-input-disabled": props.disabled,
+  "mc-input-simple": props.displayType === DisplayType.Simple,
+  "mc-input-borderless": props.variant === InputVariant.BorderLess,
+}));
 
 const clearInput = () => {
-  inputValue.value = '';
+  inputValue.value = "";
 };
 const getInput = () => inputValue.value;
 
@@ -43,7 +57,7 @@ watch(
   () => {
     inputValue.value = props.value;
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 defineExpose({ clearInput, getInput });
@@ -51,5 +65,5 @@ provide(inputInjectionKey, { inputValue, rootProps: props, rootEmits: emits });
 </script>
 
 <style lang="scss">
-@import './input.scss';
+@import "./input.scss";
 </style>

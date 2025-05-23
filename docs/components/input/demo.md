@@ -47,16 +47,20 @@ const onCancel = () => {
 
 通过`displayType`参数设置展示形态，支持的值为`full`和`simple`，默认为`full`。
 
-`full`形态，prefix插槽和输入框在同一行，extra插槽和发送按钮在下方。
+`full`形态，prefix 插槽和输入框在同一行，extra 插槽和发送按钮在下方。
 
-`simple`形态，prefix插槽、输入框和发送按钮在同一行，不支持extra插槽。
+`simple`形态，prefix 插槽、输入框和发送按钮在同一行，不支持 extra 插槽。
+
+`variant`参数设置为`borderless`，可设置不带边框。
+
+通过`sendBtnVariant`参数控制发送按钮的形态，支持的值为`full`和`simple`，默认为`full`。
 
 :::demo
 
 ```vue
 <template>
-  <McInput :value="inputValue" displayType="simple" :loading="loading" @submit="onSubmit">
-    <template #prefix>
+  <McInput :value="inputValue" displayType="simple" :loading="loading" sendBtnVariant="simple" variant="borderless" @submit="onSubmit">
+    <template #suffix>
       <div class="input-prefix-wrap">
         <i class="icon-appendix"></i>
       </div>
@@ -124,7 +128,7 @@ const onSubmit = (e) => {
 
 ### 自定义发送按钮
 
-通过`button`插槽自定义发送按钮，实现按钮disable、loading等状态和按钮图标、按钮文案的自定义
+通过`button`插槽自定义发送按钮，实现按钮 disable、loading 等状态和按钮图标、按钮文案的自定义
 
 :::demo
 
@@ -192,7 +196,6 @@ const onConfirm = () => {
 .disabled {
   background: #beccfa;
 }
-
 </style>
 ```
 

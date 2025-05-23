@@ -3,6 +3,7 @@
 .mc-bubble {
   display: flex;
   gap: 4px;
+  font-size: var(--devui-font-size, 14px);
 
   .mc-bubble-content {
     word-wrap: break-word;

@@ -24,6 +24,16 @@ export type CodeBlockSlot = {
 
 export type Theme = 'light' | 'dark';
 
+export type TypingStyle = 'normal' | 'cursor' | 'color' | 'gradient';
+
+export type IntervalType = number | [number, number];
+
+export const defaultTypingConfig = {
+  step: 2,
+  interval: 50,
+  style: 'normal',
+}
+
 export interface MdPlugin {
   plugin: PluginSimple | PluginWithOptions | PluginWithParams;
   opts?: unknown;
@@ -35,9 +45,31 @@ export const mdCardProps = {
     default: '',
   },
 
+  typing: {
+    type: Boolean,
+    default: false,
+  },
+
   enableThink: {
     type: Boolean,
     default: false,
+  },
+
+  typingOptions: {
+    step: {
+      type: Number,
+      default: 2,
+    },
+
+    interval: {
+      type: [Number, Array] as PropType<number | [number, number]>,
+      default: 60,
+    },
+
+    style: {
+      type: String as PropType<TypingStyle>,
+      default: 'normal'
+    }
   },
 
   thinkOptions: {

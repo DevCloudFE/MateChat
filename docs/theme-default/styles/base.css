@@ -12,6 +12,54 @@
   }
 }
 
+/* 添加View Transitions支持 */
+:root {
+  --view-transition-duration: 0.5s;
+  --transition-position-x: calc(100vw - 101px);
+  --transition-position-y: 24px;
+  --max-radius: 141vmax;
+  --transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0% at var(--transition-position-x) var(--transition-position-y));
+  }
+  to {
+    clip-path: circle(var(--max-radius) at var(--transition-position-x) var(--transition-position-y));
+  }
+}
+
+::view-transition-group(root) {
+  animation: none;
+}
+
+::view-transition-old(root) {
+  animation: none;
+  opacity: 1;
+}
+
+::view-transition-new(root) {
+  animation: circle-in var(--view-transition-duration) var(--transition-easing) forwards;
+  opacity: 1;
+}
+
+html.dark {
+  color-scheme: dark;
+  transition: background-color var(--view-transition-duration) ease;
+}
+
+/* 修复iOS Safari支持 */
+@supports not (animation-timeline: view-timeline-inset(0%)) {
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: 0s;
+    }
+  }
+}
+
 *,
 ::before,
 ::after {
@@ -42,6 +90,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--view-transition-duration) ease, color var(--view-transition-duration) ease;
 }
 
 main {

@@ -91,6 +91,131 @@ onMounted(() => {
 
 :::
 
+### 打字机效果
+支持配置打字机动效果，当前内置不同效果样式可配置，支持配置动效速度与打字间隔，也适用流式数据返回场景。
+
+:::demo
+
+```vue
+<template>
+  <div class="btn-container">
+    <d-button variant="solid" @click="generateAnswer">重新执行</d-button>
+  </div>
+  <div>
+    <span class="demo-title">默认效果</span>
+    <McBubble :variant="'bordered'">
+      <McMarkdownCard :content="content" :theme="theme" :typing="true"></McMarkdownCard>
+    </McBubble>
+    <span class="demo-title">打字机并配置打字速度</span>
+    <McBubble :variant="'bordered'">
+      <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions1"></McMarkdownCard>
+    </McBubble>
+    <span class="demo-title">渐变打字</span>
+    <McBubble :variant="'bordered'">
+      <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions2"></McMarkdownCard>
+    </McBubble>
+    <span class="demo-title">彩色打字</span>
+    <McBubble :variant="'bordered'">
+      <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions3"></McMarkdownCard>
+    </McBubble>
+    <span class="demo-title">流式返回</span>
+    <McBubble :variant="'bordered'">
+      <McMarkdownCard :content="content1" :theme="theme" :typing="true" :typingOptions="typingOptions4" @typingEnd="typingEnd"></McMarkdownCard>
+    </McBubble>
+  </div>
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+const MOCK_CONTENT = `**我了解到了你的需求**，*会进行<span style="color:red">打字机效果输出</span>，如果你需要重新执行打字机动效*，可点击重新执行按钮。`;
+let themeService;
+const content = ref(MOCK_CONTENT);
+const theme = ref('light');
+
+const typingOptions1 = {
+  step: [1, 5],
+  interval: 200,
+  style: 'cursor',
+};
+
+const typingOptions2 = {
+  interval: 200,
+  style: 'gradient',
+};
+
+const typingOptions3 = {
+  interval: 200,
+  style: 'color',
+};
+
+const typingOptions4 = {
+  interval: 200,
+  step: 1,
+};
+
+const content1 = ref('');
+let interval;
+let stramEnd = false;
+
+const streamContent = () => {
+  clearInterval(interval);
+  let currentIndex = 0;
+  interval = setInterval(() => {
+    currentIndex += Math.ceil(Math.random() * 10);
+    content1.value = MOCK_CONTENT.slice(0, currentIndex);
+    if (currentIndex > MOCK_CONTENT.length) {
+      stramEnd = true;
+      clearInterval(interval);
+    }
+  }, 100);
+}
+
+const generateAnswer = () => {
+  content.value = '';
+  content1.value = '';
+  setTimeout(() => {
+    content.value = MOCK_CONTENT;
+    streamContent();
+  });
+}
+
+const typingEnd = () => {
+  if (stramEnd) {
+    console.log('流式与打字机效果完成');
+  }
+}
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  streamContent();
+  if(typeof window !== 'undefined'){
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
+</script>
+
+<style lang="scss" scoped>
+.btn-container {
+  display: flex;
+  margin-bottom: 12px;
+}
+.demo-title {
+  margin: 20px 0px 8px 8px;
+  display: inline-block;
+}
+</style>
+```
+
+:::
+
 ### think标签支持
 
 支持自定义的 think 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示
