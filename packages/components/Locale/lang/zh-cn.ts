@@ -7,7 +7,7 @@ export default {
       "请输入您的问题，并按{enterKey}发送，按{shiftEnterKey}换行",
   },
   Md: {
-    toggle: "展开/收起",
+    toggle: "收起/展开",
     copy: "复制",
   },
 };

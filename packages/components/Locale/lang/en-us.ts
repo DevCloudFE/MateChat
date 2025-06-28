@@ -7,7 +7,7 @@ export default {
       "Please enter your question and press {enterKey} to send, {shiftEnterKey} to wrap.",
   },
   Md: {
-    toggle: "Toggle",
+    toggle: "Collapse/Expand",
     copy: "Copy",
   },
 };
