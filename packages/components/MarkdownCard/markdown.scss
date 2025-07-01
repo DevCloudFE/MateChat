@@ -1,4 +1,4 @@
-@import "devui-theme/styles-var/devui-var.scss";
+@use "devui-theme/styles-var/devui-var.scss" as devui;
 .mc-markdown-render :deep() {
   ul,
   ol {
@@ -45,20 +45,20 @@
   td,
   th {
     padding: 5px 10px;
-    border: 1px solid $devui-dividing-line;
-    background-color: $devui-base-bg;
+    border: 1px solid devui.$devui-dividing-line;
+    background-color: devui.$devui-base-bg;
   }
 
   caption {
-    border: 1px dashed $devui-line;
+    border: 1px dashed devui.$devui-line;
     border-bottom: 0;
     padding: 3px;
     text-align: center;
   }
 
   th {
-    border-top: 1px solid $devui-dividing-line;
-    background-color: $devui-global-bg;
+    border-top: 1px solid devui.$devui-dividing-line;
+    background-color: devui.$devui-global-bg;
   }
 
   td p {
@@ -84,17 +84,17 @@
   blockquote {
     padding: 0 8px;
     margin: 0;
-    color: $devui-text-weak;
-    border-left: 5px solid $devui-dividing-line;
+    color: devui.$devui-text-weak;
+    border-left: 5px solid devui.$devui-dividing-line;
   }
 
   a {
-    color: $devui-link;
+    color: devui.$devui-link;
     text-decoration: underline;
     cursor: pointer;
 
     &:hover {
-      color: $devui-link-active;
+      color: devui.$devui-link-active;
     }
   }
 

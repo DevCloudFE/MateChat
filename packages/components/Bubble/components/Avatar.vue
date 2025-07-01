@@ -43,9 +43,9 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { avatarProps } from './avatar-types';
 import AvatarBodyIcon from './AvatarBodyIcon.vue';
 import AvatarNoBodyIcon from './AvatarNoBodyIcon.vue';
+import { avatarProps } from './avatar-types';
 
 const props = defineProps(avatarProps);
 
@@ -81,7 +81,9 @@ const setDisplayName = (nameValue: string, widthValue: number): void => {
       if (/[_ -]/.test(nameValue)) {
         const str_before = nameValue.split(/_|-|\s+/)[0];
         const str_after = nameValue.split(/_|-|\s+/)[1];
-        nameDisplay.value = str_before.substr(0, 1).toUpperCase() + str_after.substr(0, 1).toUpperCase();
+        nameDisplay.value =
+          str_before.substr(0, 1).toUpperCase() +
+          str_after.substr(0, 1).toUpperCase();
       } else {
         // 一个英文名的情况显示前两个字母
         nameDisplay.value = nameValue.substr(0, 2).toUpperCase();
@@ -114,13 +116,16 @@ const calcValues = (nameInput: string): void => {
 
 calcValues(props.name);
 
-watch([() => props.name, () => props.width, () => props.height, () => props.gender], () => {
-  calcValues(props.name);
-});
+watch(
+  [() => props.name, () => props.width, () => props.height, () => props.gender],
+  () => {
+    calcValues(props.name);
+  },
+);
 </script>
 
 <style lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .mc-bubble-avatar-wrapper {
   display: inline-block;

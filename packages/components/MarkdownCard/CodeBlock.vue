@@ -17,27 +17,16 @@
           >
             <img src="./asset/all-collapse.svg" />
           </div>
-          <div
-            class="mc-action-btn mc-copy-btn"
-            :title="t('Md.copy')"
-            @click="copyCode"
-          >
+          <div class="mc-action-btn mc-copy-btn" :title="t('Md.copy')" @click="copyCode">
             <img v-if="!copied" src="./asset/copy-new.svg" />
-              <img v-else src="./asset/right.svg">
+            <img v-else src="./asset/right.svg">
           </div>
         </div>
       </slot>
     </div>
     <slot name="header" v-else></slot>
-    <Transition
-      name="collapse-transition"
-      @beforeEnter="beforeEnter"
-      @enter="enter"
-      @afterEnter="afterEnter"
-      @beforeLeave="beforeLeave"
-      @leave="leave"
-      @afterLeave="afterLeave"
-    >
+    <Transition name="collapse-transition" @beforeEnter="beforeEnter" @enter="enter" @afterEnter="afterEnter"
+      @beforeLeave="beforeLeave" @leave="leave" @afterLeave="afterLeave">
       <div v-if="expanded">
           <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content" v-html="mermaidContent"></div>
           <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
@@ -61,15 +50,15 @@ type MermaidConfig = {
 const props = defineProps({
   code: {
     type: String,
-      required: true
+    required: true
   },
   language: {
     type: String,
-      default: ''
+    default: ''
   },
   blockIndex: {
     type: Number,
-      required: true
+    required: true
   },
   theme: {
     type: String,
@@ -103,14 +92,14 @@ const highlightedCode = computed(() => {
     let content;
     if (props.language && hljs.getLanguage(props.language)) {
       if (typeIndex !== -1) {
-            content = hljs.highlight(props.code.slice(0, typeIndex), { language: props.language }).value + props.code.slice(typeIndex);
+        content = hljs.highlight(props.code.slice(0, typeIndex), { language: props.language }).value + props.code.slice(typeIndex);
       } else {
-            content = hljs.highlight(props.code, { language: props.language }).value;
+        content = hljs.highlight(props.code, { language: props.language }).value;
       }
     } else {
       if (typeof hljs.highlightAuto !== undefined) {
         if (typeIndex !== -1) {
-                content = hljs.highlightAuto(props.code.slice(0, typeIndex)).value + props.code.slice(typeIndex);
+          content = hljs.highlightAuto(props.code.slice(0, typeIndex)).value + props.code.slice(typeIndex);
         } else {
           content = hljs.highlightAuto(props.code).value;
         }
@@ -119,7 +108,7 @@ const highlightedCode = computed(() => {
       }
     }
     return content;
-  } catch (_) {}
+  } catch (_) { }
 });
 
 const renderMermaid = async () => {
@@ -158,18 +147,18 @@ const copyCode = debounce((e: Event) => {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(props.code);
   } else {
-      const textarea = document.createElement('textarea');
-      textarea.style.position = 'fixed';
-      textarea.style.top = '-9999px';
-      textarea.style.left = '-9999px';
-      textarea.style.zIndex = '-1';
+    const textarea = document.createElement('textarea');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    textarea.style.left = '-9999px';
+    textarea.style.zIndex = '-1';
     textarea.value = props.code;
     document.body.appendChild(textarea);
     textarea.select();
-      document.execCommand('copy');
+    document.execCommand('copy');
     document.body.removeChild(textarea);
   }
-    target.classList.remove('icon-copy-new');
+  target.classList.remove('icon-copy-new');
   copied.value = true;
   setTimeout(() => {
     copied.value = false;
@@ -195,11 +184,11 @@ const enter = (el: RendererElement) => {
     } else {
       el.style.maxHeight = 0;
     }
-      el.style.overflow = 'hidden';
+    el.style.overflow = 'hidden';
   });
 };
 const afterEnter = (el: RendererElement) => {
-    el.style.maxHeight = '';
+  el.style.maxHeight = '';
   el.style.overflow = el.dataset.oldOverflow;
 };
 const beforeLeave = (el: RendererElement) => {
@@ -208,7 +197,7 @@ const beforeLeave = (el: RendererElement) => {
   }
   el.dataset.oldOverflow = el.style.overflow;
   el.style.maxHeight = `${el.scrollHeight}px`;
-    el.style.overflow = 'hidden';
+  el.style.overflow = 'hidden';
 };
 const leave = (el: RendererElement) => {
   if (el.scrollHeight !== 0) {
@@ -216,12 +205,12 @@ const leave = (el: RendererElement) => {
   }
 };
 const afterLeave = (el: RendererElement) => {
-    el.style.maxHeight = '';
+  el.style.maxHeight = '';
   el.style.overflow = el.dataset.oldOverflow;
 };
 
 const themeClass = computed(() => {
-    return props.theme === 'dark' ? 'mc-code-block-dark' : 'mc-code-block-light';
+  return props.theme === 'dark' ? 'mc-code-block-dark' : 'mc-code-block-light';
 });
 
 watch(() => [props.code, props.theme, props.enableMermaid], () => {
@@ -242,9 +231,12 @@ onMounted(() => {
 <style scoped lang="scss">
 @use 'devui-theme/styles-var/devui-var.scss' as *;
 @use "sass:meta";
+@use 'devui-theme/styles-var/devui-var.scss' as *;
+
 .mc-code-block-light :deep() {
   @include meta.load-css("highlight.js/styles/a11y-light");
 }
+
 .mc-code-block-dark :deep() {
   @include meta.load-css("highlight.js/styles/a11y-dark");
 }
@@ -278,6 +270,7 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
+
     .mc-code-lang {
       font-size: var(--devui-font-size, 14px);
     }
@@ -294,6 +287,7 @@ onMounted(() => {
   .mc-code-block-actions {
     display: flex;
     align-items: center;
+
     .mc-copy-btn,
     .mc-toggle-btn {
       cursor: pointer;
@@ -359,19 +353,25 @@ onMounted(() => {
 
 .mc-code-block-light {
   border: 1px solid #d7d8da;
+
   code.hljs {
     padding: 1em;
   }
+
   background-color: #f5f5f5;
+
   .mc-code-lang {
     color: #252b3a;
   }
+
   .mc-code-block-actions {
+
     .mc-copy-btn,
     .mc-toggle-btn {
       color: #252b3a;
+
       &:hover {
-          background-color: #EBEBEB;
+        background-color: #EBEBEB;
       }
     }
   }
@@ -382,20 +382,27 @@ onMounted(() => {
 
 .mc-code-block-dark {
   border: 1px solid #4e5057;
+
   code.hljs {
     padding: 1em;
   }
-    background-color: #34363A;
+
+  background-color: #34363A;
+
   .mc-code-lang {
-      color: #CED1DB;
+    color: #CED1DB;
   }
+
   .mc-code-block-actions {
+
     .mc-copy-btn,
     .mc-toggle-btn {
-        color: #CED1DB;
+      color: #CED1DB;
+
       &:hover {
         background-color: #393a3e;
       }
+
       img {
         filter: brightness(1.5);
       }
@@ -407,6 +414,7 @@ onMounted(() => {
 }
 
 .collapse-transition {
+
   &-enter-from,
   &-leave-to {
     opacity: 0;
@@ -419,8 +427,8 @@ onMounted(() => {
 
   &-enter-active,
   &-leave-active {
-      transition:
-        max-height 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95),
+    transition:
+      max-height 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95),
       opacity 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95);
   }
 }

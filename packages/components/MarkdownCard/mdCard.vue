@@ -250,8 +250,8 @@ defineExpose({ mdt });
 </script>
 
 <style scoped lang="scss">
-@import "devui-theme/styles-var/devui-var.scss";
-@import "./markdown.scss";
+@use "devui-theme/styles-var/devui-var.scss" as *;
+@use "./markdown.scss";
 
 .mc-markdown-render {
   font-size: var(--devui-font-size, 14px);

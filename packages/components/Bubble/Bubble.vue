@@ -65,5 +65,5 @@ const isEmptyAvatar = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import './bubble.scss';
+@use './bubble.scss';
 </style>

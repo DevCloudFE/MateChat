@@ -65,5 +65,5 @@ provide(inputInjectionKey, { inputValue, rootProps: props, rootEmits: emits });
 </script>
 
 <style lang="scss">
-@import "./input.scss";
+@use "./input.scss";
 </style>

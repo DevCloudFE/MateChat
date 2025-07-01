@@ -38,52 +38,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue';
-import { useData, useRoute, useRouter } from 'vitepress';
-import { defineProps } from 'vue';
+import { useData, useRoute, useRouter } from "vitepress";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 
 const props = defineProps({
   bannerSrc: {
     type: String,
-    default: '/banner.png',
+    default: "/banner.png",
   },
   iconSrc: {
     type: String,
-    default: '/defaultIcon.png',
+    default: "/defaultIcon.png",
   },
 });
 
-const basicSrc = '/png/contentSlider';
+const basicSrc = "/png/contentSlider";
 const { isDark } = useData();
 const route = useRoute();
 const router = useRouter();
-const id = ref('demo');
+const id = ref("demo");
 const tabsRef = ref<HTMLElement | null>(null);
 const sliderContainer = ref<HTMLElement | null>(null);
 const handleScroll = () => {
   if (sliderContainer.value && tabsRef.value) {
-    const sliderContainerTop = sliderContainer.value.getBoundingClientRect().top;
+    const sliderContainerTop =
+      sliderContainer.value.getBoundingClientRect().top;
     if (sliderContainerTop <= -72) {
-      tabsRef.value.classList.add('fix-tab');
+      tabsRef.value.classList.add("fix-tab");
       tabsRef.value.style.width = `${sliderContainer.value.offsetWidth}px`;
     } else {
-      tabsRef.value.classList.remove('fix-tab');
+      tabsRef.value.classList.remove("fix-tab");
     }
   }
 };
 
 const tabChange = (event) => {
-  let currentId = id.value;
+  const currentId = id.value;
   id.value = event;
-  let nextPath = route.path.replace(currentId, event);
+  const nextPath = route.path.replace(currentId, event);
   router.go(nextPath);
 };
 
 const setTabId = (path) => {
-  if (path.includes('/api')) {
-    id.value = 'api';
+  if (path.includes("/api")) {
+    id.value = "api";
   } else {
-    id.value = 'demo';
+    id.value = "demo";
   }
 };
 
@@ -91,22 +91,22 @@ watch(
   () => route.path,
   (newPath) => {
     setTabId(newPath);
-  },
+  }
 );
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener("scroll", handleScroll);
 
   setTabId(route.path);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener("scroll", handleScroll);
 });
 </script>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use "devui-theme/styles-var/devui-var.scss" as *;
 
 $slider-tabs-height: 56px;
 

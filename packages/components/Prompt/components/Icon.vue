@@ -12,14 +12,19 @@
 </template>
 
 <script setup lang="ts">
-import { resolveDynamicComponent, computed } from 'vue';
+import { computed, resolveDynamicComponent } from 'vue';
 import { iconProps } from './icon-types';
 
 const props = defineProps(iconProps);
 
-const iconSize = computed(() => (typeof props.size === 'number' ? `${props.size}px` : props.size));
-const fontIconClass = computed(() => (/^icon-/.test(props.name) ? props.name : ''));
-const IconComponent = props.component && resolveDynamicComponent(props.component);
+const iconSize = computed(() =>
+  typeof props.size === 'number' ? `${props.size}px` : props.size,
+);
+const fontIconClass = computed(() =>
+  /^icon-/.test(props.name) ? props.name : '',
+);
+const IconComponent =
+  props.component && resolveDynamicComponent(props.component);
 
 function isUrl(value: string): boolean {
   return /^((http|https):)?\/\//.test(value);
@@ -27,7 +32,7 @@ function isUrl(value: string): boolean {
 </script>
 
 <style lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .mc-prompt-icon {
   display: inline-block;

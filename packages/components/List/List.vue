@@ -35,5 +35,5 @@ const { preSelectIndex, onItemClick, onListScroll } = useList(props, emits);
 </script>
 
 <style scoped lang="scss">
-@import './list.scss';
+@use './list.scss';
 </style>

@@ -1,4 +1,4 @@
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as devui;
 
 .mc-bubble {
   display: flex;
@@ -15,11 +15,11 @@
     }
 
     &.filled {
-      background-color: $devui-global-bg;
+      background-color: devui.$devui-global-bg;
     }
 
     &.bordered {
-      border: 1px solid $devui-dividing-line;
+      border: 1px solid devui.$devui-dividing-line;
     }
   }
 

@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { PopperTrigger } from '@matechat/core/PopperTrigger';
-import { mentionProps, mentionEmits } from './mention-types';
+import { mentionEmits, mentionProps } from './mention-types';
 import { useMention } from './use-mention';
 
 const props = defineProps(mentionProps);
@@ -19,7 +19,7 @@ const { popperTriggerEl, overlayEl, overlayStyle } = useMention(props, emits);
 </script>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .mc-mention {
   position: fixed;

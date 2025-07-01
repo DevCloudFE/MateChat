@@ -395,7 +395,7 @@ onMounted(() => {
 </style>
 
 <style lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 .think-toggle-btn {
   display: flex;
   gap: 8px;
@@ -1052,7 +1052,7 @@ body[ui-theme='infinity-theme'] {
 </style>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 .content-container :deep() {
   padding: 12px 12px 12px 22px;
   background-color: $devui-base-bg;

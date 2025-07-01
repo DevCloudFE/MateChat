@@ -38,7 +38,7 @@ import Logo from "../../../public/logo.svg";
 </script>
 
 <style scoped lang="scss">
-@import "devui-theme/styles-var/devui-var.scss";
+@use "devui-theme/styles-var/devui-var.scss" as *;
 
 .navbar-top-container {
   display: none;
@@ -126,7 +126,7 @@ body[ui-theme="galaxy-theme"] {
 </style>
 
 <style lang="scss">
-@import "devui-theme/styles-var/devui-var.scss";
+@use "devui-theme/styles-var/devui-var.scss" as *;
 
 .devui-popover__content.navbar-top-history-menu {
   padding: 0;

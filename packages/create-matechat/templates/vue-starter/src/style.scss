@@ -1,5 +1,6 @@
-@import "@devui-design/icons/icomoon/devui-icon.css";
-@import "vue-devui/style.css";
+@use "sass:meta";
+@include meta.load-css("@devui-design/icons/icomoon/devui-icon.css");
+@include meta.load-css("vue-devui/style.css");
 
 * {
   margin: 0;

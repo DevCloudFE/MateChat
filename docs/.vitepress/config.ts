@@ -31,6 +31,13 @@ export default defineConfig({
   },
   vite: {
     plugins: [VitePluginDemoblock(), vueI18n({ ssr: true }), MermaidPlugin()],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler'
+        }
+      }
+    },
     ssr: {
       noExternal: ['devui-theme', 'vue-devui', 'xss', 'mermaid'],
     },

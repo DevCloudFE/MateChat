@@ -25,7 +25,7 @@ import Scene3D from './Scene3D.vue';
 </script>
 
 <style lang="scss" scoped>
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .main-container {
   width: 100%;

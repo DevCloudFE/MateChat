@@ -24,8 +24,8 @@ const list = [
 </script>
 
 <style lang="scss" scoped>
-@import 'devui-theme/styles-var/devui-var.scss';
-@import './common.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
+@use './common.scss';
 
 .eco-container {
   width: 100%;

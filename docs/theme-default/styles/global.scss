@@ -1,4 +1,4 @@
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as devui;
 
 html {
   scrollbar-width: thin;
@@ -7,7 +7,7 @@ html {
 }
 
 html:hover {
-  scrollbar-color: $devui-line transparent;
+  scrollbar-color: devui.$devui-line transparent;
 }
 
 body[ui-theme='galaxy-theme'] #content-slider-tabs {
@@ -22,7 +22,7 @@ body[ui-theme='galaxy-theme'] #icon-container {
 }
 
 body {
-  background-color: $devui-base-bg;
+  background-color: devui.$devui-base-bg;
 }
 
 .devui-scrollbar::-webkit-scrollbar {
@@ -34,10 +34,10 @@ body {
 }
 .devui-scrollbar::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background-color: $devui-line;
+  background-color: devui.$devui-line;
 }
 .devui-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: $devui-placeholder;
+  background-color: devui.$devui-placeholder;
 }
 
 .devui-scroll-overlay {
@@ -47,10 +47,10 @@ body {
   background-color: transparent;
 }
 .devui-scroll-overlay:hover::-webkit-scrollbar-thumb {
-  background-color: $devui-line;
+  background-color: devui.$devui-line;
 }
 .devui-scroll-overlay:hover::-webkit-scrollbar-thumb:hover {
-  background-color: $devui-placeholder;
+  background-color: devui.$devui-placeholder;
 }
 
 .devui-text-ellipsis {

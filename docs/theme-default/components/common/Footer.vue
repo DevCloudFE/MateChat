@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue';
+import { nextTick, ref } from 'vue';
 const list = ref([
   {
     label: 'GitCode',
@@ -59,7 +59,9 @@ async function onMouseOver(event, item, i) {
   }
   const rect = event.target.getBoundingClientRect();
   const disR = document.documentElement.clientWidth - rect.right;
-  const expandEl = document.querySelector(`img.expand[data-index='${i}']`) as HTMLElement;
+  const expandEl = document.querySelector(
+    `img.expand[data-index='${i}']`,
+  ) as HTMLElement;
   if (!expandEl) {
     return;
   }
@@ -81,7 +83,7 @@ function onMouseOut(item) {
 </script>
 
 <style lang="scss" scoped>
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .related-container {
   width: 100%;

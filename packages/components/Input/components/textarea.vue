@@ -90,7 +90,7 @@ const onBlur = (e: FocusEvent) => {
 </script>
 
 <style lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .mc-textarea {
   width: 100%;

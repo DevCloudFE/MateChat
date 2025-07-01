@@ -1,3 +1,5 @@
+@use 'devui-theme/styles-var/devui-var.scss' as devui;
+
 .title {
   display: flex;
   align-items: center;
@@ -29,7 +31,7 @@
   max-width: 60%;
   font-size: 16px;
   text-align: center;
-  color: $devui-aide-text;
+  color: devui.$devui-aide-text;
 }
 
 @media (max-width: 1600px) {

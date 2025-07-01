@@ -58,7 +58,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .page-header {
   border-bottom: 1px solid $devui-dividing-line;

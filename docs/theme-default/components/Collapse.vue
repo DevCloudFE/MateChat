@@ -79,7 +79,7 @@ const afterLeave = (el: RendererElement) => {
 </script>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .collapse-title {
   position: relative;

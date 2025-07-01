@@ -1,4 +1,4 @@
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as devui;
 
 .mc-list {
   width: 100%;
@@ -24,40 +24,40 @@
     width: 100%;
     line-height: 20px;
     padding: 8px;
-    color: $devui-text;
+    color: devui.$devui-text;
     font-size: var(--devui-font-size, 14px);
-    border-radius: $devui-border-radius;
+    border-radius: devui.$devui-border-radius;
     box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
     transition:
-      color $devui-animation-duration-fast $devui-animation-ease-in-out-smooth,
-      background-color $devui-animation-duration-fast $devui-animation-ease-in-out-smooth;
+      color devui.$devui-animation-duration-fast devui.$devui-animation-ease-in-out-smooth,
+      background-color devui.$devui-animation-duration-fast devui.$devui-animation-ease-in-out-smooth;
 
     &.filled {
-      background-color: $devui-gray-form-control-bg;
+      background-color: devui.$devui-gray-form-control-bg;
     }
 
     &.bordered {
-      border: 1px solid $devui-dividing-line;
+      border: 1px solid devui.$devui-dividing-line;
     }
 
     &:hover,
     &.mc-list-item-pre-selection {
-      color: $devui-list-item-hover-text;
-      background-color: $devui-list-item-hover-bg;
+      color: devui.$devui-list-item-hover-text;
+      background-color: devui.$devui-list-item-hover-bg;
     }
 
     &.mc-list-item-active {
-      color: $devui-list-item-active-text;
-      background-color: $devui-list-item-active-bg;
+      color: devui.$devui-list-item-active-text;
+      background-color: devui.$devui-list-item-active-bg;
     }
 
     &.mc-list-item-disabled {
-      color: $devui-disabled-text;
-      background-color: $devui-disabled-bg;
+      color: devui.$devui-disabled-text;
+      background-color: devui.$devui-disabled-bg;
       cursor: not-allowed;
     }
   }

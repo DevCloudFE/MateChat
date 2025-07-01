@@ -239,7 +239,7 @@ function onDropdown(status: boolean) {
 </script>
 
 <style lang="scss" scoped>
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 
 .enhance-icon {
   filter: brightness(10);
@@ -490,7 +490,7 @@ function onDropdown(status: boolean) {
 </style>
 
 <style lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 .header-right-nav-dropdown {
   left: 0 !important;
   background: $devui-base-bg;

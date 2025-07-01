@@ -1,4 +1,4 @@
-@import 'devui-theme/styles-var/devui-var.scss';
+@use 'devui-theme/styles-var/devui-var.scss' as devui;
 
 /* 深浅主题临时方案 */
 body[ui-theme='infinity-theme'] {
@@ -16,10 +16,10 @@ body[ui-theme='galaxy-theme'] {
   flex-direction: column;
   width: 100%;
   padding: 12px 0;
-  border: 1px solid $devui-form-control-line;
+  border: 1px solid devui.$devui-form-control-line;
   border-radius: 16px;
   box-sizing: border-box;
-  background-color: $devui-base-bg;
+  background-color: devui.$devui-base-bg;
 
   &.mc-input-simple {
     border-radius: 24px;
@@ -35,7 +35,7 @@ body[ui-theme='galaxy-theme'] {
   }
 
   &.mc-input-disabled {
-    background-color: $devui-disabled-bg;
+    background-color: devui.$devui-disabled-bg;
     cursor: not-allowed;
   }
 
@@ -60,7 +60,7 @@ body[ui-theme='galaxy-theme'] {
 
       .mc-input-foot-count {
         color: var(--mc-text, #aeaeae);
-        font-size: $devui-font-size-sm;
+        font-size: devui.$devui-font-size-sm;
       }
     }
   }
