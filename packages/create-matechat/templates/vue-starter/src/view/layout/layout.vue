@@ -22,6 +22,7 @@ import GlobalConfig from "@/global-config";
   padding: 8px 8px 8px 0;
   overflow: auto;
   box-sizing: border-box;
+  background-color: $devui-global-bg;
 }
 .aside-content:not(.Assistant) {
   padding: 0 8px;

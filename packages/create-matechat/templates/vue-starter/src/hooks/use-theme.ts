@@ -1,7 +1,13 @@
-import { dark, light } from '@/constant';
-import { useThemeStore } from '@/store';
-import { ThemeServiceInit, galaxyTheme, infinityTheme } from 'devui-theme';
-import { onMounted } from 'vue';
+import { dark, light } from "@/constant";
+import { useThemeStore } from "@/store";
+import {
+  ThemeServiceInit,
+  galaxyTheme,
+  infinityTheme,
+  sweetTheme,
+  Theme,
+} from "devui-theme";
+import { onMounted } from "vue";
 
 export function useTheme() {
   const themeStore = useThemeStore();
@@ -15,25 +21,45 @@ export function useTheme() {
       lightTheme,
       darkTheme,
     },
-    'infinityTheme',
+    "infinityTheme"
   );
+  const themeMap: Record<string, string> = {
+    "infinity-theme": "light",
+    "galaxy-theme": "dark",
+  };
+  const idToTheme: Record<string, Theme> = {
+    "light": lightTheme,
+    "dark": darkTheme,
+  }
 
   const applyTheme = () => {
     if (themeService) {
-      const theme = themeStore.theme === 'light' ? lightTheme : darkTheme;
+      const theme = idToTheme[themeStore.theme] || themeStore.currentCustomTheme;
       themeService.applyTheme(theme);
     }
   };
+
+  const applyThemeWithCustom = (theme: Theme) => {
+    if (themeService) {
+      themeService.applyTheme(theme);
+      themeStore.currentCustomTheme = theme;
+    }
+  };
+
+  const createCustomTheme = (theme: Theme): Theme => {
+    return new Theme(theme);
+  };
+
   const themeChange = () => {
     if (themeService) {
-      themeStore.theme = themeService.currentTheme.isDark ? 'dark' : 'light';
+      themeStore.theme = themeMap[themeService.currentTheme.id] || "custom";
     }
   };
 
   onMounted(() => {
     themeChange();
-    themeService?.eventBus?.add('themeChanged', themeChange);
+    themeService?.eventBus?.add("themeChanged", themeChange);
   });
 
-  return { themeService, applyTheme };
+  return { themeService, applyTheme, applyThemeWithCustom, createCustomTheme };
 }

@@ -1,12 +1,8 @@
 <template>
   <div class="welcome-page">
-    <McIntroduction
-      :logo-img="GlobalConfig.logoPath || Logo2X"
-      :title="GlobalConfig.title"
-      :sub-title="GlobalConfig.subTitle"
-      :description="[$t('welcome.description1'), $t('welcome.description2')]"
-      class="welcome-introduction"
-    ></McIntroduction>
+    <McIntroduction :logo-img="GlobalConfig.logoPath || Logo2X" :title="GlobalConfig.title"
+      :sub-title="GlobalConfig.subTitle" :description="[$t('welcome.description1'), $t('welcome.description2')]"
+      class="welcome-introduction"></McIntroduction>
     <div class="guess-question">
       <div class="guess-title">
         <div>{{ $t("welcome.guessYouWantAsk") }}</div>
@@ -16,11 +12,7 @@
         </div>
       </div>
       <div class="guess-content">
-        <span
-          v-for="(item, index) in list"
-          :key="index"
-          @click="onItemClick(item)"
-        >
+        <span v-for="(item, index) in list" :key="index" @click="onItemClick(item)">
           {{ item.label }}
         </span>
       </div>
@@ -38,10 +30,11 @@ import {
 import { useChatMessageStore, useLangStore } from "@/store";
 import { LangType } from "@/types";
 import Logo2X from "../../../public/logo2x.svg";
+import { useTheme } from "@/hooks";
 
 const langStore = useLangStore();
 const chatMessageStore = useChatMessageStore();
-
+const { applyThemeWithCustom, createCustomTheme } = useTheme();
 const list = computed(() =>
   langStore.currentLang === LangType.CN ? guessQuestionsCn : guessQuestionsEn
 );
@@ -49,6 +42,19 @@ const list = computed(() =>
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
     chatMessageStore.ask(item.label, mockAnswer[item.value]);
+    if (item.value === 'theme') {
+      try {
+        const match = mockAnswer[item.value].match(/```json\s*([\s\S]*?)\s*```/);
+        if (!match) {
+          return;
+        }
+        const jsonStr = match[1];
+        const themeData = JSON.parse(jsonStr);
+        applyThemeWithCustom(createCustomTheme(themeData));
+      } catch (e) {
+        console.error('主题 JSON 解析失败:', e);
+      }
+    }
   }
 };
 </script>
@@ -93,6 +99,7 @@ const onItemClick = (item) => {
         font-size: 16px;
         line-height: 24px;
       }
+
       & > div:last-child {
         font-size: $devui-font-size;
         color: $devui-aide-text;
@@ -110,6 +117,7 @@ const onItemClick = (item) => {
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
+
       span {
         font-size: $devui-font-size;
         color: $devui-aide-text;

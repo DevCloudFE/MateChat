@@ -57,7 +57,11 @@ export const useChatMessageStore = defineStore("chat-message", () => {
         messages.value.at(-1).loading = false;
         for (let i = 0; i < content.length; ) {
           await new Promise((r) => setTimeout(r, 300 * Math.random()));
-          i += Math.random() * 10;
+          const step = Math.max(
+            5,
+            Math.floor(content.length / 20) * Math.random()
+          );
+          i += step;
           messages.value[messages.value.length - 1].content = content.slice(
             0,
             i

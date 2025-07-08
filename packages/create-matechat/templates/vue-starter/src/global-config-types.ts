@@ -8,6 +8,7 @@ export enum DisplayShape {
 export enum ThemeEnum {
   Dark = "dark",
   Light = "light",
+  Custom = 'custom', // 自定义主题
 }
 
 export interface IGlobalConfig {
