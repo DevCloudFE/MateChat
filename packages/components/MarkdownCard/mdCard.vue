@@ -37,7 +37,7 @@ const mdt: MarkdownIt = markdownit({
     if (lang && hljs.getLanguage(lang)) {
       try {
         return hljs.highlight(str, { language: lang }).value;
-      } catch (_) {}
+      } catch (_) { }
     }
     return '';
   },
@@ -60,7 +60,7 @@ const parseContent = () => {
   let content = props.content || '';
   if (props.typing && isTyping.value) {
     content = props.content.slice(0, typingIndex.value) || '';
-    const options = {...defaultTypingConfig, ...props?.typingOptions};
+    const options = { ...defaultTypingConfig, ...props?.typingOptions };
 
     if (options.style === 'cursor') {
       content += `<span class="mc-typewriter mc-typewriter-cursor">|</span>`;
@@ -72,8 +72,8 @@ const parseContent = () => {
   if (props.enableThink) {
     const thinkClass = props.thinkOptions?.customClass || 'mc-think-block';
     content = content
-        ?.replace('<think>', `<div class="${thinkClass}">`)
-        .replace('</think>', '</div>') || '';
+      ?.replace('<think>', `<div class="${thinkClass}">`)
+      .replace('</think>', '</div>') || '';
   }
   const tokens = mdt.parse(content, {});
   const html = mdt.render(content);
@@ -144,7 +144,7 @@ const typewriterStart = () => {
 
   isTyping.value = true;
   emit('typingStart');
-  const options = {...defaultTypingConfig, ...props?.typingOptions};
+  const options = { ...defaultTypingConfig, ...props?.typingOptions };
 
   const typingStep = () => {
     let step = options.step;
@@ -254,9 +254,16 @@ defineExpose({ mdt });
 .mc-markdown-render {
   font-size: var(--devui-font-size, 14px);
   overflow-x: auto;
+
+  ol {
+    padding-inline-start: 1.75em;
+    padding-inline-end: 1.75em;
+  }
+
   &.mc-markdown-render-dark {
     color: #CED1DB;
   }
+
   &.mc-markdown-render-light {
     color: #252b3a;
   }
@@ -292,12 +299,13 @@ defineExpose({ mdt });
   0% {
     opacity: 1;
   }
+
   50% {
-      opacity: 0;
+    opacity: 0;
   }
+
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
-
 </style>
