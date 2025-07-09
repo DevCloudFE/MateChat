@@ -2,6 +2,7 @@
     <div class="mc-code-block" :class="themeClass">
       <div class="mc-code-block-header" v-if="!$slots.header">
         <span class="mc-code-lang">{{ language }}</span>
+        <button v-if="language === 'mermaid'" @click="showMermaidSvg = !showMermaidSvg">切换</button>
         <slot name="actions">
           <div class="mc-code-block-actions">
             <div class="mc-action-btn mc-toggle-btn" @click="toggleExpand">
@@ -25,18 +26,24 @@
       @afterLeave="afterLeave"
       >
         <div v-if="expanded">
-          <pre v-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
-          <slot v-else name="content"></slot>
+          <template v-if="language === 'mermaid' && showMermaidSvg">
+            <div v-html="cachedMermaid" class="mc-mermaid-container"></div>
+          </template>
+          <template v-else>
+            <pre v-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
+            <slot v-else name="content"></slot>
+          </template>
         </div>
       </Transition>
     </div>
   </template>
   
   <script setup lang="ts">
-  import { ref, computed, type RendererElement } from 'vue';
+  import { ref, computed, type RendererElement, watch, onMounted } from 'vue';
   import hljs from 'highlight.js';
   import { debounce } from 'lodash-es';
   import { MDCardService } from './MDCardService';
+  import Mermaid from 'mermaid';
   
   const props = defineProps({
     code: {
@@ -61,7 +68,29 @@
   
   const expanded = ref(true);
   const copied = ref(false);
+  const cachedMermaid = ref('');
+  const showMermaidSvg = ref(true);
+
+  const renderMermaid = async () => {
+    const code = props.code.trim();
+    const isValid = await validMermaidSyntax(code);
+    if (isValid) {
+      const randomId = `MC_MARKDOWN_MERMAID_${Math.random().toString(36).substring(2, 15)}`;
+      await Mermaid.render(randomId, code).then((result) => {
+        cachedMermaid.value = result.svg;
+      })
+    }
+  }
   
+  const validMermaidSyntax = async (code: string): Promise<boolean> => {
+    try {
+      await Mermaid.parse(code);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   const highlightedCode = computed(() => {
       try {
         const typeIndex = props.code.indexOf(`<span class="mc-typewriter`);
@@ -162,6 +191,15 @@
   const themeClass = computed(() => {
     return props.theme === 'dark' ? 'mc-code-block-dark' : 'mc-code-block-light';
   });
+
+  watch(() => props.theme, () => {
+    Mermaid.initialize({
+      theme: props.theme === 'dark' ? 'dark' : 'default',
+    });
+    renderMermaid();
+  });
+  watch(() => props.code, renderMermaid);
+  onMounted(renderMermaid);
   </script>
   
   <style scoped lang="scss">
@@ -282,5 +320,10 @@
         max-height 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95),
         opacity 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95);
     }
+  }
+
+  .mc-mermaid-container {
+    display: flex;
+    justify-content: center;
   }
   </style>
