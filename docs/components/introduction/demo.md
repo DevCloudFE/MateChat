@@ -71,12 +71,14 @@ const description = [
     :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
     :align="'left'"
   ></McIntroduction>
+  <div style="margin: 40px;"/>
   <McIntroduction
     :logoImg="'/logo2x.svg'"
     :title="'MateChat'"
     :subTitle="'Hi，欢迎使用 MateChat'"
     :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
   ></McIntroduction>
+  <div style="margin: 40px;"/>
   <McIntroduction
     :logoImg="'/logo2x.svg'"
     :title="'MateChat'"
