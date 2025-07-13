@@ -8,6 +8,8 @@ import {
   Theme,
 } from "devui-theme";
 import { onMounted } from "vue";
+import { CustomThemeService } from "@/utils/customTheme";
+import type { IEffect, IColorDef } from "@/utils/customTheme";
 
 export function useTheme() {
   const themeStore = useThemeStore();
@@ -28,13 +30,14 @@ export function useTheme() {
     "galaxy-theme": "dark",
   };
   const idToTheme: Record<string, Theme> = {
-    "light": lightTheme,
-    "dark": darkTheme,
-  }
+    light: lightTheme,
+    dark: darkTheme,
+  };
 
   const applyTheme = () => {
     if (themeService) {
-      const theme = idToTheme[themeStore.theme] || themeStore.currentCustomTheme;
+      const theme =
+        idToTheme[themeStore.theme] || themeStore.currentCustomTheme;
       themeService.applyTheme(theme);
     }
   };
@@ -56,10 +59,19 @@ export function useTheme() {
     }
   };
 
+  const genCustomThemeData = (
+    colorChanges: Array<IColorDef>,
+    isDark = false,
+    effect: IEffect = "hsl"
+  ) => {
+    const matechatThemeService = new CustomThemeService();
+    return matechatThemeService.genThemeData(colorChanges, isDark, effect);
+  };
+
   onMounted(() => {
     themeChange();
     themeService?.eventBus?.add("themeChanged", themeChange);
   });
 
-  return { themeService, applyTheme, applyThemeWithCustom, createCustomTheme };
+  return { themeService, applyTheme, applyThemeWithCustom, createCustomTheme, genCustomThemeData };
 }
