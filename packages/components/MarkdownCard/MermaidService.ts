@@ -1,12 +1,4 @@
-export interface MermaidConfig {
-  theme?: 'light' | 'dark';
-  themeVariables?: Record<string, string>;
-  startOnLoad?: boolean;
-  securityLevel?: 'strict' | 'loose' | 'antiscript' | 'sandbox';
-  maxTextSize?: number;
-  maxEdges?: number;
-  maxVertices?: number;
-}
+import type { MermaidConfig } from './mdCard.types';
 
 export class MermaidService {
   private mermaidInstance: any = null;
@@ -21,7 +13,6 @@ export class MermaidService {
     }
 
     if (this.isLoading) {
-      // 等待正在加载的实例
       return new Promise((resolve) => {
         const checkInstance = () => {
           if (this.mermaidInstance) {
@@ -55,11 +46,6 @@ export class MermaidService {
   }
 
   private async validateMermaidSyntax(code: string): Promise<boolean> {
-    // 基本检查
-    if (!code || typeof code !== 'string') {
-      return false;
-    }
-
     try {
       const mermaid = await this.loadMermaid();
       await mermaid.parse(code);
@@ -70,7 +56,6 @@ export class MermaidService {
   }
 
   async renderMermaid(code: string, theme: 'light' | 'dark' = 'light'): Promise<string> {
-    // 语法验证
     if (!(await this.validateMermaidSyntax(code))) {
       return this.lastValidResult;
     }
@@ -78,7 +63,6 @@ export class MermaidService {
     try {
       const mermaid = await this.loadMermaid();
       
-      // 更新主题配置
       if (this.config.theme !== theme) {
         this.config.theme = theme;
         mermaid.initialize({
@@ -87,31 +71,16 @@ export class MermaidService {
         });
       }
 
-      // 生成唯一 ID
       const id = `mermaid_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
-      // 渲染图表
       const { svg } = await mermaid.render(id, code);
       
-      // 只有成功渲染时才更新 lastValidResult
       this.lastValidResult = svg;
       
       return svg;
     } catch (error) {
-      // 渲染失败，返回缓存的有效结果
       return this.lastValidResult;
     }
   }
 
-  updateConfig(config: Partial<MermaidConfig>) {
-    this.config = { ...this.config, ...config };
-    
-    // 如果 mermaid 已加载，重新初始化
-    if (this.mermaidInstance) {
-      this.mermaidInstance.initialize({
-        theme: this.config.theme || 'default',
-        ...this.config
-      });
-    }
-  }
 } 

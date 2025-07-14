@@ -6,8 +6,8 @@
           <div class="mc-code-block-actions">
             <div v-if="isMermaid">
               <ul class="mc-diagram-switch" :class="{ 'mc-show-code': !showMermaidDiagram }">
-                <li @click="showMermaidDiagram = true" :class="{ 'mc-diagram-switch-diagram': showMermaidDiagram }">图形</li>
-                <li @click="showMermaidDiagram = false" :class="{ 'mc-diagram-switch-code': !showMermaidDiagram }">代码</li>
+                <li @click="showMermaidDiagram = true" :class="{ 'mc-diagram-switch-active': showMermaidDiagram }">{{ t("MarkdownCard.diagram") }}</li>
+                <li @click="showMermaidDiagram = false" :class="{ 'mc-diagram-switch-active': !showMermaidDiagram }">{{ t("MarkdownCard.code") }}</li>
               </ul>
             </div>
             <div class="mc-action-btn mc-toggle-btn" @click="toggleExpand">
@@ -31,9 +31,7 @@
       @afterLeave="afterLeave"
       >
         <div v-if="expanded">
-          <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-container">
-            <div class="mc-mermaid-content" v-html="mermaidContent"></div>
-          </div>
+          <div :style="{ background: theme === 'dark' ? '#2b2b2b' : '#fefefe' }" v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content" v-html="mermaidContent"></div>
           <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
           <slot v-else name="content"></slot>
         </div>
@@ -46,15 +44,10 @@
   import hljs from 'highlight.js';
   import { debounce } from 'lodash-es';
   import { MDCardService } from './MDCardService';
+  import { useMcI18n } from "@matechat/core/Locale";
   
   type MermaidConfig = {
-    theme?: 'light' | 'dark';
-    themeVariables?: Record<string, string>;
-    startOnLoad?: boolean;
-    securityLevel?: 'strict' | 'loose' | 'antiscript' | 'sandbox';
-    maxTextSize?: number;
-    maxEdges?: number;
-    maxVertices?: number;
+    theme?: string;
   };
   
   const props = defineProps({
@@ -91,6 +84,7 @@
   const copied = ref(false);
   const mermaidContent = ref('');
   const showMermaidDiagram = ref(true);
+  const { t } = useMcI18n();
   
   const isMermaid = computed(() => {
     return props.enableMermaid && props.language?.toLowerCase() === 'mermaid';
@@ -131,7 +125,7 @@
       try {
         const { MermaidService } = await import('./MermaidService');
         const config: MermaidConfig = {
-          theme: props.theme === 'dark' ? 'dark' : 'light',
+          theme: props.theme === 'dark' ? 'dark' : 'default',
           ...props.mermaidConfig
         };
         mermaidService = new MermaidService(config);
@@ -224,7 +218,6 @@
     return props.theme === 'dark' ? 'mc-code-block-dark' : 'mc-code-block-light';
   });
 
-  // 监听 props 变化，重新渲染 mermaid
   watch(() => [props.code, props.theme, props.enableMermaid], () => {
     if (isMermaid.value) {
       nextTick(() => {
@@ -291,9 +284,6 @@
       align-items: center;
       width: 100%;
       height: 100%;
-      svg {
-        width: 100%;
-      }
     }
   
     .mc-code-block-actions {
@@ -313,13 +303,12 @@
         list-style: none;
         margin: 0;
         padding: 2px;
-        border-radius: 12px;
+        border-radius: 2px;
         background-color: var(--devui-icon-hover-bg);
         position: relative;
         transition: all 0.3s ease;
         overflow: hidden;
         height: 24px;
-        width: 78px;
         
         &::before {
           content: '';
@@ -329,7 +318,7 @@
           width: calc(50% - 2px);
           height: calc(100% - 4px);
           background-color: $devui-base-bg;
-          border-radius: 10px;
+          border-radius: 2px;
           transition: transform 0.3s ease;
           box-shadow: 0 1px 2px var(--devui-hover-shadow);
           z-index: 1;
@@ -338,12 +327,15 @@
         &.mc-show-code::before {
           transform: translateX(100%);
         }
+
+        .mc-diagram-switch-active {
+          text-shadow: 0 0 .4px var(--devui-text);
+        }
         
         li {
           position: relative;
           padding: 0 8px;
-          font-size: 10px;
-          font-weight: 500;
+          font-size: 12px;
           cursor: pointer;
           transition: color 0.3s ease;
           z-index: 2;
@@ -356,13 +348,6 @@
           justify-content: center;
           height: 100%;
           
-          &.mc-diagram-switch-diagram {
-            color: $devui-brand-active;
-          }
-          
-          &.mc-diagram-switch-code {
-            color: $devui-brand-active;
-          }
         }
       }
     }
