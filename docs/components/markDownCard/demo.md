@@ -596,12 +596,8 @@ $ npm install mermaid
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-// import markdownItMermaid from "@datatraccorporation/markdown-it-mermaid";; // 请首先安装@datatraccorporation/markdown-it-mermaid依赖 实际使用时解开当前注释
 let themeService;
 const theme = ref('light');
-// const mdPlugins = ref([{
-//  plugin: markdownItMermaid,
-// }])
 const content = ref(`
 # Flow Chart
 \`\`\`mermaid
