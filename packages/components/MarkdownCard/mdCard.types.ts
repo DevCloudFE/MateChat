@@ -5,6 +5,7 @@ import type {
   PluginWithParams,
 } from 'markdown-it';
 import type { PropType } from 'vue';
+import type { MermaidConfig } from './MermaidService';
 
 export interface CustomXssRule {
   key: string;
@@ -97,5 +98,15 @@ export const mdCardProps = {
   theme: {
     type: String as PropType<Theme>,
     default: 'light',
+  },
+
+  enableMermaid: {
+    type: Boolean,
+    default: false,
+  },
+
+  mermaidConfig: {
+    type: Object as PropType<MermaidConfig>,
+    default: () => ({}),
   },
 };
