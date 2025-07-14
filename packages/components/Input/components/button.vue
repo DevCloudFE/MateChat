@@ -60,6 +60,7 @@ const onConfirm = (e: MouseEvent) => {
   } else {
     rootEmits("submit", inputValue.value);
     inputValue.value = "";
+    rootEmits('change', inputValue.value);
   }
 };
 </script>

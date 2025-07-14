@@ -1,9 +1,10 @@
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, onUnmounted } from 'vue';
 import { ListDirection } from './list-types';
 import type { ListProps, ListItemData } from './list-types';
 import { LazyLoadThreshold, InputTagNames, ArrowUp, ArrowDown, Enter } from './const';
 
 export function useList(props: ListProps, emits: (event: 'select' | 'loadMore', ...args: any[]) => void) {
+  let listenDom;
   const preSelectIndex = ref(props.enableShortKey ? 0 : -1);
   const onItemClick = (item: ListItemData) => {
     if (item.disabled) {
@@ -40,14 +41,12 @@ export function useList(props: ListProps, emits: (event: 'select' | 'loadMore', 
     }
     if (e.code === Enter) {
       if (props.selectable) {
-        props.data[preSelectIndex.value].active = true;
+        onItemClick(props.data[preSelectIndex.value]);
       }
-      emits('select', { ...props.data[preSelectIndex.value] });
     }
   };
 
   onMounted(() => {
-    let listenDom;
 
     if (props.inputEl) {
       const el = props.inputEl.$el ?? props.inputEl;
@@ -62,6 +61,10 @@ export function useList(props: ListProps, emits: (event: 'select' | 'loadMore', 
     if (props.enableShortKey) {
       listenDom.addEventListener('keydown', onKeyDown);
     }
+  });
+
+  onUnmounted(() => {
+    listenDom.removeEventListener('keydown', onKeyDown);
   });
 
   return { preSelectIndex, onItemClick, onListScroll };

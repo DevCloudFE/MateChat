@@ -257,10 +257,10 @@ const onSubmit = (e) => {
 
 .appendix-wrap {
   display: flex;
-  padding: 4px 8px;
+  padding: 4px 16px;
 
   .appendix-item {
-    padding: 4px;
+    padding: 4px 8px;
     border-radius: var(--devui-border-radius);
     background-color: var(--devui-area);
 

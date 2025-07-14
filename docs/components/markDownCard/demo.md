@@ -1049,7 +1049,7 @@ body[ui-theme='infinity-theme'] {
 <style scoped lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
 .content-container :deep() {
-  padding: 12px;
+  padding: 12px 12px 12px 22px;
   background-color: $devui-base-bg;
 
   &.hljs {

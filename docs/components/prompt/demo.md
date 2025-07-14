@@ -142,13 +142,13 @@ const promptData3 = [
 ```vue
 <template>
   <div class="container">
-    <p style="margin: 0">带背景色的 prompt 列表</p>
+    <p style="margin: 0 0 8px;">带背景色的 prompt 列表</p>
     <McPrompt :list="promptData" :direction="'horizontal'"></McPrompt>
-    <p style="margin: 0">带边框的 prompt 列表</p>
+    <p style="margin-bottom: 8px;">带边框的 prompt 列表</p>
     <McPrompt :list="promptData" :direction="'horizontal'" :variant="'bordered'"></McPrompt>
-    <p style="margin: 0">透明背景色的 prompt 列表</p>
+    <p style="margin-bottom: 8px;">透明背景色的 prompt 列表</p>
     <McPrompt :list="promptData" :direction="'horizontal'" :variant="'transparent'"></McPrompt>
-    <p style="margin: 0">无任何样式的 prompt 列表，方便你覆盖样式</p>
+    <p style="margin-bottom: 8px;">无任何样式的 prompt 列表，方便你覆盖样式</p>
     <McPrompt :list="promptData" :direction="'horizontal'" :variant="'none'"></McPrompt>
   </div>
 </template>
