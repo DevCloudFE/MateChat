@@ -4,7 +4,7 @@
       <span class="mc-code-lang">{{ language }}</span>
       <slot name="actions">
         <div class="mc-code-block-actions">
-          <div v-if="isMermaid">
+          <div v-if="isMermaid" style="margin-right: 8px">
             <ul class="mc-diagram-switch" :class="{ 'mc-show-code': !showMermaidDiagram }">
               <li @click="showMermaidDiagram = true" :class="{ 'mc-diagram-switch-active': showMermaidDiagram }">{{ t('Md.diagram') }}</li>
               <li @click="showMermaidDiagram = false" :class="{ 'mc-diagram-switch-active': !showMermaidDiagram }">{{ t('Md.code') }}</li>

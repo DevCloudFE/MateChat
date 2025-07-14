@@ -580,12 +580,19 @@ onMounted(() => {
 
 
 ### Mermaid 渲染
-通过配置md-plugins Mermaid插件，进行Mermaid图渲染（DEMO未实际渲染，实际使用时解开代码中注释即可按预期渲染）。
+设置enableMermaid为true开启mermaid渲染。注意：开启此功能前请确保项目已正确安装mermaid库。
+
+通过 npm 安装 mermaid:
+
+```bash
+$ npm install mermaid
+```
+
 :::demo
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';

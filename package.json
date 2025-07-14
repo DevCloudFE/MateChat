@@ -35,7 +35,8 @@
     "three": "^0.171.0",
     "vue-devui": "^1.6.29",
     "vue-i18n": "^11.1.0",
-    "xss": "^1.0.15"
+    "xss": "^1.0.15",
+    "mermaid": "11.8.0"
   },
   "devDependencies": {
     "@babel/parser": "^7.26.5",
