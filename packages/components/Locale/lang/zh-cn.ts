@@ -9,9 +9,7 @@ export default {
   Md: {
     toggle: "收起/展开",
     copy: "复制",
-  },
-  MarkdownCard: {
     diagram: '图形',
     code: '代码',
-  }
+  },
 };

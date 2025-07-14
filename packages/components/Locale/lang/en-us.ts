@@ -9,9 +9,7 @@ export default {
   Md: {
     toggle: "Collapse/Expand",
     copy: "Copy",
-  },
-  MarkdownCard: {
     diagram: 'Diagram',
     code: 'Code',
-  }
+  },
 };
