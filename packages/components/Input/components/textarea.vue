@@ -76,6 +76,7 @@ const onKeydown = (e: KeyboardEvent) => {
     e.preventDefault();
     rootEmits('submit', inputValue.value);
     inputValue.value = '';
+    rootEmits('change', inputValue.value);
   }
 };
 
