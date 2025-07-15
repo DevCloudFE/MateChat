@@ -580,13 +580,15 @@ onMounted(() => {
 
 
 ### Mermaid 渲染
-设置enableMermaid为true开启mermaid渲染。注意：开启此功能前请确保项目已正确安装mermaid库。
+1. 设置enableMermaid为true开启mermaid渲染。注意：开启此功能前请确保项目已正确安装mermaid库。
 
 通过 npm 安装 mermaid:
 
 ```bash
 $ npm install mermaid
 ```
+
+2. 通过配置md-plugins Mermaid插件，进行Mermaid图渲染。
 
 :::demo
 
