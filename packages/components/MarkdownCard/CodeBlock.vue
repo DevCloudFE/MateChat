@@ -142,7 +142,7 @@ const renderMermaid = async () => {
   }
 
   try {
-    const svg = await mermaidService.renderMermaid(props.code, props.theme as 'light' | 'dark');
+    const svg = await mermaidService.renderMermaid(props.code.replace(/<span[^>]*\bclass\s*=\s*['"]mc-typewriter[^>]*>([\s\S]*?)<\/span>/g, `$1`), props.theme as 'light' | 'dark');
     mermaidContent.value = svg;
   } catch (error) {
 
