@@ -110,6 +110,8 @@ const createCodeBlock = (
       code,
       blockIndex,
       theme: props.theme,
+      enableMermaid: props.enableMermaid,
+      mermaidConfig: props.mermaidConfig,
       key: `code-block-${blockIndex}`,
     },
     codeBlockSlots,

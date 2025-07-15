@@ -5,6 +5,9 @@ import type {
   PluginWithParams,
 } from 'markdown-it';
 import type { PropType } from 'vue';
+export interface MermaidConfig {
+  theme?: string;
+}
 
 export interface CustomXssRule {
   key: string;
@@ -32,7 +35,7 @@ export const defaultTypingConfig = {
   step: 2,
   interval: 50,
   style: 'normal',
-}
+};
 
 export interface MdPlugin {
   plugin: PluginSimple | PluginWithOptions | PluginWithParams;
@@ -68,8 +71,8 @@ export const mdCardProps = {
 
     style: {
       type: String as PropType<TypingStyle>,
-      default: 'normal'
-    }
+      default: 'normal',
+    },
   },
 
   thinkOptions: {
@@ -97,5 +100,15 @@ export const mdCardProps = {
   theme: {
     type: String as PropType<Theme>,
     default: 'light',
+  },
+
+  enableMermaid: {
+    type: Boolean,
+    default: false,
+  },
+
+  mermaidConfig: {
+    type: Object as PropType<MermaidConfig>,
+    default: () => ({}),
   },
 };

@@ -9,5 +9,7 @@ export default {
   Md: {
     toggle: "Collapse/Expand",
     copy: "Copy",
+    diagram: 'Diagram',
+    code: 'Code',
   },
 };

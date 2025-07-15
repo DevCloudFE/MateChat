@@ -4,6 +4,12 @@
       <span class="mc-code-lang">{{ language }}</span>
       <slot name="actions">
         <div class="mc-code-block-actions">
+          <div v-if="isMermaid" style="margin-right: 8px">
+            <ul class="mc-diagram-switch" :class="{ 'mc-show-code': !showMermaidDiagram }">
+              <li @click="showMermaidDiagram = true" :class="{ 'mc-diagram-switch-active': showMermaidDiagram }">{{ t('Md.diagram') }}</li>
+              <li @click="showMermaidDiagram = false" :class="{ 'mc-diagram-switch-active': !showMermaidDiagram }">{{ t('Md.code') }}</li>
+            </ul>
+          </div>
           <div
             class="mc-action-btn mc-toggle-btn"
             :title="t('Md.toggle')"
@@ -33,19 +39,24 @@
       @afterLeave="afterLeave"
     >
       <div v-if="expanded">
-          <pre v-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
-        <slot v-else name="content"></slot>
+          <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content" v-html="mermaidContent"></div>
+          <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
+          <slot v-else name="content"></slot>
       </div>
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, type RendererElement } from "vue";
+import { ref, computed, type RendererElement, onMounted, nextTick, watch, type PropType } from 'vue';
 import hljs from "highlight.js";
 import { debounce } from "lodash-es";
 import { MDCardService } from "./MDCardService";
 import { useMcI18n } from "@matechat/core/Locale";
+
+type MermaidConfig = {
+  theme?: string;
+};
 
 const props = defineProps({
   code: {
@@ -63,15 +74,28 @@ const props = defineProps({
   theme: {
     type: String,
       default: 'light'
-    }
+    },
+  enableMermaid: {
+    type: Boolean,
+    default: false
+  },
+  mermaidConfig: {
+    type: Object as PropType<MermaidConfig>,
+    default: () => ({})
+  }
 });
 
 const { t } = useMcI18n();
 const mdCardService = new MDCardService();
+let mermaidService: any = null;
 
 const expanded = ref(true);
 const copied = ref(false);
-
+const mermaidContent = ref('');
+const showMermaidDiagram = ref(true);
+const isMermaid = computed(() => {
+  return props.enableMermaid && props.language?.toLowerCase() === 'mermaid';
+});
 const highlightedCode = computed(() => {
   try {
     const typeIndex = props.code.indexOf(`<span class="mc-typewriter`);
@@ -97,6 +121,33 @@ const highlightedCode = computed(() => {
     return content;
   } catch (_) {}
 });
+
+const renderMermaid = async () => {
+  if (!isMermaid.value || !props.code) {
+    return;
+  }
+
+  if (!mermaidService) {
+    try {
+      const { MermaidService } = await import('./MermaidService');
+      const config: MermaidConfig = {
+        theme: props.theme === 'dark' ? 'dark' : 'default',
+        ...props.mermaidConfig
+      };
+      mermaidService = new MermaidService(config);
+    } catch (error) {
+      console.error('Failed to load MermaidService:', error);
+      return;
+    }
+  }
+
+  try {
+    const svg = await mermaidService.renderMermaid(props.code, props.theme as 'light' | 'dark');
+    mermaidContent.value = svg;
+  } catch (error) {
+
+  }
+};
 
 const toggleExpand = () => {
   expanded.value = !expanded.value;
@@ -172,9 +223,24 @@ const afterLeave = (el: RendererElement) => {
 const themeClass = computed(() => {
     return props.theme === 'dark' ? 'mc-code-block-dark' : 'mc-code-block-light';
 });
+
+watch(() => [props.code, props.theme, props.enableMermaid], () => {
+  if (isMermaid.value) {
+    nextTick(() => {
+      renderMermaid();
+    });
+  }
+}, { immediate: true });
+
+onMounted(() => {
+  if (isMermaid.value) {
+    renderMermaid();
+  }
+});
 </script>
 
 <style scoped lang="scss">
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 @use "sass:meta";
 .mc-code-block-light :deep() {
   @include meta.load-css("highlight.js/styles/a11y-light");
@@ -182,8 +248,6 @@ const themeClass = computed(() => {
 .mc-code-block-dark :deep() {
   @include meta.load-css("highlight.js/styles/a11y-dark");
 }
-
-  @import 'devui-theme/styles-var/devui-var.scss';
 
 .v-enter-active,
 .v-leave-active {
@@ -219,6 +283,14 @@ const themeClass = computed(() => {
     }
   }
 
+  .mc-mermaid-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
   .mc-code-block-actions {
     display: flex;
     align-items: center;
@@ -228,6 +300,59 @@ const themeClass = computed(() => {
       border-radius: 4px;
       font-size: 18px;
       padding: 4px;
+    }
+  }
+  .mc-diagram-switch {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    border-radius: 4px;
+    background-color: var(--devui-icon-hover-bg);
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 24px;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: calc(50% - 2px);
+      height: calc(100% - 4px);
+      background-color: $devui-base-bg;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 1px 2px var(--devui-hover-shadow);
+      z-index: 1;
+    }
+    
+    &.mc-show-code::before {
+      transform: translateX(100%);
+    }
+
+    .mc-diagram-switch-active {
+      text-shadow: 0 0 .4px var(--devui-text);
+    }
+    
+    li {
+      position: relative;
+      padding: 0 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      z-index: 2;
+      user-select: none;
+      width: 50%;
+      text-align: center;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      
     }
   }
 }
@@ -249,6 +374,9 @@ const themeClass = computed(() => {
           background-color: #EBEBEB;
       }
     }
+  }
+  .mc-mermaid-content {
+    background: #fefefe;
   }
 }
 
@@ -272,6 +400,9 @@ const themeClass = computed(() => {
         filter: brightness(1.5);
       }
     }
+  }
+  .mc-mermaid-content {
+    background: #2b2b2b;
   }
 }
 

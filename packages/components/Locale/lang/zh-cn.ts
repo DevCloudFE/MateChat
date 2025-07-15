@@ -9,5 +9,7 @@ export default {
   Md: {
     toggle: "收起/展开",
     copy: "复制",
+    diagram: '图形',
+    code: '代码',
   },
 };

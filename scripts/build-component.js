@@ -42,6 +42,7 @@ async function buildSingle(itemFile) {
             'markdown-it',
             'highlight.js',
             'xss',
+            'mermaid',
           ],
         },
         lib: {
