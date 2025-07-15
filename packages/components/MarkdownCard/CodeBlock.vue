@@ -39,10 +39,9 @@
       @afterLeave="afterLeave"
     >
       <div v-if="expanded">
-          <div :style="{ background: theme === 'dark' ? '#2b2b2b' : '#fefefe' }" v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content" v-html="mermaidContent"></div>
+          <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content" v-html="mermaidContent"></div>
           <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
           <slot v-else name="content"></slot>
-        <slot v-else name="content"></slot>
       </div>
     </Transition>
   </div>
@@ -241,6 +240,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@use 'devui-theme/styles-var/devui-var.scss' as *;
 @use "sass:meta";
 .mc-code-block-light :deep() {
   @include meta.load-css("highlight.js/styles/a11y-light");
@@ -248,8 +248,6 @@ onMounted(() => {
 .mc-code-block-dark :deep() {
   @include meta.load-css("highlight.js/styles/a11y-dark");
 }
-
-  @import 'devui-theme/styles-var/devui-var.scss';
 
 .v-enter-active,
 .v-leave-active {
@@ -310,7 +308,7 @@ onMounted(() => {
     list-style: none;
     margin: 0;
     padding: 2px;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: var(--devui-icon-hover-bg);
     position: relative;
     transition: all 0.3s ease;
@@ -325,7 +323,7 @@ onMounted(() => {
       width: calc(50% - 2px);
       height: calc(100% - 4px);
       background-color: $devui-base-bg;
-      border-radius: 2px;
+      border-radius: 4px;
       transition: transform 0.3s ease;
       box-shadow: 0 1px 2px var(--devui-hover-shadow);
       z-index: 1;
@@ -377,6 +375,9 @@ onMounted(() => {
       }
     }
   }
+  .mc-mermaid-content {
+    background: #fefefe;
+  }
 }
 
 .mc-code-block-dark {
@@ -399,6 +400,9 @@ onMounted(() => {
         filter: brightness(1.5);
       }
     }
+  }
+  .mc-mermaid-content {
+    background: #2b2b2b;
   }
 }
 
