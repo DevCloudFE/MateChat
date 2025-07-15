@@ -18,6 +18,8 @@ bannerSrc: '/bubbleBanner.png'
 | thinkOptions | [`ThinkOptions`](#thinkoptions)                       | --         | \<think\>标签配置，自定义样式等                                       |
 | typing | `boolean` | false  |  开启打字机效果    |                                       
 | typingOptions | [`TypingOptions`](#typingoptions)  | `{ step: 2, interval: 50, style: 'normal' }`   |  打字机效果配置  |     
+| enableMermaid | `boolean`                       | false         | 是否开启mermaid图形渲染 |
+| mermaidConfig | `object`                       | {}         | mermaid相关配置，可参考[Mermaid](https://mermaid.nodejs.cn/config/usage.html)官网|
 
 
 
