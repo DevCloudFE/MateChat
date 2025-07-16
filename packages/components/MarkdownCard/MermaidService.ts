@@ -32,6 +32,8 @@ export class MermaidService {
       
       mermaid.initialize({
         theme: this.config.theme || 'default',
+        startOnLoad: false,
+        suppressErrorRendering: true,
         ...this.config
       });
 
@@ -45,21 +47,7 @@ export class MermaidService {
     }
   }
 
-  private async validateMermaidSyntax(code: string): Promise<boolean> {
-    try {
-      const mermaid = await this.loadMermaid();
-      await mermaid.parse(code);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-
   async renderMermaid(code: string, theme: 'light' | 'dark' = 'light'): Promise<string> {
-    if (!(await this.validateMermaidSyntax(code))) {
-      return this.lastValidResult;
-    }
-
     try {
       const mermaid = await this.loadMermaid();
       
@@ -71,7 +59,7 @@ export class MermaidService {
         });
       }
 
-      const id = `mermaid_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const id = `mc_mermaid_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
       const { svg } = await mermaid.render(id, code);
       
