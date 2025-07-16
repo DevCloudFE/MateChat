@@ -142,7 +142,7 @@ const renderMermaid = async () => {
   }
 
   try {
-    const svg = await mermaidService.renderMermaid(props.code, props.theme as 'light' | 'dark');
+    const svg = await mermaidService.renderMermaid(props.code.replace(/<span[^>]*\bclass\s*=\s*['"]mc-typewriter[^>]*>([\s\S]*?)<\/span>/g, `$1`), props.theme as 'light' | 'dark');
     mermaidContent.value = svg;
   } catch (error) {
 
@@ -352,7 +352,7 @@ onMounted(() => {
       align-items: center;
       justify-content: center;
       height: 100%;
-      
+      line-height: initial;
     }
   }
 }
@@ -423,5 +423,15 @@ onMounted(() => {
         max-height 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95),
       opacity 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95);
   }
+}
+</style>
+
+<style>
+div[id^="dmc_mermaid"] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -9999;
 }
 </style>
