@@ -21,13 +21,6 @@ import { McHeader } from '@matechat/core';
     <McHeader :logoImg="'/logo.svg'" :title="'MateChat'"></McHeader>
   </div>
 </template>
-
-<style scoped>
-.container {
-  background-color: var(--devui-global-bg);
-  padding: 8px 12px;
-}
-</style>
 ```
 
 :::
@@ -39,7 +32,7 @@ import { McHeader } from '@matechat/core';
 ```vue
 <template>
   <div class="container">
-    <McHeader :logoImg="'/logo.svg'" :title="'MateChat'" :logoClickable="true" @logoClicked="onLogoClicked"></McHeader>
+    <McHeader :logoImg="'/logo.svg'" :title="'MateChat '" :logoClickable="true" @logoClicked="onLogoClicked"></McHeader>
   </div>
 </template>
 
@@ -48,13 +41,6 @@ const onLogoClicked = () => {
   console.log('logo clicked');
 };
 </script>
-
-<style scoped>
-.container {
-  background-color: var(--devui-global-bg);
-  padding: 8px 12px;
-}
-</style>
 ```
 
 :::
@@ -77,13 +63,9 @@ const onLogoClicked = () => {
 </template>
 
 <style scoped lang="scss">
-.container {
-  background-color: var(--devui-global-bg);
-  padding: 8px 12px;
-}
-
 .icon {
-  padding: 4px;
+  font-size: 16px;
+  padding: 6px;
   border-radius: 4px;
   cursor: pointer;
 

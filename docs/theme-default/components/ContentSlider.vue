@@ -206,6 +206,8 @@ $slider-tabs-height: 56px;
 }
 
 .tab-content {
+  display: inline-flex;
+  align-items: center;
   color: $devui-text;
   font-size: 18px;
 }
