@@ -1,0 +1,31 @@
+{
+  "name": "create-matechat",
+  "version": "0.1.0",
+  "description": "Command-line tool for MateChat",
+  "main": "dist/index.js",
+  "type": "module",
+  "files": ["dist", "templates"],
+  "scripts": {
+    "dev": "node dist/index.js",
+    "build": "farm build"
+  },
+  "keywords": ["matechat", "DevCloudFE", "cli", "archons"],
+  "author": {
+    "name": "苏向夜",
+    "email": "fu050409@163.com"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.8.1",
+  "devDependencies": {
+    "@farmfe/cli": "^1.0.4",
+    "@farmfe/core": "^1.7.4",
+    "core-js": "^3.41.0"
+  },
+  "dependencies": {
+    "archons": "^0.2.11",
+    "chalk": "^5.4.1"
+  },
+  "bin": {
+    "create-matechat": "dist/index.js"
+  }
+}

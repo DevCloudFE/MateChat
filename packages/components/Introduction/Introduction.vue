@@ -45,7 +45,7 @@ defineProps(props);
   }
 
   .mc-introduction-description {
-    font-size: $devui-font-size-sm;
+    font-size: $devui-font-size;
 
     & > div {
       line-height: 1.5;

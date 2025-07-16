@@ -1,81 +1,77 @@
 {
-	"name": "mate-chat",
-	"version": "0.0.0",
-	"private": true,
-	"type": "module",
-	"workspaces": [
-		"packages/*",
-		"playground"
-	],
-	"scripts": {
-		"generate": "node ./scripts/generate-component.js",
-		"playground:dev": "pnpm generate && pnpm --filter @matechat/playground dev",
-		"playground:build": "pnpm generate && pnpm --filter @matechat/playground build",
-		"build:lib": "pnpm generate && node ./scripts/build-component.js && node ./scripts/release.js",
-		"lint": "biome lint",
-		"format": "biome format --write",
-		"docs:dev": "pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
-		"docs:build": "pnpm generate && vitepress build docs",
-		"docs:preview": "pnpm generate && vitepress preview docs",
-    "dev:vue-starter": "pnpm --filter vue-starter dev",
-		"prepare": "husky"
-	},
-	"dependencies": {
-		"@datatraccorporation/markdown-it-mermaid": "^0.5.0",
-		"@devui-design/icons": "^1.4.0",
-		"@floating-ui/dom": "^1.6.12",
-		"@vue/shared": "^3.5.13",
-		"@vueuse/core": "^12.5.0",
-		"clipboard-copy": "^4.0.1",
-		"devui-theme": "^0.0.7",
-		"highlight.js": "^11.11.0",
-		"lodash-es": "^4.17.21",
-		"markdown-it": "12.2.0",
-		"markdown-it-emoji": "^3.0.0",
-		"markdown-it-mermaid-plugin": "^0.1.0",
-		"markdown-it-plantuml": "^1.4.1",
-		"openai": "^4.77.0",
-		"sass": "^1.83.0",
-		"three": "^0.171.0",
-		"vue-devui": "^1.6.29",
-		"vue-i18n": "^11.1.0",
-		"xss": "^1.0.15"
-	},
-	"devDependencies": {
-		"@babel/parser": "^7.26.5",
-		"@babel/traverse": "^7.26.5",
-		"@biomejs/biome": "^1.9.4",
-		"@intlify/unplugin-vue-i18n": "^6.0.5",
-		"@tsconfig/node22": "^22.0.0",
-		"@types/node": "^22.9.3",
-		"@vitejs/plugin-vue": "^5.2.1",
-		"@vitejs/plugin-vue-jsx": "^4.1.1",
-		"@vue/tsconfig": "^0.7.0",
-		"fs-extra": "^11.2.0",
-		"husky": "^9.1.7",
-		"lint-staged": "^15.5.0",
-		"npm-run-all2": "^7.0.1",
-		"sass-embedded": "^1.83.4",
-		"vite": "^6.0.1",
-		"vitepress": "^1.5.0",
-		"vitepress-theme-demoblock": "^3.0.7"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-	"lint-staged": {
-		"*.{js,jsx,ts,mts,tsx,vue,json}": [
-			"biome check --write"
-		]
-	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@parcel/watcher",
-			"esbuild",
-			"vitepress-theme-demoblock",
-			"vue-demi"
-		]
-	}
+  "name": "mate-chat",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "playground"],
+  "scripts": {
+    "generate": "node ./scripts/generate-component.js",
+    "playground:dev": "pnpm generate && pnpm --filter @matechat/playground dev",
+    "playground:build": "pnpm generate && pnpm --filter @matechat/playground build",
+    "build:lib": "pnpm generate && node ./scripts/build-component.js && node ./scripts/release.js",
+    "lint": "biome lint",
+    "format": "biome format --write",
+    "docs:dev": "pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
+    "docs:build": "pnpm generate && vitepress build docs",
+    "docs:preview": "pnpm generate && vitepress preview docs",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@datatraccorporation/markdown-it-mermaid": "^0.5.0",
+    "@devui-design/icons": "^1.4.0",
+    "@floating-ui/dom": "^1.6.12",
+    "@vue/shared": "^3.5.13",
+    "@vueuse/core": "^12.5.0",
+    "clipboard-copy": "^4.0.1",
+    "devui-theme": "^0.0.7",
+    "highlight.js": "^11.11.0",
+    "lodash-es": "^4.17.21",
+    "markdown-it": "12.2.0",
+    "markdown-it-emoji": "^3.0.0",
+    "markdown-it-mermaid-plugin": "^0.1.0",
+    "markdown-it-plantuml": "^1.4.1",
+    "openai": "^4.77.0",
+    "sass": "^1.83.0",
+    "three": "^0.171.0",
+    "vue-devui": "^1.6.29",
+    "vue-i18n": "^11.1.0",
+    "xss": "^1.0.15"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.26.5",
+    "@babel/traverse": "^7.26.5",
+    "@biomejs/biome": "^1.9.4",
+    "@intlify/unplugin-vue-i18n": "^6.0.5",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.9.3",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/tsconfig": "^0.7.0",
+    "fs-extra": "^11.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "mermaid": "^11.0.0",
+    "npm-run-all2": "^7.0.1",
+    "sass-embedded": "^1.83.4",
+    "vite": "^6.0.1",
+    "vitepress": "^1.5.0",
+    "vitepress-plugin-mermaid": "^2.0.17",
+    "vitepress-theme-demoblock": "^3.0.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,mts,tsx,vue,json}": ["biome check --write"]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "vitepress-theme-demoblock",
+      "vue-demi"
+    ]
+  }
 }

@@ -227,7 +227,7 @@ onMounted(() => {
   <div class="btn-container">
     <d-button variant="solid" @click="generateAnswer">{{ isLoading ? '停止' : '重新生成'}}</d-button>
   </div>
-  <div>
+  <div id="think-demo-content">
     <template v-for="(msg, idx) in messages" :key="idx">
       <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'" :avatarConfig="msg.avatarConfig"></McBubble>
       <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'">
@@ -324,7 +324,7 @@ const toggleThink = (idx) => {
   if (isLoading.value) {
     return
   }
-  const targetNode = document.querySelectorAll('.mc-bubble-content-container')[idx];
+  const targetNode = document.querySelectorAll('#think-demo-content .mc-bubble-content-container')[idx];
   if (targetNode) {
     const thinkBlock = targetNode.querySelector('.mc-think-block');
     if (thinkBlock) {
@@ -580,21 +580,26 @@ onMounted(() => {
 
 
 ### Mermaid 渲染
-通过配置md-plugins Mermaid插件，进行Mermaid图渲染（DEMO未实际渲染，实际使用时解开代码中注释即可按预期渲染）。
+1. 设置enableMermaid为true开启mermaid渲染。注意：开启此功能前请确保项目已正确安装mermaid库。
+
+通过 npm 安装 mermaid:
+
+```bash
+$ npm install mermaid
+```
+
+2. 通过配置md-plugins Mermaid插件，进行Mermaid图渲染。
+
 :::demo
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-// import markdownItMermaid from "@datatraccorporation/markdown-it-mermaid";; // 请首先安装@datatraccorporation/markdown-it-mermaid依赖 实际使用时解开当前注释
 let themeService;
 const theme = ref('light');
-// const mdPlugins = ref([{
-//  plugin: markdownItMermaid,
-// }])
 const content = ref(`
 # Flow Chart
 \`\`\`mermaid
@@ -1049,7 +1054,7 @@ body[ui-theme='infinity-theme'] {
 <style scoped lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
 .content-container :deep() {
-  padding: 12px;
+  padding: 12px 12px 12px 22px;
   background-color: $devui-base-bg;
 
   &.hljs {

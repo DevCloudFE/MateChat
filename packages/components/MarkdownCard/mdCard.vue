@@ -110,6 +110,8 @@ const createCodeBlock = (
       code,
       blockIndex,
       theme: props.theme,
+      enableMermaid: props.enableMermaid,
+      mermaidConfig: props.mermaidConfig,
       key: `code-block-${blockIndex}`,
     },
     codeBlockSlots,
@@ -220,6 +222,7 @@ watch(
   () => props.customXssRules,
   (rules) => {
     mdCardService.setCustomXssRules(rules);
+    parseContent();
   },
   { deep: false },
 );
@@ -228,6 +231,7 @@ watch(
   () => props.mdPlugins,
   (plugins) => {
     mdCardService.setMdPlugins(plugins, mdt);
+    parseContent();
   },
   { immediate: true, deep: false },
 );
