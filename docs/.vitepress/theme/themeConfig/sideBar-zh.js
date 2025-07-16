@@ -11,7 +11,6 @@ export default {
       text: '布局',
       items: [
         { text: 'Header 头部', link: '/components/header/demo' },
-        { text: 'Layout 布局', link: '/components/layout/demo' },
       ],
     },
     {
@@ -28,7 +27,10 @@ export default {
     },
     {
       text: '演进中',
-      items: [{ text: 'MarkDown 卡片', link: '/components/markDownCard/demo' }],
+      items: [
+        { text: 'Layout 布局', link: '/components/layout/demo' },
+        { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
+      ],
     },
   ],
   '/design/': [

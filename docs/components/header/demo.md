@@ -12,6 +12,7 @@ import { McHeader } from '@matechat/core';
 ```
 
 ### 基本用法
+用于呈现头部 `logo` 与 `title` 信息。
 
 :::demo
 
@@ -21,25 +22,18 @@ import { McHeader } from '@matechat/core';
     <McHeader :logoImg="'/logo.svg'" :title="'MateChat'"></McHeader>
   </div>
 </template>
-
-<style scoped>
-.container {
-  background-color: var(--devui-global-bg);
-  padding: 8px 12px;
-}
-</style>
 ```
 
 :::
 
 ### Logo 区域可点击
-
+设置 `Logo` 可进行点击，对点击事件进行监听。
 :::demo
 
 ```vue
 <template>
   <div class="container">
-    <McHeader :logoImg="'/logo.svg'" :title="'MateChat'" :logoClickable="true" @logoClicked="onLogoClicked"></McHeader>
+    <McHeader :logoImg="'/logo.svg'" :title="'MateChat '" :logoClickable="true" @logoClicked="onLogoClicked"></McHeader>
   </div>
 </template>
 
@@ -48,18 +42,12 @@ const onLogoClicked = () => {
   console.log('logo clicked');
 };
 </script>
-
-<style scoped>
-.container {
-  background-color: var(--devui-global-bg);
-  padding: 8px 12px;
-}
-</style>
 ```
 
 :::
 
 ### 自定义右侧操作区域
+通过 `slot` 进行右侧操作区域自定义，可用于定义头部工具栏等。
 
 :::demo
 
@@ -77,13 +65,9 @@ const onLogoClicked = () => {
 </template>
 
 <style scoped lang="scss">
-.container {
-  background-color: var(--devui-global-bg);
-  padding: 8px 12px;
-}
-
 .icon {
-  padding: 4px;
+  font-size: 16px;
+  padding: 6px;
   border-radius: 4px;
   cursor: pointer;
 
