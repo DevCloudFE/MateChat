@@ -1,0 +1,178 @@
+.mc-file-list {
+  background-color: #fff;
+
+  &__container {
+    display: flex;
+    // 设置固定高度，超出部分滚动
+    max-height: 80px; // 或者你想要的高度
+    flex-wrap: wrap;
+    overflow-y: auto; 
+    
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 2px;
+    }
+  }
+}
+
+.mc-file-item {
+  position: relative;
+  width: 200px;
+  margin: 5px 10px;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f8f9fa;
+    .mc-file-item__actions {
+      opacity: 1; // 悬停时显示操作按钮
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &--uploading {
+    background-color: #ecf5ff;
+  }
+
+  &--success {
+    background-color: #f0f9ff;
+  }
+
+  &--error {
+    background-color: #fef0f0;
+  }
+
+  &__icon {
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  &__type-icon {
+    font-size: 20px;
+    display: inline-block;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #303133;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #909399;
+    gap: 8px;
+  }
+
+  &__size {
+    color: #909399;
+  }
+
+  &__status {
+    &--uploading {
+      color: #409eff;
+    }
+
+    &--success {
+      color: #67c23a;
+    }
+
+    &--error {
+      color: #f56c6c;
+    }
+  }
+
+  &__progress {
+    margin-top: 6px;
+    height: 4px;
+    background-color: #e4e7ed;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    background-color: #409eff;
+    transition: width 0.3s ease;
+  }
+
+  &__actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+&__action-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+  }
+
+  &--preview {
+    color: #409eff;
+    
+    &:hover {
+      background: #ecf5ff;
+    }
+  }
+
+  &--retry {
+    color: #e6a23c;
+    
+    &:hover {
+      background: #fdf6ec;
+    }
+  }
+
+  &--remove {
+    color: #f56c6c;
+    
+    &:hover {
+      background: #fef0f0;
+    }
+  }
+}
+}

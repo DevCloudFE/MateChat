@@ -8,6 +8,8 @@ import { useMcI18n, McLocale } from './Locale';
 import { McMarkdownCard } from './MarkdownCard';
 import { McMention } from './Mention';
 import { McPrompt } from './Prompt';
+import { McAttachment } from './Attachment'; 
+import { McFileList } from './FileList';
 
 const installs = [
   McBubble,
@@ -19,7 +21,9 @@ const installs = [
   McLocale,
   McMarkdownCard,
   McMention,
-  McPrompt
+  McPrompt,
+  McAttachment,
+  McFileList,
 ];
 
 export {
@@ -37,7 +41,9 @@ export {
   McLocale,
   McMarkdownCard,
   McMention,
-  McPrompt
+  McPrompt,
+  McAttachment,
+  McFileList
 };
 
 export default {

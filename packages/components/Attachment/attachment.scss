@@ -1,0 +1,53 @@
+.mc-attachment {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+
+  // 当鼠标悬停时，显示自定义的提示框
+  &::after {
+    content: attr(data-placeholder); 
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-20%);
+    margin-bottom: 2px; 
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap; 
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+    transition: opacity 0.2s; 
+  }
+
+  // 当鼠标悬停在 .mc-attachment 上时，显示 ::after 伪元素
+  &:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // 隐藏原生的 input 元素
+  .mc-attachment-file {
+    display: none;
+  }
+
+  // 一个简单的默认按钮样式
+  .mc-attachment-default-trigger {
+    padding: 4px 8px;
+    color: #4e5057;
+    font-size: 12px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: #8a8a8b;
+    }
+  }
+}
