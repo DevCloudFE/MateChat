@@ -19,11 +19,10 @@ import GlobalConfig from '@/global-config';
 .matechat-layout {
     width: 100%;
     height: 100vh;
-    padding: 8px;
+    padding: 8px 8px 8px 0;
     overflow: auto;
     box-sizing: border-box;
   }
-/* 已移除侧边栏相关样式 */
 .main-content {
   position: relative;
   flex: 1;
