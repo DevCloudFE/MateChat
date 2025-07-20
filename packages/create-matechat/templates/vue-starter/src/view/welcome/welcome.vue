@@ -31,6 +31,7 @@ import { useChatMessageStore, useLangStore } from "@/store";
 import { LangType } from "@/types";
 import Logo2X from "../../../public/logo2x.svg";
 import { useTheme } from "@/hooks";
+import { CustomThemeDataConfig } from "@/constant";
 
 const langStore = useLangStore();
 const chatMessageStore = useChatMessageStore();
@@ -43,20 +44,11 @@ const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
     let answer: string = mockAnswer[item.value];
     if (item.value === 'theme') {
-      const themeData = genCustomThemeData([
-        {
-          colorName: "devui-brand",
-          color: '#49ad49',
-        },
-        {
-          colorName: "devui-global-bg",
-          color: '#d7f1d7c9',
-        }
-      ]);
+      const themeData = item.themeData || CustomThemeDataConfig;
       const customTheme = createCustomTheme({
         id: "custom-theme",
         name: "环保色主题",
-        data: themeData,
+        data: genCustomThemeData(themeData),
       });
       applyThemeWithCustom(customTheme);
       answer = answer.replace('{{themeData}}', JSON.stringify(customTheme));

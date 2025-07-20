@@ -32,7 +32,7 @@
         </Collapse>
       </template>
       <div v-if="!renderList.length" class="history-list-empty">
-        <img :src="themeStore.theme === 'light' ? NoDataPng : NoDataDarkPng" />
+        <img :src="themeStore.theme === 'dark' ? NoDataDarkPng : NoDataPng" />
         <span>{{ $t("noData") }}</span>
       </div>
     </div>

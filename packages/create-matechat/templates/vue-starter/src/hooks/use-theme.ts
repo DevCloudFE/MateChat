@@ -4,12 +4,11 @@ import {
   ThemeServiceInit,
   galaxyTheme,
   infinityTheme,
-  sweetTheme,
   Theme,
+  CustomThemeService,
 } from "devui-theme";
 import { onMounted } from "vue";
-import { CustomThemeService } from "@/utils/customTheme";
-import type { IEffect, IColorDef } from "@/utils/customTheme";
+import type { IEffect, IColorDef } from "devui-theme";
 
 export function useTheme() {
   const themeStore = useThemeStore();
@@ -60,12 +59,24 @@ export function useTheme() {
   };
 
   const genCustomThemeData = (
-    colorChanges: Array<IColorDef>,
+    colorChanges: Array<IColorDef> | Record<string, string>,
     isDark = false,
     effect: IEffect = "hsl"
   ) => {
+    if (!Array.isArray(colorChanges)) {
+      colorChanges = transformColorArray(colorChanges);
+    }
     const matechatThemeService = new CustomThemeService();
     return matechatThemeService.genThemeData(colorChanges, isDark, effect);
+  };
+
+  const transformColorArray = (
+    colorObject: Record<string, string>
+  ): Array<IColorDef> => {
+    return Object.keys(colorObject).map((key) => ({
+      colorName: key,
+      color: colorObject[key],
+    }));
   };
 
   onMounted(() => {
@@ -73,5 +84,11 @@ export function useTheme() {
     themeService?.eventBus?.add("themeChanged", themeChange);
   });
 
-  return { themeService, applyTheme, applyThemeWithCustom, createCustomTheme, genCustomThemeData };
+  return {
+    themeService,
+    applyTheme,
+    applyThemeWithCustom,
+    createCustomTheme,
+    genCustomThemeData,
+  };
 }
