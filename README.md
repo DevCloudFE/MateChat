@@ -420,7 +420,7 @@ MateChat 在不断的演进中，你可在这里了解我们的计划：[MateCha
 
 ## 谁在使用
 
-[CodeArts盘古助手](https://www.huaweicloud.com/product/codeartside/snap.html)
+[华为云CodeArts智能助手](https://www.huaweicloud.com/product/codeartside/snap.html)
 
 [InsCode AI IDE](https://inscode.csdn.net/)
 
