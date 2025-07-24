@@ -37,7 +37,7 @@
           <div
             class="mc-action-btn mc-toggle-btn"
             :title="t('Md.toggle')"
-            @click="resetMermaid"
+            @click="toggleExpand"
           >
             <img src="./asset/all-collapse.svg" />
           </div>
@@ -158,12 +158,6 @@ const zoomOut = () => {
   const container = rootRef.value?.querySelector('.mc-mermaid-content');
   if (container && mermaidService) {
     mermaidService.zoomOut(container);
-  }
-};
-const resetMermaid = () => {
-  const container = rootRef.value?.querySelector('.mc-mermaid-content');
-  if (container && mermaidService) {
-    mermaidService.reset(container);
   }
 };
 const downloadMermaid = () => {
