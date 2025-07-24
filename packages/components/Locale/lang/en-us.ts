@@ -11,5 +11,8 @@ export default {
     copy: "Copy",
     diagram: 'Diagram',
     code: 'Code',
+    zoomIn: 'Zoom In',
+    zoomOut: 'Zoom Out',
+    downLoad: 'Download',
   },
 };
