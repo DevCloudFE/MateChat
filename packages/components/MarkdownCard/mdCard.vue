@@ -1,7 +1,5 @@
 <template>
-  <div class="mc-markdown-render" :class="themeClass">
-    <component :is="markdownComponent" />
-  </div>
+  <div ref="container" class="mc-markdown-render" :class="themeClass" v-html="parsedContent.html"></div>
   <div v-if="false">
     <slot name="actions"></slot>
     <slot name="header"></slot>
@@ -14,14 +12,10 @@ import hljs from 'highlight.js';
 import markdownit from 'markdown-it';
 import type { MarkdownIt, Token } from 'markdown-it';
 import { type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
+import { createApp } from 'vue';
 import CodeBlock from './CodeBlock.vue';
 import { MDCardService } from './MDCardService';
 import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-
-type MarkdownComponentType = {
-  name: string;
-  render: () => VNode;
-};
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -44,8 +38,9 @@ const mdt: MarkdownIt = markdownit({
   ...props.mdOptions,
 });
 
+// 用注释作为占位符
 mdt.renderer.rules.fence = (tokens: Token[], idx: number) => {
-  return `<!----MC_MARKDOWN_CODE_BLOCK_${idx}---->`;
+  return `<!--MC_MARKDOWN_CODE_BLOCK_${idx}-->`;
 };
 
 const parsedContent = ref<{ tokens: Token[]; html: string }>({
@@ -87,35 +82,73 @@ watch(
   }
 );
 
-const createCodeBlock = (
-  language: string,
-  code: string,
-  blockIndex: number,
-) => {
-  const codeBlockSlots: CodeBlockSlot = {
-    actions: slots.actions
-      ? () => slots.actions({ codeBlockData: { code, language } }) || null
-      : undefined,
-    header: slots.header
-      ? () => slots.header({ codeBlockData: { code, language } }) || null
-      : undefined,
-    content: slots.content
-      ? () => slots.content({ codeBlockData: { code, language } }) || null
-      : undefined,
-  };
-  return h(
-    CodeBlock,
+const container = ref<HTMLElement | null>(null);
+
+// 动态替换占位符为 CodeBlock 组件
+const replacePlaceholders = () => {
+  if (!container.value) return;
+  // 清理旧的 code block app（防止内存泄漏）
+  if ((container.value as any)._codeBlockApps) {
+    (container.value as any)._codeBlockApps.forEach((app: any) => app.unmount());
+  }
+  (container.value as any)._codeBlockApps = [];
+
+  // 先收集所有注释节点，避免替换时影响遍历
+  const commentNodes: Comment[] = [];
+  const walker = document.createTreeWalker(
+    container.value,
+    NodeFilter.SHOW_COMMENT,
     {
-      language,
+      acceptNode: (node) => node.nodeValue?.startsWith('MC_MARKDOWN_CODE_BLOCK_') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+    }
+  );
+  let node: Comment | null = walker.nextNode() as Comment | null;
+  while (node) {
+    commentNodes.push(node);
+    node = walker.nextNode() as Comment | null;
+  }
+
+  // 依次替换所有占位符
+  commentNodes.forEach((node) => {
+    const idx = Number(node.nodeValue?.replace('MC_MARKDOWN_CODE_BLOCK_', ''));
+    const token = parsedContent.value.tokens[idx];
+    const lang = token?.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
+    const code = token.content;
+    // 创建代码块组件
+    const codeBlockEl = document.createElement('div');
+    // 处理 slot 传递
+    const codeBlockSlots: CodeBlockSlot = {
+      actions: slots.actions && typeof slots.actions === 'function'
+        ? () => (slots.actions ? slots.actions({ codeBlockData: { code, language: lang } }) : null)
+        : undefined,
+      header: slots.header && typeof slots.header === 'function'
+        ? () => (slots.header ? slots.header({ codeBlockData: { code, language: lang } }) : null)
+        : undefined,
+      content: slots.content && typeof slots.content === 'function'
+        ? () => (slots.content ? slots.content({ codeBlockData: { code, language: lang } }) : null)
+        : undefined,
+    };
+    node.parentNode?.replaceChild(codeBlockEl, node);
+    // 动态挂载 CodeBlock
+    const app = createApp(CodeBlock, {
+      language: lang,
       code,
-      blockIndex,
+      blockIndex: idx,
       theme: props.theme,
       enableMermaid: props.enableMermaid,
       mermaidConfig: props.mermaidConfig,
-      key: `code-block-${blockIndex}`,
-    },
-    codeBlockSlots,
-  );
+      // 事件透传
+      onAfterMdtInit: (e: any) => emit('afterMdtInit', e),
+      onTypingStart: () => emit('typingStart'),
+      onTyping: () => emit('typing'),
+      onTypingEnd: () => emit('typingEnd'),
+    });
+    if (codeBlockSlots.actions) app.component('actions', codeBlockSlots.actions);
+    if (codeBlockSlots.header) app.component('header', codeBlockSlots.header);
+    if (codeBlockSlots.content) app.component('content', codeBlockSlots.content);
+    app.mount(codeBlockEl);
+    (container.value as any)._codeBlockApps.push(app);
+  });
 };
 
 watch(
@@ -169,55 +202,6 @@ const typewriterStart = () => {
   timer = setTimeout(typingStep);
 }
 
-const markdownComponent = computed<MarkdownComponentType>(() => {
-  return {
-    name: 'MarkdownRenderer',
-    render() {
-      if (typeof document === 'undefined') {
-        return h('div');
-      }
-      const { html, tokens } = parsedContent.value;
-      const vNodes: VNode[] = [];
-      let lastIndex = 0;
-      let match: RegExpExecArray | null;
-      const regex = /<!----MC_MARKDOWN_CODE_BLOCK_(\d+)---->/g;
-      let codeBlockIndex = 0;
-      let nodeIndex = 0;
-
-      while (true) {
-        match = regex.exec(html);
-        if (!match) break;
-        if (match.index > lastIndex) {
-          vNodes.push(
-            h('div', {
-              innerHTML: html.slice(lastIndex, match.index),
-              key: `markdown-segment-${nodeIndex++}`,
-            }),
-          );
-        }
-        const token = tokens[Number.parseInt(match[1])];
-        const lang = token?.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
-        const code = token.content;
-
-        vNodes.push(createCodeBlock(lang, code, codeBlockIndex));
-        codeBlockIndex++;
-        lastIndex = regex.lastIndex;
-      }
-
-      if (lastIndex < html.length) {
-        vNodes.push(
-          h('div', {
-            innerHTML: html.slice(lastIndex),
-            key: `markdown-segment-${nodeIndex++}`,
-          }),
-        );
-      }
-
-      return h('div', vNodes);
-    },
-  };
-});
-
 watch(
   () => props.customXssRules,
   (rules) => {
@@ -244,7 +228,15 @@ const themeClass = computed(() => {
 
 onMounted(() => {
   emit('afterMdtInit', mdt);
+  nextTick(() => replacePlaceholders());
 });
+
+watch(
+  () => parsedContent.value.html,
+  () => {
+    nextTick(() => replacePlaceholders());
+  }
+);
 
 defineExpose({ mdt });
 </script>
