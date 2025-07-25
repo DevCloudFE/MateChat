@@ -1,9 +1,9 @@
 import {
   infinityTheme,
   galaxyTheme,
-  Theme,
-  CustomThemeService,
 } from "devui-theme";
+import type { CustomThemeConfig } from "@/global-config-types";
+
 export const lightThemeConfig = {
   devui: {
     "devui-feedback-overlay-bg": "#ffffff",
@@ -27,7 +27,7 @@ export const darkThemeConfig = {
   },
 };
 
-export const CustomThemeDataConfig = {
+export const CustomThemeDataConfig: CustomThemeConfig = {
   id: "custom-theme",
   name: "Custom Theme",
   devui: {
