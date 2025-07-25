@@ -19,3 +19,10 @@ export interface IGlobalConfig {
   language?: LangType; // 国际化 配置后不展示切换语言按钮
   theme?: ThemeEnum; // 主题 配置后不展示切换主题按钮
 }
+
+export interface CustomThemeConfig {
+  id: string; // 主题id
+  name: string; // 主题名称
+  devui?: Record<string, string>; // devui主题配置
+  matechat?: Record<string, string>; // matechat主题配置
+}

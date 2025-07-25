@@ -44,11 +44,14 @@ const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
     let answer: string = mockAnswer[item.value];
     if (item.value === 'theme') {
-      const themeData = item.themeData || CustomThemeDataConfig;
       const customTheme = createCustomTheme({
         id: "custom-theme",
-        name: "环保色主题",
-        data: genCustomThemeData(themeData),
+        name: "Custom Theme",
+        data: Object.assign(
+          {},
+          genCustomThemeData(CustomThemeDataConfig.devui),
+          CustomThemeDataConfig.matechat
+        ),
       });
       applyThemeWithCustom(customTheme);
       answer = answer.replace('{{themeData}}', JSON.stringify(customTheme));

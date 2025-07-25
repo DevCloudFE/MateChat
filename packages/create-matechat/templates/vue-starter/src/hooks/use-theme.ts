@@ -1,43 +1,44 @@
-import { dark, light } from "@/constant";
 import { useThemeStore } from "@/store";
 import {
   ThemeServiceInit,
-  galaxyTheme,
-  infinityTheme,
   Theme,
   CustomThemeService,
+  ThemeService,
 } from "devui-theme";
 import { onMounted } from "vue";
 import type { IEffect, IColorDef } from "devui-theme";
+import { lightTheme, darkTheme, CustomThemeDataConfig } from "@/constant";
+
+let themeService: ThemeService | null = null;
+
+const THEME_MAP: Record<string, string> = {
+  "infinity-theme": "light",
+  "galaxy-theme": "dark",
+};
+
+const ID_TO_THEME: Record<string, Theme> = {
+  light: lightTheme,
+  dark: darkTheme,
+};
 
 export function useTheme() {
   const themeStore = useThemeStore();
-  const lightTheme = {
-    ...infinityTheme,
-    data: { ...infinityTheme.data, ...light },
-  };
-  const darkTheme = { ...galaxyTheme, data: { ...galaxyTheme.data, ...dark } };
-  const themeService = ThemeServiceInit(
-    {
-      lightTheme,
-      darkTheme,
-    },
-    "infinityTheme"
-  );
-  const themeMap: Record<string, string> = {
-    "infinity-theme": "light",
-    "galaxy-theme": "dark",
-  };
-  const idToTheme: Record<string, Theme> = {
-    light: lightTheme,
-    dark: darkTheme,
+
+  const initTheme = () => {
+    themeService = ThemeServiceInit(
+      {
+        "infinity-theme": lightTheme,
+        "galaxy-theme": darkTheme,
+      },
+      "infinity-theme"
+    );
   };
 
-  const applyTheme = () => {
+  const applyTheme = (currentTheme?: Theme) => {
     if (themeService) {
       const theme =
-        idToTheme[themeStore.theme] || themeStore.currentCustomTheme;
-      themeService.applyTheme(theme);
+        ID_TO_THEME[themeStore.theme] || themeStore.currentCustomTheme || createCustomThemeFromConfig(CustomThemeDataConfig);
+      themeService.applyTheme(currentTheme || theme);
     }
   };
 
@@ -52,9 +53,20 @@ export function useTheme() {
     return new Theme(theme);
   };
 
+  const createCustomThemeFromConfig = (config: any): Theme => {
+    return new Theme({
+      ...config,
+      data: Object.assign(
+        {},
+        genCustomThemeData(config.devui),
+        config.matechat
+      ),
+    });
+  };
+
   const themeChange = () => {
     if (themeService) {
-      themeStore.theme = themeMap[themeService.currentTheme.id] || "custom";
+      themeStore.theme = THEME_MAP[themeService.currentTheme.id] || "custom";
     }
   };
 
@@ -86,9 +98,11 @@ export function useTheme() {
 
   return {
     themeService,
+    initTheme,
     applyTheme,
     applyThemeWithCustom,
     createCustomTheme,
     genCustomThemeData,
+    createCustomThemeFromConfig,
   };
 }
