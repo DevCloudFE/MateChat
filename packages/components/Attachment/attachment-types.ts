@@ -39,6 +39,10 @@ export const AttachmentProps = {
     type: Boolean,
     default: true,
   },
+  draggable: {
+    type: Boolean,
+    default: true,
+  },
   placeholder: {
     type: String,
     default: '请选择文件',
@@ -62,6 +66,7 @@ export const AttachmentEmits = {
     file instanceof File && Array.isArray(fileList),
   progress: (file: File, fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
+  drop: (files: File[]) => Array.isArray(files),
 };
 // 编译时类型检查
 export type AttachmentEmits = {
@@ -69,4 +74,5 @@ export type AttachmentEmits = {
   (e: 'success', file: File, response: string, fileList: FileItem[]): void;
   (e: 'error', file: File, error: string, fileList: FileItem[]): void;
   (e: 'progress', file: File, fileList: FileItem[]): void;
+  (e: 'drop', files: File[]): void;
 };

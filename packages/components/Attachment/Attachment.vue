@@ -15,7 +15,7 @@ const fileList = defineModel<FileItem[]>({ default: [] });
 
 const inputRef = ref<HTMLInputElement>();
 // 从钩子中获取方法
-const { handleClick, handleFileChange } = useUpload(
+const { handleClick, handleFileChange, isDragging } = useUpload(
   props,
   emit,
   inputRef,
@@ -39,6 +39,11 @@ const { handleClick, handleFileChange } = useUpload(
       @change="handleFileChange"
     />
   </div>
+  <Teleport to="body">
+    <div v-if="isDragging" class="mc-attachment-drag-modal">
+      拖拽到页面上即可上传
+    </div>
+  </Teleport>
 </template>
 
 <style lang="scss">

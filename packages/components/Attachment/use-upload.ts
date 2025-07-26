@@ -1,4 +1,5 @@
 import type { Ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import type {
   AttachmentEmits,
   AttachmentProps,
@@ -13,6 +14,7 @@ export function useUpload(
   inputRef: Ref<HTMLInputElement | undefined>,
   fileList: Ref<FileItem[]>, // 直接接收 defineModel 返回的 ref
 ) {
+  const isDragging = ref(false);
   const getFileItem = (file: File): FileItem => ({
     uid: uid++,
     name: file.name,
@@ -119,7 +121,48 @@ export function useUpload(
     inputRef.value?.click();
   };
 
+  // 拖拽相关事件处理
+  const handleDragOver = (e: DragEvent) => {
+    e.preventDefault();
+    if (props.disabled) return;
+    isDragging.value = true;
+  };
+
+  const handleDragLeave = (e: DragEvent) => {
+    e.preventDefault();
+    isDragging.value = false;
+  };
+
+  const handleDrop = (e: DragEvent) => {
+    e.preventDefault();
+    isDragging.value = false;
+    if (props.disabled) return;
+
+    const files = Array.from(e.dataTransfer?.files || []);
+    if (files.length > 0) {
+      emit('drop', files);
+      uploadFiles(files);
+    }
+  };
+  // 生命周期钩子绑定拖拽监听
+  onMounted(() => {
+    if (props.draggable) {
+      document.body.addEventListener('dragover', handleDragOver);
+      document.body.addEventListener('dragleave', handleDragLeave);
+      document.body.addEventListener('drop', handleDrop);
+    }
+  });
+
+  onUnmounted(() => {
+    if (props.draggable) {
+      document.body.removeEventListener('dragover', handleDragOver);
+      document.body.removeEventListener('dragleave', handleDragLeave);
+      document.body.removeEventListener('drop', handleDrop);
+    }
+  });
+
   return {
+    isDragging,
     handleClick,
     handleFileChange,
   };
