@@ -54,14 +54,12 @@ export const introPromptEn = {
 
 export const guessQuestionsCn = [
   { label: "帮我写一篇文章", value: "article" },
-  { label: "帮我生成一个绿色环保的主题", value: "theme" },
   { label: "你可以帮我做些什么？", value: "helpMd" },
   { label: "帮我写一个快速排序", value: "quickSort" },
   { label: "使用 js 格式化时间", value: "formatDate" },
 ];
 export const guessQuestionsEn = [
   { label: "How to bind a project space" },
-  { label: "Help me generate a green and environmentally friendly theme", value: "theme" },
   { label: "List of recently executed pipelines" },
   { label: "Help me write a quick sort" },
   { label: "Use js to format time" },

@@ -31,7 +31,6 @@ import { useThemeStore } from '@/store';
 const themeList = [
   { name: 'light', cnName: '浅色模式', value: ThemeEnum.Light },
   { name: 'dark', cnName: '深色模式', value: ThemeEnum.Dark },
-  { name: 'custom', cnName: '自定义主题', value: ThemeEnum.Custom },
 ];
 const themeStore = useThemeStore();
 const { applyTheme } = useTheme();

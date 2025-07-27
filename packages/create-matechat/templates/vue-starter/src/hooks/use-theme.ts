@@ -2,7 +2,7 @@ import { useThemeStore } from "@/store";
 import {
   ThemeServiceInit,
   Theme,
-  CustomThemeService,
+  CustomThemeUtils,
   ThemeService,
 } from "devui-theme";
 import { onMounted } from "vue";
@@ -78,8 +78,7 @@ export function useTheme() {
     if (!Array.isArray(colorChanges)) {
       colorChanges = transformColorArray(colorChanges);
     }
-    const matechatThemeService = new CustomThemeService();
-    return matechatThemeService.genThemeData(colorChanges, isDark, effect);
+    return CustomThemeUtils.genThemeData(colorChanges, isDark, effect);
   };
 
   const transformColorArray = (
