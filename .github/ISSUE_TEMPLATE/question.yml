@@ -1,0 +1,30 @@
+name: ❓ Question
+description: 咨询使用或配置问题
+title: "[QUESTION] "
+labels: [question]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 你遇到了什么问题？
+      placeholder: 请描述你的疑问...
+    validations:
+      required: true
+
+  - type: textarea
+    id: code
+    attributes:
+      label: 相关代码
+      description: 提供相关的代码片段
+      placeholder: |
+        ```js
+        // 你的代码
+        ```
+
+  - type: textarea
+    id: attempts
+    attributes:
+      label: 尝试过的方法
+      description: 你试过哪些解决方案？
+      placeholder: 请描述尝试过的方法...

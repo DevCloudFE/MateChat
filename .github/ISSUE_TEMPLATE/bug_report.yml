@@ -1,0 +1,42 @@
+name: 🐛 Bug Report
+description: 报告Bug或异常行为
+title: "[BUG] "
+labels: [bug, needs-triage]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 简要描述遇到的问题
+      placeholder: 请描述具体问题...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 如何复现这个问题？
+      placeholder: |
+        1. 操作步骤1
+        2. 操作步骤2
+        3. 出现问题
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 版本、浏览器、系统等
+      placeholder: |
+        版本: v1.0.0
+        浏览器: Chrome
+        系统: Windows 11
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充信息
+      description: 截图、报错信息等
+      placeholder: 可提供截图或错误日志...

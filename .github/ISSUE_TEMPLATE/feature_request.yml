@@ -1,0 +1,34 @@
+name: 🚀 Feature Request
+description: 提议新功能或组件
+title: "[FEATURE] "
+labels: [enhancement, needs-triage]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 功能描述
+      description: 你希望添加什么功能？
+      placeholder: 请描述希望添加的功能...
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 使用场景
+      description: 在什么场景下需要这个功能？
+      placeholder: 请描述具体的使用场景...
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 实现方案
+      description: 你希望如何实现？有参考吗？
+      placeholder: 可提供实现思路或参考链接...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充信息
+      description: 其他相关信息
+      placeholder: 可提供设计稿、代码示例等...
