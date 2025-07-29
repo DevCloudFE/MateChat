@@ -43,19 +43,6 @@ const list = computed(() =>
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
     let answer: string = mockAnswer[item.value];
-    if (item.value === 'theme') {
-      const customTheme = createCustomTheme({
-        id: "custom-theme",
-        name: "Custom Theme",
-        data: Object.assign(
-          {},
-          genCustomThemeData(CustomThemeDataConfig.devui),
-          CustomThemeDataConfig.matechat
-        ),
-      });
-      applyThemeWithCustom(customTheme);
-      answer = answer.replace('{{themeData}}', JSON.stringify(customTheme));
-    }
     chatMessageStore.ask(item.label, answer);
   }
 };

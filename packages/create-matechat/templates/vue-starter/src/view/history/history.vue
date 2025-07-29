@@ -206,14 +206,14 @@ watch(
   }
 }
 
-body[ui-theme="infinity-theme"] {
+body[ui-theme-type="light"] {
   .history-list-container {
     backdrop-filter: blur(50px);
     background-color: rgba(249, 249, 249, 0.8);
   }
 }
 
-body[ui-theme="galaxy-theme"] {
+body[ui-theme-type="dark"] {
   .history-list-container {
     background-color: $devui-global-bg;
   }

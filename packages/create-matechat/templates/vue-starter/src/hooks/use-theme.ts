@@ -4,6 +4,7 @@ import {
   Theme,
   CustomThemeUtils,
   ThemeService,
+  ColorHierarchyMap,
 } from "devui-theme";
 import { onMounted } from "vue";
 import type { IEffect, IColorDef } from "devui-theme";
@@ -37,8 +38,15 @@ export function useTheme() {
   const applyTheme = (currentTheme?: Theme) => {
     if (themeService) {
       const theme =
-        ID_TO_THEME[themeStore.theme] || themeStore.currentCustomTheme || createCustomThemeFromConfig(CustomThemeDataConfig);
-      themeService.applyTheme(currentTheme || theme);
+        currentTheme ||
+        ID_TO_THEME[themeStore.theme] ||
+        themeStore.currentCustomTheme ||
+        createCustomThemeFromConfig(CustomThemeDataConfig);
+      themeService.applyTheme(theme);
+      document.body.setAttribute(
+        "ui-theme-type",
+        theme.isDark ? "dark" : "light"
+      );
     }
   };
 
@@ -54,13 +62,14 @@ export function useTheme() {
   };
 
   const createCustomThemeFromConfig = (config: any): Theme => {
+    const { devuiData, customData } = splitDataByThemeKeys(
+      config.data,
+      ColorHierarchyMap
+    );
+    config.data;
     return new Theme({
       ...config,
-      data: Object.assign(
-        {},
-        genCustomThemeData(config.devui),
-        config.matechat
-      ),
+      data: Object.assign({}, genCustomThemeData(devuiData), customData),
     });
   };
 
@@ -88,6 +97,23 @@ export function useTheme() {
       colorName: key,
       color: colorObject[key],
     }));
+  };
+
+  const splitDataByThemeKeys = (configData: any, colors: any) => {
+    const colorKeys = Object.keys(colors);
+    const devuiData: any = {};
+    const customData: any = {};
+
+    for (const key in configData) {
+      if (configData.hasOwnProperty(key)) {
+        if (colorKeys.includes(key)) {
+          devuiData[key] = configData[key];
+        } else {
+          customData[key] = configData[key];
+        }
+      }
+    }
+    return { devuiData, customData };
   };
 
   onMounted(() => {
