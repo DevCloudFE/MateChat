@@ -299,16 +299,14 @@ $ npm install openai
 ```js
 import OpenAI from 'openai';
 
-const client = ref<OpenAI>();
-
-client.value = new OpenAI({
+const client = new OpenAI({
   apiKey: '', // 模型APIKey
   baseURL: '', // 模型API地址
   dangerouslyAllowBrowser: true,
 });
 
 const fetchData = (ques) => {
-  const completion = await client.value!.chat.completions.create({
+  const completion = await client.chat.completions.create({
     model: 'my-model', // 替换为自己的model名称
     messages: [
       { role: 'user', content: ques },
@@ -351,9 +349,7 @@ const onSubmit = (evt) => {
 ```ts
 import OpenAI from 'openai';
 
-const client = ref<OpenAI>();
-
-client.value = new OpenAI({
+const client = new OpenAI({
   apiKey: '', // 模型APIKey
   baseURL: '', // 模型API地址
   dangerouslyAllowBrowser: true,
@@ -380,7 +376,7 @@ const fetchData = async (ques) => {
     id: '',
     loading: true,
   });
-  const completion = await client.value!.chat.completions.create({
+  const completion = await client.chat.completions.create({
     model: 'my-model', // 替换为自己的model名称
     messages: [{ role: 'user', content: ques }],
     stream: true, // 为 true 则开启接口的流式返回
