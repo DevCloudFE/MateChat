@@ -1,27 +1,58 @@
-import { filterXSS, getDefaultCSSWhiteList, getDefaultWhiteList, type IWhiteList } from 'xss';
-import type { CustomXssRule, MdPlugin } from './mdCard.types';
+import { FilterXSS, getDefaultCSSWhiteList, getDefaultWhiteList } from 'xss';
+import type { CustomXssRule, MdPlugin, XssFilterFunction } from './mdCard.types';
+
+const DEFAULT_XSS_EXTENSIONS = {
+  input: ['type', 'checked', 'disabled', 'class'],
+  label: ['for'],
+  ul: ['class'],
+  div: ['class'],
+  a: ['href', 'class', 'target', 'name'],
+  ol: ['start'],
+  p: ['class'],
+  span: ['style', 'class', 'title', 'id'],
+  svg: ['style', 'class', 'width', 'height', 'viewbox', 'preserveaspectratio', 'id', 'fill', 'stroke'],
+  path: ['style', 'class', 'd', 'id', 'fill', 'stroke'],
+  th: ['style'],
+  td: ['style'],
+};
+
 export class MDCardService {
-  private xssWhiteList = getDefaultWhiteList();
-  private cssWhiteList = getDefaultCSSWhiteList();
+  private xssFilter: XssFilterFunction;
 
   constructor() {
-    this.setDefaultXss();
+    this.setCustomXssRules();
   }
 
-  private setDefaultXss() {
-    this.xssWhiteList['input'] = ['type', 'checked', 'disabled', 'class'];
-    this.xssWhiteList['label'] = ['for'];
-    this.xssWhiteList['ul'] = ['class'];
-    this.xssWhiteList['div'] = ['class'];
-    this.xssWhiteList['a'] = ['href', 'class', 'target', 'name'];
-    this.xssWhiteList['ol'] = ['start'];
+  private getDefaultFilterOptions(customXssRules?: CustomXssRule[]) {
+    const whiteList = {
+      ...getDefaultWhiteList(),
+      ...DEFAULT_XSS_EXTENSIONS
+    };
 
-    this.xssWhiteList['p'] = ['class'];
-    this.xssWhiteList['span'] = ['style', 'class', 'title', 'id'];
-    this.xssWhiteList['svg'] = ['style', 'class', 'width', 'height', 'viewbox', 'preserveaspectratio', 'id', 'fill', 'stroke'];
-    this.xssWhiteList['path'] = ['style', 'class', 'd', 'id', 'fill', 'stroke'];
-    this.xssWhiteList['th'] = ['style'];
-    this.xssWhiteList['td'] = ['style'];
+    // 应用自定义规则
+    if (customXssRules) {
+      for (const rule of customXssRules) {
+        if (rule.value === null) {
+          delete whiteList[rule.key];
+        } else {
+          whiteList[rule.key] = rule.value;
+        }
+      }
+    }
+
+    return {
+      whiteList,
+      onIgnoreTagAttr: this.onIgnoreTagAttr,
+      css: {
+        whiteList: {
+          ...getDefaultCSSWhiteList(),
+          top: true,
+          left: true,
+          bottom: true,
+          right: true,
+        },
+      },
+    };
   }
 
   private onIgnoreTagAttr(tag: string, name: string, value: string, isWhiteAttr: boolean) {
@@ -30,26 +61,18 @@ export class MDCardService {
     }
   }
 
-  getXssWhiteList() {
-    return this.xssWhiteList;
-  }
-
-  setXssWhiteList(list: IWhiteList) {
-    this.xssWhiteList = list;
-  }
-
-  setCustomXssRules(rules: CustomXssRule[]) {
-    if (rules) {
-      rules.forEach((rule) => {
-        if (rule['value'] === null) {
-          delete this.xssWhiteList[rule['key']];
-        } else {
-          this.xssWhiteList[rule['key']] = rule['value'];
-        }
-      });
+  setCustomXssRules(customXssRules?: CustomXssRule[] | XssFilterFunction) {
+    // 如果参数为 undefined，使用不过滤的函数
+    if (customXssRules === undefined) {
+      this.xssFilter = (html: string) => html;
+    } else if (typeof customXssRules === 'function') {
+      this.xssFilter = customXssRules;
+    } else {
+      const filterOptions = this.getDefaultFilterOptions(customXssRules);
+      const filter = new FilterXSS(filterOptions);
+      this.xssFilter = (html: string) => filter.process(html);
     }
   }
-
 
   setMdPlugins(plugins: MdPlugin[], mdt: any) {
     if (plugins && plugins.length) {
@@ -61,17 +84,6 @@ export class MDCardService {
   }
 
   filterHtml(html: string) {
-    return filterXSS(html, {
-      whiteList: this.xssWhiteList,
-      onIgnoreTagAttr: this.onIgnoreTagAttr,
-      css: {
-        whiteList: Object.assign({}, this.cssWhiteList, {
-          top: true,
-          left: true,
-          bottom: true,
-          right: true,
-        }),
-      },
-    });
+    return this.xssFilter(html);
   }
 }

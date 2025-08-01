@@ -13,7 +13,7 @@ bannerSrc: '/bubbleBanner.png'
 | theme        | [`Theme`](#theme)                          | 'light'       | MarkDown卡片主题                                           |
 | mdOptions        | `object`                          | {}       | 设置 markdown 对字符串的处理方式， 可参考[markdown-it](https://www.npmjs.com/package/markdown-it?activeTab=readme)|
 | mdPlugins       | [MdPlugin[]](#mdplugin)       | []       | 设置 markdown-it 插件|
-| customXssRules       | [CustomXssRule[]](#customxssrule)       | []       | 自定义 xss 对某种 tag 的过滤方式，每条规则需要指定 tag, 并给出需要加入白名单的属性数组|
+| customXssRules       | [CustomXssRule[]](#customxssrule) \| [XssFilterFunction](#xssfilterfunction)       | []       | 自定义 XSS 过滤规则。可传入规则数组或自定义过滤函数|
 | enableThink | `boolean`                       | false         | 是否开启\<think\>标签识别                                 |
 | thinkOptions | [`ThinkOptions`](#thinkoptions)                       | --         | \<think\>标签配置，自定义样式等                                       |
 | typing | `boolean` | false  |  开启打字机效果    |                                       
@@ -49,6 +49,12 @@ interface CustomXssRule {
   key: string;
   value: string[] | null;
 }
+```
+
+#### XssFilterFunction
+
+```ts
+type XssFilterFunction = (html: string) => string;
 ```
 
 #### Mdplugin

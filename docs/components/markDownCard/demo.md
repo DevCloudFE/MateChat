@@ -780,6 +780,151 @@ onMounted(() => {
 
 :::
 
+### 自定义 XSS 过滤规则
+
+组件支持自定义 XSS 过滤规则，可以通过规则数组或自定义过滤函数两种方式配置。
+
+:::demo
+
+```vue
+<template>
+  <div class="xss-demo-container">
+    <h3 style="margin-bottom: 20px; color: var(--devui-text-primary);">XSS 过滤演示</h3>
+    <table class="xss-table">
+      <thead>
+        <tr>
+          <th width="20%">过滤方式</th>
+          <th width="25%">过滤前</th>
+          <th width="25%">过滤后</th>
+          <th width="30%">说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 默认规则 -->
+        <tr>
+          <td>
+            <strong>customXssRules=[]</strong>
+            <br>
+            使用默认规则
+          </td>
+          <td>
+            <McMarkdownCard :content="buttonContent" :theme="theme"></McMarkdownCard>
+          </td>
+          <td>
+            <McMarkdownCard :content="buttonContent" :theme="theme" :customXssRules="[]"></McMarkdownCard>
+          </td>
+          <td>
+            button 标签被转义为文本
+          </td>
+        </tr>
+        
+        <!-- 自定义函数 -->
+        <tr>
+          <td>
+            <strong>自定义函数</strong>
+            <br>
+            危险链接替换
+          </td>
+          <td>
+            <McMarkdownCard :content="linkContent" :theme="theme"></McMarkdownCard>
+          </td>
+          <td>
+            <McMarkdownCard :content="linkContent" :theme="theme" :customXssRules="linkFilterFunction"></McMarkdownCard>
+          </td>
+          <td>
+            危险链接已被拦截
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { FilterXSS, getDefaultWhiteList } from 'xss';
+
+let themeService;
+const theme = ref('light');
+const buttonContent = ref(`<button onclick="alert('XSS攻击！')">点击按钮</button>`);
+
+const linkContent = ref(`<a href="javascript:alert('XSS攻击！')">危险链接</a>`);
+
+const linkFilterFunction = (() => {
+  const filter = new FilterXSS({
+    whiteList: {
+      ...getDefaultWhiteList(),
+    },
+    onTagAttr: (tag, name, value, isWhiteAttr) => {
+      // 拦截危险的链接协议
+      if (tag === 'a' && name === 'href') {
+        const lowerValue = value.toLowerCase();
+        if (lowerValue.startsWith('javascript:') || 
+            lowerValue.startsWith('data:') || 
+            lowerValue.startsWith('vbscript:')) {
+          return 'href="#" title="危险链接已被拦截"';
+        }
+      }
+    }
+  });
+  
+  return (html) => filter.process(html);
+})();
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  if(typeof window !== 'undefined'){
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
+</script>
+<style scoped lang="scss">
+@use 'devui-theme/styles-var/devui-var.scss' as *;
+
+.xss-demo-container {
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.xss-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--devui-dividing-line);
+  
+  th, td {
+    padding: 12px;
+    border: 1px solid var(--devui-dividing-line);
+    text-align: left;
+  }
+  
+  th {
+    background: var(--devui-area);
+    font-weight: 600;
+  }
+  
+  tbody tr:hover {
+    background: var(--devui-base-bg-hover);
+  }
+
+  td {
+    color: var(--devui-text);
+  }
+}
+</style>
+```
+
+:::
+
 ### 自定义代码块操作区
 
 我们提供了 `actions` 插槽，支持你自定义代码块操作区。

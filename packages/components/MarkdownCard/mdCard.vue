@@ -10,20 +10,44 @@
 </template>
 
 <script setup lang="ts">
-import hljs from 'highlight.js';
-import markdownit from 'markdown-it';
-import type { MarkdownIt, Token } from 'markdown-it';
-import { Fragment, type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
-import CodeBlock from './CodeBlock.vue';
-import { MDCardService } from './MDCardService';
-import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-import { tokensToAst, htmlToVNode, type ASTNode, isValidTagName } from './MDCardParser';
+import hljs from "highlight.js";
+import markdownit from "markdown-it";
+import type { MarkdownIt, Token } from "markdown-it";
+import {
+  Fragment,
+  type VNode,
+  computed,
+  h,
+  nextTick,
+  onMounted,
+  ref,
+  useSlots,
+  watch,
+} from "vue";
+import CodeBlock from "./CodeBlock.vue";
+import { MDCardService } from "./MDCardService";
+import {
+  type CodeBlockSlot,
+  defaultTypingConfig,
+  mdCardProps,
+} from "./mdCard.types";
+import {
+  tokensToAst,
+  htmlToVNode,
+  type ASTNode,
+  isValidTagName,
+} from "./MDCardParser";
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
-const emit = defineEmits(['afterMdtInit', 'typingStart', 'typing', 'typingEnd']);
+const emit = defineEmits([
+  "afterMdtInit",
+  "typingStart",
+  "typing",
+  "typingEnd",
+]);
 const slots = useSlots();
-let timer: ReturnType<typeof setTimeout> | null = null
+let timer: ReturnType<typeof setTimeout> | null = null;
 
 const mdt: MarkdownIt = markdownit({
   breaks: true,
@@ -35,34 +59,39 @@ const mdt: MarkdownIt = markdownit({
         return hljs.highlight(str, { language: lang }).value;
       } catch (_) {}
     }
-    return '';
+    return "";
   },
   ...props.mdOptions,
 });
 
-const typingIndex = ref(0)
-const isTyping = ref(false)
+const typingIndex = ref(0);
+const isTyping = ref(false);
 
 const markdownContent = ref<VNode>();
 
 const parseContent = () => {
-  let content = props.content || '';
+  let content = props.content || "";
   if (props.typing && isTyping.value) {
-    content = props.content.slice(0, typingIndex.value) || '';
-    const options = {...defaultTypingConfig, ...props?.typingOptions};
+    content = props.content.slice(0, typingIndex.value) || "";
+    const options = { ...defaultTypingConfig, ...props?.typingOptions };
 
-    if (options.style === 'cursor') {
+    if (options.style === "cursor") {
       content += `<span class="mc-typewriter mc-typewriter-cursor">|</span>`;
-    } else if (options.style === 'color' || options.style === 'gradient') {
-      content = content.slice(0, -5) + `<span class="mc-typewriter mc-typewriter-${options.style}">${content.slice(-5)}</span>`;
+    } else if (options.style === "color" || options.style === "gradient") {
+      content =
+        content.slice(0, -5) +
+        `<span class="mc-typewriter mc-typewriter-${
+          options.style
+        }">${content.slice(-5)}</span>`;
     }
   }
 
   if (props.enableThink) {
-    const thinkClass = props.thinkOptions?.customClass || 'mc-think-block';
-    content = content
-        ?.replace('<think>', `<div class="${thinkClass}">`)
-        .replace('</think>', '</div>') || '';
+    const thinkClass = props.thinkOptions?.customClass || "mc-think-block";
+    content =
+      content
+        ?.replace("<think>", `<div class="${thinkClass}">`)
+        .replace("</think>", "</div>") || "";
   }
   const tokens = mdt.parse(content, {});
   const ast = tokensToAst(tokens);
@@ -71,119 +100,133 @@ const parseContent = () => {
 };
 
 const astToVnodes = (nodes: ASTNode[]): VNode[] => {
-  return nodes.map(node => processASTNode(node));
-}
+  return nodes.map((node) => processASTNode(node));
+};
 
 const processASTNode = (node: ASTNode | Token): VNode => {
-  if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
-    const outerVnode: VNode = htmlToVNode(node.openNode?.content || '')[0] as VNode;
+  if (node.nodeType === "html_inline" || node.nodeType === "html_block") {
+    const outerVnode: VNode = htmlToVNode(
+      node.openNode?.content || ""
+    )[0] as VNode;
     if (outerVnode) {
       const outerChildren = outerVnode?.children || [];
       if (Array.isArray(outerChildren)) {
-        outerVnode.children = [...outerChildren, ...node.children.map(child => processASTNode(child))];
+        outerVnode.children = [
+          ...outerChildren,
+          ...node.children.map((child) => processASTNode(child)),
+        ];
       } else {
-        outerVnode.children = [outerChildren, ...node.children.map(child => processASTNode(child))];
+        outerVnode.children = [
+          outerChildren,
+          ...node.children.map((child) => processASTNode(child)),
+        ];
       }
       return outerVnode;
     } else {
-      return node.openNode?.content || ''
+      return node.openNode?.content || "";
     }
   }
 
-  if (node.nodeType === 'inline') {
+  if (node.nodeType === "inline") {
     const html = mdt.renderer.render([node.openNode], mdt.options, {});
-    const vNodes = htmlToVNode(html);
+
+    const vNodes = htmlToVNode(mdCardService.filterHtml(html));
     return h(Fragment, vNodes);
   }
-  
+
   if (isToken(node)) {
     return processToken(node);
   }
-  
+
   return processASTNodeInternal(node);
-}
+};
 
 const isToken = (node: ASTNode | Token): node is Token => {
-  return 'type' in node && 'content' in node;
-}
+  return "type" in node && "content" in node;
+};
 
 const processToken = (token: Token): VNode => {
-  if (token.type === 'text') {
+  if (token.type === "text") {
     return token.content;
   }
-  
-  if (token.type === 'inline') {
+
+  if (token.type === "inline") {
     return processInlineToken(token);
   }
 
-  if (token.type === 'fence') {
+  if (token.type === "fence") {
     return processFenceToken(token);
   }
 
-  if (token.type === 'softbreak') {
-    return mdt.options.breaks ? h('br') : '\n';
+  if (token.type === "softbreak") {
+    return mdt.options.breaks ? h("br") : "\n";
   }
 
-  if (token.type === 'html_block' || token.type === 'html_inline') {
-    return token.type === 'html_block' ? h('div', { innerHTML: token.content }) : h('span', { innerHTML: token.content });
+  if (token.type === "html_block" || token.type === "html_inline") {
+    const safeContent = token.content;
+    return token.type === "html_block"
+      ? h("div", { innerHTML: safeContent })
+      : h("span", { innerHTML: safeContent });
   }
-  
+
   // 优先使用token的tag属性
   if (token.tag) {
-    const tagName = isValidTagName(token.tag) ? token.tag : 'div'
+    const tagName = isValidTagName(token.tag) ? token.tag : "div";
     const attrs = convertAttrsToProps(token.attrs || []);
     return h(tagName, { ...attrs, key: token.vNodeKey }, token.content);
   }
-  
+
   return token.content;
-}
+};
 
 const processInlineToken = (token: Token): VNode => {
   const html = mdt.renderer.render([token], mdt.options, {});
   const vNodes = htmlToVNode(html);
   return h(Fragment, vNodes);
-}
-
-
+};
 
 const processASTNodeInternal = (node: ASTNode): VNode => {
-  let tagName = 'div';
+  let tagName = "div";
   if (node.openNode?.tag && isValidTagName(node.openNode?.tag)) {
-    tagName = node.openNode?.tag
+    tagName = node.openNode?.tag;
   }
   const attrs = convertAttrsToProps(node.openNode?.attrs || []);
 
   // 特殊处理fence类型的token
-  if (node.openNode?.type === 'fence') {
+  if (node.openNode?.type === "fence") {
     return processFenceToken(node.openNode);
   }
-  
+
   // 处理所有带tag的AST节点
   if (node.openNode?.tag) {
-    let tagName = isValidTagName(node.openNode?.tag) ? node.openNode?.tag : 'div'
-    const children = node.children.map(child => processASTNode(child));
+    let tagName = isValidTagName(node.openNode?.tag)
+      ? node.openNode?.tag
+      : "div";
+    const children = node.children.map((child) => processASTNode(child));
     const attrs = convertAttrsToProps(node.openNode?.attrs || []);
     return h(tagName, { ...attrs, key: node.vNodeKey }, children);
   }
-  
-  const children = node.children.map(child => processASTNode(child));
-  
-  return h(tagName, { ...attrs, key: node.vNodeKey}, children);
-}
+
+  const children = node.children.map((child) => processASTNode(child));
+
+  return h(tagName, { ...attrs, key: node.vNodeKey }, children);
+};
 
 const processFenceToken = (token: Token): VNode => {
-  const language = token.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
+  const language =
+    token.info?.replace(/<span\b[^>]*>/i, "").replace("</span>", "") || "";
   const code = token.content;
   return createCodeBlock(language, code, token.tokenIndex);
-}
+};
 
-const convertAttrsToProps = (attrs: [string, string][]): Record<string, string> => {
+const convertAttrsToProps = (
+  attrs: [string, string][]
+): Record<string, string> => {
   return attrs.reduce((acc, [key, value]) => {
     acc[key] = value;
     return acc;
   }, {} as Record<string, string>);
-}
-
+};
 
 watch(
   () => [props.enableThink, props.thinkOptions?.customClass, props.theme],
@@ -195,7 +238,7 @@ watch(
 const createCodeBlock = (
   language: string,
   code: string,
-  blockIndex: number,
+  blockIndex: number
 ) => {
   const codeBlockSlots: CodeBlockSlot = {
     actions: slots.actions
@@ -219,25 +262,27 @@ const createCodeBlock = (
       mermaidConfig: props.mermaidConfig,
       key: `code-block-${blockIndex}`,
     },
-    codeBlockSlots,
+    codeBlockSlots
   );
 };
 
 const typewriterStart = () => {
-  clearTimeout(timer!)
+  clearTimeout(timer!);
 
   isTyping.value = true;
-  emit('typingStart');
-  const options = {...defaultTypingConfig, ...props?.typingOptions};
+  emit("typingStart");
+  const options = { ...defaultTypingConfig, ...props?.typingOptions };
 
   const typingStep = () => {
     let step = options.step;
     if (Array.isArray(options.step)) {
-      step = options.step[0] + Math.floor(Math.random() * (options.step[1] - options.step[0]));
+      step =
+        options.step[0] +
+        Math.floor(Math.random() * (options.step[1] - options.step[0]));
     }
     typingIndex.value += step;
     parseContent();
-    emit('typing');
+    emit("typing");
 
     if (typingIndex.value >= props.content!.length) {
       typewriterEnd();
@@ -246,10 +291,10 @@ const typewriterStart = () => {
     }
 
     timer = setTimeout(typingStep, options.interval);
-  }
+  };
 
   timer = setTimeout(typingStep);
-}
+};
 
 watch(
   () => props.content,
@@ -257,30 +302,29 @@ watch(
     if (!props.typing) {
       typingIndex.value = newVal?.length || 0;
       parseContent();
-      return
+      return;
     }
 
     if (newVal.indexOf(oldVal) === -1) {
       typingIndex.value = 0;
     }
 
-    nextTick(() => typewriterStart())
+    nextTick(() => typewriterStart());
   },
-  { immediate: true },
-)
+  { immediate: true }
+);
 
 const typewriterEnd = () => {
   isTyping.value = false;
-  emit('typingEnd');
-}
+  emit("typingEnd");
+};
 
 watch(
   () => props.customXssRules,
-  (rules) => {
-    mdCardService.setCustomXssRules(rules);
-    parseContent();
+  (customXssRules) => {
+    mdCardService.setCustomXssRules(customXssRules);
   },
-  { deep: false },
+  { immediate: true, deep: false }
 );
 
 watch(
@@ -289,17 +333,17 @@ watch(
     mdCardService.setMdPlugins(plugins, mdt);
     parseContent();
   },
-  { immediate: true, deep: false },
+  { immediate: true, deep: false }
 );
 
 const themeClass = computed(() => {
-  return props.theme === 'dark'
-    ? 'mc-markdown-render-dark'
-    : 'mc-markdown-render-light';
+  return props.theme === "dark"
+    ? "mc-markdown-render-dark"
+    : "mc-markdown-render-light";
 });
 
 onMounted(() => {
-  emit('afterMdtInit', mdt);
+  emit("afterMdtInit", mdt);
 });
 
 defineExpose({ mdt });
@@ -313,7 +357,7 @@ defineExpose({ mdt });
   font-size: var(--devui-font-size, 14px);
   overflow-x: auto;
   &.mc-markdown-render-dark {
-    color: #CED1DB;
+    color: #ced1db;
   }
   &.mc-markdown-render-light {
     color: #252b3a;
@@ -328,7 +372,13 @@ defineExpose({ mdt });
 }
 
 :deep(.mc-typewriter-color) {
-  background-image: -webkit-linear-gradient(left, #191919, #5588f0, #e171ee, #f2c55c);
+  background-image: -webkit-linear-gradient(
+    left,
+    #191919,
+    #5588f0,
+    #e171ee,
+    #f2c55c
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -351,11 +401,10 @@ defineExpose({ mdt });
     opacity: 1;
   }
   50% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
-
 </style>

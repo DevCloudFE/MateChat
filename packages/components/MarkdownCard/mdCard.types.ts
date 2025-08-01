@@ -14,6 +14,8 @@ export interface CustomXssRule {
   value: string[] | null;
 }
 
+export type XssFilterFunction = (html: string) => string;
+
 export interface CodBlockData {
   code: string;
   language: string;
@@ -93,8 +95,7 @@ export const mdCardProps = {
   },
 
   customXssRules: {
-    type: Array as PropType<Array<CustomXssRule>>,
-    default: () => [],
+    type: [Array, Function] as PropType<CustomXssRule[] | XssFilterFunction>,
   },
 
   theme: {
