@@ -293,16 +293,14 @@ $ npm install openai
 ```js
 import OpenAI from 'openai';
 
-const client = ref<OpenAI>();
-
-client.value = new OpenAI({
+const client = new OpenAI({
   apiKey: '', // 模型APIKey
   baseURL: '', // 模型API地址
   dangerouslyAllowBrowser: true,
 });
 
 const fetchData = (ques) => {
-  const completion = await client.value!.chat.completions.create({
+  const completion = await client.chat.completions.create({
     model: 'my-model', // 替换为自己的model名称
     messages: [
       { role: 'user', content: ques },
@@ -345,9 +343,7 @@ const onSubmit = (evt) => {
 ```ts
 import OpenAI from 'openai';
 
-const client = ref<OpenAI>();
-
-client.value = new OpenAI({
+const client = new OpenAI({
   apiKey: '', // 模型APIKey
   baseURL: '', // 模型API地址
   dangerouslyAllowBrowser: true,
@@ -374,7 +370,7 @@ const fetchData = async (ques) => {
     id: '',
     loading: true,
   });
-  const completion = await client.value!.chat.completions.create({
+  const completion = await client.chat.completions.create({
     model: 'my-model', // 替换为自己的model名称
     messages: [{ role: 'user', content: ques }],
     stream: true, // 为 true 则开启接口的流式返回
@@ -414,7 +410,7 @@ MateChat 在不断的演进中，你可在这里了解我们的计划：[MateCha
 
 ## 谁在使用
 
-[CodeArts盘古助手](https://www.huaweicloud.com/product/codeartside/snap.html)
+[华为云CodeArts智能助手](https://www.huaweicloud.com/product/codeartside/snap.html)
 
 [InsCode AI IDE](https://inscode.csdn.net/)
 
