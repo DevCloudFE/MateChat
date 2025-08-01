@@ -12,6 +12,7 @@ import { McInput } from '@matechat/core';
 ```
 
 ### 基本用法
+绑定 `value` 等基本参数进行使用。
 
 :::demo
 
@@ -128,7 +129,7 @@ const onSubmit = (e) => {
 
 ### 自定义发送按钮
 
-通过`button`插槽自定义发送按钮，实现按钮 disable、loading 等状态和按钮图标、按钮文案的自定义
+通过`button`插槽自定义发送按钮，实现按钮 disable、loading 等状态和按钮图标、按钮文案的自定义。
 
 :::demo
 

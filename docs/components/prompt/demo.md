@@ -11,12 +11,14 @@ import { McPrompt } from '@matechat/core';
 ```
 
 ### 基本用法
-
+定义 `prompt` 列表。
 :::demo
 
 ```vue
 <template>
-  <McPrompt :list="promptData"></McPrompt>
+  <div style="width: 300px">
+    <McPrompt :list="promptData"></McPrompt>
+  </div>
 </template>
 
 <script setup>
@@ -41,15 +43,19 @@ const promptData = [
 
 ### 切换不同的排布
 
-通过 `direction` 来控制 prompt 的排布方式
+通过 `direction` 来控制 `prompt` 的排布方式。
 
 :::demo
 
 ```vue
 <template>
   <div class="demo-container">
-    <McPrompt :list="promptData"></McPrompt>
-    <McPrompt :list="promptData" :direction="'horizontal'"></McPrompt>
+    <div style="width: 300px">
+      <McPrompt :list="promptData"></McPrompt>
+    </div>
+    <div>
+      <McPrompt :list="promptData" :direction="'horizontal'"></McPrompt>
+    </div>
   </div>
 </template>
 
@@ -83,7 +89,7 @@ const promptData = [
 
 ### 展示不同详细度的 prompt
 
-你可以提示详细的内容，也可以只显示一个图标
+你可以提示详细的内容，也可以只显示一个图标。
 
 :::demo
 
@@ -91,9 +97,7 @@ const promptData = [
 <template>
   <div class="demo-container">
     <McPrompt :list="promptData1" :direction="'horizontal'"></McPrompt>
-    <br />
     <McPrompt :list="promptData2" :direction="'horizontal'"></McPrompt>
-    <br />
     <McPrompt :list="promptData3" :direction="'horizontal'"></McPrompt>
   </div>
 </template>
@@ -125,7 +129,6 @@ const promptData3 = [
 <style scoped lang="scss">
 .demo-container {
   display: flex;
-  flex-direction: column;
   gap: 8px;
 }
 </style>
@@ -135,7 +138,7 @@ const promptData3 = [
 
 ### 不同形态的 prompt
 
-你可以通过 `variant` 控制不同的 prompt 样式
+你可以通过 `variant` 控制不同的 `prompt` 样式。
 
 :::demo
 
@@ -169,7 +172,7 @@ const promptData = [
 
 ### 配置不同的 prompt 图标
 
-传入不同的图标，设置颜色，大小，以及自定义 icon
+传入不同的图标，设置颜色，大小，以及自定义 icon。
 
 :::demo
 
@@ -177,11 +180,8 @@ const promptData = [
 <template>
   <div class="demo-container">
     <McPrompt :list="promptData1"></McPrompt>
-    <br />
     <McPrompt :list="promptData2"></McPrompt>
-    <br />
     <McPrompt :list="promptData3"></McPrompt>
-    <br />
     <McPrompt :list="promptData4"></McPrompt>
   </div>
 </template>
@@ -230,6 +230,7 @@ const promptData4 = [
 .demo-container {
   display: flex;
   flex-direction: column;
+  width: 300px;
   gap: 8px;
 }
 </style>
