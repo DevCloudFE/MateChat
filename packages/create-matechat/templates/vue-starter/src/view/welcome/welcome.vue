@@ -1,8 +1,12 @@
 <template>
   <div class="welcome-page">
-    <McIntroduction :logo-img="GlobalConfig.logoPath || Logo2X" :title="GlobalConfig.title"
-      :sub-title="GlobalConfig.subTitle" :description="[$t('welcome.description1'), $t('welcome.description2')]"
-      class="welcome-introduction"></McIntroduction>
+    <McIntroduction
+      :logo-img="GlobalConfig.logoPath || Logo2X"
+      :title="GlobalConfig.title"
+      :sub-title="GlobalConfig.subTitle"
+      :description="[$t('welcome.description1'), $t('welcome.description2')]"
+      class="welcome-introduction"
+    ></McIntroduction>
     <div class="guess-question">
       <div class="guess-title">
         <div>{{ $t("welcome.guessYouWantAsk") }}</div>
@@ -12,7 +16,11 @@
         </div>
       </div>
       <div class="guess-content">
-        <span v-for="(item, index) in list" :key="index" @click="onItemClick(item)">
+        <span
+          v-for="(item, index) in list"
+          :key="index"
+          @click="onItemClick(item)"
+        >
           {{ item.label }}
         </span>
       </div>
@@ -30,20 +38,17 @@ import {
 import { useChatMessageStore, useLangStore } from "@/store";
 import { LangType } from "@/types";
 import Logo2X from "../../../public/logo2x.svg";
-import { useTheme } from "@/hooks";
-import { CustomThemeDataConfig } from "@/constant";
 
 const langStore = useLangStore();
 const chatMessageStore = useChatMessageStore();
-const { applyThemeWithCustom, createCustomTheme, genCustomThemeData } = useTheme();
+
 const list = computed(() =>
   langStore.currentLang === LangType.CN ? guessQuestionsCn : guessQuestionsEn
 );
 
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
-    let answer: string = mockAnswer[item.value];
-    chatMessageStore.ask(item.label, answer);
+    chatMessageStore.ask(item.label, mockAnswer[item.value]);
   }
 };
 </script>
@@ -83,13 +88,12 @@ const onItemClick = (item) => {
       color: $devui-text;
       margin-bottom: 16px;
 
-      &>div:first-child {
+      & > div:first-child {
         font-weight: 700;
         font-size: 16px;
         line-height: 24px;
       }
-
-      &>div:last-child {
+      & > div:last-child {
         font-size: $devui-font-size;
         color: $devui-aide-text;
         cursor: pointer;
@@ -106,7 +110,6 @@ const onItemClick = (item) => {
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-
       span {
         font-size: $devui-font-size;
         color: $devui-aide-text;
