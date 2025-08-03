@@ -43,4 +43,23 @@ export default {
   chatSetting: "Chat Setting",
   newChat: "New Conversation",
   noData: "No Data",
+  modelConfig: {
+  title: 'Model Configuration',
+  modelList: 'Configured Models',
+  available: 'Available',
+  unavailable: 'Unavailable',
+  apiPath: 'API Path',
+  apiKey: 'API Key',
+  enterApiPath: 'Enter API Path',
+  enterApiKey: 'Enter API Key',
+  models: 'Models List',
+  save: 'Save',
+  saveSuccess: 'Save Successful',
+  addModel: 'Add New Model',
+  providerKey: 'Provider Key',
+  enterProviderKey: 'Enter Provider Key',
+  add: 'Add',
+  addSuccess: 'Add Successful',
+  fillRequired: 'Please fill in required fields'
+}
 };

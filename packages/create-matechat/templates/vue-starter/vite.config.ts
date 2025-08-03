@@ -6,7 +6,7 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/vue-starter",
+  base: "./", // 使用相对路径以便打包后正常加载
   plugins: [
     vue(),
     vueJsx(),

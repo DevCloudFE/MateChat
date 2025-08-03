@@ -24,9 +24,7 @@ import GlobalConfig from "@/global-config";
   box-sizing: border-box;
   background: var(--mc-global-bg);
 }
-.aside-content:not(.Assistant) {
-  padding: 0 8px;
-}
+
 .main-content {
   position: relative;
   flex: 1;

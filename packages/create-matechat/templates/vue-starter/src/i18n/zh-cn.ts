@@ -42,4 +42,25 @@ export default {
   chatSetting: "聊天设置",
   newChat: "新建对话",
   noData: "无数据",
+  modelConfig: {
+  title: '模型配置',
+  modelList: '已配置模型',
+  available: '可用',
+  unavailable: '不可用',
+  apiPath: 'Base URL',
+  apiKey: 'API Key',
+  enterApiPath: '请输入API路径',
+  enterApiKey: '请输入API密钥',
+  models: '模型列表',
+  save: '保存',
+  saveSuccess: '保存成功',
+  addModel: '添加新模型',
+  providerKey: '提供商标识',
+  enterProviderKey: '请输入提供商标识',
+  add: '添加新模型',
+  modelName: "模型名称",
+  enter: "请输入",
+  addSuccess: '添加成功',
+  fillRequired: '请填写必填字段'
+}
 };

@@ -17,16 +17,14 @@
       </d-popover>
       <SwitchLang v-if="!GlobalConfig.language" />
       <Theme v-if="!GlobalConfig.theme" />
-      <d-popover :position="['bottom-end']" trigger="hover">
-        <template #content>
-          <span class="devui-text">{{ $t("navbar.systemSetting") }}</span>
-        </template>
-        <div class="switch-lang-container">
-          <i class="icon-setting system-setting" />
-        </div>
-      </d-popover>
+      <!-- 修改设置按钮，添加点击事件 -->
+      <div class="switch-lang-container" @click="openModelConfig">
+        <i class="icon-setting system-setting" />
+      </div>
     </div>
   </div>
+  <!-- 模型配置弹窗 -->
+  <ModelConfigModal v-model="isModelConfigVisible" />
 </template>
 
 <script setup lang="ts">
@@ -35,6 +33,18 @@ import { SwitchLang } from "@/view/navbar";
 import { Theme } from "@/view/theme";
 import { HistoryList } from "@view/history";
 import Logo from "../../../public/logo.svg";
+import { ref } from "vue";
+// 引入将要创建的模型配置弹窗组件
+import ModelConfigModal from "@/view/chat-setting/model-config-modal.vue";
+
+// 控制弹窗显示的状态
+const isModelConfigVisible = ref(false);
+
+// 打开模型配置弹窗的方法
+const openModelConfig = () => {
+  console.log('open dialog')
+  isModelConfigVisible.value = true;
+};
 </script>
 
 <style scoped lang="scss">

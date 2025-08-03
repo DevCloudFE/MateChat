@@ -4,7 +4,7 @@ import QwenIcon from "../../public/qwen.svg";
 
 export const MODEL_CONFIGS = {
   stream: true,
-  enableMock: true,
+  enableMock: false,
 };
 
 export enum LLMProviders {
