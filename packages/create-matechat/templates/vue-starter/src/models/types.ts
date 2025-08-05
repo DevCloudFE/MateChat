@@ -19,6 +19,8 @@ export interface ModelOption {
   modelName: string;
   providerKey: LLMProviders;
   clientKey: LLMClientKey;
+  apiKey?: string;
+  apiPath?: string;
   active: boolean;
   iconPath: string;
 }

@@ -38,16 +38,14 @@ const selectedAgent = ref<ModelOption | null>(null);
 const buildAgentList = (models: LLMModelsConfig[]) => {
   const list: ModelOption[] = [];
   for (const item of models) {
-    if (item.models && !Array.isArray(item.models)) {
-      item.models.length = Object.keys(item.models).length;
-      item.models = Array.from(item.models);
-    }
     if (item.models?.length) {
       for (const model of item.models) {
         list.push({
           label: model.name,
           modelName: model.name,
           providerKey: item.providerKey,
+          apiKey: item.apiKey,
+          apiPath: item.apiPath,
           clientKey: item.clientKey,
           active: false,
           iconPath: model.iconPath,
@@ -61,10 +59,9 @@ const buildAgentList = (models: LLMModelsConfig[]) => {
 // 初始化模型列表
 const initAgentList = async () => {
   const models = await getModelConfigs();
-  console.log('agent models', models)
   agentList.value = buildAgentList(models);
-  console.log('agent list', agentList.value)
   selectedAgent.value = agentList.value[0] || null;
+  console.log('selectedAgent', selectedAgent.value)
   if (selectedAgent.value) {
     chatModelStore.currentModel = selectedAgent.value;
     chatModelStore.currentModelName = selectedAgent.value.modelName;
@@ -73,8 +70,7 @@ const initAgentList = async () => {
 };
 
 onMounted(()=> {
-initAgentList();
-
+  initAgentList();
 })
 
 // 监听模型配置变化，更新模型列表
@@ -99,8 +95,6 @@ watch(
   },
   { deep: true }
 );
-
-// selectedAgent 已在 initAgentList 中初始化
 
 const onSelectModel = (val) => {
   for (const item of agentList.value) {

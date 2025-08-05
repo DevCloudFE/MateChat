@@ -1,0 +1,42 @@
+{
+    "manifest_version": 3,
+    "name": "MateChat",
+    "version": "1.0.0",
+    "description": "一个使用MateChat构建的智能助手聊天应用，作为浏览器侧边栏常驻窗口。",
+    "author": "DevUI",
+    "commands": {
+        "open-matechat": {
+            "suggested_key": {
+                "default": "Ctrl+T"
+            },
+            "description": "打开MateChat页面"
+        }
+    },
+    "action": {
+        "default_icon": {
+            "16": "./matechat.png",
+            "48": "./matechat.png",
+            "128": "./matechat.png"
+        }
+    },
+    "icons": {
+        "16": "./matechat.png",
+        "48": "./matechat.png",
+        "128": "./matechat.png"
+    },
+    "permissions": ["activeTab", "storage"],
+    "side_panel": {
+        "default_path": "/features/matechat/index.html"
+    },
+    "devui_feature": {
+        "id": "matechat",
+        "isEnabled": true,
+        "settingsUrl": "/features/matechat/index.html",
+        "storageKey": "matechatConfig",
+        "createdAt": "2023-10-10",
+        "category": "communication",
+        "height": 580,
+        "width": 350,
+        "showHeader": false
+    }
+}
