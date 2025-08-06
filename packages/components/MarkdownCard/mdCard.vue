@@ -1,6 +1,6 @@
 <template>
   <div class="mc-markdown-render" :class="themeClass">
-    <component :is="markdownComponent" />
+    <component :is="testNodes" />
   </div>
   <div v-if="false">
     <slot name="actions"></slot>
@@ -15,7 +15,7 @@ import markdownit from 'markdown-it';
 import type { MarkdownIt, Token } from 'markdown-it';
 import { type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
 import CodeBlock from './CodeBlock.vue';
-import { MDCardService } from './MDCardService';
+import { MDCardService, ASTNode } from './MDCardService';
 import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
 
 type MarkdownComponentType = {
@@ -56,6 +56,8 @@ const parsedContent = ref<{ tokens: Token[]; html: string }>({
 const typingIndex = ref(0)
 const isTyping = ref(false)
 
+const testNodes = ref<VNode[]>([]);
+
 const parseContent = () => {
   let content = props.content || '';
   if (props.typing && isTyping.value) {
@@ -76,9 +78,140 @@ const parseContent = () => {
         .replace('</think>', '</div>') || '';
   }
   const tokens = mdt.parse(content, {});
+  const ast = mdCardService.tokensToAst(tokens);
+
+  // console.log('tokens:', tokens)
+  // console.log('ast:', ast)
+
+  const vnodes = astToVnodes(ast, h);
+
+  testNodes.value = h('div', vnodes);
+
+
   const html = mdt.render(content);
   parsedContent.value = { tokens, html };
 };
+
+const astToVnodes = (nodes: ASTNode[], h): VNode[] => {
+  return nodes.map(node => processASTNode(node, h));
+}
+
+const processASTNode = (node: ASTNode | Token, h: any): VNode => {
+  if (isToken(node)) {
+    return processToken(node, h);
+  }
+  
+  return processASTNodeInternal(node, h);
+}
+
+const isToken = (node: ASTNode | Token): node is Token => {
+  return 'type' in node && 'content' in node;
+}
+
+const processToken = (token: Token, h: any): VNode => {
+  if (token.type === 'text') {
+    return token.content;
+  }
+  
+  if (token.type === 'inline') {
+    return processInlineToken(token, h);
+  }
+
+  if (token.type === 'fence') {
+    return processFenceToken(token, h);
+  }
+  
+  if (token.type === 'softbreak') {
+    return mdt.options.breaks ? h('br') : '\n';
+  }
+  
+  // 优先使用token的tag属性
+  if (token.tag) {
+    const attrs = convertAttrsToProps(token.attrs || []);
+    return h(token.tag, attrs, token.content);
+  }
+  
+  return token.content;
+}
+
+const processInlineToken = (token: Token, h: any): VNode => {
+  // 直接处理所有children
+  const children = token.children?.map(child => processToken(child, h)) || [];
+  
+  return h('span', {}, children);
+}
+
+
+
+const processASTNodeInternal = (node: ASTNode, h: any): VNode => {
+
+  console.log('processASTNodeInternal called, node:', node);
+
+  const tag = node.openNode?.tag || 'div';
+  const attrs = convertAttrsToProps(node.openNode?.attrs || []);
+  
+  // 特殊处理fence类型的token
+  if (node.openNode?.type === 'fence') {
+    return processFenceToken(node.openNode, h);
+  }
+  
+  // 检查是否包含html_inline类型的子节点
+  const hasHtmlInline = node.children.some(child => 
+    typeof child === 'object' && 'type' in child && child.type === 'html_inline'
+  );
+  
+  if (hasHtmlInline) {
+    // 如果有html_inline，将所有内容拼接成HTML字符串
+    const htmlContent = node.children.map(child => {
+      if (typeof child === 'object' && 'type' in child) {
+        if (child.type === 'html_inline') {
+          return child.content;
+        } else if (child.type === 'text') {
+          return child.content;
+        } else {
+          // 对于其他类型的token，递归处理，但返回字符串
+          const vnode = processASTNode(child, h);
+          return typeof vnode === 'string' ? vnode : '';
+        }
+      } else {
+        // 对于AST节点，递归处理，但返回字符串
+        const vnode = processASTNode(child, h);
+        return typeof vnode === 'string' ? vnode : '';
+      }
+    }).join('');
+    
+    console.log('htmlContent:', htmlContent);
+    
+    return h('span', { innerHTML: htmlContent });
+  }
+  
+  // 处理所有带tag的AST节点
+  if (node.openNode?.tag) {
+    const children = node.children.map(child => processASTNode(child, h));
+    const key = node.openNode.map ? `${node.openNode.type}_${node.openNode.map[0]}` : undefined;
+    const props = { ...attrs, ...(key && { key }) };
+    return h(tag, props, children);
+  }
+  
+  const children = node.children.map(child => processASTNode(child, h));
+  
+  return h(tag, attrs, children);
+}
+
+const processFenceToken = (token: Token, h: any): VNode => {
+  const language = token.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
+  const code = token.content;
+  
+  return createCodeBlock(language, code, 0); // 暂时使用固定的blockIndex
+}
+
+const convertAttrsToProps = (attrs: [string, string][]): Record<string, string> => {
+  return attrs.reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>);
+}
+
 
 watch(
   () => [props.enableThink, props.thinkOptions?.customClass],
