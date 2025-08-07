@@ -71,6 +71,34 @@ export class MDCardService {
     }
   }
 
+  // 判断是否是结束标签
+  private isClosingTag(openToken: Token, closeToken: Token): boolean {
+    // 简单的标签匹配逻辑，可以根据需要扩展
+    const openContent = openToken?.content || '';
+    const closeContent = closeToken?.content || '';
+    
+    // 提取标签名
+    const openTagMatch = openContent.match(/<(\w+)/);
+    const closeTagMatch = closeContent.match(/<\/(\w+)/);
+    
+    if (openTagMatch && closeTagMatch) {
+      return openTagMatch[1] === closeTagMatch[1];
+    }
+    
+    return false;
+  }
+
+  private isSelfClosingTag(token: Token): boolean {
+    // 判断token.content里面是否包含成对的标签，或者是否自闭合标签
+    const content = token.content || '';
+    const openTagMatch = content.match(/<(\w+)/);
+    const closeTagMatch = content.match(/<\/(\w+)/);
+    if (openTagMatch && closeTagMatch) {
+      return openTagMatch[1] === closeTagMatch[1];
+    }
+    return false;
+  }
+
   filterHtml(html: string) {
     return filterXSS(html, {
       whiteList: this.xssWhiteList,
@@ -87,88 +115,126 @@ export class MDCardService {
   }
 
   tokensToAst(tokens: Token[]): ASTNode[] {
-    function genTreeNode(node: Token | null): ASTNode {
-        return {
-            nodeType: node ? node.type.replace('_open', '') : '',
-            openNode: node,
-            closeNode: null,
-            children: []
-        };
-    }
+    const genTreeNode = (node: Token | null): ASTNode => {
+      return {
+        nodeType: node ? node.type.replace('_open', '') : 'root',
+        openNode: node,
+        closeNode: null,
+        children: []
+      };
+    };
 
-    function processInlineTokens(inlineTokens: Token[]): (ASTNode | Token)[] {
-        const result: (ASTNode | Token)[] = [];
-        let i = 0;
-        
-        while (i < inlineTokens.length) {
-            const token = inlineTokens[i];
-            
-            if (token.nesting === 1) {
-                // 开始标签
-                const astNode = genTreeNode(token);
-                result.push(astNode);
-                
-                // 找到对应的结束标签
-                let j = i + 1;
-                while (j < inlineTokens.length && 
-                       (inlineTokens[j].type !== token.type.replace('_open', '_close') || 
-                        inlineTokens[j].nesting !== -1)) {
-                    j++;
-                }
-                
-                if (j < inlineTokens.length) {
-                    // 处理标签内的内容
-                    const innerTokens = inlineTokens.slice(i + 1, j);
-                    astNode.children = processInlineTokens(innerTokens);
-                    astNode.closeNode = inlineTokens[j];
-                    i = j + 1; // 跳过结束标签
-                } else {
-                    i++;
-                }
-            } else if (token.nesting === 0) {
-                // 普通token，html_inline保持为token
-                result.push(token);
-                i++;
-            } else {
-                // 结束标签，跳过
-                i++;
-            }
-        }
-        
-        return result;
-    }
+    // 递归处理 inline 类型的 token
+    const processInlineToken = (token: Token): ASTNode => {
+      const node = genTreeNode(token);
+      
+      // 如果 token 有 children，递归处理它们
+      if (token.children && token.children.length > 0) {
+        node.children = this.tokensToAst(token.children);
+      }
+      
+      return node;
+    };
 
-    // dummy root node
-    var rootNode = genTreeNode(null);
-    var curr = rootNode;
-    var stack: ASTNode[] = [];
-    tokens.forEach(function(tok, idx) {
-        var tmp: ASTNode;
-        if (tok.nesting == 1) {
-            tmp = genTreeNode(tok);
-            curr.children.push(tmp);
-            stack.push(curr);
-            curr = tmp;
-        } else if (tok.nesting == -1) {
-            curr.closeNode = tok;
-            if(!stack.length) throw new Error('AST stack underflow.');
-            tmp = stack.pop()!;
-            curr = tmp;
-        } else if (tok.nesting == 0) {
-            if (tok.type === 'inline') {
-                // 特殊处理inline token，递归解析其children
-                curr.children.push(...processInlineTokens(tok.children || []));
-            } else {
-                curr.children.push(tok);
-            }
+    const processHtmlBlockToken = (token: Token): ASTNode => {
+      const node = genTreeNode(token);
+      node.nodeType = 'html_block';
+      return node;
+    };
+
+    // 创建根节点
+    const rootNode = genTreeNode(null);
+    let curr: ASTNode = rootNode;
+    const stack: ASTNode[] = [];
+    const htmlBlockStack: Token[] = [];
+    const htmlBlockTokenStack: Token[] = [];
+
+    tokens.forEach((tok: Token, idx: number) => {
+      let tmp: ASTNode;
+
+      if (tok.type === 'html_block') {
+        // 如果当前的htmlBlockStack为空，则将当前的htmlBlockToken压入栈中
+        if (htmlBlockTokenStack.length === 0) {
+          htmlBlockStack.push(tok);
+          if (!this.isSelfClosingTag(tok)) {
+            htmlBlockTokenStack.push(tok);
+          }
         } else {
-            throw new Error('Invalid nesting level found in token index ' + idx + '.');
+          // 如果当前栈不为空，判断当前tok是否是当前栈的结束标签，如果是，则将当前栈的htmlBlockToken压入栈中，然后将创建一个新的treeNode，将当前栈作为treeNode的children，清空栈
+          
+          if (this.isSelfClosingTag(tok)) {
+            htmlBlockStack.push(tok);
+          }
+
+          const firstToken = htmlBlockStack[0];
+          const prevToken = htmlBlockTokenStack[htmlBlockTokenStack.length - 1];
+          // 是否成对的开闭标签
+          const matchTag = this.isClosingTag(prevToken, tok);
+
+          if (!this.isSelfClosingTag(tok)) {
+            htmlBlockStack.push(tok);
+          }
+
+          if (matchTag) {
+            htmlBlockTokenStack.pop();
+          } else {
+            htmlBlockTokenStack.push(tok);
+          }
+
+          if (!htmlBlockTokenStack.length) {
+            const htmlBlockNode = processHtmlBlockToken(firstToken);
+            htmlBlockNode.children = htmlBlockStack.map(token => token);
+            curr.children.push(htmlBlockNode);
+            htmlBlockStack.length = 0; // 清空栈
+          }
         }
+        return; // 跳过后续处理
+      } else if (tok.type !== 'html_block' && htmlBlockStack.length > 0) {
+        // 如果当前的htmlBlockStack不为空，则将当前的htmlBlockToken压入栈中，跳过本次循环
+        htmlBlockStack.push(tok);
+        return; // 跳过本次循环
+      }
+
+      if (tok.nesting === 1) {
+        // 开始标签
+        tmp = genTreeNode(tok);
+        curr.children.push(tmp);
+        stack.push(curr);
+        curr = tmp;
+      } else if (tok.nesting === -1) {
+        // 结束标签
+        curr.closeNode = tok;
+        if (!stack.length) {
+          throw new Error('AST stack underflow.');
+        }
+        tmp = stack.pop()!;
+        curr = tmp;
+      } else if (tok.nesting === 0) {
+        // 自闭合标签或 inline 内容
+        if (tok.type === 'inline' && tok.children && tok.children.length > 0) {
+          // 对于 inline 类型，递归处理其 children
+          const inlineNode = processInlineToken(tok);
+          curr.children.push(inlineNode);
+        } else {
+          // 普通 token，直接添加
+          curr.children.push(tok);
+        }
+      } else {
+        throw new Error(`Invalid nesting level found in token index ${idx}.`);
+      }
     });
 
-    if (stack.length != 0)
-        throw new Error('Unbalanced block open/close tokens.');
+    if (stack.length !== 0) {
+      throw new Error('Unbalanced block open/close tokens.');
+    }
 
-    return rootNode.children as ASTNode[];
+    // 处理剩余的 HTML 块栈
+    if (htmlBlockStack.length > 0) {
+      const htmlBlockNode = processHtmlBlockToken(htmlBlockStack[0]);
+      htmlBlockNode.children = htmlBlockStack.map(token => token);
+      rootNode.children.push(htmlBlockNode);
+    }
+
+    return rootNode.children;
   }
 }

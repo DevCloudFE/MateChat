@@ -44,10 +44,6 @@ const mdt: MarkdownIt = markdownit({
   ...props.mdOptions,
 });
 
-mdt.renderer.rules.fence = (tokens: Token[], idx: number) => {
-  return `<!----MC_MARKDOWN_CODE_BLOCK_${idx}---->`;
-};
-
 const parsedContent = ref<{ tokens: Token[]; html: string }>({
   tokens: [],
   html: '',
@@ -80,8 +76,8 @@ const parseContent = () => {
   const tokens = mdt.parse(content, {});
   const ast = mdCardService.tokensToAst(tokens);
 
-  // console.log('tokens:', tokens)
-  // console.log('ast:', ast)
+  console.log('tokens:', tokens)
+  console.log('ast:', ast)
 
   const vnodes = astToVnodes(ast, h);
 
@@ -97,6 +93,16 @@ const astToVnodes = (nodes: ASTNode[], h): VNode[] => {
 }
 
 const processASTNode = (node: ASTNode | Token, h: any): VNode => {
+  if (node.nodeType === 'html_block') {
+    const htmlContent = mdt.renderer.render(node.children, mdt.options);
+    return h('div', { innerHTML: htmlContent });  
+  }
+
+  if (node.nodeType === 'html_inline') {
+    const htmlContent = mdt.renderer.render(node.children, mdt.options);
+    return h('span', { innerHTML: htmlContent });  
+  }
+  
   if (isToken(node)) {
     return processToken(node, h);
   }
@@ -120,7 +126,7 @@ const processToken = (token: Token, h: any): VNode => {
   if (token.type === 'fence') {
     return processFenceToken(token, h);
   }
-  
+
   if (token.type === 'softbreak') {
     return mdt.options.breaks ? h('br') : '\n';
   }
@@ -145,44 +151,12 @@ const processInlineToken = (token: Token, h: any): VNode => {
 
 const processASTNodeInternal = (node: ASTNode, h: any): VNode => {
 
-  console.log('processASTNodeInternal called, node:', node);
-
   const tag = node.openNode?.tag || 'div';
   const attrs = convertAttrsToProps(node.openNode?.attrs || []);
   
   // 特殊处理fence类型的token
   if (node.openNode?.type === 'fence') {
     return processFenceToken(node.openNode, h);
-  }
-  
-  // 检查是否包含html_inline类型的子节点
-  const hasHtmlInline = node.children.some(child => 
-    typeof child === 'object' && 'type' in child && child.type === 'html_inline'
-  );
-  
-  if (hasHtmlInline) {
-    // 如果有html_inline，将所有内容拼接成HTML字符串
-    const htmlContent = node.children.map(child => {
-      if (typeof child === 'object' && 'type' in child) {
-        if (child.type === 'html_inline') {
-          return child.content;
-        } else if (child.type === 'text') {
-          return child.content;
-        } else {
-          // 对于其他类型的token，递归处理，但返回字符串
-          const vnode = processASTNode(child, h);
-          return typeof vnode === 'string' ? vnode : '';
-        }
-      } else {
-        // 对于AST节点，递归处理，但返回字符串
-        const vnode = processASTNode(child, h);
-        return typeof vnode === 'string' ? vnode : '';
-      }
-    }).join('');
-    
-    console.log('htmlContent:', htmlContent);
-    
-    return h('span', { innerHTML: htmlContent });
   }
   
   // 处理所有带tag的AST节点
@@ -301,55 +275,6 @@ const typewriterStart = () => {
 
   timer = setTimeout(typingStep);
 }
-
-const markdownComponent = computed<MarkdownComponentType>(() => {
-  return {
-    name: 'MarkdownRenderer',
-    render() {
-      if (typeof document === 'undefined') {
-        return h('div');
-      }
-      const { html, tokens } = parsedContent.value;
-      const vNodes: VNode[] = [];
-      let lastIndex = 0;
-      let match: RegExpExecArray | null;
-      const regex = /<!----MC_MARKDOWN_CODE_BLOCK_(\d+)---->/g;
-      let codeBlockIndex = 0;
-      let nodeIndex = 0;
-
-      while (true) {
-        match = regex.exec(html);
-        if (!match) break;
-        if (match.index > lastIndex) {
-          vNodes.push(
-            h('div', {
-              innerHTML: html.slice(lastIndex, match.index),
-              key: `markdown-segment-${nodeIndex++}`,
-            }),
-          );
-        }
-        const token = tokens[Number.parseInt(match[1])];
-        const lang = token?.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
-        const code = token.content;
-
-        vNodes.push(createCodeBlock(lang, code, codeBlockIndex));
-        codeBlockIndex++;
-        lastIndex = regex.lastIndex;
-      }
-
-      if (lastIndex < html.length) {
-        vNodes.push(
-          h('div', {
-            innerHTML: html.slice(lastIndex),
-            key: `markdown-segment-${nodeIndex++}`,
-          }),
-        );
-      }
-
-      return h('div', vNodes);
-    },
-  };
-});
 
 watch(
   () => props.customXssRules,
