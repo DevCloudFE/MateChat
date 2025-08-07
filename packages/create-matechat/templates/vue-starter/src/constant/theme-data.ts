@@ -24,8 +24,8 @@ export const CustomThemeDataConfig: CustomThemeConfig = {
   id: "custom-theme",
   name: "Custom Theme",
   data: {
-    "devui-brand": "#49ad49",
-    "mc-global-bg": "linear-gradient(to bottom, #bfe7bf, #e4f4ee, #c8e6f5)",
+    "devui-brand": "#F7A2AD",
+    "mc-global-bg": "linear-gradient(to bottom, #FFDDE1, #EE9CA7)",
   },
 };
 
