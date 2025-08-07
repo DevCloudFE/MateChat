@@ -40,21 +40,21 @@
 </template>
 
 <script setup lang="ts">
-import { useChatMessageStore, useChatModelStore } from "@/store";
-import { InputAppendix } from "@view/appendix";
-import { InputAtModel } from "@view/chat-model";
-import { InputOnlineSearch } from "@view/online-search";
-import { PromptsIcon } from "@/components";
-import { ref } from "vue";
+import { PromptsIcon } from '@/components';
+import { useChatMessageStore, useChatModelStore } from '@/store';
+import { InputAppendix } from '@view/appendix';
+import { InputAtModel } from '@view/chat-model';
+import { InputOnlineSearch } from '@view/online-search';
+import { ref } from 'vue';
 
 const chatMessageStore = useChatMessageStore();
 const chatModelStore = useChatModelStore();
 
-const inputValue = ref("");
+const inputValue = ref('');
 
 chatMessageStore.$onAction(({ name }) => {
-  if (name === "ask") {
-    inputValue.value = "";
+  if (name === 'ask') {
+    inputValue.value = '';
   }
 });
 
@@ -128,6 +128,7 @@ const onModelClick = () => {
     .mc-input-foot-left {
       overflow-x: auto;
       scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; } /* WebKit browsers */
     }
     .mc-button svg path {
       transition: fill $devui-animation-duration-slow

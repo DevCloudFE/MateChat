@@ -1,6 +1,6 @@
 ---
 title: List 列表
-desc: 用于展示一组内容或选项
+desc: 用于展示一组内容或选项，适用历史对话列表呈现等场景
 bannerSrc: '/listBanner.png'
 iconSrc: '/listIcon.png'
 ---
@@ -19,7 +19,7 @@ import { McList } from '@matechat/core';
 
 ```vue
 <template>
-  <McList :data="options" @select="onSelect"></McList>
+  <McList :data="options" @select="onSelect" class="my-list"></McList>
 </template>
 
 <script setup>
@@ -29,8 +29,8 @@ const options = ref(
   new Array(6).fill(0).map((item, i) => ({
     label: `Option ${i + 1}`,
     value: i + 1,
-    disabled: i === 1,
-    active: i === 2,
+    disabled: i === 3,
+    active: i === 1,
   })),
 );
 
@@ -38,6 +38,11 @@ const onSelect = (e) => {
   console.log('list selected', e);
 };
 </script>
+<style scoped lang="scss">
+  .my-list {
+    width: 280px;
+  }
+</style>
 ```
 
 :::
@@ -50,63 +55,29 @@ const onSelect = (e) => {
 
 ```vue
 <template>
-  <d-radio-group v-model="selectedVariant" direction="row">
-    <d-radio v-for="item in variantList" :key="item.value" :value="item.value">{{ item.label }}</d-radio>
-  </d-radio-group>
-  <div style="display:flex;align-items:center;"><d-switch v-model="autoWrap" size="sm"></d-switch>自动换行</div>
+  <div style="display: flex; margin-bottom: 10px; align-items: center;">
+    <div style="margin-right: 10px;">展示形态</div>
+    <d-radio-group v-model="selectedVariant" direction="row">
+      <d-radio v-for="item in variantList" :key="item.value" :value="item.value">{{ item.label }}</d-radio>
+    </d-radio-group>
+  </div>
+  <div style="display: flex; margin-bottom: 10px; align-items: center;">
+    <div style="margin-right: 10px;">自动换行</div>
+    <d-switch v-model="autoWrap" size="sm"></d-switch>
+  </div>
   <McList :data="options" :selectable="false" :autoWrap="autoWrap" direction="horizontal" :variant="selectedVariant"></McList>
 </template>
 
 <script setup>
 import { defineComponent, ref } from 'vue';
 
-const selectedVariant = ref('filled');
+const selectedVariant = ref('bordered');
 const autoWrap = ref(true);
 const variantList = ref([
   { label: '填充', value: 'filled' },
   { label: '边框', value: 'bordered' },
 ]);
 const options = ref(new Array(10).fill(0).map((item, i) => ({ label: `Option ${i + 1}`, value: i + 1 })));
-</script>
-```
-
-:::
-
-### 懒加载
-
-`enableLazyLoad`可设置是否启用懒加载，当启用懒加载时滚动到接近底部时会触发`loadMore`事件。
-
-组件默认设置列表最大高度为`300px`，用户可直接在组件标签上通过`style`或`class`的方式设置自定义样式。
-
-:::demo
-
-```vue
-<template>
-  <div v-loading="loading" :backdrop="true" position-type="relative" :view="{ top: '50%', left: '50%' }" :z-index="100">
-    <McList :data="options" enableLazyLoad @loadMore="onLoadMore" style="height:400px"></McList>
-  </div>
-</template>
-
-<script setup>
-import { defineComponent, ref } from 'vue';
-
-const options = ref(new Array(10).fill(0).map((item, i) => ({ label: `Option ${i + 1}`, value: i + 1 })));
-const loading = ref(false);
-const total = 30;
-const onLoadMore = () => {
-  if (loading.value || options.value.length >= total) {
-    return;
-  }
-  loading.value = true;
-  setTimeout(() => {
-    const newData = new Array(10).fill(0).map((item, i) => ({
-      label: `Option ${options.value.length + i}`,
-      value: options.value.length + i,
-    }));
-    options.value.push(...newData);
-    loading.value = false;
-  }, 1500);
-};
 </script>
 ```
 
@@ -191,6 +162,47 @@ const options = ref(new Array(4).fill(0).map((item, i) => ({ label: `Option ${i 
 const onSelect = (e) => {
   inputValue.value = e.label;
   isOpen.value = false;
+};
+</script>
+```
+
+:::
+
+
+### 懒加载
+
+`enableLazyLoad`可设置是否启用懒加载，当启用懒加载时滚动到接近底部时会触发`loadMore`事件。
+
+组件默认设置列表最大高度为`300px`，用户可直接在组件标签上通过`style`或`class`的方式设置自定义样式。
+
+:::demo
+
+```vue
+<template>
+  <div v-loading="loading" :backdrop="true" position-type="relative" :view="{ top: '50%', left: '50%' }" :z-index="100">
+    <McList :data="options" enableLazyLoad @loadMore="onLoadMore" style="height:400px"></McList>
+  </div>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const options = ref(new Array(10).fill(0).map((item, i) => ({ label: `Option ${i + 1}`, value: i + 1 })));
+const loading = ref(false);
+const total = 30;
+const onLoadMore = () => {
+  if (loading.value || options.value.length >= total) {
+    return;
+  }
+  loading.value = true;
+  setTimeout(() => {
+    const newData = new Array(10).fill(0).map((item, i) => ({
+      label: `Option ${options.value.length + i}`,
+      value: options.value.length + i,
+    }));
+    options.value.push(...newData);
+    loading.value = false;
+  }, 1500);
 };
 </script>
 ```

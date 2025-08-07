@@ -12,7 +12,7 @@ import { McMarkdownCard } from '@matechat/core';
 
 ### 基本用法
 
-基本用法只需传入 content 即可
+基本用法只需传入 content 即可。
 
 :::demo
 
@@ -218,7 +218,7 @@ onMounted(() => {
 
 ### think标签支持
 
-支持自定义的 think 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示
+支持自定义的 think 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示。
 
 :::demo
 
@@ -417,7 +417,7 @@ onMounted(() => {
 
 ### 主题切换
 
-组件提供了浅色与深色两种主题，默认使用浅色主题，可以通过 theme 属性来切换主题
+组件提供了浅色与深色两种主题，默认使用浅色主题，可以通过 theme 属性来切换主题。
 
 :::demo
 
@@ -580,21 +580,26 @@ onMounted(() => {
 
 
 ### Mermaid 渲染
-通过配置md-plugins Mermaid插件，进行Mermaid图渲染（DEMO未实际渲染，实际使用时解开代码中注释即可按预期渲染）。
+1. 设置enableMermaid为true开启mermaid渲染。注意：开启此功能前请确保项目已正确安装mermaid库。
+
+通过 npm 安装 mermaid:
+
+```bash
+$ npm install mermaid
+```
+
+2. 通过配置md-plugins Mermaid插件，进行Mermaid图渲染。
+
 :::demo
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-// import markdownItMermaid from "@datatraccorporation/markdown-it-mermaid";; // 请首先安装@datatraccorporation/markdown-it-mermaid依赖 实际使用时解开当前注释
 let themeService;
 const theme = ref('light');
-// const mdPlugins = ref([{
-//  plugin: markdownItMermaid,
-// }])
 const content = ref(`
 # Flow Chart
 \`\`\`mermaid
@@ -777,7 +782,7 @@ onMounted(() => {
 
 ### 自定义代码块操作区
 
-我们提供了 `actions` 插槽，支持你自定义代码块操作区
+我们提供了 `actions` 插槽，支持你自定义代码块操作区。
 
 :::demo
 
@@ -835,7 +840,7 @@ onMounted(() => {
 
 ### 自定义代码块头部
 
-我们提供了 `header` 插槽，支持你自定义代码块头部区域
+我们提供了 `header` 插槽，支持你自定义代码块头部区域。
 
 :::demo
 
@@ -928,7 +933,7 @@ onMounted(() => {
 
 ### 自定义代码块内容区
 
-我们提供了 `content` 插槽，支持你自定义代码块内容区
+我们提供了 `content` 插槽，支持你自定义代码块内容区。
 
 :::demo
 
@@ -1049,7 +1054,7 @@ body[ui-theme='infinity-theme'] {
 <style scoped lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
 .content-container :deep() {
-  padding: 12px;
+  padding: 12px 12px 12px 22px;
   background-color: $devui-base-bg;
 
   &.hljs {

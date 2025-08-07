@@ -10,23 +10,20 @@
 </template>
 
 <script setup lang="ts">
-import GlobalConfig from "@/global-config";
+import GlobalConfig from '@/global-config';
 </script>
 
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
 
 .matechat-layout {
-  width: 100%;
-  height: 100vh;
-  padding: 8px 8px 8px 0;
-  overflow: auto;
-  box-sizing: border-box;
-  background: var(--mc-global-bg);
-}
-.aside-content:not(.Assistant) {
-  padding: 0 8px;
-}
+    width: 100%;
+    height: 100vh;
+    padding: 8px 8px 8px 0;
+    overflow: auto;
+    box-sizing: border-box;
+    background: var(--mc-global-bg);
+  }
 .main-content {
   position: relative;
   flex: 1;

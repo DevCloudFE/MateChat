@@ -12,6 +12,8 @@ import { McIntroduction } from '@matechat/core';
 
 ### 基本用法
 
+用于呈现 `logo`、`title`、`subTitle`，显示介绍信息。
+
 :::demo
 
 ```vue
@@ -23,6 +25,8 @@ import { McIntroduction } from '@matechat/core';
 :::
 
 ### 补充描述信息
+
+使用 `description` 字段增加描述，用于介绍更多有用信息。
 
 :::demo
 
@@ -46,50 +50,9 @@ const description = [
 
 :::
 
-### 设置不同的背景样式
-
-:::demo
-
-```vue
-<template>
-  <McIntroduction :logoImg="'/logo2x.svg'" :title="'MateChat'" :subTitle="'Hi，欢迎使用 MateChat'" :background="'filled'"></McIntroduction>
-</template>
-```
-
-:::
-
-### 设置不同的文字对齐方式
-
-:::demo
-
-```vue
-<template>
-  <McIntroduction
-    :logoImg="'/logo2x.svg'"
-    :title="'MateChat'"
-    :subTitle="'Hi，欢迎使用 MateChat'"
-    :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
-    :align="'left'"
-  ></McIntroduction>
-  <McIntroduction
-    :logoImg="'/logo2x.svg'"
-    :title="'MateChat'"
-    :subTitle="'Hi，欢迎使用 MateChat'"
-    :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
-  ></McIntroduction>
-  <McIntroduction
-    :logoImg="'/logo2x.svg'"
-    :title="'MateChat'"
-    :subTitle="'Hi，欢迎使用 MateChat'"
-    :align="'right'"
-    :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
-  ></McIntroduction>
-</template>
-```
-
-:::
-
 ### 自定义下方补充区域
+
+可通过 `slot插槽` 自定义更多信息，如一些提示词，“猜你想问”等信息。
 
 :::demo
 
@@ -116,5 +79,40 @@ const description = [
 }
 </style>
 ```
+:::
+
+### 设置不同的文字对齐方式
+
+通过 `align` 参数，可用于设置文字的不同对齐方式，适用不同的场景。
+
+:::demo
+
+```vue
+<template>
+  <McIntroduction
+    :logoImg="'/logo2x.svg'"
+    :title="'MateChat'"
+    :subTitle="'Hi，欢迎使用 MateChat'"
+    :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
+    :align="'left'"
+  ></McIntroduction>
+  <div style="margin: 40px;"/>
+  <McIntroduction
+    :logoImg="'/logo2x.svg'"
+    :title="'MateChat'"
+    :subTitle="'Hi，欢迎使用 MateChat'"
+    :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
+  ></McIntroduction>
+  <div style="margin: 40px;"/>
+  <McIntroduction
+    :logoImg="'/logo2x.svg'"
+    :title="'MateChat'"
+    :subTitle="'Hi，欢迎使用 MateChat'"
+    :align="'right'"
+    :description="['MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。']"
+  ></McIntroduction>
+</template>
+```
 
 :::
+
