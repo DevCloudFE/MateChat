@@ -25,16 +25,17 @@ import { NavBar } from '@view/navbar';
 
 const displayShape = GlobalConfig.displayShape;
 useLang();
-const { applyTheme } = useTheme();
+const { initTheme, applyTheme, createCustomThemeFromConfig } = useTheme();
 const themeStore = useThemeStore();
 const langStore = useLangStore();
 
 init();
 function init() {
   if (GlobalConfig.theme) {
-    themeStore.theme =
-      GlobalConfig.theme === ThemeEnum.Dark ? ThemeEnum.Dark : ThemeEnum.Light;
+    themeStore.theme = ThemeEnum.Custom;
+    themeStore.currentCustomTheme = createCustomThemeFromConfig(GlobalConfig.theme)
   }
+  initTheme();
   applyTheme();
 
   if (GlobalConfig.language) {
