@@ -159,7 +159,7 @@ const onToggle = () => {
   }
 }
 
-body[ui-theme="infinity-theme"] {
+body[ui-theme-type="light"] {
   .chat-view-wrapper {
     background: linear-gradient(
       180deg,
@@ -169,7 +169,7 @@ body[ui-theme="infinity-theme"] {
   }
 }
 
-body[ui-theme="galaxy-theme"] {
+body[ui-theme-type="dark"] {
   .chat-view-wrapper {
     background-color: $devui-global-bg;
   }
