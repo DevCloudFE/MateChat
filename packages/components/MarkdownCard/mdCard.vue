@@ -81,6 +81,8 @@ const parseContent = () => {
 
   const vnodes = astToVnodes(ast, h);
 
+  console.log('vnodes:', vnodes)
+
   testNodes.value = h('div', vnodes);
 
 
@@ -92,10 +94,58 @@ const astToVnodes = (nodes: ASTNode[], h): VNode[] => {
   return nodes.map(node => processASTNode(node, h));
 }
 
+const htmlToVNodes = (htmlString: string): (VNode | string)[] => {
+    if (!htmlString || !htmlString.trim()) return []
+
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(`<body>${htmlString}</body>`, 'text/html')
+    const vnodes: (VNode | string)[] = []
+
+    doc.body.childNodes.forEach((node, index) => {
+        const vnode = nodeToVNode(node)
+        if (vnode) {
+            if (typeof vnode === 'object') (vnode as any).key = index
+            vnodes.push(vnode)
+        }
+    })
+
+    return vnodes
+}
+
+const nodeToVNode = (node: Node): VNode | string | null => {
+        if (node.nodeType === Node.TEXT_NODE) return node.textContent || ''
+        if (node.nodeType !== Node.ELEMENT_NODE) return null
+
+        const elementNode = node as Element
+        const props: Record<string, any> = {}
+
+        if (elementNode.hasAttributes() && elementNode.attributes) {
+            for (const attr of Array.from(elementNode.attributes)) {
+                props[attr.name] = attr.value
+            }
+        }
+
+        const children: (VNode | string)[] = []
+
+        if (elementNode.childNodes.length > 0) {
+            elementNode.childNodes.forEach(child => {
+                const childVNode = nodeToVNode(child)
+                if (childVNode) {
+                    children.push(childVNode)
+                }
+            })
+        }
+
+        return h(elementNode.tagName.toLowerCase(), props, children)
+    }
+
 const processASTNode = (node: ASTNode | Token, h: any): VNode => {
   if (node.nodeType === 'html_block') {
-    const htmlContent = mdt.renderer.render(node.children, mdt.options);
-    return h('div', { innerHTML: htmlContent });  
+
+    const outerVnode:VNode = htmlToVNodes(node.openNode?.content || '')[0];
+    outerVnode.children = node.children.map(child => processASTNode(child, h))    
+
+    return outerVnode;
   }
 
   if (node.nodeType === 'html_inline') {
@@ -129,6 +179,14 @@ const processToken = (token: Token, h: any): VNode => {
 
   if (token.type === 'softbreak') {
     return mdt.options.breaks ? h('br') : '\n';
+  }
+
+  if (token.type === 'html_block' || token.type === 'html_inline') {
+
+    console.log(token);
+
+    const node:VNode = htmlToVNodes(token.content || '')[0];
+    return node;
   }
   
   // 优先使用token的tag属性

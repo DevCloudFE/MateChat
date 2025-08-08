@@ -89,14 +89,68 @@ export class MDCardService {
   }
 
   private isSelfClosingTag(token: Token): boolean {
-    // 判断token.content里面是否包含成对的标签，或者是否自闭合标签
+    // 判断token.content里面是否包含完整的HTML结构（所有开始标签都有对应的结束标签）
     const content = token.content || '';
-    const openTagMatch = content.match(/<(\w+)/);
-    const closeTagMatch = content.match(/<\/(\w+)/);
-    if (openTagMatch && closeTagMatch) {
-      return openTagMatch[1] === closeTagMatch[1];
+    
+    // 检查是否是自闭合标签（如 <img />, <br /> 等）
+    if (content.match(/<(\w+)[^>]*\/>/)) {
+      return true;
     }
-    return false;
+    
+    // 检查是否包含完整的HTML结构
+    const tagStack: string[] = [];
+    const openTagRegex = /<(\w+)[^>]*>/g;
+    const closeTagRegex = /<\/(\w+)>/g;
+    
+    let openMatch;
+    let closeMatch;
+    
+    // 重置正则表达式的lastIndex
+    openTagRegex.lastIndex = 0;
+    closeTagRegex.lastIndex = 0;
+    
+    // 按顺序处理所有标签
+    const allMatches: Array<{type: 'open' | 'close', tagName: string, index: number}> = [];
+    
+    // 收集所有开始标签
+    while ((openMatch = openTagRegex.exec(content)) !== null) {
+      allMatches.push({
+        type: 'open',
+        tagName: openMatch[1],
+        index: openMatch.index
+      });
+    }
+    
+    // 收集所有结束标签
+    while ((closeMatch = closeTagRegex.exec(content)) !== null) {
+      allMatches.push({
+        type: 'close',
+        tagName: closeMatch[1],
+        index: closeMatch.index
+      });
+    }
+    
+    // 按位置排序
+    allMatches.sort((a, b) => a.index - b.index);
+    
+    // 检查标签是否完全匹配
+    for (const match of allMatches) {
+      if (match.type === 'open') {
+        tagStack.push(match.tagName);
+      } else {
+        if (tagStack.length === 0) {
+          return false; // 没有对应的开始标签
+        }
+        const lastOpenTag = tagStack[tagStack.length - 1];
+        if (lastOpenTag !== match.tagName) {
+          return false; // 标签不匹配
+        }
+        tagStack.pop();
+      }
+    }
+    
+    // 只有当所有标签都正确匹配时，才认为是自闭合的
+    return tagStack.length === 0;
   }
 
   filterHtml(html: string) {
@@ -146,53 +200,40 @@ export class MDCardService {
     const rootNode = genTreeNode(null);
     let curr: ASTNode = rootNode;
     const stack: ASTNode[] = [];
-    const htmlBlockStack: Token[] = [];
     const htmlBlockTokenStack: Token[] = [];
+    const htmlBlockASTNodeStack: ASTNode[] = [];
 
     tokens.forEach((tok: Token, idx: number) => {
       let tmp: ASTNode;
 
-      if (tok.type === 'html_block') {
-        // 如果当前的htmlBlockStack为空，则将当前的htmlBlockToken压入栈中
-        if (htmlBlockTokenStack.length === 0) {
-          htmlBlockStack.push(tok);
-          if (!this.isSelfClosingTag(tok)) {
-            htmlBlockTokenStack.push(tok);
+      if ((tok.type === 'html_block') && !this.isSelfClosingTag(tok)) {
+
+        // 判断当前token是否上个html_block token的闭合标签
+        const prevToken = htmlBlockTokenStack[htmlBlockTokenStack.length - 1];
+        const isClosingTag = this.isClosingTag(prevToken, tok);
+
+        if (isClosingTag) {
+          // 是闭合标签，弹出tokenStack对应的token
+          htmlBlockTokenStack.pop();
+          
+          // 如果tokenStack空了，将最外层的astnode添加到当前节点
+          if (htmlBlockTokenStack.length === 0) {
+            const htmlBlockNode = htmlBlockASTNodeStack.shift()!;
+            curr.children.push(htmlBlockNode);
           }
         } else {
-          // 如果当前栈不为空，判断当前tok是否是当前栈的结束标签，如果是，则将当前栈的htmlBlockToken压入栈中，然后将创建一个新的treeNode，将当前栈作为treeNode的children，清空栈
-          
-          if (this.isSelfClosingTag(tok)) {
-            htmlBlockStack.push(tok);
-          }
-
-          const firstToken = htmlBlockStack[0];
-          const prevToken = htmlBlockTokenStack[htmlBlockTokenStack.length - 1];
-          // 是否成对的开闭标签
-          const matchTag = this.isClosingTag(prevToken, tok);
-
-          if (!this.isSelfClosingTag(tok)) {
-            htmlBlockStack.push(tok);
-          }
-
-          if (matchTag) {
-            htmlBlockTokenStack.pop();
-          } else {
-            htmlBlockTokenStack.push(tok);
-          }
-
-          if (!htmlBlockTokenStack.length) {
-            const htmlBlockNode = processHtmlBlockToken(firstToken);
-            htmlBlockNode.children = htmlBlockStack.map(token => token);
-            curr.children.push(htmlBlockNode);
-            htmlBlockStack.length = 0; // 清空栈
-          }
+          // 不是闭合标签，创建一个新的astnode压入对应栈
+          const htmlBlockNode = processHtmlBlockToken(tok);
+          htmlBlockASTNodeStack.push(htmlBlockNode);
+          htmlBlockTokenStack.push(tok);
         }
         return; // 跳过后续处理
-      } else if (tok.type !== 'html_block' && htmlBlockStack.length > 0) {
-        // 如果当前的htmlBlockStack不为空，则将当前的htmlBlockToken压入栈中，跳过本次循环
-        htmlBlockStack.push(tok);
-        return; // 跳过本次循环
+      } else {
+        if (htmlBlockASTNodeStack.length > 0) {
+          const topASTNode = htmlBlockASTNodeStack[htmlBlockASTNodeStack.length - 1];
+          topASTNode.children.push(tok);
+          return; // 跳过后续处理
+        }
       }
 
       if (tok.nesting === 1) {
@@ -229,12 +270,11 @@ export class MDCardService {
     }
 
     // 处理剩余的 HTML 块栈
-    if (htmlBlockStack.length > 0) {
-      const htmlBlockNode = processHtmlBlockToken(htmlBlockStack[0]);
-      htmlBlockNode.children = htmlBlockStack.map(token => token);
-      rootNode.children.push(htmlBlockNode);
+    if (htmlBlockASTNodeStack.length > 0) {
+      // 将剩余的AST节点添加到根节点
+      rootNode.children.push(...htmlBlockASTNodeStack);
     }
 
-    return rootNode.children;
+    return rootNode.children as ASTNode[];
   }
 }
