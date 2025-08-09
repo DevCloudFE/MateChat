@@ -2,7 +2,7 @@ import type { ExtractPropTypes, PropType } from 'vue';
 
 export type UploadStatus = 'uploading' | 'success' | 'error';
 
-export interface FileItem {
+export interface FileItem<T = unknown, E = unknown> {
   uid: number;
   name: string;
   size: number;
@@ -10,8 +10,8 @@ export interface FileItem {
   status: UploadStatus;
   percentage: number;
   // 可以存放服务器响应信息
-  response?: string;
-  error?: string;
+  response?: T;
+  error?: E;
 }
 // Attachment组件的属性定义
 export const AttachmentProps = {
@@ -60,9 +60,9 @@ export type AttachmentProps = ExtractPropTypes<typeof AttachmentProps>;
 export const AttachmentEmits = {
   change: (file: File, fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
-  success: (file: File, response: string, fileList: FileItem[]) =>
+  success: (file: File, response: FileItem['response'], fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
-  error: (file: File, error: string, fileList: FileItem[]) =>
+  error: (file: File, error: FileItem['error'], fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
   progress: (file: File, fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
@@ -71,8 +71,18 @@ export const AttachmentEmits = {
 // 编译时类型检查
 export type AttachmentEmits = {
   (e: 'change', file: File, fileList: FileItem[]): void;
-  (e: 'success', file: File, response: string, fileList: FileItem[]): void;
-  (e: 'error', file: File, error: string, fileList: FileItem[]): void;
+  (
+    e: 'success',
+    file: File,
+    response: FileItem['response'],
+    fileList: FileItem[],
+  ): void;
+  (
+    e: 'error',
+    file: File,
+    error: FileItem['error'],
+    fileList: FileItem[],
+  ): void;
   (e: 'progress', file: File, fileList: FileItem[]): void;
   (e: 'drop', files: File[]): void;
 };
