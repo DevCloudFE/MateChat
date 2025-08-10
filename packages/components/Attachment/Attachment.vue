@@ -27,7 +27,9 @@ const { handleClick, handleFileChange, isDragging } = useUpload(
   <div class="mc-attachment" @click="handleClick" :data-placeholder="placeholder">
     <!-- 使用插槽允许用户自定义触发器内容，例如按钮或文本 -->
     <slot>
-      <button class="mc-attachment-default-trigger" :disabled="disabled">+ 附件</button>
+      <button class="mc-attachment-default-trigger" :disabled="disabled">
+        + 附件
+      </button>
     </slot>
     <input
       ref="inputRef"

@@ -155,6 +155,11 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4); // 半透明灰色蒙版
   }
+  // 错误图标样式
+  &__wrong-icon {
+    position: relative; // 确保在蒙版之上
+    z-index: 999;
+  }
 
   
   &__progress-ring {
