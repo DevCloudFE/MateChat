@@ -7,12 +7,23 @@ export const fileListProps = {
     type: Array as PropType<FileItem[]>,
     default: () => [],
   },
+  // 组件上下文，决定其外观和行为
+  context: {
+    type: String as PropType<'input' | 'dialog'>,
+    default: 'input', // 默认为输入框上下文
+    validator: (value: string) => ['input', 'dialog'].includes(value),
+  },
 } as const;
 
 export type FileListProps = ExtractPropTypes<typeof fileListProps>;
 
 export const fileListEmits = {
   remove: (file: FileItem) => file && typeof file === 'object',
+  'retry-upload': (file: FileItem) => file && typeof file === 'object',
+  // 下载、预览和重试下载事件
+  download: (file: FileItem) => file && typeof file === 'object',
+  preview: (file: FileItem) => file && typeof file === 'object',
+  'retry-download': (file: FileItem) => file && typeof file === 'object',
 };
 
 export type FileListEmits = typeof fileListEmits;

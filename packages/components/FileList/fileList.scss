@@ -1,10 +1,39 @@
 .mc-file-list {
   background-color: #fff;
+  padding: 0 10px;
+  
+  // 根据上下文添加底部边框
+  &--context-input {
+    position: relative;
+    padding-bottom: 5px;
 
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 97%; 
+      height: 1px; 
+      background-color: #f0f0f0; 
+    }
+  }
+  // 新增：对话框上下文的特定样式
+  &--context-dialog {
+    // 在对话框中，让容器自适应内容，而不是滚动
+    .mc-file-list__container {
+      // 设置最大宽度以容纳3个文件项
+      max-width: 606px;
+
+      // 移除高度限制和滚动条
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
   &__container {
     display: flex;
     // 设置固定高度，超出部分滚动
-    max-height: 80px; // 或者你想要的高度
+    max-height: 170px; // 或者你想要的高度
     flex-wrap: wrap;
     overflow-y: auto; 
     
@@ -13,7 +42,7 @@
     }
     
     &::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: #ffffff;
     }
     
     &::-webkit-scrollbar-thumb {
@@ -25,44 +54,43 @@
 
 .mc-file-item {
   position: relative;
-  width: 200px;
-  margin: 5px 10px;
+  width: 192px;
+  height: 58px;
+  margin: 5px;
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s;
+  border: 1px solid #DBDBDB;
+  transition: all 0.3s ease;
+  border-radius: 8px;
 
   &:hover {
-    background-color: #f8f9fa;
+    border-color: transparent; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // 添加阴影
     .mc-file-item__actions {
-      opacity: 1; // 悬停时显示操作按钮
+      opacity: 1;
     }
   }
 
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &--uploading {
-    background-color: #ecf5ff;
-  }
 
   &--success {
-    background-color: #f0f9ff;
+    background-color: #ffffff;
   }
 
   &--error {
-    background-color: #fef0f0;
+    background-color: #ffffff;
   }
 
   &__icon {
-    margin-right: 12px;
+    margin-right: 10px;
     flex-shrink: 0;
+    position: relative; // 关键：为子元素的绝对定位提供基准
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__type-icon {
-    font-size: 20px;
     display: inline-block;
   }
 
@@ -72,9 +100,8 @@
   }
 
   &__name {
-    font-size: 14px;
-    font-weight: 500;
-    color: #303133;
+    font-size: 12px;
+    color: #191919;
     margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -85,94 +112,96 @@
     display: flex;
     align-items: center;
     font-size: 12px;
-    color: #909399;
+    color: #808080;
     gap: 8px;
   }
 
+  &__meta-action {
+    color: #0A59F7; // 蓝色
+    cursor: pointer;
+  }
+
   &__size {
-    color: #909399;
+    color: #808080;
   }
 
   &__status {
-    &--uploading {
-      color: #409eff;
-    }
-
-    &--success {
-      color: #67c23a;
-    }
 
     &--error {
-      color: #f56c6c;
+      color: #F23030;
     }
   }
 
-  &__progress {
-    margin-top: 6px;
-    height: 4px;
-    background-color: #e4e7ed;
-    border-radius: 2px;
+
+  &__progress-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 105%;                      
+    height: 105%;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px; 
     overflow: hidden;
   }
 
-  &__progress-bar {
+  &__progress-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    background-color: #409eff;
-    transition: width 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.4); // 半透明灰色蒙版
+  }
+
+  
+  &__progress-ring {
+    position: relative; // 使其在蒙版之上
+    width: 17.5px;
+    height: 17.5px;
+  }
+
+  &__progress-ring-track,
+  &__progress-ring-circle {
+    fill: transparent;
+    stroke-width: 5;
+  }
+
+  &__progress-ring-track {
+    stroke: rgba(225, 225, 225, 0.4); // 半透明白色轨道
+  }
+
+  &__progress-ring-circle {
+    stroke: #fff; // 进度条颜色
+    stroke-linecap: round; // 让进度条末端是圆角
+    transition: stroke-dashoffset 0.3s;
   }
 
   &__actions {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  display: flex;
-  gap: 4px;
+  top: -6px;
+  right: -6px;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
 }
 
 &__action-btn {
   border: none;
-  background: rgba(255, 255, 255, 0.9);
+  background: #C2C2C2;
   cursor: pointer;
-  padding: 6px;
+  // padding: 6px;
   border-radius: 50%;
-  font-size: 12px;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
-
-  &:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
-  }
-
-  &--preview {
-    color: #409eff;
-    
-    &:hover {
-      background: #ecf5ff;
-    }
-  }
-
-  &--retry {
-    color: #e6a23c;
-    
-    &:hover {
-      background: #fdf6ec;
-    }
-  }
-
+  font-size: 8px;
+  width: 12px;
+  height: 12px;
+  transition: all 0.3s ease;
   &--remove {
-    color: #f56c6c;
-    
-    &:hover {
-      background: #fef0f0;
-    }
+    color: #ffffff;
   }
 }
 }
