@@ -1,6 +1,6 @@
 <template>
   <div class="mc-markdown-render" :class="themeClass">
-    <component :is="testNodes" />
+    <component :is="markdownContent" />
   </div>
   <div v-if="false">
     <slot name="actions"></slot>
@@ -15,13 +15,9 @@ import markdownit from 'markdown-it';
 import type { MarkdownIt, Token } from 'markdown-it';
 import { type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
 import CodeBlock from './CodeBlock.vue';
-import { MDCardService, ASTNode } from './MDCardService';
+import { MDCardService } from './MDCardService';
 import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-
-type MarkdownComponentType = {
-  name: string;
-  render: () => VNode;
-};
+import { tokensToAst, htmlToVNodes, type ASTNode } from './MDCardParser';
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -44,15 +40,10 @@ const mdt: MarkdownIt = markdownit({
   ...props.mdOptions,
 });
 
-const parsedContent = ref<{ tokens: Token[]; html: string }>({
-  tokens: [],
-  html: '',
-});
-
 const typingIndex = ref(0)
 const isTyping = ref(false)
 
-const testNodes = ref<VNode[]>([]);
+const markdownContent = ref<VNode>();
 
 const parseContent = () => {
   let content = props.content || '';
@@ -74,107 +65,46 @@ const parseContent = () => {
         .replace('</think>', '</div>') || '';
   }
   const tokens = mdt.parse(content, {});
-  const ast = mdCardService.tokensToAst(tokens);
+  const ast = tokensToAst(tokens);
 
-  console.log('tokens:', tokens)
-  console.log('ast:', ast)
+  const vnodes = astToVnodes(ast);
 
-  const vnodes = astToVnodes(ast, h);
-
-  console.log('vnodes:', vnodes)
-
-  testNodes.value = h('div', vnodes);
-
-
-  const html = mdt.render(content);
-  parsedContent.value = { tokens, html };
+  markdownContent.value = h('div', vnodes);
 };
 
-const astToVnodes = (nodes: ASTNode[], h): VNode[] => {
-  return nodes.map(node => processASTNode(node, h));
+const astToVnodes = (nodes: ASTNode[]): VNode[] => {
+  return nodes.map(node => processASTNode(node));
 }
 
-const htmlToVNodes = (htmlString: string): (VNode | string)[] => {
-    if (!htmlString || !htmlString.trim()) return []
-
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(`<body>${htmlString}</body>`, 'text/html')
-    const vnodes: (VNode | string)[] = []
-
-    doc.body.childNodes.forEach((node, index) => {
-        const vnode = nodeToVNode(node)
-        if (vnode) {
-            if (typeof vnode === 'object') (vnode as any).key = index
-            vnodes.push(vnode)
-        }
-    })
-
-    return vnodes
-}
-
-const nodeToVNode = (node: Node): VNode | string | null => {
-        if (node.nodeType === Node.TEXT_NODE) return node.textContent || ''
-        if (node.nodeType !== Node.ELEMENT_NODE) return null
-
-        const elementNode = node as Element
-        const props: Record<string, any> = {}
-
-        if (elementNode.hasAttributes() && elementNode.attributes) {
-            for (const attr of Array.from(elementNode.attributes)) {
-                props[attr.name] = attr.value
-            }
-        }
-
-        const children: (VNode | string)[] = []
-
-        if (elementNode.childNodes.length > 0) {
-            elementNode.childNodes.forEach(child => {
-                const childVNode = nodeToVNode(child)
-                if (childVNode) {
-                    children.push(childVNode)
-                }
-            })
-        }
-
-        return h(elementNode.tagName.toLowerCase(), props, children)
-    }
-
-const processASTNode = (node: ASTNode | Token, h: any): VNode => {
-  if (node.nodeType === 'html_block') {
-
-    const outerVnode:VNode = htmlToVNodes(node.openNode?.content || '')[0];
-    outerVnode.children = node.children.map(child => processASTNode(child, h))    
-
+const processASTNode = (node: ASTNode | Token): VNode => {
+  if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
+    const outerVnode:VNode = htmlToVNodes(node.openNode?.content || '')[0] as VNode;
+    outerVnode.children = node.children.map(child => processASTNode(child))    
     return outerVnode;
-  }
-
-  if (node.nodeType === 'html_inline') {
-    const htmlContent = mdt.renderer.render(node.children, mdt.options);
-    return h('span', { innerHTML: htmlContent });  
   }
   
   if (isToken(node)) {
-    return processToken(node, h);
+    return processToken(node);
   }
   
-  return processASTNodeInternal(node, h);
+  return processASTNodeInternal(node);
 }
 
 const isToken = (node: ASTNode | Token): node is Token => {
   return 'type' in node && 'content' in node;
 }
 
-const processToken = (token: Token, h: any): VNode => {
+const processToken = (token: Token): VNode => {
   if (token.type === 'text') {
     return token.content;
   }
   
   if (token.type === 'inline') {
-    return processInlineToken(token, h);
+    return processInlineToken(token);
   }
 
   if (token.type === 'fence') {
-    return processFenceToken(token, h);
+    return processFenceToken(token);
   }
 
   if (token.type === 'softbreak') {
@@ -182,59 +112,54 @@ const processToken = (token: Token, h: any): VNode => {
   }
 
   if (token.type === 'html_block' || token.type === 'html_inline') {
-
-    console.log(token);
-
-    const node:VNode = htmlToVNodes(token.content || '')[0];
+    const node: VNode = htmlToVNodes(token.content || '')[0] as VNode;
     return node;
   }
   
   // 优先使用token的tag属性
   if (token.tag) {
     const attrs = convertAttrsToProps(token.attrs || []);
-    return h(token.tag, attrs, token.content);
+    return h(token.tag, { ...attrs, key: token.vNodeKey }, token.content);
   }
   
   return token.content;
 }
 
-const processInlineToken = (token: Token, h: any): VNode => {
-  // 直接处理所有children
-  const children = token.children?.map(child => processToken(child, h)) || [];
+const processInlineToken = (token: Token): VNode => {
   
-  return h('span', {}, children);
+  const children = token.children?.map(child => processToken(child)) || [];
+  
+  return h('span', { key: token.vNodeKey }, children);
 }
 
 
 
-const processASTNodeInternal = (node: ASTNode, h: any): VNode => {
+const processASTNodeInternal = (node: ASTNode): VNode => {
 
   const tag = node.openNode?.tag || 'div';
   const attrs = convertAttrsToProps(node.openNode?.attrs || []);
-  
+
   // 特殊处理fence类型的token
   if (node.openNode?.type === 'fence') {
-    return processFenceToken(node.openNode, h);
+    return processFenceToken(node.openNode);
   }
   
   // 处理所有带tag的AST节点
   if (node.openNode?.tag) {
-    const children = node.children.map(child => processASTNode(child, h));
-    const key = node.openNode.map ? `${node.openNode.type}_${node.openNode.map[0]}` : undefined;
-    const props = { ...attrs, ...(key && { key }) };
-    return h(tag, props, children);
+    const children = node.children.map(child => processASTNode(child));
+    const attrs = convertAttrsToProps(node.openNode?.attrs || []);
+    return h(tag, { ...attrs, key: node.vNodeKey }, children);
   }
   
-  const children = node.children.map(child => processASTNode(child, h));
+  const children = node.children.map(child => processASTNode(child));
   
-  return h(tag, attrs, children);
+  return h(tag, { ...attrs, key: node.vNodeKey}, children);
 }
 
-const processFenceToken = (token: Token, h: any): VNode => {
+const processFenceToken = (token: Token): VNode => {
   const language = token.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
   const code = token.content;
-  
-  return createCodeBlock(language, code, 0); // 暂时使用固定的blockIndex
+  return createCodeBlock(language, code, token.tokenIndex);
 }
 
 const convertAttrsToProps = (attrs: [string, string][]): Record<string, string> => {
@@ -246,7 +171,7 @@ const convertAttrsToProps = (attrs: [string, string][]): Record<string, string> 
 
 
 watch(
-  () => [props.enableThink, props.thinkOptions?.customClass],
+  () => [props.enableThink, props.thinkOptions?.customClass, props.theme],
   () => {
     parseContent();
   }
@@ -259,13 +184,13 @@ const createCodeBlock = (
 ) => {
   const codeBlockSlots: CodeBlockSlot = {
     actions: slots.actions
-      ? () => slots.actions({ codeBlockData: { code, language } }) || null
+      ? () => slots.actions?.({ codeBlockData: { code, language } }) || null
       : undefined,
     header: slots.header
-      ? () => slots.header({ codeBlockData: { code, language } }) || null
+      ? () => slots.header?.({ codeBlockData: { code, language } }) || null
       : undefined,
     content: slots.content
-      ? () => slots.content({ codeBlockData: { code, language } }) || null
+      ? () => slots.content?.({ codeBlockData: { code, language } }) || null
       : undefined,
   };
   return h(
