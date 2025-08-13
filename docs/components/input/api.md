@@ -19,6 +19,7 @@ iconSrc: '/inputIcon.png'
 | submitShortKey | [SubmitShortKey](#submitshortkey) `\| null` | 'enter'    | 发送快捷键，null 表示不使用快捷键发送          |
 | variant        | [InputVariant](#inputvariant)               | 'bordered' | 输入框的形态                                   |
 | sendBtnVariant | [SendBtnVariant](#sendbtnvariant)           | 'full'     | 发送按钮的形态                                 |
+| autofocus      | `boolean`                                   | false      | 是否自动聚焦输入框                             |
 
 ### 事件
 
