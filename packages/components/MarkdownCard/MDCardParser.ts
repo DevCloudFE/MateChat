@@ -1,5 +1,5 @@
 import type { Token } from 'markdown-it';
-import { VNode, h } from 'vue';
+import { VNode, h, isVNode } from 'vue';
 
 export interface ASTNode {
     nodeType: string;
@@ -142,7 +142,6 @@ export const tokensToAst = (tokens: Token[]): ASTNode[] => {
     const stack: ASTNode[] = [];
     const htmlInlineTokenStack: Token[] = [];
     const htmlBlockTokenStack: Token[] = [];
-
     // 处理html token nesting值
     tokens.forEach((tok: Token, idx: number) => {
 
@@ -200,7 +199,7 @@ export const tokensToAst = (tokens: Token[]): ASTNode[] => {
 }
 
 // 将html字符串转换为vnode
-export const htmlToVNodes = (htmlString: string): (VNode | string)[] => {
+export const htmlToVNode = (htmlString: string): (VNode | string)[] => {
     if (!htmlString || !htmlString.trim()) return []
 
     const parser = new DOMParser()
@@ -208,8 +207,9 @@ export const htmlToVNodes = (htmlString: string): (VNode | string)[] => {
     const vnodes: (VNode | string)[] = []
 
     doc.body.childNodes.forEach((node, index) => {
-        const vnode = nodeToVNode(node)
-        if (vnode) {
+        const vnode = nodeToVNode(node);
+
+        if (isVNode(vnode) || typeof vnode === 'string') {
             if (typeof vnode === 'object') (vnode as any).key = index
             vnodes.push(vnode)
         }
@@ -220,8 +220,8 @@ export const htmlToVNodes = (htmlString: string): (VNode | string)[] => {
 
 // 将dom节点转换为vnode
 const nodeToVNode = (node: Node): VNode | string | null => {
-    if (node.nodeType === Node.TEXT_NODE) return node.textContent || ''
-    if (node.nodeType !== Node.ELEMENT_NODE) return null
+    if (node.nodeType === Node.TEXT_NODE) return h('span', { innerHTML: node.textContent || '' });
+    if (node.nodeType !== Node.ELEMENT_NODE) return '';
 
     const elementNode = node as Element
     const props: Record<string, any> = {}
@@ -237,7 +237,7 @@ const nodeToVNode = (node: Node): VNode | string | null => {
     if (elementNode.childNodes.length > 0) {
         elementNode.childNodes.forEach(child => {
             const childVNode = nodeToVNode(child)
-            if (childVNode) {
+            if (isVNode(childVNode) || typeof childVNode === 'string') {
                 children.push(childVNode)
             }
         })

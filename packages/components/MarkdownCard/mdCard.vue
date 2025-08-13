@@ -13,11 +13,11 @@
 import hljs from 'highlight.js';
 import markdownit from 'markdown-it';
 import type { MarkdownIt, Token } from 'markdown-it';
-import { type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
+import { Fragment, type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
 import CodeBlock from './CodeBlock.vue';
 import { MDCardService } from './MDCardService';
 import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-import { tokensToAst, htmlToVNodes, type ASTNode } from './MDCardParser';
+import { tokensToAst, htmlToVNode, type ASTNode } from './MDCardParser';
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -66,10 +66,8 @@ const parseContent = () => {
   }
   const tokens = mdt.parse(content, {});
   const ast = tokensToAst(tokens);
-
   const vnodes = astToVnodes(ast);
-
-  markdownContent.value = h('div', vnodes);
+  markdownContent.value = h(Fragment, vnodes);
 };
 
 const astToVnodes = (nodes: ASTNode[]): VNode[] => {
@@ -78,9 +76,18 @@ const astToVnodes = (nodes: ASTNode[]): VNode[] => {
 
 const processASTNode = (node: ASTNode | Token): VNode => {
   if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
-    const outerVnode:VNode = htmlToVNodes(node.openNode?.content || '')[0] as VNode;
-    outerVnode.children = node.children.map(child => processASTNode(child))    
-    return outerVnode;
+    const outerVnode: VNode = htmlToVNode(node.openNode?.content || '')[0] as VNode;
+    if (outerVnode) {
+      const outerChildren = outerVnode?.children || [];
+      if (Array.isArray(outerChildren)) {
+        outerVnode.children = [...outerChildren, ...node.children.map(child => processASTNode(child))];
+      } else {
+        outerVnode.children = [outerChildren, ...node.children.map(child => processASTNode(child))];
+      }
+      return outerVnode;
+    } else {
+      return node.openNode?.content || ''
+    }
   }
   
   if (isToken(node)) {
@@ -112,8 +119,7 @@ const processToken = (token: Token): VNode => {
   }
 
   if (token.type === 'html_block' || token.type === 'html_inline') {
-    const node: VNode = htmlToVNodes(token.content || '')[0] as VNode;
-    return node;
+    return token.type === 'html_block' ? h('div', { innerHTML: token.content }) : h('span', { innerHTML: token.content });
   }
   
   // 优先使用token的tag属性
