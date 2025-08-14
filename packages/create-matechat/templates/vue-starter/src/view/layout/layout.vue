@@ -52,4 +52,10 @@ body[ui-theme="galaxy-theme"] {
     display: none;
   }
 }
+
+@media screen and (max-width: 520px) {
+  .matechat-layout {
+    background: none;
+  }
+}
 </style>
