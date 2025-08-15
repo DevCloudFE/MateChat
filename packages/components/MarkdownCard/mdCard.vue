@@ -214,29 +214,6 @@ const createCodeBlock = (
   );
 };
 
-watch(
-  () => props.content,
-  (newVal, oldVal) => {
-    if (!props.typing) {
-      typingIndex.value = newVal?.length || 0;
-      parseContent();
-      return
-    }
-
-    if (newVal.indexOf(oldVal) === -1) {
-      typingIndex.value = 0;
-    }
-
-    nextTick(() => typewriterStart())
-  },
-  { immediate: true },
-)
-
-const typewriterEnd = () => {
-  isTyping.value = false;
-  emit('typingEnd');
-}
-
 const typewriterStart = () => {
   clearTimeout(timer!)
 
@@ -263,6 +240,29 @@ const typewriterStart = () => {
   }
 
   timer = setTimeout(typingStep);
+}
+
+watch(
+  () => props.content,
+  (newVal, oldVal) => {
+    if (!props.typing) {
+      typingIndex.value = newVal?.length || 0;
+      parseContent();
+      return
+    }
+
+    if (newVal.indexOf(oldVal) === -1) {
+      typingIndex.value = 0;
+    }
+
+    nextTick(() => typewriterStart())
+  },
+  { immediate: true },
+)
+
+const typewriterEnd = () => {
+  isTyping.value = false;
+  emit('typingEnd');
 }
 
 watch(

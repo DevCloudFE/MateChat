@@ -104,8 +104,10 @@ const genTreeNode = (node: Token | null): ASTNode => {
 
 // 匹配成对html token
 const matchHtmlToken = (token: Token, stack: Token[]) => {
+    // 简单排除单独的闭合标签
+    const isCloseTag = token.content.startsWith('</');
     if (!stack.length) {
-        token.nesting = 1;
+        token.nesting = isCloseTag ? 0 : 1;
         stack.push(token);
         return;
     }
@@ -116,8 +118,12 @@ const matchHtmlToken = (token: Token, stack: Token[]) => {
         token.nesting = -1;
         stack.pop();
     } else {
-        token.nesting = 1;
-        stack.push(token);
+        if (isCloseTag) {
+            token.nesting = 0;
+        } else {
+            token.nesting = 1;
+            stack.push(token);
+        }
     }
 }
 
@@ -243,5 +249,18 @@ const nodeToVNode = (node: Node): VNode | string | null => {
         })
     }
 
+    if (!isValidTagName(elementNode.tagName)) {
+        return node?.textContent || '';
+    }
+
     return h(elementNode.tagName.toLowerCase(), props, children)
+}
+
+const isValidTagName = (tagName: string): boolean => {
+    try {
+        document.createElement(tagName)
+        return true
+    } catch (error) {
+        return false
+    }
 }
