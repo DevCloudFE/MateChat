@@ -1,6 +1,5 @@
 import { filterXSS, getDefaultCSSWhiteList, getDefaultWhiteList, type IWhiteList } from 'xss';
 import type { CustomXssRule, MdPlugin } from './mdCard.types';
-
 export class MDCardService {
   private xssWhiteList = getDefaultWhiteList();
   private cssWhiteList = getDefaultCSSWhiteList();
