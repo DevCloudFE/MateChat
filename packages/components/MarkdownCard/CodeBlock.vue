@@ -1,5 +1,5 @@
 <template>
-  <div class="mc-code-block" :class="themeClass">
+  <div class="mc-code-block" :class="themeClass" ref="rootRef">
     <div class="mc-code-block-header" v-if="!$slots.header">
       <span class="mc-code-lang">{{ language }}</span>
       <slot name="actions">
@@ -9,6 +9,22 @@
               <li @click="showMermaidDiagram = true" :class="{ 'mc-diagram-switch-active': showMermaidDiagram }">{{ t('Md.diagram') }}</li>
               <li @click="showMermaidDiagram = false" :class="{ 'mc-diagram-switch-active': !showMermaidDiagram }">{{ t('Md.code') }}</li>
             </ul>
+          </div>
+          <div
+            v-if="isMermaid && showMermaidDiagram"
+            class="mc-action-btn mc-toggle-btn"
+            :title="t('Md.zoomIn')"
+            @click="zoomIn"
+          >
+            <img src="./asset/enlarge.svg" />
+          </div>
+          <div
+            v-if="isMermaid && showMermaidDiagram"
+            class="mc-action-btn mc-toggle-btn"
+            :title="t('Md.zoomOut')"
+            @click="zoomOut"
+          >
+            <img src="./asset/zoom-out-2.svg" />
           </div>
           <div
             class="mc-action-btn mc-toggle-btn"
@@ -23,7 +39,7 @@
             @click="copyCode"
           >
             <img v-if="!copied" src="./asset/copy-new.svg" />
-              <img v-else src="./asset/right.svg">
+            <img v-else src="./asset/right.svg">
           </div>
         </div>
       </slot>
@@ -39,7 +55,7 @@
       @afterLeave="afterLeave"
     >
       <div v-if="expanded">
-          <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content" v-html="mermaidContent"></div>
+          <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content"></div>
           <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
           <slot v-else name="content"></slot>
       </div>
@@ -122,11 +138,25 @@ const highlightedCode = computed(() => {
   } catch (_) {}
 });
 
+const rootRef = ref<HTMLElement | null>(null);
+
+const zoomIn = () => {
+  const container = rootRef.value?.querySelector('.mc-mermaid-content');
+  if (container && mermaidService) {
+    mermaidService.zoomIn(container);
+  }
+};
+const zoomOut = () => {
+  const container = rootRef.value?.querySelector('.mc-mermaid-content');
+  if (container && mermaidService) {
+    mermaidService.zoomOut(container);
+  }
+};
+
 const renderMermaid = async () => {
   if (!isMermaid.value || !props.code) {
     return;
   }
-
   if (!mermaidService) {
     try {
       const { MermaidService } = await import('./MermaidService');
@@ -140,13 +170,12 @@ const renderMermaid = async () => {
       return;
     }
   }
-
-  try {
-    const svg = await mermaidService.renderMermaid(props.code.replace(/<span[^>]*\bclass\s*=\s*['"]mc-typewriter[^>]*>([\s\S]*?)<\/span>/g, `$1`), props.theme as 'light' | 'dark');
-    mermaidContent.value = svg;
-  } catch (error) {
-
-  }
+  nextTick(async () => {
+    const container = rootRef.value?.querySelector('.mc-mermaid-content');
+    if (container) {
+      await mermaidService.renderToContainer(container, props.code.replace(/<span[^>]*\bclass\s*=\s*['"]mc-typewriter[^>]*>([\s\S]*?)<\/span>/g, `$1`), props.theme as 'light' | 'dark');
+    }
+  });
 };
 
 const toggleExpand = () => {
@@ -232,6 +261,17 @@ watch(() => [props.code, props.theme, props.enableMermaid], () => {
   }
 }, { immediate: true });
 
+watch(
+  () => showMermaidDiagram.value,
+  (val) => {
+    if (val && isMermaid.value) {
+      nextTick(() => {
+        renderMermaid();
+      });
+    }
+  }
+);
+
 onMounted(() => {
   if (isMermaid.value) {
     renderMermaid();
@@ -284,11 +324,11 @@ onMounted(() => {
   }
 
   .mc-mermaid-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: inherit;
   }
 
   .mc-code-block-actions {
