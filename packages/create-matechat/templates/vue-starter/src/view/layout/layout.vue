@@ -10,10 +10,6 @@
   
   <!-- 滑动侧边栏 -->
   <SlideSidebar>
-    <div class="sidebar-content">
-      <h3 style="margin-top: 0;">侧边栏内容</h3>
-      <p>这是一个空白的侧边栏，可以在这里添加内容。</p>
-    </div>
   </SlideSidebar>
 </template>
 

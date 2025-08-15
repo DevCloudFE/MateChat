@@ -13,20 +13,13 @@
     
     <!-- 侧边栏中间内容 -->
     <div class="sidebar-content">
+      <HistoryList />
       <slot></slot>
     </div>
     
     <!-- 侧边栏底部导航 -->
     <div class="sidebar-footer">
       <div class="navbar-right">
-        <d-popover :position="['bottom-end']" class="navbar-top-history-menu">
-          <div class="switch-lang-container">
-            <i class="icon-history" />
-          </div>
-          <template #content>
-            <HistoryList class="navbar-top-history" />
-          </template>
-        </d-popover>
         <SwitchLang v-if="!GlobalConfig.language" />
         <Theme v-if="!GlobalConfig.theme" />
         <d-popover :position="['bottom-end']" trigger="hover">
@@ -144,7 +137,7 @@ onUnmounted(() => {
   left: 0;
   height: 100vh;
   width: 280px;
-  background-color: white;
+  background-color: var(--devui-base-bg);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -165,7 +158,7 @@ onUnmounted(() => {
 /* 侧边栏内容区 */
 .sidebar-content {
   flex: 1;
-  padding: 16px;
+  padding: 0;
   overflow: auto;
 }
 
@@ -214,14 +207,23 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
   z-index: -1;
 }
 
-/* 深色主题适配 */
+/* 浅色主题适配 - 与对话区域保持一致 */
+body[ui-theme-type="light"] {
+  .slide-sidebar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* 深色主题适配 - 与对话区域保持一致 */
+body[ui-theme-type="dark"],
 body[ui-theme="galaxy-theme"] {
   .slide-sidebar {
     background-color: $devui-global-bg;
+    backdrop-filter: blur(10px);
   }
   
   .sidebar-header,
@@ -246,15 +248,58 @@ body[ui-theme="galaxy-theme"] {
     width: 250px;
     border-right: none;
   }
+  
+  /* 确保在侧边栏中的历史记录组件始终可见 */
+  .sidebar-content :deep(.history-list-container) {
+    width: 100% !important;
+    min-width: 100% !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+  }
+}
+
+/* 统一历史记录组件与侧边栏的颜色样式 */
+.sidebar-content {
+  /* 修改1: 确保内容区域继承侧边栏背景色 */
+  background-color: inherit;
+}
+
+/* 浅色主题下历史记录组件样式统一 */
+body[ui-theme-type="light"] {
+  .sidebar-content :deep(.history-list-container) {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: $devui-text !important;
+  }
+  
+  .sidebar-content :deep(.history-item) {
+    background-color: transparent !important;
+    border-bottom-color: rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  .sidebar-content :deep(.history-item:hover) {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
+}
+
+/* 深色主题下历史记录组件样式统一 */
+body[ui-theme-type="dark"],
+body[ui-theme="galaxy-theme"] {
+  .sidebar-content :deep(.history-list-container) {
+    background-color: $devui-global-bg !important;
+    color: $devui-text !important;
+  }
+  
+  .sidebar-content :deep(.history-item) {
+    background-color: transparent !important;
+    border-bottom-color: $devui-line !important;
+  }
+  
+  .sidebar-content :deep(.history-item:hover) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+  }
 }
 </style>
 
 <style lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
-
-.devui-popover__content.navbar-top-history-menu {
-  padding: 0;
-  background-color: $devui-global-bg;
-  box-shadow: $devui-shadow-length-connected-overlay $devui-shadow;
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <d-popover :position="['right', 'bottom-end']" trigger="click">
+  <d-popover :position="popPosition" trigger="click">
     <template #content>
       <div class="matechat-theme-content">
         <div class="title">{{ $t('theme.themeTitle') }}</div>
@@ -31,6 +31,7 @@ import { useThemeStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 const themeList = [
   { name: 'light', cnName: 'theme.lightTheme', value: ThemeEnum.Light },
@@ -39,7 +40,33 @@ const themeList = [
 const themeStore = useThemeStore();
 const { applyTheme } = useTheme();
 
-applyTheme();
+// 检测窗口宽度，用于响应式调整弹窗位置
+const windowWidth = ref(window.innerWidth);
+
+// 根据窗口宽度决定弹窗位置
+const popPosition = computed(() => {
+  // 在520px以下的屏幕向上弹出
+  if (windowWidth.value < 520) {
+    return ['right', 'top-end'];
+  }
+  // 在大屏幕上保持向下弹出
+  return ['right', 'bottom-end'];
+});
+
+// 窗口大小变化时更新宽度
+const handleResize = () => {
+  windowWidth.value = window.innerWidth;
+};
+
+onMounted(() => {
+  applyTheme();
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+});
+
 const handleChange = (_val: string) => {
   applyTheme();
 };
