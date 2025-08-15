@@ -111,6 +111,12 @@ import Logo from "../../../public/logo.svg";
   }
 }
 
+@media screen and (max-width: 520px) {
+  .navbar-top-container {
+    display: none;
+  }
+}
+
 body[ui-theme="infinity-theme"] {
   .navbar-top-history {
     backdrop-filter: blur(50px);

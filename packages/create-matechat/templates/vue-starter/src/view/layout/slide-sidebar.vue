@@ -3,13 +3,53 @@
     ref="sidebarRef"
     :class="['slide-sidebar', { 'active': isOpen }]"
   >
-    <slot></slot>
+    <!-- 侧边栏顶部导航 -->
+    <div class="sidebar-header">
+      <McHeader
+        :logoImg="GlobalConfig.logoPath || Logo"
+        :title="GlobalConfig.title || 'MateChat'"
+      ></McHeader>
+    </div>
+    
+    <!-- 侧边栏中间内容 -->
+    <div class="sidebar-content">
+      <slot></slot>
+    </div>
+    
+    <!-- 侧边栏底部导航 -->
+    <div class="sidebar-footer">
+      <div class="navbar-right">
+        <d-popover :position="['bottom-end']" class="navbar-top-history-menu">
+          <div class="switch-lang-container">
+            <i class="icon-history" />
+          </div>
+          <template #content>
+            <HistoryList class="navbar-top-history" />
+          </template>
+        </d-popover>
+        <SwitchLang v-if="!GlobalConfig.language" />
+        <Theme v-if="!GlobalConfig.theme" />
+        <d-popover :position="['bottom-end']" trigger="hover">
+          <template #content>
+            <span class="devui-text">{{ $t("navbar.systemSetting") }}</span>
+          </template>
+          <div class="switch-lang-container">
+            <i class="icon-setting system-setting" />
+          </div>
+        </d-popover>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useWindowSize } from '@vueuse/core';
+import GlobalConfig from "@/global-config";
+import { SwitchLang } from "@/view/navbar";
+import { Theme } from "@/view/theme";
+import { HistoryList } from "@/view/history";
+import Logo from "../../../public/logo.svg";
 
 // 侧边栏引用
 const sidebarRef = ref<HTMLDivElement | null>(null);
@@ -19,8 +59,6 @@ const isOpen = ref(false);
 const startX = ref(0);
 // 是否正在拖动
 const isDragging = ref(false);
-// 侧边栏宽度
-const sidebarWidth = 280;
 
 // 检测窗口大小
 const { width } = useWindowSize();
@@ -98,6 +136,8 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import "devui-theme/styles-var/devui-var.scss";
+
 .slide-sidebar {
   position: fixed;
   top: 0;
@@ -109,9 +149,57 @@ onUnmounted(() => {
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   z-index: 1000;
-  padding: 16px;
+  padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 侧边栏顶部 */
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 侧边栏内容区 */
+.sidebar-content {
+  flex: 1;
+  padding: 16px;
   overflow: auto;
+}
+
+/* 侧边栏底部 */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid #eee;
+  margin-top: auto;
+  
+  .navbar-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  :deep(.switch-lang-container) {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    margin: 0 4px;
+    color: $devui-text;
+    border-radius: $devui-border-radius-card;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--mc-icon-hover-bg);
+    }
+
+    i {
+      font-size: 16px;
+    }
+  }
 }
 
 .slide-sidebar.active {
@@ -130,9 +218,43 @@ onUnmounted(() => {
   z-index: -1;
 }
 
+/* 深色主题适配 */
+body[ui-theme="galaxy-theme"] {
+  .slide-sidebar {
+    background-color: $devui-global-bg;
+  }
+  
+  .sidebar-header,
+  .sidebar-footer {
+    border-color: $devui-line;
+  }
+  
+  :deep(.devui-text) {
+    color: $devui-text;
+  }
+}
+
 @media screen and (min-width: 521px) {
   .slide-sidebar {
     display: none;
   }
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 520px) {
+  :deep(.navbar-top-history) {
+    width: 250px;
+    border-right: none;
+  }
+}
+</style>
+
+<style lang="scss">
+@import "devui-theme/styles-var/devui-var.scss";
+
+.devui-popover__content.navbar-top-history-menu {
+  padding: 0;
+  background-color: $devui-global-bg;
+  box-shadow: $devui-shadow-length-connected-overlay $devui-shadow;
 }
 </style>
