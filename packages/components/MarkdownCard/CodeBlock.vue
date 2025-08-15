@@ -13,14 +13,6 @@
           <div
             v-if="isMermaid && showMermaidDiagram"
             class="mc-action-btn mc-toggle-btn"
-            :title="t('Md.downLoad')"
-            @click="downloadMermaid"
-          >
-            <img src="./asset/download-2.svg" />
-          </div>
-          <div
-            v-if="isMermaid && showMermaidDiagram"
-            class="mc-action-btn mc-toggle-btn"
             :title="t('Md.zoomIn')"
             @click="zoomIn"
           >
@@ -159,9 +151,6 @@ const zoomOut = () => {
   if (container && mermaidService) {
     mermaidService.zoomOut(container);
   }
-};
-const downloadMermaid = () => {
-  console.log('downloadMermaid');
 };
 
 const renderMermaid = async () => {
