@@ -1,4 +1,6 @@
+import { McAttachment } from './Attachment';
 import { McBubble } from './Bubble';
+import { McFileList } from './FileList';
 import { McHeader } from './Header';
 import { McInput } from './Input';
 import { McIntroduction } from './Introduction';
@@ -8,11 +10,11 @@ import { useMcI18n, McLocale } from './Locale';
 import { McMarkdownCard } from './MarkdownCard';
 import { McMention } from './Mention';
 import { McPrompt } from './Prompt';
-import { McAttachment } from './Attachment'; 
-import { McFileList } from './FileList';
 
 const installs = [
+  McAttachment,
   McBubble,
+  McFileList,
   McHeader,
   McInput,
   McIntroduction,
@@ -21,13 +23,13 @@ const installs = [
   McLocale,
   McMarkdownCard,
   McMention,
-  McPrompt,
-  McAttachment,
-  McFileList,
+  McPrompt
 ];
 
 export {
+  McAttachment,
   McBubble,
+  McFileList,
   McHeader,
   McInput,
   McIntroduction,
@@ -41,9 +43,7 @@ export {
   McLocale,
   McMarkdownCard,
   McMention,
-  McPrompt,
-  McAttachment,
-  McFileList
+  McPrompt
 };
 
 export default {

@@ -5,6 +5,7 @@ export default {
       items: [
         { text: 'Introduction 介绍', link: '/components/introduction/demo' },
         { text: 'List 列表', link: '/components/list/demo' },
+        { text: 'FileList 文件列表', link: '/components/fileList/demo' },
       ],
     },
     {
@@ -23,6 +24,8 @@ export default {
         { text: 'Input 输入', link: '/components/input/demo' },
         { text: 'Prompt 提示', link: '/components/prompt/demo' },
         { text: 'Mention 快捷操作', link: '/components/mention/demo' },
+        { text: 'Attachment 附件', link: '/components/attachment/demo' },
+        { text: 'FileList 文件列表', link: '/components/fileList/demo' },
       ],
     },
     {
@@ -71,8 +74,8 @@ export default {
         { text: '使用MateChat的多种方式', link: '/use-guide/access' },
         { text: '贡献指南', link: '/use-guide/contributing' },
         { text: 'FAQ', link: '/use-guide/faq' },
-      ]
-    }
+      ],
+    },
   ],
   '/playground/': [{ text: '演示', link: '/playground/playground' }],
 };
