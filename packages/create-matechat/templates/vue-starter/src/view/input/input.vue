@@ -23,6 +23,7 @@
               <span>{{ $t("thesaurus") }}</span>
             </div>
           </d-popover>
+          <InputCamera />
           <InputAppendix />
           <span class="input-foot-dividing-line"></span>
           <span class="input-foot-maxlength">
@@ -45,6 +46,7 @@ import { useChatMessageStore, useChatModelStore } from '@/store';
 import { InputAppendix } from '@view/appendix';
 import { InputAtModel } from '@view/chat-model';
 import { InputOnlineSearch } from '@view/online-search';
+import { InputCamera } from '@view/camera';
 import { ref } from 'vue';
 
 const chatMessageStore = useChatMessageStore();
