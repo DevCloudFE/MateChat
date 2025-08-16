@@ -5,6 +5,7 @@ import type {
   AttachmentProps,
   FileItem,
 } from './attachment-types';
+import { upload } from './uploader';
 
 let uid = Date.now();
 
@@ -18,7 +19,7 @@ export function useUpload(
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   let dragCounter = 0;
   const getFileItem = (file: File): FileItem => ({
-    uid: uid++,
+    uid: uid++, // 这个如何跟后端协调
     name: file.name,
     size: file.size,
     type: file.type,
@@ -56,7 +57,9 @@ export function useUpload(
       fileList.value.push(fileItem); // 直接修改 fileList，自动同步
       emit('change', file, [...fileList.value]);
       console.log('Uploading file:', [...fileList.value]);
-      simulateUpload(file, fileItem);
+      // simulateUpload(file, fileItem);
+      // 调用真实的上传函数，而不是模拟函数
+      performUpload(file, fileItem);
     }
   };
 
@@ -103,6 +106,40 @@ export function useUpload(
         }
       }
     }, 200);
+  };
+
+  const performUpload = (file: File, fileItem: FileItem) => {
+    const findFileIndex = () =>
+      fileList.value.findIndex((item) => item.uid === fileItem.uid);
+
+    upload({
+      file,
+      fileItem,
+      options: props.uploadOptions,
+      onProgress: (percentage: number) => {
+        const index = findFileIndex();
+        if (index > -1) {
+          fileList.value[index].percentage = percentage;
+          emit('progress', file, [...fileList.value]);
+        }
+      },
+      onSuccess: (response: unknown) => {
+        const index = findFileIndex();
+        if (index > -1) {
+          fileList.value[index].status = 'success';
+          fileList.value[index].response = response;
+          emit('success', file, response, [...fileList.value]);
+        }
+      },
+      onError: (error: unknown) => {
+        const index = findFileIndex();
+        if (index > -1) {
+          fileList.value[index].status = 'error';
+          fileList.value[index].error = error;
+          emit('error', file, error, [...fileList.value]);
+        }
+      },
+    });
   };
 
   const handleFileChange = (e: Event) => {

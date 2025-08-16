@@ -13,10 +13,36 @@ export interface FileItem<T = unknown, E = unknown> {
   response?: T;
   error?: E;
 }
+// 新增：定义上传选项接口
+export interface UploadOptions {
+  // 上传接口地址
+  uri: string | URL;
+  // http 请求方法
+  method?: 'POST' | 'PUT' | 'PATCH';
+  // 自定义请求headers
+  headers?: {
+    [key: string]: string;
+  };
+  // 认证token
+  authToken?: string;
+  // 认证token header标示
+  authTokenHeader?: string;
+  // 上传额外自定义参数
+  additionalParameter?: {
+    [key: string]: string | Blob;
+  };
+  // 上传文件字段名称，默认file
+  fileFieldName?: string;
+  // 指示了是否该使用类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书来创建一个跨站点访问控制（cross-site Access-Control）请求
+  withCredentials?: boolean;
+  //  手动设置返回数据类型
+  responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
+}
+
 // Attachment组件的属性定义
 export const AttachmentProps = {
   uploadOptions: {
-    type: Object,
+    type: Object as PropType<UploadOptions>,
     default: {},
   },
   disabled: {
