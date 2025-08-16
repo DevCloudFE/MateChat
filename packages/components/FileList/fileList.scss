@@ -28,12 +28,26 @@
       // 移除高度限制和滚动条
       max-height: none;
       overflow-y: visible;
+      background-color: #f6f6f8;
+      border-radius: 12px;
     }
+    .mc-file-item {
+      border-color: transparent;
+
+      &--error {
+        border-color: #DBDBDB;
+      }
+      &--downloading {
+        border-color: #DBDBDB;
+      }
+    }
+      
   }
   &__container {
     display: flex;
     // 设置固定高度，超出部分滚动
     max-height: 170px; // 或者你想要的高度
+    padding: 2px 0;
     flex-wrap: wrap;
     overflow-y: auto; 
     
