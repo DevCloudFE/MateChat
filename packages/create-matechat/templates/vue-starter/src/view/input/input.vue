@@ -173,5 +173,8 @@ body[ui-theme="galaxy-theme"] {
   .input-word-container span {
     display: none;
   }
+  .input-foot-maxlength {
+    display: none;
+  }
 }
 </style>
