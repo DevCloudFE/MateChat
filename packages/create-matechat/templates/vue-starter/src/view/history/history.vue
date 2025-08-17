@@ -72,12 +72,10 @@ const onSearch = (e: string) => {
     const res = [];
     for (let i = 0; i < categorizedHistoryList.length; i++) {
       const item = { ...categorizedHistoryList[i] };
-      for (let j = 0; j < item.list.length; j++) {
-        item.list = item.list.filter((listItem) =>
-          listItem.messages[0].content.includes(e)
-        );
-        item.list.length && res.push(item);
-      }
+      item.list = item.list?.filter((listItem) =>
+        listItem.messages[0].content.includes(e)
+      ) || [];
+      item.list.length && res.push(item);
     }
     renderList.value = res;
   } else {
