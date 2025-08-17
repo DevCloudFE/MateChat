@@ -18,7 +18,7 @@
     />
     <div :class="['history-list-box', !renderList.length && 'empty']">
       <template v-for="(item, index) in renderList" :key="index">
-        <Collapse v-model="item.expand" :title="item.title">
+        <Collapse v-model="item.expand" :title="t(item.title)">
           <HistoryItem
             v-for="(val, i) in item.list"
             :key="i"

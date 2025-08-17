@@ -1,4 +1,7 @@
 export default {
+  common: {
+    today: "Today",
+  },
   navbar: {
     chat: "Chat",
     systemSetting: "System Setting",
@@ -23,6 +26,8 @@ export default {
   },
   theme: {
     themeTitle: "Theme",
+    lightTheme: "Light Theme",
+    darkTheme: "Dark Theme",
   },
   input: {
     disclaimer:

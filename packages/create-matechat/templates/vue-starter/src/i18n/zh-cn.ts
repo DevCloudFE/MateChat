@@ -1,4 +1,7 @@
 export default {
+  common: {
+    today: "今天",
+  },
   navbar: {
     chat: "对话",
     systemSetting: "系统设置",
@@ -23,6 +26,8 @@ export default {
   },
   theme: {
     themeTitle: "主题",
+    lightTheme: "浅色模式",
+    darkTheme: "深色模式",
   },
   input: {
     disclaimer: "内容由AI生成，无法确保准确性和完整性，仅供参考",
