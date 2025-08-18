@@ -56,6 +56,10 @@ export const inputProps = {
     type: [String, null] as PropType<SubmitShortKey | null>,
     default: SubmitShortKey.Enter,
   },
+  autoFocus: {
+    type: Boolean,
+    default: false,
+  },
 };
 export type InputProps = ExtractPropTypes<typeof inputProps>;
 
