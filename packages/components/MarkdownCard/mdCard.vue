@@ -17,7 +17,7 @@ import { Fragment, type VNode, computed, h, nextTick, onMounted, ref, useSlots, 
 import CodeBlock from './CodeBlock.vue';
 import { MDCardService } from './MDCardService';
 import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-import { tokensToAst, htmlToVNode, type ASTNode } from './MDCardParser';
+import { tokensToAst, htmlToVNode, type ASTNode, isValidTagName } from './MDCardParser';
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -89,6 +89,12 @@ const processASTNode = (node: ASTNode | Token): VNode => {
       return node.openNode?.content || ''
     }
   }
+
+  if (node.nodeType === 'inline') {
+    const html = mdt.renderer.render([node.openNode], mdt.options, {});
+    const vNodes = htmlToVNode(html);
+    return h(Fragment, vNodes);
+  }
   
   if (isToken(node)) {
     return processToken(node);
@@ -124,25 +130,27 @@ const processToken = (token: Token): VNode => {
   
   // 优先使用token的tag属性
   if (token.tag) {
+    const tagName = isValidTagName(token.tag) ? token.tag : 'div'
     const attrs = convertAttrsToProps(token.attrs || []);
-    return h(token.tag, { ...attrs, key: token.vNodeKey }, token.content);
+    return h(tagName, { ...attrs, key: token.vNodeKey }, token.content);
   }
   
   return token.content;
 }
 
 const processInlineToken = (token: Token): VNode => {
-  
-  const children = token.children?.map(child => processToken(child)) || [];
-  
-  return h('span', { key: token.vNodeKey }, children);
+  const html = mdt.renderer.render([token], mdt.options, {});
+  const vNodes = htmlToVNode(html);
+  return h(Fragment, vNodes);
 }
 
 
 
 const processASTNodeInternal = (node: ASTNode): VNode => {
-
-  const tag = node.openNode?.tag || 'div';
+  let tagName = 'div';
+  if (node.openNode?.tag && isValidTagName(node.openNode?.tag)) {
+    tagName = node.openNode?.tag
+  }
   const attrs = convertAttrsToProps(node.openNode?.attrs || []);
 
   // 特殊处理fence类型的token
@@ -152,14 +160,15 @@ const processASTNodeInternal = (node: ASTNode): VNode => {
   
   // 处理所有带tag的AST节点
   if (node.openNode?.tag) {
+    let tagName = isValidTagName(node.openNode?.tag) ? node.openNode?.tag : 'div'
     const children = node.children.map(child => processASTNode(child));
     const attrs = convertAttrsToProps(node.openNode?.attrs || []);
-    return h(tag, { ...attrs, key: node.vNodeKey }, children);
+    return h(tagName, { ...attrs, key: node.vNodeKey }, children);
   }
   
   const children = node.children.map(child => processASTNode(child));
   
-  return h(tag, { ...attrs, key: node.vNodeKey}, children);
+  return h(tagName, { ...attrs, key: node.vNodeKey}, children);
 }
 
 const processFenceToken = (token: Token): VNode => {
