@@ -202,6 +202,45 @@ const onConfirm = () => {
 
 :::
 
+### 自动聚焦
+
+通过 `autofocus` 属性设置输入框在组件挂载后自动获得焦点，默认为 `false`。当输入框被禁用时，自动聚焦不会生效。
+
+:::demo
+
+```vue
+<template>
+  <McInput :value="inputValue" autofocus :loading="loading" @change="onInputChange" @submit="onSubmit" @cancel="onCancel">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const inputValue = ref('');
+const loading = ref(false);
+
+const onInputChange = (e) => {
+  inputValue.value = e;
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  inputValue.value = '';
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
+  console.log('input submit---', e);
+};
+const onCancel = () => {
+  loading.value = false;
+  console.log('input cancel');
+};
+</script>
+```
+
+:::
+
 ### 自定义插槽
 
 通过`head`插槽自定义输入框顶部的内容，通过`extra`自定义发送按钮左侧的内容。
