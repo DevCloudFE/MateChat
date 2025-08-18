@@ -226,8 +226,8 @@ export const htmlToVNode = (htmlString: string): (VNode | string)[] => {
 
 // 将dom节点转换为vnode
 const nodeToVNode = (node: Node): VNode | string | null => {
-    if (node.nodeType === Node.TEXT_NODE) return h('span', { innerHTML: node.textContent || '' });
-    if (node.nodeType !== Node.ELEMENT_NODE) return '';
+    if (node.nodeType === Node.TEXT_NODE) return node.textContent
+    if (node.nodeType !== Node.ELEMENT_NODE) return node.textContent || '';
 
     const elementNode = node as Element
     const props: Record<string, any> = {}
@@ -256,7 +256,8 @@ const nodeToVNode = (node: Node): VNode | string | null => {
     return h(elementNode.tagName.toLowerCase(), props, children)
 }
 
-const isValidTagName = (tagName: string): boolean => {
+export const isValidTagName = (tagName: string | undefined): boolean => {
+    if (!tagName) return false
     try {
         document.createElement(tagName)
         return true
