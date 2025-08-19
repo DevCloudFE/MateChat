@@ -208,6 +208,10 @@ export const tokensToAst = (tokens: Token[]): ASTNode[] => {
 export const htmlToVNode = (htmlString: string): (VNode | string)[] => {
     if (!htmlString || !htmlString.trim()) return []
 
+    if (typeof window === 'undefined' || typeof DOMParser === 'undefined') {
+        return [htmlString];
+    }
+
     const parser = new DOMParser()
     const doc = parser.parseFromString(`<body>${htmlString}</body>`, 'text/html')
     const vnodes: (VNode | string)[] = []
