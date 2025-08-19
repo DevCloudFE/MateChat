@@ -18,7 +18,7 @@
     />
     <div :class="['history-list-box', !renderList.length && 'empty']">
       <template v-for="(item, index) in renderList" :key="index">
-        <Collapse v-model="item.expand" :title="item.title">
+        <Collapse v-model="item.expand" :title="t(item.title)">
           <HistoryItem
             v-for="(val, i) in item.list"
             :key="i"
@@ -72,12 +72,10 @@ const onSearch = (e: string) => {
     const res = [];
     for (let i = 0; i < categorizedHistoryList.length; i++) {
       const item = { ...categorizedHistoryList[i] };
-      for (let j = 0; j < item.list.length; j++) {
-        item.list = item.list.filter((listItem) =>
-          listItem.messages[0].content.includes(e)
-        );
-        item.list.length && res.push(item);
-      }
+      item.list = item.list?.filter((listItem) =>
+        listItem.messages[0].content.includes(e)
+      ) || [];
+      item.list.length && res.push(item);
     }
     renderList.value = res;
   } else {

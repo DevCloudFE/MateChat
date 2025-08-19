@@ -12,7 +12,8 @@
             class="mb-2"
             @change='handleChange'
           >
-            {{ item.cnName }}
+            {{ t(item.cnName) }}
+
           </d-radio>
         </div>
       </div>
@@ -27,10 +28,13 @@
 import { ThemeEnum } from '@/global-config-types';
 import { useTheme } from '@/hooks';
 import { useThemeStore } from '@/store';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const themeList = [
-  { name: 'light', cnName: '浅色模式', value: ThemeEnum.Light },
-  { name: 'dark', cnName: '深色模式', value: ThemeEnum.Dark },
+  { name: 'light', cnName: 'theme.lightTheme', value: ThemeEnum.Light },
+  { name: 'dark', cnName: 'theme.darkTheme', value: ThemeEnum.Dark },
 ];
 const themeStore = useThemeStore();
 const { applyTheme } = useTheme();
