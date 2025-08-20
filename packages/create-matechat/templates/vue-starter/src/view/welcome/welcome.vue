@@ -1,5 +1,6 @@
 <template>
   <div class="welcome-page">
+    <div class="content-wrapper">
     <McIntroduction
       :logo-img="GlobalConfig.logoPath || Logo2X"
       :title="GlobalConfig.title"
@@ -25,25 +26,26 @@
         </span>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import GlobalConfig from "@/global-config";
+import GlobalConfig from '@/global-config';
 import {
   guessQuestionsCn,
   guessQuestionsEn,
   mockAnswer,
-} from "@/mock-data/mock-chat-view";
-import { useChatMessageStore, useLangStore } from "@/store";
-import { LangType } from "@/types";
-import Logo2X from "../../../public/logo2x.svg";
+} from '@/mock-data/mock-chat-view';
+import { useChatMessageStore, useLangStore } from '@/store';
+import { LangType } from '@/types';
+import Logo2X from '../../../public/logo2x.svg';
 
 const langStore = useLangStore();
 const chatMessageStore = useChatMessageStore();
 
 const list = computed(() =>
-  langStore.currentLang === LangType.CN ? guessQuestionsCn : guessQuestionsEn
+  langStore.currentLang === LangType.CN ? guessQuestionsCn : guessQuestionsEn,
 );
 
 const onItemClick = (item) => {
@@ -60,7 +62,15 @@ const onItemClick = (item) => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  .content-wrapper {
+    margin: auto 0;
+    width: 100%;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    }
   overflow: auto;
   width: 100%;
   max-width: 1200px;

@@ -11,5 +11,8 @@ export default {
     copy: "复制",
     diagram: '图形',
     code: '代码',
+    zoomIn: '放大',
+    zoomOut: '缩小',
+    downLoad: '下载',
   },
 };

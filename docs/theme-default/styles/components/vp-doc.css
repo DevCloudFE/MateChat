@@ -308,6 +308,8 @@
   font-size: var(--vp-code-font-size);
   color: var(--vp-code-block-color);
   transition: color 0.5s;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .vp-doc [class*='language-'] code .highlighted {

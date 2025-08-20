@@ -12,6 +12,7 @@ import { McInput } from '@matechat/core';
 ```
 
 ### 基本用法
+绑定 `value` 等基本参数进行使用。
 
 :::demo
 
@@ -128,7 +129,7 @@ const onSubmit = (e) => {
 
 ### 自定义发送按钮
 
-通过`button`插槽自定义发送按钮，实现按钮 disable、loading 等状态和按钮图标、按钮文案的自定义
+通过`button`插槽自定义发送按钮，实现按钮 disable、loading 等状态和按钮图标、按钮文案的自定义。
 
 :::demo
 
@@ -197,6 +198,45 @@ const onConfirm = () => {
   background: #beccfa;
 }
 </style>
+```
+
+:::
+
+### 自动聚焦
+
+通过 `autofocus` 属性设置输入框在组件挂载后自动获得焦点，默认为 `false`。当输入框被禁用时，自动聚焦不会生效。
+
+:::demo
+
+```vue
+<template>
+  <McInput :value="inputValue" autofocus :loading="loading" @change="onInputChange" @submit="onSubmit" @cancel="onCancel">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const inputValue = ref('');
+const loading = ref(false);
+
+const onInputChange = (e) => {
+  inputValue.value = e;
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  inputValue.value = '';
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
+  console.log('input submit---', e);
+};
+const onCancel = () => {
+  loading.value = false;
+  console.log('input cancel');
+};
+</script>
 ```
 
 :::

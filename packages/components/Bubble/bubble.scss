@@ -49,6 +49,11 @@
 
   &.mc-bubble-avatar-top {
     flex-direction: column;
+    
+    .mc-bubble-content-container {
+      align-items: flex-start;
+      flex-direction: column;
+    }
   }
 
   &.mc-bubble-loading.mc-bubble-avatar-side {
@@ -70,7 +75,7 @@
   &.mc-bubble-avatar-top.mc-bubble-right {
     .mc-bubble-avatar,
     .mc-bubble-content-container {
-      justify-content: end;
+      align-items: flex-end;
     }
 
     .mc-bubble-avatar {

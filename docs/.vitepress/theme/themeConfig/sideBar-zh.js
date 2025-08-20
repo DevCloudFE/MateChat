@@ -11,7 +11,6 @@ export default {
       text: '布局',
       items: [
         { text: 'Header 头部', link: '/components/header/demo' },
-        { text: 'Layout 布局', link: '/components/layout/demo' },
       ],
     },
     {
@@ -28,7 +27,10 @@ export default {
     },
     {
       text: '演进中',
-      items: [{ text: 'MarkDown 卡片', link: '/components/markDownCard/demo' }],
+      items: [
+        { text: 'Layout 布局', link: '/components/layout/demo' },
+        { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
+      ],
     },
   ],
   '/design/': [
@@ -47,6 +49,13 @@ export default {
     { text: '按需引入', link: '/use-guide/require' },
     { text: '国际化', link: '/use-guide/i18n' },
     { text: '自定义主题', link: '/use-guide/theme' },
+    {
+      text: '通过Cli创建应用',
+      items: [
+        { text: '快速开始', link: '/use-guide/solution' },
+        { text: '主题化', link: '/use-guide/cli-theme' },
+      ],
+    },
     {
       text: '模型对接',
       items: [

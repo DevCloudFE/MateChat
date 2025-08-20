@@ -1,5 +1,6 @@
 <template>
   <textarea
+    ref="textareaRef"
     v-model="inputValue"
     :placeholder="placeholder"
     :disabled="rootProps.disabled"
@@ -18,13 +19,14 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, inject, computed } from 'vue';
+import { nextTick, inject, computed, ref, onMounted } from 'vue';
 import { inputInjectionKey, SubmitShortKey, DisplayType } from '../input-types';
 import type { InputContext } from '../input-types';
 import { useMcI18n } from '@matechat/core/Locale';
 
 const { t } = useMcI18n();
 
+const textareaRef = ref<HTMLTextAreaElement>();
 const { inputValue, rootProps, rootEmits } = inject(inputInjectionKey) as InputContext;
 const placeholder = computed(() => {
   let enterKey = '';
@@ -87,6 +89,12 @@ const onFocus = (e: FocusEvent) => {
 const onBlur = (e: FocusEvent) => {
   rootEmits('blur', e);
 }
+
+onMounted(() => {
+  if (rootProps.autofocus && textareaRef.value && !rootProps.disabled) {
+    textareaRef.value.focus();
+  }
+});
 </script>
 
 <style lang="scss">

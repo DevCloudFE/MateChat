@@ -18,7 +18,7 @@
     />
     <div :class="['history-list-box', !renderList.length && 'empty']">
       <template v-for="(item, index) in renderList" :key="index">
-        <Collapse v-model="item.expand" :title="item.title">
+        <Collapse v-model="item.expand" :title="t(item.title)">
           <HistoryItem
             v-for="(val, i) in item.list"
             :key="i"
@@ -32,7 +32,7 @@
         </Collapse>
       </template>
       <div v-if="!renderList.length" class="history-list-empty">
-        <img :src="themeStore.theme === 'light' ? NoDataPng : NoDataDarkPng" />
+        <img :src="themeStore.theme === 'dark' ? NoDataDarkPng : NoDataPng" />
         <span>{{ $t("noData") }}</span>
       </div>
     </div>
@@ -72,12 +72,10 @@ const onSearch = (e: string) => {
     const res = [];
     for (let i = 0; i < categorizedHistoryList.length; i++) {
       const item = { ...categorizedHistoryList[i] };
-      for (let j = 0; j < item.list.length; j++) {
-        item.list = item.list.filter((listItem) =>
-          listItem.messages[0].content.includes(e)
-        );
-        item.list.length && res.push(item);
-      }
+      item.list = item.list?.filter((listItem) =>
+        listItem.messages[0].content.includes(e)
+      ) || [];
+      item.list.length && res.push(item);
     }
     renderList.value = res;
   } else {
@@ -206,14 +204,14 @@ watch(
   }
 }
 
-body[ui-theme="infinity-theme"] {
+body[ui-theme-type="light"] {
   .history-list-container {
     backdrop-filter: blur(50px);
     background-color: rgba(249, 249, 249, 0.8);
   }
 }
 
-body[ui-theme="galaxy-theme"] {
+body[ui-theme-type="dark"] {
   .history-list-container {
     background-color: $devui-global-bg;
   }

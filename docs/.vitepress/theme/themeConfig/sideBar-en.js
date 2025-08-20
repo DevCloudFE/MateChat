@@ -47,6 +47,13 @@ export default {
     { text: 'i18n', link: '/use-guide/i18n' },
     { text: 'Theming', link: '/use-guide/theme' },
     {
+      text: 'Create an application using Cli',
+      items: [
+        { text: 'Quick start', link: '/use-guide/solution' },
+        { text: 'Theme', link: '/use-guide/cli-theme' },
+      ],
+    },
+    {
       text: 'Model Intergration',
       items: [
         { text: 'OpenAI', link: '/use-guide/model/openai' },

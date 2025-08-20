@@ -1,6 +1,6 @@
 <template>
   <div class="mc-markdown-render" :class="themeClass">
-    <component :is="markdownComponent" />
+    <component :is="markdownContent" />
   </div>
   <div v-if="false">
     <slot name="actions"></slot>
@@ -13,15 +13,11 @@
 import hljs from 'highlight.js';
 import markdownit from 'markdown-it';
 import type { MarkdownIt, Token } from 'markdown-it';
-import { type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
+import { Fragment, type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
 import CodeBlock from './CodeBlock.vue';
 import { MDCardService } from './MDCardService';
 import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-
-type MarkdownComponentType = {
-  name: string;
-  render: () => VNode;
-};
+import { tokensToAst, htmlToVNode, type ASTNode, isValidTagName } from './MDCardParser';
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -44,17 +40,10 @@ const mdt: MarkdownIt = markdownit({
   ...props.mdOptions,
 });
 
-mdt.renderer.rules.fence = (tokens: Token[], idx: number) => {
-  return `<!----MC_MARKDOWN_CODE_BLOCK_${idx}---->`;
-};
-
-const parsedContent = ref<{ tokens: Token[]; html: string }>({
-  tokens: [],
-  html: '',
-});
-
 const typingIndex = ref(0)
 const isTyping = ref(false)
+
+const markdownContent = ref<VNode>();
 
 const parseContent = () => {
   let content = props.content || '';
@@ -76,12 +65,128 @@ const parseContent = () => {
         .replace('</think>', '</div>') || '';
   }
   const tokens = mdt.parse(content, {});
-  const html = mdt.render(content);
-  parsedContent.value = { tokens, html };
+  const ast = tokensToAst(tokens);
+  const vnodes = astToVnodes(ast);
+  markdownContent.value = h(Fragment, vnodes);
 };
 
+const astToVnodes = (nodes: ASTNode[]): VNode[] => {
+  return nodes.map(node => processASTNode(node));
+}
+
+const processASTNode = (node: ASTNode | Token): VNode => {
+  if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
+    const outerVnode: VNode = htmlToVNode(node.openNode?.content || '')[0] as VNode;
+    if (outerVnode) {
+      const outerChildren = outerVnode?.children || [];
+      if (Array.isArray(outerChildren)) {
+        outerVnode.children = [...outerChildren, ...node.children.map(child => processASTNode(child))];
+      } else {
+        outerVnode.children = [outerChildren, ...node.children.map(child => processASTNode(child))];
+      }
+      return outerVnode;
+    } else {
+      return node.openNode?.content || ''
+    }
+  }
+
+  if (node.nodeType === 'inline') {
+    const html = mdt.renderer.render([node.openNode], mdt.options, {});
+    const vNodes = htmlToVNode(html);
+    return h(Fragment, vNodes);
+  }
+  
+  if (isToken(node)) {
+    return processToken(node);
+  }
+  
+  return processASTNodeInternal(node);
+}
+
+const isToken = (node: ASTNode | Token): node is Token => {
+  return 'type' in node && 'content' in node;
+}
+
+const processToken = (token: Token): VNode => {
+  if (token.type === 'text') {
+    return token.content;
+  }
+  
+  if (token.type === 'inline') {
+    return processInlineToken(token);
+  }
+
+  if (token.type === 'fence') {
+    return processFenceToken(token);
+  }
+
+  if (token.type === 'softbreak') {
+    return mdt.options.breaks ? h('br') : '\n';
+  }
+
+  if (token.type === 'html_block' || token.type === 'html_inline') {
+    return token.type === 'html_block' ? h('div', { innerHTML: token.content }) : h('span', { innerHTML: token.content });
+  }
+  
+  // 优先使用token的tag属性
+  if (token.tag) {
+    const tagName = isValidTagName(token.tag) ? token.tag : 'div'
+    const attrs = convertAttrsToProps(token.attrs || []);
+    return h(tagName, { ...attrs, key: token.vNodeKey }, token.content);
+  }
+  
+  return token.content;
+}
+
+const processInlineToken = (token: Token): VNode => {
+  const html = mdt.renderer.render([token], mdt.options, {});
+  const vNodes = htmlToVNode(html);
+  return h(Fragment, vNodes);
+}
+
+
+
+const processASTNodeInternal = (node: ASTNode): VNode => {
+  let tagName = 'div';
+  if (node.openNode?.tag && isValidTagName(node.openNode?.tag)) {
+    tagName = node.openNode?.tag
+  }
+  const attrs = convertAttrsToProps(node.openNode?.attrs || []);
+
+  // 特殊处理fence类型的token
+  if (node.openNode?.type === 'fence') {
+    return processFenceToken(node.openNode);
+  }
+  
+  // 处理所有带tag的AST节点
+  if (node.openNode?.tag) {
+    let tagName = isValidTagName(node.openNode?.tag) ? node.openNode?.tag : 'div'
+    const children = node.children.map(child => processASTNode(child));
+    const attrs = convertAttrsToProps(node.openNode?.attrs || []);
+    return h(tagName, { ...attrs, key: node.vNodeKey }, children);
+  }
+  
+  const children = node.children.map(child => processASTNode(child));
+  
+  return h(tagName, { ...attrs, key: node.vNodeKey}, children);
+}
+
+const processFenceToken = (token: Token): VNode => {
+  const language = token.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
+  const code = token.content;
+  return createCodeBlock(language, code, token.tokenIndex);
+}
+
+const convertAttrsToProps = (attrs: [string, string][]): Record<string, string> => {
+  return attrs.reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>);
+}
+
+
 watch(
-  () => [props.enableThink, props.thinkOptions?.customClass],
+  () => [props.enableThink, props.thinkOptions?.customClass, props.theme],
   () => {
     parseContent();
   }
@@ -94,13 +199,13 @@ const createCodeBlock = (
 ) => {
   const codeBlockSlots: CodeBlockSlot = {
     actions: slots.actions
-      ? () => slots.actions({ codeBlockData: { code, language } }) || null
+      ? () => slots.actions?.({ codeBlockData: { code, language } }) || null
       : undefined,
     header: slots.header
-      ? () => slots.header({ codeBlockData: { code, language } }) || null
+      ? () => slots.header?.({ codeBlockData: { code, language } }) || null
       : undefined,
     content: slots.content
-      ? () => slots.content({ codeBlockData: { code, language } }) || null
+      ? () => slots.content?.({ codeBlockData: { code, language } }) || null
       : undefined,
   };
   return h(
@@ -117,29 +222,6 @@ const createCodeBlock = (
     codeBlockSlots,
   );
 };
-
-watch(
-  () => props.content,
-  (newVal, oldVal) => {
-    if (!props.typing) {
-      typingIndex.value = newVal?.length || 0;
-      parseContent();
-      return
-    }
-
-    if (newVal.indexOf(oldVal) === -1) {
-      typingIndex.value = 0;
-    }
-
-    nextTick(() => typewriterStart())
-  },
-  { immediate: true },
-)
-
-const typewriterEnd = () => {
-  isTyping.value = false;
-  emit('typingEnd');
-}
 
 const typewriterStart = () => {
   clearTimeout(timer!)
@@ -169,54 +251,28 @@ const typewriterStart = () => {
   timer = setTimeout(typingStep);
 }
 
-const markdownComponent = computed<MarkdownComponentType>(() => {
-  return {
-    name: 'MarkdownRenderer',
-    render() {
-      if (typeof document === 'undefined') {
-        return h('div');
-      }
-      const { html, tokens } = parsedContent.value;
-      const vNodes: VNode[] = [];
-      let lastIndex = 0;
-      let match: RegExpExecArray | null;
-      const regex = /<!----MC_MARKDOWN_CODE_BLOCK_(\d+)---->/g;
-      let codeBlockIndex = 0;
-      let nodeIndex = 0;
+watch(
+  () => props.content,
+  (newVal, oldVal) => {
+    if (!props.typing) {
+      typingIndex.value = newVal?.length || 0;
+      parseContent();
+      return
+    }
 
-      while (true) {
-        match = regex.exec(html);
-        if (!match) break;
-        if (match.index > lastIndex) {
-          vNodes.push(
-            h('div', {
-              innerHTML: html.slice(lastIndex, match.index),
-              key: `markdown-segment-${nodeIndex++}`,
-            }),
-          );
-        }
-        const token = tokens[Number.parseInt(match[1])];
-        const lang = token?.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
-        const code = token.content;
+    if (newVal.indexOf(oldVal) === -1) {
+      typingIndex.value = 0;
+    }
 
-        vNodes.push(createCodeBlock(lang, code, codeBlockIndex));
-        codeBlockIndex++;
-        lastIndex = regex.lastIndex;
-      }
+    nextTick(() => typewriterStart())
+  },
+  { immediate: true },
+)
 
-      if (lastIndex < html.length) {
-        vNodes.push(
-          h('div', {
-            innerHTML: html.slice(lastIndex),
-            key: `markdown-segment-${nodeIndex++}`,
-          }),
-        );
-      }
-
-      return h('div', vNodes);
-    },
-  };
-});
+const typewriterEnd = () => {
+  isTyping.value = false;
+  emit('typingEnd');
+}
 
 watch(
   () => props.customXssRules,
