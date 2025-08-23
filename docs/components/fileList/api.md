@@ -1,5 +1,6 @@
 ---
-title: FileList API
+title: FileList 文件列表
+desc: 用于展示和管理文件列表，支持下载、删除等交互操作。
 ---
 
 ## FileList Props

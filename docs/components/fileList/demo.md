@@ -11,13 +11,13 @@ import { McFileList } from '@matechat/core';
 
 ## 基础用法
 
-`McFileList` 组件用于优雅地展示文件列表。通过 `list` 属性传入文件数组即可。
+`McFileList` 组件用于优雅地展示文件列表。通过 `files` 属性传入文件数组即可。
 
 :::demo
 
 ```vue
 <template>
-  <McFileList :list="simpleList" />
+  <McFileList :files="simpleList" />
 </template>
 
 <script setup lang="ts">

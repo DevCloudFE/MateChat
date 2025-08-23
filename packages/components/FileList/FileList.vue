@@ -33,6 +33,9 @@ const hoveredFileUid = ref<number | null>(null);
 const downloadStates = ref(
   new Map<number, { status: 'downloading' | 'error'; percentage: number }>(),
 );
+// 新增：用于文件预览的状态
+const isPreviewVisible = ref(false);
+const previewFile = ref<FileItem | null>(null);
 
 // 格式化文件大小
 const formatFileSize = (bytes: number): string => {
@@ -131,64 +134,25 @@ const handleRetryUpload = (file: FileItem) => {
 };
 // 处理预览
 const handlePreview = (file: FileItem) => {
+  if (file.url) {
+    previewFile.value = file;
+    isPreviewVisible.value = true;
+  }
+  // 仍然可以发出事件，以防父组件需要知道
   emit('preview', file);
 };
 // 处理重试下载
 const handleRetryDownload = (file: FileItem) => {
   downloadStates.value.delete(file.uid); // 清除错误状态
-  handleDownload(file); // 重新开始下载
   emit('retry-download', file);
 };
-// --- 下载相关处理函数 ---
+// 下载处理函数
 const handleDownload = (file: FileItem) => {
-  // 1. 防止重复下载
-  if (
-    downloadStates.value.has(file.uid) &&
-    downloadStates.value.get(file.uid)?.status === 'downloading'
-  )
+  // 防止对已在下载中的文件重复触发下载事件
+  if (downloadStates.value.get(file.uid)?.status === 'downloading') {
     return;
-
-  // 2. 设置初始状态
-  downloadStates.value.set(file.uid, { status: 'downloading', percentage: 0 });
-
-  // 3. 随机决定本次下载是否会失败 (30% 的失败率)
-  const willFail = Math.random() < 0.3;
-
-  let interval: ReturnType<typeof setInterval>;
-
-  if (willFail) {
-    // 4a. 如果失败，计算一个随机的失败点 (30% 到 90% 之间)
-    const failurePercentage = Math.floor(Math.random() * (90 - 30 + 1)) + 30;
-
-    interval = setInterval(() => {
-      const state = downloadStates.value.get(file.uid);
-      if (state) {
-        state.percentage += 10;
-        if (state.percentage >= failurePercentage) {
-          clearInterval(interval);
-          state.status = 'error'; // 到达失败点，设置状态为 error
-        }
-      } else {
-        clearInterval(interval); // 如果状态被外部移除，停止计时器
-      }
-    }, 200);
-  } else {
-    // 4b. 如果成功，正常下载到 100%
-    interval = setInterval(() => {
-      const state = downloadStates.value.get(file.uid);
-      if (state) {
-        state.percentage += 10;
-        if (state.percentage >= 100) {
-          clearInterval(interval);
-          downloadStates.value.delete(file.uid); // 下载成功后清除状态
-        }
-      } else {
-        clearInterval(interval);
-      }
-    }, 200);
   }
-
-  // 5. 触发 download 事件
+  // 触发 download 事件，交由父组件处理实际的下载逻辑
   emit('download', file);
 };
 </script>
@@ -206,12 +170,19 @@ const handleDownload = (file: FileItem) => {
       >
         <!-- 文件图标和进度 -->
         <div class="mc-file-item__icon">
-          <component
-            :is="getIconComponent(file)"
-            :title="file.name"
-            :size="36"
-            class="mc-file-item__type-icon"
-          />
+          <!-- 图片预览 -->
+          <template v-if="(file.thumbUrl || file.url) && file.type.startsWith('image/')">
+            <img :src="file.thumbUrl || file.url" :alt="file.name" class="mc-file-item__image-preview" @click="handlePreview(file)">
+          </template>
+          <!-- 原来的图标 -->
+          <template v-else>
+            <component
+              :is="getIconComponent(file)"
+              :title="file.name"
+              :size="36"
+              class="mc-file-item__type-icon"
+            />
+          </template>
           <!-- 进度覆盖层 (同时处理上传和下载) -->
           <div v-if="file.status === 'uploading' || file.status === 'error' || downloadStates.get(file.uid)?.status" class="mc-file-item__progress-overlay">
             <div class="mc-file-item__progress-mask"></div>
@@ -248,7 +219,7 @@ const handleDownload = (file: FileItem) => {
               <span class="mc-file-item__meta-action" @click="handleRetryDownload(file)">重试</span>
             </template>
             <!-- 3. 悬停状态 (仅在无任何失败状态时判断) -->
-            <template v-else-if="hoveredFileUid === file.uid && file.status === 'success' && props.context === 'dialog'">
+            <template v-else-if="hoveredFileUid === file.uid && file.status === 'success'">
               <span class="mc-file-item__meta-action" @click="handleDownload(file)">下载</span>
               <span class="mc-file-item__meta-action" @click="handlePreview(file)">预览</span>
             </template>
@@ -279,6 +250,25 @@ const handleDownload = (file: FileItem) => {
       </div>
     </div>
   </div>
+  <teleport to="body">
+    <transition name="mc-file-preview-fade">
+      <div v-if="isPreviewVisible" class="mc-file-preview__overlay" @click.self="isPreviewVisible = false">
+        <!-- 图片预览 -->
+        <img v-if="previewFile && previewFile.type.startsWith('image/')" :src="previewFile.url" :alt="previewFile.name" class="mc-file-preview__content" />
+        <!-- 视频预览 -->
+        <video v-else-if="previewFile && previewFile.type.startsWith('video/')" :src="previewFile.url" controls class="mc-file-preview__content"></video>
+        <!-- PDF 和 文本文件预览 (使用 iframe) -->
+        <iframe v-else-if="previewFile && (previewFile.type === 'application/pdf' || previewFile.type.startsWith('text/'))" :src="previewFile.url" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
+        <!-- 其他文件类型的占位符 -->
+        <div v-else class="mc-file-preview__unsupported">
+          <span>浏览器不支持预览此文件类型：{{ previewFile?.name }}</span>
+          <span class="mc-file-preview__unsupported-tip">请尝试下载后查看</span>
+        </div>
+        <!-- 关闭按钮 -->
+        <button class="mc-file-preview__close-btn" @click="isPreviewVisible = false" title="关闭">✕</button>
+      </div>
+    </transition>
+  </teleport>
 </template>
 
 <style lang="scss">

@@ -12,6 +12,8 @@ export interface FileItem<T = unknown, E = unknown> {
   // 可以存放服务器响应信息
   response?: T;
   error?: E;
+  thumbUrl?: string;
+  url?: string;
 }
 // 新增：定义上传选项接口
 export interface UploadOptions {
@@ -73,7 +75,6 @@ export const AttachmentProps = {
     type: String,
     default: '请选择文件',
   },
-  // 这一部分需要修改下
   beforeUpload: {
     type: Function as PropType<(file: File) => boolean | Promise<boolean>>,
     default: null,

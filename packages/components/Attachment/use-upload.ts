@@ -18,14 +18,19 @@ export function useUpload(
   const isDragging = ref(false);
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   let dragCounter = 0;
-  const getFileItem = (file: File): FileItem => ({
-    uid: uid++, // 这个如何跟后端协调
-    name: file.name,
-    size: file.size,
-    type: file.type,
-    status: 'uploading',
-    percentage: 0,
-  });
+  const getFileItem = (file: File): FileItem => {
+    const localUrl = URL.createObjectURL(file);
+    return {
+      uid: uid++,
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      status: 'uploading',
+      percentage: 0,
+      url: localUrl,
+      thumbUrl: localUrl,
+    };
+  };
 
   const uploadFiles = async (files: File[]) => {
     if (files.length === 0) return;
@@ -50,8 +55,24 @@ export function useUpload(
 
       // 上传前钩子
       if (props.beforeUpload) {
-        const result = await Promise.resolve(props.beforeUpload(file));
-        if (result === false) continue;
+        try {
+          const result = await Promise.resolve(props.beforeUpload(file));
+          if (result === false) {
+            fileItem.status = 'error';
+            const errorMsg = 'File validation failed before upload.';
+            fileItem.error = errorMsg;
+            fileList.value.push(fileItem); // 将带错误状态的文件添加到列表
+            emit('error', file, errorMsg, [...fileList.value]);
+            continue;
+          }
+        } catch (e) {
+          // 捕获 beforeUpload 中可能抛出的错误 (例如 Promise.reject)
+          fileItem.status = 'error';
+          fileItem.error = e instanceof Error ? e.message : e;
+          fileList.value.push(fileItem); // 将带错误状态的文件添加到列表
+          emit('error', file, fileItem.error, [...fileList.value]);
+          continue; // 阻止上传
+        }
       }
 
       fileList.value.push(fileItem); // 直接修改 fileList，自动同步
@@ -61,51 +82,6 @@ export function useUpload(
       // 调用真实的上传函数，而不是模拟函数
       performUpload(file, fileItem);
     }
-  };
-
-  const simulateUpload = (file: File, fileItem: FileItem) => {
-    const interval = setInterval(() => {
-      // 找到对应的文件项索引
-      const index = fileList.value.findIndex(
-        (item) => item.uid === fileItem.uid,
-      );
-      if (index === -1) {
-        clearInterval(interval);
-        return;
-      }
-      // 从 fileList 中获取最新的文件项
-      const currentFileItem = fileList.value[index];
-      if (currentFileItem.percentage <= 95) {
-        // 通过索引更新，确保响应式
-        fileList.value[index] = {
-          ...fileList.value[index],
-          percentage: fileList.value[index].percentage + 5,
-        };
-        emit('progress', file, [...fileList.value]);
-      } else {
-        clearInterval(interval);
-        // 模拟成功/失败
-        if (Math.random() > 0.2) {
-          fileList.value[index] = {
-            ...fileList.value[index],
-            status: 'success',
-            percentage: 100,
-            response: {
-              message: 'Upload success',
-              url: `https://example.com/${fileItem.name}`,
-            },
-          };
-          emit('success', file, fileItem.response, [...fileList.value]);
-        } else {
-          fileList.value[index] = {
-            ...fileList.value[index],
-            status: 'error',
-            error: { message: 'Upload failed' },
-          };
-          emit('error', file, fileList.value[index].error, [...fileList.value]);
-        }
-      }
-    }, 200);
   };
 
   const performUpload = (file: File, fileItem: FileItem) => {

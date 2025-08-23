@@ -22,13 +22,13 @@ export default {
         { text: 'Input', link: '/en/components/input' },
         { text: 'Prompt', link: '/en/components/prompt' },
         { text: 'Mention', link: '/en/components/mention' },
+        { text: 'Attachment', link: '/en/components/attachment' },
+        { text: 'FileList', link: '/en/components/fileList' },
       ],
     },
     {
       text: 'Developing',
-      items: [
-        { text: 'MarkDown Card', link: '/components/markDownCard/demo' }
-      ],
+      items: [{ text: 'MarkDown Card', link: '/components/markDownCard/demo' }],
     },
   ],
   '/en/design/': [
@@ -67,8 +67,8 @@ export default {
         { text: 'How to Use', link: '/use-guide/access' },
         { text: 'Contributing', link: '/use-guide/contributing' },
         { text: 'FAQ', link: '/use-guide/faq' },
-      ]
-    }
+      ],
+    },
   ],
   '/en/playground/': [{ text: 'Demo', link: '/en/playground/playground' }],
 };
