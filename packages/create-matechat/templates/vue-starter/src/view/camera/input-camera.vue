@@ -14,7 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineEmits, ref } from 'vue';
+const emit = defineEmits(['captureImage']);
 import Camera from './camera.vue';
 
 // 控制相机组件的显示与隐藏
@@ -32,8 +33,8 @@ const closeCamera = () => {
 
 // 处理拍照结果
 const handleCapture = (imageData: string) => {
-  // 这里可以根据需要处理拍照结果，例如上传图片或添加到消息中
-  console.log('Captured image data:', imageData);
+  // 将拍摄的图片数据发送给父组件
+  emit('captureImage', imageData);
   closeCamera();
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div :class="['history-item', isOperateOpen && 'open']">
     <div class="history-item-top">
-      <span :title="itemData.messages[0].content">
-        {{ itemData.messages[0].content }}
+      <span :title="itemData.messages[0].content.text">
+        {{ itemData.messages[0].content.text }}
       </span>
       <OperateIcon
         class="history-operate-icon"
@@ -23,9 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import type { IHistoryItem } from "@/types";
-import type { PropType } from "vue";
-import OperateIcon from "./operate-icon.vue";
+import type { IHistoryItem } from '@/types';
+import type { PropType } from 'vue';
+import OperateIcon from './operate-icon.vue';
 
 defineProps({
   itemData: {
@@ -33,7 +33,7 @@ defineProps({
     default: () => ({}),
   },
 });
-const emits = defineEmits(["delete"]);
+const emits = defineEmits(['delete']);
 
 const isOperateOpen = ref(false);
 </script>

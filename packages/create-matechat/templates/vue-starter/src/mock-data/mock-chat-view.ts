@@ -1,9 +1,9 @@
-import articleMd from '../mock-data/article.md?raw';
-import formatDateMd from '../mock-data/formatDate.md?raw';
-import greenTheme from '../mock-data/greenTheme.md?raw';
-import helpMd from '../mock-data/help.md?raw';
-import quickSortMd from '../mock-data/quicksort.md?raw';
 import type { IMessageAvatar } from '../types/type-chat-view';
+import articleMd from './article.md?raw';
+import formatDateMd from './formatDate.md?raw';
+import greenTheme from './greenTheme.md?raw';
+import helpMd from './help.md?raw';
+import quickSortMd from './quicksort.md?raw';
 
 export const introPromptCn = {
   direction: 'horizontal',
@@ -66,11 +66,11 @@ export const guessQuestionsEn = [
 ];
 
 export const mockAnswer = {
-  quickSort: quickSortMd,
-  theme: greenTheme,
-  helpMd: helpMd,
-  article: articleMd,
-  formatDate: formatDateMd,
+  quickSort: { text: quickSortMd },
+  theme: { image: greenTheme },
+  helpMd: { text: helpMd },
+  article: { text: articleMd },
+  formatDate: { text: formatDateMd },
 };
 
 export const customerAvatar: IMessageAvatar = {

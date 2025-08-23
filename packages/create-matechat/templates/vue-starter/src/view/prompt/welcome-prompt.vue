@@ -28,7 +28,7 @@ const list = computed(() =>
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
     // 使用 mock 数据
-    chatMessageStore.ask(item.label, mockAnswer[item.value]);
+    chatMessageStore.ask({ text: item.label }, item.value);
   }
 };
 </script>

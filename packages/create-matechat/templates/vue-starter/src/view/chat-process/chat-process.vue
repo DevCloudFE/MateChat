@@ -11,16 +11,19 @@
       <template v-for="(msg, idx) in chatMessageStore.messages" :key="idx">
         <McBubble
           v-if="msg.from === 'user'"
-          :content="msg.content"
           :align="'right'"
           :avatarConfig="msg.avatarConfig"
         >
-        <template #bottom>
-          <div class="bubble-bottom-operations">
-            <i class="icon-recover" @click="() => onReAnswer(msg)"></i>
+          <div v-if="msg.content.image" class="chat-image-container">
+            <img :src="msg.content.image" class="chat-image" />
           </div>
-        </template>
-      </McBubble>
+          <McMarkdownCard :content="msg.content.text || ''" :theme="themeStore.theme" />
+          <template #bottom>
+            <div class="bubble-bottom-operations">
+              <i class="icon-recover" @click="() => onReAnswer(msg)"></i>
+            </div>
+          </template>
+        </McBubble>
         <McBubble
           v-else
           :loading="msg.loading ?? false"
@@ -30,8 +33,11 @@
         >
           <div class="think-toggle-btn" @click="toggleThink(msg)" v-if="msg.reasoning_content">
             <i class="icon-point"></i>
-            <span>{{ msg.content ? (t('chat.thinkingComplete') + t('chat.thinkingTime', { time: getThinkingTime(msg) })) : t('chat.thinking') }}</span>
+            <span>{{ msg.content.text ? (t('chat.thinkingComplete') + t('chat.thinkingTime', { time: getThinkingTime(msg) })) : t('chat.thinking') }}</span>
             <i :class="btnIcon"></i>
+          </div>
+          <div v-if="msg.content.image" class="chat-image-container">
+            <img :src="msg.content.image" class="chat-image" />
           </div>
           <McMarkdownCard :content="renderMessage(msg)" :theme="themeStore.theme" :enableThink="msg.reasoning_content" />
           <template #bottom>
@@ -84,9 +90,9 @@ const getThinkingTime = (msg: IMessage) => {
 
 const renderMessage = (msg: IMessage) => {
   if (msg.from === 'user' || !msg.reasoning_content) {
-    return msg.content;
+    return msg.content.text || '';
   }
-  return `<think>${msg.reasoning_content}</think>${msg.content}`;
+  return `<think>${msg.reasoning_content}</think>${msg.content.text}`;
 };
 
 // 通过鼠标滚轮判断是否需要自动滚动到最底部
@@ -145,7 +151,7 @@ const scrollHandler = () => {
 };
 
 const onReAnswer = (msg: IMessage) => {
-  chatMessageStore.ask(msg.content as string);
+  chatMessageStore.ask(msg.content);
 }
 
 watch(
@@ -190,6 +196,19 @@ watch(
       margin-top: 8px;
     }
   }
+
+  .preview-image {
+  max-width: 180px;
+}
+.chat-image-container {
+  max-width: 120px !important;
+  padding: 0;
+  margin: 0;
+}
+.chat-image-container img {
+  max-width: 100% !important;
+  height: auto !important;
+}
 
   .bubble-bottom-operations {
     margin-top: 8px;

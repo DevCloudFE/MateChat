@@ -50,7 +50,7 @@ const list = computed(() =>
 
 const onItemClick = (item) => {
   if (mockAnswer[item.value]) {
-    chatMessageStore.ask(item.label, mockAnswer[item.value]);
+    chatMessageStore.ask({ text: item.label }, item.value);
   }
 };
 </script>
