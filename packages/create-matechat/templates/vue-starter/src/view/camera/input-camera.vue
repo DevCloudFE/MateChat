@@ -43,7 +43,7 @@ const handleCapture = (imageData: string) => {
 @import "devui-theme/styles-var/devui-var.scss";
 
 .camera-container {
-  display: flex;
+  display: none;
   gap: 4px;
   align-items: center;
   height: 30px;
@@ -63,6 +63,12 @@ const handleCapture = (imageData: string) => {
 
   &:hover {
     background-color: var(--devui-icon-hover-bg);
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .camera-container {
+    display: flex;
   }
 }
 
