@@ -68,4 +68,10 @@
   z-index: 9999;
   pointer-events: none; // 确保不会干扰拖放事件
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  // 新增：禁用状态下的拖拽覆盖层样式
+  &.is-disabled {
+    border-color: #f56c6c; // 边框变为红色
+    color: #f56c6c; // 文字变为红色
+  }
 }

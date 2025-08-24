@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import type {
   AttachmentEmits,
   AttachmentProps,
@@ -18,6 +18,13 @@ export function useUpload(
   const isDragging = ref(false);
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   let dragCounter = 0;
+
+  // 创建一个计算属性来统一管理禁用状态
+  const isDisabled = computed(() => {
+    // 如果外部传入了 disabled，或者文件数量达到或超过了限制，则禁用
+    return props.disabled || fileList.value.length >= props.limit;
+  });
+
   const getFileItem = (file: File): FileItem => {
     const localUrl = URL.createObjectURL(file);
     return {
@@ -37,78 +44,79 @@ export function useUpload(
 
     // 检查文件数量限制
     if (fileList.value.length + files.length > props.limit) {
-      console.error('Exceed file limit');
+      alert(`文件数量超出限制，最多允许 ${props.limit} 个文件。`);
       return;
     }
 
-    for (const file of files) {
-      const fileItem = getFileItem(file);
+    const validFiles: File[] = [];
+    const errorMessages: string[] = [];
 
-      // 文件类型校验
+    // 2. 遍历并校验每个文件
+    for (const file of files) {
+      let isFileValid = true;
+
+      // 2.1 文件类型校验
       if (props.accept && props.accept !== '*') {
         const acceptedTypes = props.accept
           .split(',')
           .map((t) => t.trim().toLowerCase());
         const fileType = file.type.toLowerCase();
         const fileName = file.name.toLowerCase();
-
-        const isValid = acceptedTypes.some((type) => {
-          if (type.endsWith('/*')) {
-            // e.g., 'image/*'
+        const isTypeValid = acceptedTypes.some((type) => {
+          if (type.endsWith('/*'))
             return fileType.startsWith(type.slice(0, -1));
-          }
-          if (type.startsWith('.')) {
-            // e.g., '.pdf'
-            return fileName.endsWith(type);
-          }
-          return fileType === type; // e.g., 'application/pdf'
+          if (type.startsWith('.')) return fileName.endsWith(type);
+          return fileType === type;
         });
 
-        if (!isValid) {
-          fileItem.status = 'error';
-          fileItem.error = '暂不支持该附件格式';
-          fileList.value.push(fileItem);
-          emit('error', file, fileItem.error, [...fileList.value]);
-          continue; // 阻止上传
+        if (!isTypeValid) {
+          errorMessages.push(`- 文件 "${file.name}": 格式不受支持。`);
+          isFileValid = false;
         }
       }
 
-      // 检查文件大小
-      if (file.size / 1024 / 1024 > props.size) {
-        fileItem.status = 'error';
-        fileItem.error = `File size cannot exceed ${props.size}MB`;
-        fileList.value.push(fileItem); // 直接修改 fileList，自动同步
-        emit('error', file, fileItem.error, [...fileList.value]);
-        continue;
+      // 2.2 文件大小校验
+      if (isFileValid && file.size / 1024 / 1024 > props.size) {
+        errorMessages.push(
+          `- 文件 "${file.name}": 大小超出限制 (最大 ${props.size}MB)。`,
+        );
+        isFileValid = false;
       }
 
-      // 上传前钩子
-      if (props.beforeUpload) {
+      // 2.3 上传前钩子校验
+      if (isFileValid && props.beforeUpload) {
         try {
           const result = await Promise.resolve(props.beforeUpload(file));
           if (result === false) {
-            fileItem.status = 'error';
-            const errorMsg = 'File validation failed before upload.';
-            fileItem.error = errorMsg;
-            fileList.value.push(fileItem); // 将带错误状态的文件添加到列表
-            emit('error', file, errorMsg, [...fileList.value]);
-            continue;
+            errorMessages.push(`- 文件 "${file.name}": 被上传前钩子函数阻止。`);
+            isFileValid = false;
           }
         } catch (e) {
-          // 捕获 beforeUpload 中可能抛出的错误 (例如 Promise.reject)
-          fileItem.status = 'error';
-          fileItem.error = e instanceof Error ? e.message : e;
-          fileList.value.push(fileItem); // 将带错误状态的文件添加到列表
-          emit('error', file, fileItem.error, [...fileList.value]);
-          continue; // 阻止上传
+          const errorMsg = e instanceof Error ? e.message : String(e);
+          errorMessages.push(
+            `- 文件 "${file.name}": 上传前校验失败 (${errorMsg})。`,
+          );
+          isFileValid = false;
         }
       }
 
-      fileList.value.push(fileItem); // 直接修改 fileList，自动同步
+      if (isFileValid) {
+        validFiles.push(file);
+      }
+    }
+
+    // 如果有错误，则统一弹窗提示
+    if (errorMessages.length > 0) {
+      alert(`以下文件无法上传：\n\n${errorMessages.join('\n')}`);
+    }
+
+    // 只处理通过所有校验的有效文件
+    if (validFiles.length === 0) return;
+
+    for (const file of validFiles) {
+      const fileItem = getFileItem(file);
+      fileList.value.push(fileItem);
       emit('change', file, [...fileList.value]);
-      console.log('Uploading file:', [...fileList.value]);
-      // simulateUpload(file, fileItem);
-      // 调用真实的上传函数，而不是模拟函数
       performUpload(file, fileItem);
     }
   };
@@ -161,14 +169,15 @@ export function useUpload(
   };
 
   const handleClick = () => {
-    if (props.disabled) return;
+    // 使用计算属性进行判断
+    if (isDisabled.value) return;
     inputRef.value?.click();
   };
 
   // 拖拽相关事件处理
   const handleDragEnter = (e: DragEvent) => {
     e.preventDefault();
-    if (props.disabled) return;
+    if (isDisabled.value) return;
     dragCounter++;
     if (dragCounter === 1) {
       isDragging.value = true;
@@ -190,7 +199,7 @@ export function useUpload(
     e.preventDefault();
     isDragging.value = false;
     dragCounter = 0; // 重置计数器
-    if (props.disabled) return;
+    if (isDisabled.value) return;
 
     const files = Array.from(e.dataTransfer?.files || []);
     if (files.length > 0) {
@@ -219,6 +228,7 @@ export function useUpload(
 
   return {
     isDragging,
+    isDisabled,
     handleClick,
     handleFileChange,
   };

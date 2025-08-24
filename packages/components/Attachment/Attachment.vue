@@ -15,7 +15,7 @@ const fileList = defineModel<FileItem[]>({ default: [] });
 
 const inputRef = ref<HTMLInputElement>();
 // 从钩子中获取方法
-const { handleClick, handleFileChange, isDragging } = useUpload(
+const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
   props,
   emit,
   inputRef,
@@ -24,10 +24,11 @@ const { handleClick, handleFileChange, isDragging } = useUpload(
 </script>
 
 <template>
-  <div class="mc-attachment" @click="handleClick" :data-placeholder="placeholder">
+  <div class="mc-attachment" @click="handleClick" :data-placeholder="placeholder"
+  :class="{ 'is-disabled': isDisabled }">
     <!-- 使用插槽允许用户自定义触发器内容，例如按钮或文本 -->
     <slot>
-      <button class="mc-attachment-default-trigger" :disabled="disabled">
+      <button class="mc-attachment-default-trigger" :disabled="isDisabled">
         + 附件
       </button>
     </slot>
@@ -37,13 +38,22 @@ const { handleClick, handleFileChange, isDragging } = useUpload(
       class="mc-attachment-file"
       :accept="accept"
       :multiple="multiple"
-      :disabled="disabled"
+      :disabled="isDisabled"
       @change="handleFileChange"
     />
   </div>
   <Teleport to="body">
-    <div v-if="isDragging" class="mc-attachment-drag-modal">
-      拖拽到页面上即可上传
+    <div
+      v-if="isDragging"
+      class="mc-attachment-drag-modal"
+      :class="{ 'is-disabled': isDisabled }"
+    >
+      <template v-if="isDisabled">
+        上传禁用
+      </template>
+      <template v-else>
+        拖拽到页面上即可上传
+      </template>
     </div>
   </Teleport>
 </template>
