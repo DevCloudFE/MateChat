@@ -147,7 +147,7 @@ defineExpose({
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  z-index: 1150;
+  z-index: 950;
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;
