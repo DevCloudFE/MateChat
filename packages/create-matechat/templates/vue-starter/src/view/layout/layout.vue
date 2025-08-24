@@ -10,7 +10,7 @@
 
     <!-- 侧边栏开关按钮 - 仅在小屏幕且侧边栏关闭时显示 -->
     <button
-      v-if="isSmallScreen && !isSidebarOpen"
+      v-if="isSmallScreen && !isSidebarOpen && !state.isCameraPage"
       class="sidebar-toggle-btn"
       @click.stop="handleToggleSidebar"
       aria-label="Toggle sidebar"
@@ -32,6 +32,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { usePageState } from '@/store/pageState';
+
+const { state } = usePageState();
 import { useWindowSize } from '@vueuse/core';
 import GlobalConfig from '@/global-config';
 import SlideSidebar from './slide-sidebar.vue';

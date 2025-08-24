@@ -33,6 +33,17 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { usePageState } from '@/store/pageState';
+
+const { setIsCameraPage } = usePageState();
+
+onMounted(() => {
+  setIsCameraPage(true);
+});
+
+onUnmounted(() => {
+  setIsCameraPage(false);
+});
 
 // Props
 const props = defineProps<{
