@@ -2,6 +2,7 @@
   <div
     ref="sidebarRef"
     :class="['slide-sidebar', { 'active': isOpen }]"
+    @click.stop
   >
     <!-- 侧边栏顶部导航 -->
     <div class="sidebar-header">
@@ -60,9 +61,7 @@ const isSmallScreen = computed(() => width.value < 520);
 
 // 打开侧边栏
 const openSidebar = () => {
-  if (isSmallScreen.value) {
-    isOpen.value = true;
-  }
+  isOpen.value = true;
 };
 
 // 关闭侧边栏
@@ -126,6 +125,13 @@ onUnmounted(() => {
   document.removeEventListener('touchend', handleTouchEnd);
   document.removeEventListener('click', handleClickOutside);
 });
+// 暴露组件属性和方法
+defineExpose({
+  isOpen,
+  openSidebar,
+  closeSidebar
+});
+
 </script>
 
 <style scoped lang="scss">
@@ -141,7 +147,7 @@ onUnmounted(() => {
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  z-index: 1000;
+  z-index: 1150;
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;
