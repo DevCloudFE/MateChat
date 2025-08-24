@@ -210,8 +210,14 @@ const handleDownload = (file: FileItem) => {
           <div class="mc-file-item__meta">
             <!-- 1. 上传失败状态-->
             <template v-if="file.status === 'error'">
-              <span class="mc-file-item__status mc-file-item__status--error">上传失败</span>
-              <span class="mc-file-item__meta-action" @click="handleRetryUpload(file)">重试</span>
+              <span class="mc-file-item__status mc-file-item__status--error" :title="file.error === '暂不支持该附件格式' ? file.error : '上传失败'">
+                {{ file.error === '暂不支持该附件格式' && file.error ? file.error : '上传失败' }}
+              </span>
+              <span
+                v-if="file.error !== '暂不支持该附件格式'"
+                class="mc-file-item__meta-action"
+                @click="handleRetryUpload(file)"
+              >重试</span>
             </template>
             <!-- 2. 下载失败状态 -->
             <template v-else-if="downloadStates.get(file.uid)?.status === 'error'">

@@ -44,6 +44,35 @@ export function useUpload(
     for (const file of files) {
       const fileItem = getFileItem(file);
 
+      // 文件类型校验
+      if (props.accept && props.accept !== '*') {
+        const acceptedTypes = props.accept
+          .split(',')
+          .map((t) => t.trim().toLowerCase());
+        const fileType = file.type.toLowerCase();
+        const fileName = file.name.toLowerCase();
+
+        const isValid = acceptedTypes.some((type) => {
+          if (type.endsWith('/*')) {
+            // e.g., 'image/*'
+            return fileType.startsWith(type.slice(0, -1));
+          }
+          if (type.startsWith('.')) {
+            // e.g., '.pdf'
+            return fileName.endsWith(type);
+          }
+          return fileType === type; // e.g., 'application/pdf'
+        });
+
+        if (!isValid) {
+          fileItem.status = 'error';
+          fileItem.error = '暂不支持该附件格式';
+          fileList.value.push(fileItem);
+          emit('error', file, fileItem.error, [...fileList.value]);
+          continue; // 阻止上传
+        }
+      }
+
       // 检查文件大小
       if (file.size / 1024 / 1024 > props.size) {
         fileItem.status = 'error';
