@@ -146,14 +146,34 @@ const handleRetryDownload = (file: FileItem) => {
   downloadStates.value.delete(file.uid); // 清除错误状态
   emit('retry-download', file);
 };
-// 下载处理函数
-const handleDownload = (file: FileItem) => {
-  // 防止对已在下载中的文件重复触发下载事件
+// 下载处理函数(前端处理，若后端需要，可自行处理，阻止默认行为)
+const handleDownload = (file: FileItem, event: Event) => {
+  // 发出事件，通知父组件下载已开始
+  emit('download', file, event);
+
+  if (event.defaultPrevented) {
+    return;
+  }
+
+  if (!file.url) {
+    console.error('Download failed: file URL is missing.');
+    downloadStates.value.set(file.uid, { status: 'error', percentage: 0 });
+    return;
+  }
+
+  // 防止对已在下载中的文件重复触发
   if (downloadStates.value.get(file.uid)?.status === 'downloading') {
     return;
   }
-  // 触发 download 事件，交由父组件处理实际的下载逻辑
-  emit('download', file);
+
+  // 创建一个a 标签来触发下载
+  const link = document.createElement('a');
+  link.href = file.url;
+  link.download = file.name; // 设置 download 属性，浏览器会执行下载而不是导航
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click(); // 模拟点击
+  document.body.removeChild(link); // 完成后移除元素
 };
 </script>
 
@@ -226,7 +246,7 @@ const handleDownload = (file: FileItem) => {
             </template>
             <!-- 3. 悬停状态 (仅在无任何失败状态时判断) -->
             <template v-else-if="hoveredFileUid === file.uid && file.status === 'success'">
-              <span class="mc-file-item__meta-action" @click="handleDownload(file)">下载</span>
+              <span class="mc-file-item__meta-action" @click="handleDownload(file, $event)">下载</span>
               <span class="mc-file-item__meta-action" @click="handlePreview(file)">预览</span>
             </template>
             <!-- 4. 上传/下载中状态 -->

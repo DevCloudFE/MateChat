@@ -177,7 +177,6 @@ export function useUpload(
   // 拖拽相关事件处理
   const handleDragEnter = (e: DragEvent) => {
     e.preventDefault();
-    if (isDisabled.value) return;
     dragCounter++;
     if (dragCounter === 1) {
       isDragging.value = true;

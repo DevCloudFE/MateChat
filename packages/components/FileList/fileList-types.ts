@@ -21,7 +21,7 @@ export const fileListEmits = {
   remove: (file: FileItem) => file && typeof file === 'object',
   'retry-upload': (file: FileItem) => file && typeof file === 'object',
   // 下载、预览和重试下载事件
-  download: (file: FileItem) => file && typeof file === 'object',
+  download: (file: FileItem, event: Event) => file && typeof file === 'object',
   preview: (file: FileItem) => file && typeof file === 'object',
   'retry-download': (file: FileItem) => file && typeof file === 'object',
 };
