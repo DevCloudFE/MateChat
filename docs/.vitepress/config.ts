@@ -43,7 +43,7 @@ export default defineConfig({
     nav: [
       { text: 'nav.guide', link: '/use-guide/introduction' },
       { text: 'nav.component', link: '/components/introduction/demo' },
-      { text: 'nav.demo', link: '/playground/playground' },
+      { text: 'nav.demo', link: '/vue-starter/' },
     ],
     sidebar: {
       ...sideBarZh,
