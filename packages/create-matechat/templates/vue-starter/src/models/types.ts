@@ -30,6 +30,10 @@ export interface ChatRequest {
     onError?: (error: Error) => void;
     onComplete?: () => void;
   };
+  messages: {
+    from: 'user' | 'assistant';
+    content: string;
+  }[];
 }
 
 export interface CustomApiKey {

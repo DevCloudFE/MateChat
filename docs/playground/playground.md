@@ -168,7 +168,7 @@ const onSubmit = (e, answer = undefined) => {
 
 const getAIAnswer = (content) => {
   messages.value.push({
-    from: 'ai-model',
+    from: 'assistant',
     content: '',
     avatarPosition: 'side-left',
     avatarConfig: { ...aiModelAvatar },

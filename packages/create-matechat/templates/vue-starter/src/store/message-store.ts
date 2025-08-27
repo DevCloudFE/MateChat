@@ -43,7 +43,7 @@ export const useChatMessageStore = defineStore("chat-message", () => {
 
   const getAIAnswer = (content: string) => {
     messages.value.push({
-      from: "ai-model",
+      from: "assistant",
       content: "",
       avatarPosition: "side-left",
       avatarConfig: { ...aiModelAvatar },
@@ -82,6 +82,7 @@ export const useChatMessageStore = defineStore("chat-message", () => {
           onMessage: onMessageChange,
           onComplete: onMessageComplete,
         },
+        messages: messages.value,
       };
       if (!chatModelStore.currentModel) {
         return;

@@ -4,7 +4,7 @@ import QwenIcon from "../../public/qwen.svg";
 
 export const MODEL_CONFIGS = {
   stream: true,
-  enableMock: true,
+  enableMock: false,
 };
 
 export enum LLMProviders {
@@ -22,7 +22,7 @@ export const LLM_MODELS: LLMModelsConfig[] = [
     // 硅基流动
     providerKey: LLMProviders.SILICON_FLOW,
     apiPath: "https://api.siliconflow.cn/v1",
-    apiKey: "",
+    apiKey: "sk-qddptrhspowhfrpenazqpbemctraeivkhekmfyvastozlpml",
     models: [
       { name: "deepseek-ai/DeepSeek-R1", iconPath: DeepSeekIcon },
       { name: "Qwen/Qwen3-8B", iconPath: QwenIcon },

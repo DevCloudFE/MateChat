@@ -57,7 +57,10 @@ export class OpenAiService implements LLMService {
       }
       const completion = await this.client.chat.completions.create({
         model: this.currentModel.modelName,
-        messages: [{ role: 'user', content: request.content }],
+        messages: request.messages?.slice(0, -1)?.map((item) => ({
+          role: item.from,
+          content: item.content,
+        })),
         stream: true,
       });
 
