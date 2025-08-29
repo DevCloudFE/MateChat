@@ -37,10 +37,17 @@
 </template>
 
 <script>
-import { useRoute, useData } from 'vitepress';
-import { throttle } from 'lodash-es';
-import copy from 'clipboard-copy';
-import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick, defineAsyncComponent } from 'vue';
+import { useClipboard, useThrottleFn } from '@vueuse/core';
+import { useData, useRoute } from 'vitepress';
+import {
+  computed,
+  defineAsyncComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
 export default {
   name: 'Demo',
   props: {
@@ -62,9 +69,14 @@ export default {
     const route = useRoute();
 
     const pathArr = ref(route.path.split('/'));
-    const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0]);
+    const component = computed(
+      () => pathArr.value[pathArr.value.length - 1].split('.')[0],
+    );
     const DemoComponent =
-      props.demoList?.[props.targetFilePath]?.default ?? defineAsyncComponent(() => import(/* vite-ignore */ props.targetFilePath));
+      props.demoList?.[props.targetFilePath]?.default ??
+      defineAsyncComponent(
+        () => import(/* vite-ignore */ props.targetFilePath),
+      );
     watch(
       () => route.path,
       (path) => {
@@ -96,11 +108,15 @@ export default {
     });
 
     const copyText = computed(() => {
-      return isShowTip.value ? locale.value['copy-success-text'] : locale.value['copy-button-text'];
+      return isShowTip.value
+        ? locale.value['copy-success-text']
+        : locale.value['copy-button-text'];
     });
 
     const controlText = computed(() => {
-      return isExpanded.value ? locale.value['hide-text'] : locale.value['show-text'];
+      return isExpanded.value
+        ? locale.value['hide-text']
+        : locale.value['show-text'];
     });
 
     // template refs
@@ -112,7 +128,9 @@ export default {
 
     const codeAreaHeight = computed(() => {
       if (description.value) {
-        return description.value.clientHeight + highlight.value.clientHeight + 20;
+        return (
+          description.value.clientHeight + highlight.value.clientHeight + 20
+        );
       }
       return highlight.value.clientHeight;
     });
@@ -125,18 +143,24 @@ export default {
       const dv = fixedControl.value ? 1 : 2;
       control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`;
     };
-    const scrollHandler = throttle(_scrollHandler, 200);
+    const scrollHandler = useThrottleFn(_scrollHandler, 200);
     const removeScrollHandler = () => {
       window.removeEventListener('scroll', scrollHandler);
       window.removeEventListener('resize', scrollHandler);
     };
 
-    const onCopy = () => {
-      copy(props.sourceCode);
-      isShowTip.value = true;
-      setTimeout(() => {
-        isShowTip.value = false;
-      }, 1300);
+    const { copy, copied } = useClipboard({
+      source: computed(() => props.sourceCode),
+      copiedDuring: 1300,
+      legacy: true,
+    });
+
+    watch(copied, (val) => {
+      isShowTip.value = val;
+    });
+
+    const onCopy = async () => {
+      await copy();
     };
 
     watch(isExpanded, (val) => {
