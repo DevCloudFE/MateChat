@@ -38,8 +38,7 @@
 
 <script>
 import { useRoute, useData } from 'vitepress';
-import { throttle } from 'lodash-es';
-import copy from 'clipboard-copy';
+import { useThrottleFn, useClipboard } from '@vueuse/core';
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick, defineAsyncComponent } from 'vue';
 export default {
   name: 'Demo',
@@ -125,18 +124,26 @@ export default {
       const dv = fixedControl.value ? 1 : 2;
       control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`;
     };
-    const scrollHandler = throttle(_scrollHandler, 200);
+    const scrollHandler = useThrottleFn(_scrollHandler, 200);
     const removeScrollHandler = () => {
       window.removeEventListener('scroll', scrollHandler);
       window.removeEventListener('resize', scrollHandler);
     };
 
-    const onCopy = () => {
-      copy(props.sourceCode);
-      isShowTip.value = true;
-      setTimeout(() => {
-        isShowTip.value = false;
-      }, 1300);
+    // 使用 useClipboard
+    const { copy, copied } = useClipboard({
+      source: computed(() => props.sourceCode),
+      copiedDuring: 1300,
+      legacy: true
+    });
+
+    // 监听 copied 状态变化
+    watch(copied, (val) => {
+      isShowTip.value = val;
+    });
+
+    const onCopy = async () => {
+      await copy();
     };
 
     watch(isExpanded, (val) => {

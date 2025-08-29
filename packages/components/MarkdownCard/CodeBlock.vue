@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { ref, computed, type RendererElement, onMounted, nextTick, watch, type PropType } from 'vue';
 import hljs from "highlight.js";
-import { debounce } from "lodash-es";
+import { useDebounceFn } from '@vueuse/core';
 import { MDCardService } from "./MDCardService";
 import { useMcI18n } from "@matechat/core/Locale";
 
@@ -182,7 +182,7 @@ const toggleExpand = () => {
   expanded.value = !expanded.value;
 };
 
-const copyCode = debounce((e: Event) => {
+const copyCode = useDebounceFn((e: Event) => {
   const target = e.target as HTMLElement;
   if (navigator.clipboard) {
     navigator.clipboard.writeText(props.code);
