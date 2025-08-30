@@ -1,3 +1,4 @@
+@import 'devui-theme/styles-var/devui-var.scss';
 .mc-attachment {
   display: inline-block;
   cursor: pointer;
@@ -11,11 +12,11 @@
     left: 50%;
     transform: translateX(-20%);
     margin-bottom: 2px; 
-    color: #333;
-    border: 1px solid #ccc;
+    color: $devui-text;
+    border: 1px solid $devui-shadow; 
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
+    border-radius: $devui-border-radius;
+    font-size: $devui-font-size-sm;
     white-space: nowrap; 
     opacity: 0;
     visibility: hidden;
@@ -37,8 +38,8 @@
   // 一个简单的默认按钮样式
   .mc-attachment-default-trigger {
     padding: 4px 8px;
-    color: #4e5057;
-    font-size: 12px;
+    color: $devui-text;
+    font-size: $devui-font-size-sm;
     cursor: pointer;
     outline: none;
     transition: all 0.3s ease;
@@ -47,7 +48,7 @@
 
     &:disabled {
       cursor: not-allowed;
-      color: #8a8a8b;
+      color: $devui-disabled-text; // 使用禁用文字颜色
     }
   }
 }
@@ -59,19 +60,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px 40px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px dashed #409eff;
-  border-radius: 8px;
-  color: #333;
-  font-size: 16px;
+  background-color: $devui-base-bg;
+  border: 2px dashed $devui-brand; // 使用品牌主色
+  border-radius: $devui-border-radius;
+  color: $devui-text;
+  font-size: $devui-font-size;
   font-weight: bold;
   z-index: 9999;
   pointer-events: none; // 确保不会干扰拖放事件
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   // 新增：禁用状态下的拖拽覆盖层样式
   &.is-disabled {
-    border-color: #f56c6c; // 边框变为红色
-    color: #f56c6c; // 文字变为红色
+    border-color: $devui-danger; // 边框变为红色
+    color: $devui-danger; // 文字变为红色
   }
 }

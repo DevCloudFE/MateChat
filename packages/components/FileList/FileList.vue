@@ -181,7 +181,7 @@ const handleDownload = (file: FileItem, event: Event) => {
   <div class="mc-file-list" :class="`mc-file-list--context-${props.context}`">
     <div class="mc-file-list__container">
       <div
-        v-for="file in files"
+        v-for="file in fileItems"
         :key="file.uid"
         class="mc-file-item"
         :class="[`mc-file-item--${file.status}`, downloadStates.get(file.uid)?.status ? `mc-file-item--${downloadStates.get(file.uid)?.status}` : '']"

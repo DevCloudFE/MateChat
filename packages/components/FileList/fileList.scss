@@ -1,5 +1,7 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
 .mc-file-list {
-  background-color: #fff;
+  background-color: $devui-base-bg;
   padding: 0 10px;
   
   // 根据上下文添加底部边框
@@ -15,7 +17,7 @@
       transform: translateX(-50%); 
       width: 97%; 
       height: 1px; 
-      background-color: #f0f0f0; 
+      background-color: $devui-dividing-line; 
     }
   }
   // 新增：对话框上下文的特定样式
@@ -28,17 +30,17 @@
       // 移除高度限制和滚动条
       max-height: none;
       overflow-y: visible;
-      background-color: #f6f6f8;
-      border-radius: 12px;
+      background-color: $devui-global-bg;
+      border-radius: $devui-border-radius-card;
     }
     .mc-file-item {
       border-color: transparent;
 
       &--error {
-        border-color: #DBDBDB;
+        border-color: $devui-line;
       }
       &--downloading {
-        border-color: #DBDBDB;
+        border-color: $devui-line;
       }
     }
       
@@ -56,11 +58,11 @@
     }
     
     &::-webkit-scrollbar-track {
-      background: #ffffff;
+      background: $devui-global-bg;
     }
     
     &::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
+      background: $devui-disabled-bg;
       border-radius: 2px;
     }
   }
@@ -74,13 +76,13 @@
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  border: 1px solid #DBDBDB;
+  border: 1px solid $devui-line; 
   transition: all 0.3s ease;
-  border-radius: 8px;
+  border-radius: $devui-border-radius-card;
 
   &:hover {
     border-color: transparent; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // 添加阴影
+    box-shadow: 0 2px 4px $devui-light-shadow; // 添加阴影
     .mc-file-item__actions {
       opacity: 1;
     }
@@ -90,16 +92,16 @@
     width: 36px;
     height: 36px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: $devui-border-radius;
     cursor: pointer;
   }
 
   &--success {
-    background-color: #ffffff;
+    background-color: $devui-base-bg;
   }
 
   &--error {
-    background-color: #ffffff;
+    background-color: $devui-base-bg;
   }
 
   &__icon {
@@ -121,8 +123,8 @@
   }
 
   &__name {
-    font-size: 12px;
-    color: #191919;
+    font-size: $devui-font-size-sm;
+    color: $devui-text;
     margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -132,24 +134,24 @@
   &__meta {
     display: flex;
     align-items: center;
-    font-size: 12px;
-    color: #808080;
+    font-size: $devui-font-size-sm;
+    color: $devui-aide-text;
     gap: 8px;
   }
 
   &__meta-action {
-    color: #0A59F7; // 蓝色
+    color: $devui-link; // 蓝色
     cursor: pointer;
   }
 
   &__size {
-    color: #808080;
+    color: $devui-aide-text;
   }
 
   &__status {
 
     &--error {
-      color: #F23030;
+      color: $devui-danger;
     }
   }
 
@@ -200,7 +202,7 @@
   }
 
   &__progress-ring-circle {
-    stroke: #fff; // 进度条颜色
+    stroke: $devui-base-bg; // 进度条颜色
     stroke-linecap: round; // 让进度条末端是圆角
     transition: stroke-dashoffset 0.3s;
   }
@@ -227,7 +229,7 @@
   height: 12px;
   transition: all 0.3s ease;
   &--remove {
-    color: #ffffff;
+    color: $devui-light-text;
   }
 }
 }
@@ -259,10 +261,10 @@
 
 .mc-file-preview__unsupported {
   padding: 40px 60px;
-  background-color: #fff;
-  border-radius: 8px;
-  color: #333;
-  font-size: 16px;
+  background-color: $devui-base-bg; // 基础背景色
+  border-radius: $devui-border-radius;
+  color: $devui-text; // 主要文字颜色
+  font-size: $devui-font-size;
 }
 
 .mc-file-preview__close-btn {
