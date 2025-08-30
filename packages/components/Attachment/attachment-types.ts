@@ -1,16 +1,21 @@
 import type { ExtractPropTypes, PropType } from 'vue';
 
-export type UploadStatus = 'uploading' | 'success' | 'error';
+export type FileStatus =
+  | 'uploading'
+  | 'downloading'
+  | 'success'
+  | 'uploadError'
+  | 'downloadError';
 
 export interface FileItem<T = unknown, E = unknown> {
-  id?: string | number;
   uid: number;
   name: string;
   size: number;
   type: string;
-  status: UploadStatus;
-  percentage: number;
+  status?: FileStatus;
+  percentage?: number;
   // 可以存放服务器响应信息
+  id?: string | number;
   response?: T;
   error?: E;
   thumbUrl?: string;

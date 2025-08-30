@@ -157,7 +157,7 @@ export function useUpload(
       onError: (error: unknown) => {
         const index = findFileIndex();
         if (index > -1) {
-          fileList.value[index].status = 'error';
+          fileList.value[index].status = 'uploadError';
           fileList.value[index].error = error;
           emit('error', file, error, [...fileList.value]);
         }

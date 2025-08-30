@@ -29,10 +29,7 @@ const emit = defineEmits(fileListEmits);
 
 // 跟踪当前悬停的文件项
 const hoveredFileUid = ref<number | null>(null);
-// 内部状态，用于管理下载进度和状态，独立于 props
-const downloadStates = ref(
-  new Map<number, { status: 'downloading' | 'error'; percentage: number }>(),
-);
+
 // 新增：用于文件预览的状态
 const isPreviewVisible = ref(false);
 const previewFile = ref<FileItem | null>(null);
@@ -143,37 +140,11 @@ const handlePreview = (file: FileItem) => {
 };
 // 处理重试下载
 const handleRetryDownload = (file: FileItem) => {
-  downloadStates.value.delete(file.uid); // 清除错误状态
   emit('retry-download', file);
 };
 // 下载处理函数(前端处理，若后端需要，可自行处理，阻止默认行为)
 const handleDownload = (file: FileItem, event: Event) => {
-  // 发出事件，通知父组件下载已开始
   emit('download', file, event);
-
-  if (event.defaultPrevented) {
-    return;
-  }
-
-  if (!file.url) {
-    console.error('Download failed: file URL is missing.');
-    downloadStates.value.set(file.uid, { status: 'error', percentage: 0 });
-    return;
-  }
-
-  // 防止对已在下载中的文件重复触发
-  if (downloadStates.value.get(file.uid)?.status === 'downloading') {
-    return;
-  }
-
-  // 创建一个a 标签来触发下载
-  const link = document.createElement('a');
-  link.href = file.url;
-  link.download = file.name; // 设置 download 属性，浏览器会执行下载而不是导航
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click(); // 模拟点击
-  document.body.removeChild(link); // 完成后移除元素
 };
 </script>
 
@@ -184,7 +155,7 @@ const handleDownload = (file: FileItem, event: Event) => {
         v-for="file in fileItems"
         :key="file.uid"
         class="mc-file-item"
-        :class="[`mc-file-item--${file.status}`, downloadStates.get(file.uid)?.status ? `mc-file-item--${downloadStates.get(file.uid)?.status}` : '']"
+        :class="[file.status ? `mc-file-item--${file.status}` : '']"
         @mouseenter="hoveredFileUid = file.uid"
         @mouseleave="hoveredFileUid = null"
       >
@@ -204,10 +175,10 @@ const handleDownload = (file: FileItem, event: Event) => {
             />
           </template>
           <!-- 进度覆盖层 (同时处理上传和下载) -->
-          <div v-if="file.status === 'uploading' || file.status === 'error' || downloadStates.get(file.uid)?.status" class="mc-file-item__progress-overlay">
+          <div v-if="file.status === 'uploading' || file.status === 'downloading' || file.status === 'uploadError' || file.status === 'downloadError'" class="mc-file-item__progress-overlay">
             <div class="mc-file-item__progress-mask"></div>
             <!-- 失败状态：显示 Wrong 图标 -->
-            <template v-if="file.status === 'error' || downloadStates.get(file.uid)?.status === 'error'">
+            <template v-if="file.status === 'uploadError' || file.status === 'downloadError'">
               <WrongIcon class="mc-file-item__wrong-icon" :size="12" />
             </template>
             <template v-else>
@@ -216,7 +187,7 @@ const handleDownload = (file: FileItem, event: Event) => {
               <path
                 class="mc-file-item__progress-ring-circle"
                 stroke-dasharray="100, 100"
-                :stroke-dashoffset="100 - (file.status === 'uploading' ? file.percentage : downloadStates.get(file.uid)?.percentage || 0)"
+                :stroke-dashoffset="100 -  (file.percentage || 0) "
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
               />
               </svg>
@@ -228,35 +199,32 @@ const handleDownload = (file: FileItem, event: Event) => {
         <div class="mc-file-item__info">
           <div class="mc-file-item__name" :title="file.name">{{ file.name }}</div>
           <div class="mc-file-item__meta">
-            <!-- 1. 上传失败状态-->
-            <template v-if="file.status === 'error'">
-              <span class="mc-file-item__status mc-file-item__status--error" :title="file.error === '暂不支持该附件格式' ? file.error : '上传失败'">
-                {{ file.error === '暂不支持该附件格式' && file.error ? file.error : '上传失败' }}
+            <!-- 1. 失败状态 (统一处理上传和下载失败) -->
+            <template v-if="file.status === 'uploadError' || file.status === 'downloadError'">
+              <span 
+                class="mc-file-item__status mc-file-item__status--error" 
+                :title="typeof file.error === 'string' ? file.error : (file.status === 'uploadError' ? '上传失败' : '下载失败')"
+              >
+                {{ file.status === 'uploadError' ? '上传失败' : '下载失败' }}
               </span>
               <span
-                v-if="file.error !== '暂不支持该附件格式'"
                 class="mc-file-item__meta-action"
-                @click="handleRetryUpload(file)"
+                @click="file.status === 'uploadError' ? handleRetryUpload(file) : handleRetryDownload(file)"
               >重试</span>
             </template>
-            <!-- 2. 下载失败状态 -->
-            <template v-else-if="downloadStates.get(file.uid)?.status === 'error'">
-              <span class="mc-file-item__status mc-file-item__status--error">下载失败</span>
-              <span class="mc-file-item__meta-action" @click="handleRetryDownload(file)">重试</span>
-            </template>
-            <!-- 3. 悬停状态 (仅在无任何失败状态时判断) -->
+            <!-- 2. 悬停状态 -->
             <template v-else-if="hoveredFileUid === file.uid && file.status === 'success'">
               <span class="mc-file-item__meta-action" @click="handleDownload(file, $event)">下载</span>
               <span class="mc-file-item__meta-action" @click="handlePreview(file)">预览</span>
             </template>
-            <!-- 4. 上传/下载中状态 -->
+            <!-- 3. 上传/下载中状态 -->
             <template v-else-if="file.status === 'uploading'">
               <span class="mc-file-item__status">上传中...</span>
             </template>
-            <template v-else-if="downloadStates.get(file.uid)?.status === 'downloading'">
+            <template v-else-if="file.status === 'downloading'">
               <span class="mc-file-item__status">下载中...</span>
             </template>
-            <!-- 5. 默认状态 -->
+            <!-- 4. 默认状态 -->
             <template v-else>
               <span class="mc-file-item__file-type">{{ getFileTypeString(file.name) }}</span>
               <span class="mc-file-item__size">{{ formatFileSize(file.size) }}</span>

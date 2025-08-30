@@ -22,6 +22,7 @@
   }
   // 新增：对话框上下文的特定样式
   &--context-dialog {
+    padding: 0;
     // 在对话框中，让容器自适应内容，而不是滚动
     .mc-file-list__container {
       // 设置最大宽度以容纳3个文件项
@@ -36,11 +37,13 @@
     .mc-file-item {
       border-color: transparent;
 
-      &--error {
+      &--downloadError {
         border-color: $devui-line;
+        background-color: $devui-base-bg;
       }
       &--downloading {
         border-color: $devui-line;
+        background-color: $devui-base-bg;
       }
     }
       
@@ -100,7 +103,11 @@
     background-color: $devui-base-bg;
   }
 
-  &--error {
+  &--uploadError {
+    background-color: $devui-base-bg;
+  }
+
+  &--downloadError {
     background-color: $devui-base-bg;
   }
 
