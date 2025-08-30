@@ -51,7 +51,7 @@ const getFileTypeString = (fileName: string): string => {
   return (fileName.split('.').pop() || 'File').toUpperCase();
 };
 
-// 2. 创建一个按文件后缀名的映射表
+// 创建一个按文件后缀名的映射表
 const extensionMap: Record<string, unknown> = {
   // Office & Documents
   ppt: PptIcon,

@@ -3,6 +3,7 @@ import type { ExtractPropTypes, PropType } from 'vue';
 export type UploadStatus = 'uploading' | 'success' | 'error';
 
 export interface FileItem<T = unknown, E = unknown> {
+  id?: string | number;
   uid: number;
   name: string;
   size: number;

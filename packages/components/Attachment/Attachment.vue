@@ -10,7 +10,7 @@ defineOptions({
 
 const props = defineProps(AttachmentProps);
 const emit = defineEmits(AttachmentEmits);
-// 使用 defineModel 定义双向绑定
+// 使用 defineModel 定义双向绑定(需要同步文件数量)
 const fileList = defineModel<FileItem[]>({ default: [] });
 
 const inputRef = ref<HTMLInputElement>();

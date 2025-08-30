@@ -1,5 +1,6 @@
 import type { Ref } from 'vue';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { showAlert } from './Alert.vue'; // 引入新的 alert 服务
 import type {
   AttachmentEmits,
   AttachmentProps,
@@ -38,13 +39,18 @@ export function useUpload(
       thumbUrl: localUrl,
     };
   };
-
+  // 前端校验
   const uploadFiles = async (files: File[]) => {
     if (files.length === 0) return;
 
     // 检查文件数量限制
     if (fileList.value.length + files.length > props.limit) {
-      alert(`文件数量超出限制，最多允许 ${props.limit} 个文件。`);
+      // 使用自定义的 alert 服务进行提示
+      showAlert({
+        type: 'error',
+        title: '文件数量超出限制',
+        message: `文件数量超出限制，最多允许 ${props.limit} 个文件。`,
+      });
       return;
     }
 
@@ -70,7 +76,7 @@ export function useUpload(
         });
 
         if (!isTypeValid) {
-          errorMessages.push(`- 文件 "${file.name}": 格式不受支持。`);
+          errorMessages.push(`文件 "${file.name}": 格式不受支持。`);
           isFileValid = false;
         }
       }
@@ -78,7 +84,7 @@ export function useUpload(
       // 2.2 文件大小校验
       if (isFileValid && file.size / 1024 / 1024 > props.size) {
         errorMessages.push(
-          `- 文件 "${file.name}": 大小超出限制 (最大 ${props.size}MB)。`,
+          `文件 "${file.name}": 大小超出限制 (最大 ${props.size}MB)。`,
         );
         isFileValid = false;
       }
@@ -88,13 +94,13 @@ export function useUpload(
         try {
           const result = await Promise.resolve(props.beforeUpload(file));
           if (result === false) {
-            errorMessages.push(`- 文件 "${file.name}": 被上传前钩子函数阻止。`);
+            errorMessages.push(`文件 "${file.name}": 上传不合规被阻止。`);
             isFileValid = false;
           }
         } catch (e) {
           const errorMsg = e instanceof Error ? e.message : String(e);
           errorMessages.push(
-            `- 文件 "${file.name}": 上传前校验失败 (${errorMsg})。`,
+            `文件 "${file.name}": 上传前校验失败 (${errorMsg})。`,
           );
           isFileValid = false;
         }
@@ -107,7 +113,11 @@ export function useUpload(
 
     // 如果有错误，则统一弹窗提示
     if (errorMessages.length > 0) {
-      alert(`以下文件无法上传：\n\n${errorMessages.join('\n')}`);
+      showAlert({
+        type: 'error',
+        title: '文件上传失败',
+        message: errorMessages.join('\n'),
+      });
     }
 
     // 只处理通过所有校验的有效文件
@@ -120,7 +130,7 @@ export function useUpload(
       performUpload(file, fileItem);
     }
   };
-
+  // 执行上传
   const performUpload = (file: File, fileItem: FileItem) => {
     const findFileIndex = () =>
       fileList.value.findIndex((item) => item.uid === fileItem.uid);
@@ -157,15 +167,9 @@ export function useUpload(
 
   const handleFileChange = (e: Event) => {
     const files = (e.target as HTMLInputElement).files;
-    console.log('Selected files:', files);
     if (files) {
       uploadFiles(Array.from(files));
     }
-    // setTimeout(() => {
-    //   if (inputRef.value) {
-    //     inputRef.value.value = '';
-    //   }
-    // }, 0);
   };
 
   const handleClick = () => {
