@@ -9,7 +9,7 @@ desc: 用于展示和管理文件列表，支持预览、下载、删除等交�
 import { McFileList } from '@matechat/core';
 ```
 
-## 基础用法：文件卡片展示
+### 基本用法
 
 `McFileList` 组件的核心功能是接收一个文件对象数组，并将它们渲染为信息卡片。通过 `fileItems` 属性传入数据，并可使用 `context` 属性控制其在不同场景下的外观。
 
@@ -37,7 +37,10 @@ const allTypesList = ref<FileItem[]>([
   { uid: 8, name: '开发文档.md', size: 1024 * 15, type: 'text/markdown' },
   { uid: 9, name: '核心工具函数.js', size: 1024 * 5, type: 'application/javascript' },
   { uid: 10, name: '会议脑图.xmind', size: 1024 * 256, type: 'application/octet-stream' },
-  { uid: 11, name: '固件备份.dat', size: 1024 * 1024, type: 'application/octet-stream'},
+  { uid: 11, name: '邮件附件.eml', size: 1024 * 10, type: 'message/rfc822' }, // 邮件
+  { uid: 12, name: '纯文本.txt', size: 1024 * 2, type: 'text/plain' }, // txt
+  { uid: 13, name: '页面设计.page', size: 1024 * 20, type: 'application/octet-stream' }, // page
+  { uid: 14, name: '未知文件.dat', size: 1024 * 100, type: 'application/octet-stream' }, // 未知类型
 ]);
 
 const handleRemove = (file: FileItem) => {
@@ -48,7 +51,7 @@ const handleRemove = (file: FileItem) => {
 ```
 :::
 
-## 不同上下文与状态
+### 不同上下文与状态
 
 `McFileList` 提供了两种上下文模式和多种文件状态，以适应不同业务场景。
 
@@ -135,7 +138,7 @@ onMounted(() => {
 :::
 
 
-## 事件处理与交互
+### 事件处理与交互
 
 `McFileList` 通过触发事件来响应用户交互，允许你轻松实现自定义逻辑。
 
@@ -166,7 +169,7 @@ import type { FileItem } from '@matechat/core/Attachment';
 
 const interactiveList = ref<FileItem[]>([
   { uid: 301, name: '可预览和下载的图片.jpg', size: 1024 * 450, type: 'image/jpeg', status: 'success', url: '/example1.png' },
-  { uid: 302, name: '上传失败的文件.dat', size: 1024 * 1024, type: 'application/octet-stream', status: 'uploadError', error: '上传中断' },
+  { uid: 302, name: '上传失败的文件.pdf', size: 1024 * 1024, type: 'application/pdf', status: 'uploadError', error: '上传中断' },
   { uid: 303, name: '下载失败的文件.zip', size: 1024 * 1024 * 5, type: 'application/zip', status: 'downloadError', error: '下载链接已失效' },
 ]);
 

@@ -61,6 +61,7 @@ const extensionMap: Record<string, unknown> = {
   csv: ExcelIcon,
   txt: DocumentIcon,
   rtf: DocumentIcon,
+  page: PageIcon,
 
   // Images
   jpg: ImageIcon,
@@ -69,7 +70,22 @@ const extensionMap: Record<string, unknown> = {
   gif: ImageIcon,
   bmp: ImageIcon,
   webp: ImageIcon,
+  tif: ImageIcon,
+  tiff: ImageIcon,
+
+  // Vector & Design
   svg: DrawingBoardIcon,
+  ai: DrawingBoardIcon,
+  psd: DrawingBoardIcon,
+  fig: DrawingBoardIcon,
+
+  // Audio
+  mp3: Mp4Icon,
+  wav: Mp4Icon,
+  ogg: Mp4Icon,
+  flac: Mp4Icon,
+  aac: Mp4Icon,
+  m4a: Mp4Icon,
 
   // Videos
   mp4: Mp4Icon,
@@ -77,6 +93,8 @@ const extensionMap: Record<string, unknown> = {
   avi: Mp4Icon,
   mkv: Mp4Icon,
   webm: Mp4Icon,
+  wmv: Mp4Icon,
+  flv: Mp4Icon,
 
   // Archives
   zip: CompressedFileIcon,
@@ -84,6 +102,7 @@ const extensionMap: Record<string, unknown> = {
   '7z': CompressedFileIcon,
   tar: CompressedFileIcon,
   gz: CompressedFileIcon,
+  bz2: CompressedFileIcon,
 
   // Code & Markup
   md: MarkdownIcon,
@@ -91,18 +110,41 @@ const extensionMap: Record<string, unknown> = {
   json: CodeFileIcon,
   js: CodeFileIcon,
   ts: CodeFileIcon,
+  jsx: CodeFileIcon,
+  tsx: CodeFileIcon,
   html: CodeFileIcon,
   css: CodeFileIcon,
+  scss: CodeFileIcon,
+  less: CodeFileIcon,
   py: CodeFileIcon,
   java: CodeFileIcon,
   c: CodeFileIcon,
   cpp: CodeFileIcon,
+  cs: CodeFileIcon,
   go: CodeFileIcon,
   php: CodeFileIcon,
+  rb: CodeFileIcon,
+  swift: CodeFileIcon,
+  kt: CodeFileIcon,
+  sh: CodeFileIcon,
+  xml: CodeFileIcon,
+  yml: CodeFileIcon,
+  yaml: CodeFileIcon,
+  sql: CodeFileIcon,
+
+  // Fonts
+  ttf: DocumentIcon,
+  otf: DocumentIcon,
+  woff: DocumentIcon,
+  woff2: DocumentIcon,
 
   // Others
   eml: EmailFileIcon,
   xmind: MindIcon,
+  flow: FlowChartIcon, // 'flowchart' is not a standard extension, maybe 'flow' is better
+  dat: UnknownIcon,
+  exe: UnknownIcon,
+  dmg: UnknownIcon,
 };
 
 // 获取文件类型图标组件
@@ -114,9 +156,13 @@ const getIconComponent = (file: FileItem) => {
   }
 
   // 如果没有匹配到，可以根据MIME类型做一些通用匹配
-  if (file.type.startsWith('image/')) return ImageIcon;
-  if (file.type.startsWith('video/')) return Mp4Icon;
-  if (file.type.startsWith('text/')) return DocumentIcon;
+  if (file.type?.startsWith('image/')) return ImageIcon;
+  if (file.type?.startsWith('video/')) return Mp4Icon;
+  if (file.type?.startsWith('audio/')) return Mp4Icon; // 新增：音频文件回退
+  if (file.type?.startsWith('text/')) return DocumentIcon;
+  if (file.type === 'application/pdf') return PdfIcon;
+  if (file.type === 'application/zip' || file.type?.includes('compress'))
+    return CompressedFileIcon;
 
   return UnknownIcon; // 返回专用的未知文件图标
 };

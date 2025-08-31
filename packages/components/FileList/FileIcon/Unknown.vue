@@ -33,9 +33,6 @@ const props = withDefaults(
 		<filter id="pixso_custom_mask_type_outline">
 			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 255 0 " />
 		</filter>
-		<g id="pixso_custom_effect_0">
-			<effect x="0" y="0" visibility="visible" fill="rgb(164,164,164)" fill-opacity="1" effectType="dropShadow" stdDeviation="5" radius="0" />
-		</g>
 		<filter id="filter_0" width="16" height="16" x="17" y="0" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_0)" color-interpolation-filters="sRGB">
 			<feFlood flood-opacity="0" result="BackgroundImageFix" />
 			<feColorMatrix result="hardAlpha" in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0 " />
