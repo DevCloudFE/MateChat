@@ -7,6 +7,7 @@ export interface IMessage {
   from: 'user' | 'assistant';
   avatarPosition: 'side-left' | 'side-right';
   avatarConfig: IMessageAvatar;
+  reasoning_content?: string;
   content: unknown;
   loading?: boolean;
   complete?: boolean;

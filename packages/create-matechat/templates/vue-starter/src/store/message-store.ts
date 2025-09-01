@@ -8,6 +8,7 @@ import { ref } from "vue";
 import { useChatHistoryStore } from "./history-store";
 import { useChatModelStore } from "./model-store";
 import { useChatStatusStore } from "./status-store";
+import type { ChunkResponse } from "@/models/types";
 
 export const useChatMessageStore = defineStore("chat-message", () => {
   const chatStatusStore = useChatStatusStore();
@@ -45,6 +46,7 @@ export const useChatMessageStore = defineStore("chat-message", () => {
     messages.value.push({
       from: "assistant",
       content: "",
+      reasoning_content: "",
       avatarPosition: "side-left",
       avatarConfig: { ...aiModelAvatar },
       loading: true,
@@ -104,11 +106,10 @@ export const useChatMessageStore = defineStore("chat-message", () => {
     }
   };
 
-  const onMessageChange = (content: string) => {
+  const onMessageChange = (msg: ChunkResponse) => {
     messages.value.at(-1).loading = false;
-    messages.value[messages.value.length - 1].content = messages.value[
-      messages.value.length - 1
-    ].content += content;
+    messages.value[messages.value.length - 1].reasoning_content += msg.reasoning_content || '';
+    messages.value[messages.value.length - 1].content += msg.content || '';
     messageChangeCount.value++;
   };
 

@@ -3,6 +3,7 @@ import type { LLMClientKey, LLMProviders } from './config';
 export interface ModelsItem {
   name: string;
   iconPath: string;
+  enableThink?: boolean;
 }
 
 export interface LLMModelsConfig {
@@ -21,19 +22,25 @@ export interface ModelOption {
   clientKey: LLMClientKey;
   active: boolean;
   iconPath: string;
+  enableThink?: boolean;
 }
 
 export interface ChatRequest {
   content: string;
   streamOptions?: {
-    onMessage: (chunk: string) => void;
+    onMessage: (chunk: ChunkResponse) => void;
     onError?: (error: Error) => void;
     onComplete?: () => void;
   };
   messages: {
-    from: 'user' | 'assistant';
+    from: 'user' | 'assistant' | 'system';
     content: string;
   }[];
+}
+
+export interface ChunkResponse {
+  reasoning_content?: string;
+  content?: string;
 }
 
 export interface CustomApiKey {
