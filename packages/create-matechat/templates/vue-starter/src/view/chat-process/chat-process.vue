@@ -16,10 +16,10 @@
         >
           <div class="think-toggle-btn" @click="toggleThink(idx)" v-if="msg.reasoning_content">
             <i class="icon-point"></i>
-            <span>{{ msg.content ? t('chat.thinkingComplete') : t('chat.thinking') }}</span>
+            <span>{{ msg.content ? (t('chat.thinkingComplete') + t('chat.thinkingTime', { time: getThinkingTime(msg) })) : t('chat.thinking') }}</span>
             <i :class="btnIcon"></i>
           </div>
-          <McMarkdownCard :content="renderMessage(msg)" :theme="themeStore.theme" :enableThink="true" />
+          <McMarkdownCard :content="renderMessage(msg)" :theme="themeStore.theme" :enableThink="msg.reasoning_content" />
           <template #bottom>
             <div class="bubble-bottom-operations" v-if="msg.complete">
               <i class="icon-copy-new"></i>
@@ -57,6 +57,13 @@ const toggleThink = (idx) => {
       btnIcon.value = currentDisplay === 'none' ? 'icon-chevron-up-2' :'icon-chevron-down-2'
     }
   }
+}
+
+const getThinkingTime = (msg) => {
+  if (msg.startTime && msg.endTime) {
+    return Math.round((msg.endTime - msg.startTime) / 1000);
+  }
+  return 0;
 }
 
 const renderMessage = (msg) => {

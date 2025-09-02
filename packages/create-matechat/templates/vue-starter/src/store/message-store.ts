@@ -108,8 +108,15 @@ export const useChatMessageStore = defineStore("chat-message", () => {
 
   const onMessageChange = (msg: ChunkResponse) => {
     messages.value.at(-1).loading = false;
-    messages.value[messages.value.length - 1].reasoning_content += msg.reasoning_content || '';
-    messages.value[messages.value.length - 1].content += msg.content || '';
+    const currentMessage = messages.value[messages.value.length - 1];
+    if (!currentMessage.startTime) {
+      currentMessage.startTime = Date.now();
+    }
+    if (!currentMessage.endTime && msg.content) {
+      currentMessage.endTime = Date.now();
+    }
+    currentMessage.reasoning_content += msg.reasoning_content || '';
+    currentMessage.content += msg.content || '';
     messageChangeCount.value++;
   };
 

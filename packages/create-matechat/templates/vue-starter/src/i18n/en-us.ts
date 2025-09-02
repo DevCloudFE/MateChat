@@ -37,6 +37,7 @@ export default {
   chat: {
     thinking: "Thinking...",
     thinkingComplete: "Deep thinking completed",
+    thinkingTime: "(took {time} seconds)",
   },
   delete: "Delete",
   deleteSuccess: "Delete successfully",

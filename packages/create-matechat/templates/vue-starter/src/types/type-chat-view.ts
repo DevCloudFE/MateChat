@@ -8,6 +8,8 @@ export interface IMessage {
   avatarPosition: 'side-left' | 'side-right';
   avatarConfig: IMessageAvatar;
   reasoning_content?: string;
+  startTime?: number;
+  endTime?: number;
   content: unknown;
   loading?: boolean;
   complete?: boolean;

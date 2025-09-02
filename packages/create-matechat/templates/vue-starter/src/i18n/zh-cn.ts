@@ -36,6 +36,7 @@ export default {
   chat: {
     thinking: "思考中...",
     thinkingComplete: "已深度思考",
+    thinkingTime: "（用时{time}秒）",
   },
   delete: "删除",
   deleteSuccess: "删除成功",
