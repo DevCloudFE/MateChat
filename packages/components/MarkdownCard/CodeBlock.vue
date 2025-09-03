@@ -27,6 +27,14 @@
             <img src="./asset/zoom-out-2.svg" />
           </div>
           <div
+            v-if="isMermaid && showMermaidDiagram"
+            class="mc-action-btn mc-toggle-btn"
+            :title="t('Md.downLoad')"
+            @click="download"
+          >
+            <img src="./asset/download-2.svg" />
+          </div>
+          <div
             class="mc-action-btn mc-toggle-btn"
             :title="t('Md.toggle')"
             @click="toggleExpand"
@@ -54,7 +62,7 @@
       @leave="leave"
       @afterLeave="afterLeave"
     >
-      <div v-if="expanded">
+      <div v-show="expanded">
           <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content"></div>
           <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
           <slot v-else name="content"></slot>
@@ -150,6 +158,12 @@ const zoomOut = () => {
   const container = rootRef.value?.querySelector('.mc-mermaid-content');
   if (container && mermaidService) {
     mermaidService.zoomOut(container);
+  }
+};
+const download = () => {
+  const container = rootRef.value?.querySelector('.mc-mermaid-content');
+  if (container && mermaidService) {
+    mermaidService.download(container);
   }
 };
 

@@ -22,6 +22,12 @@ export default defineConfig({
           'chat,AI,vue,GPT,web,MateChat,开源,open source,智能化,components,组件库',
       },
     ],
+    [
+      'script',
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js'
+      }
+    ]
   ],
   markdown: {
     config: (md) => {
