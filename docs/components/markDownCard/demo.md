@@ -941,25 +941,22 @@ onMounted(() => {
 <template>
   <McMarkdownCard :content="content" :theme="theme">
     <template #content="{ codeBlockData }">
-      <!-- 渲染图表容器 -->
-      <div ref="chart" style="width: 100%; height: 500px;"></div>
-      
-      <!-- 处理代码块数据 -->
-      {{ handleCodeBlockData(codeBlockData) }}
+      <div v-if="codeBlockData.language === 'echart'" ref="chart" style="width: 100%; height: 500px;">
+        {{ handleCodeBlockData(codeBlockData) }}
+      </div>
+      <div v-else class="content-container" v-html="transfer(codeBlockData)"></div>
     </template>
   </McMarkdownCard>
 </template>
-
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
-
+import { ref, onMounted } from 'vue';
+import markdownIt from 'markdown-it';
+import hljs from 'highlight.js';
 let themeService;
 const theme = ref('light');
 const chart = ref(null);
 let myChart = null;
 const echartsLoaded = ref(false);
-
-// 将 ECharts 配置作为字符串传入
 const content = ref(`
 **Echarts渲染**
 \`\`\`echart
@@ -1039,119 +1036,8 @@ const content = ref(`
   }]
 }
 \`\`\`
-`);
 
-// 处理代码块数据
-const handleCodeBlockData = (codeBlockData) => {
-  if (codeBlockData.language === 'echart') {
-    try {
-      // 解析字符串为 ECharts 配置对象
-      const option = eval(`(${codeBlockData.code})`);
-      
-      // 根据主题设置颜色
-      option.title.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
-      option.legend.textStyle = option.legend.textStyle || {};
-      option.legend.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
-      
-      if (option.series && option.series[0] && option.series[0].itemStyle && option.series[0].itemStyle.normal) {
-        option.series[0].itemStyle.normal.label.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
-      }
-      
-      // 渲染图表 - 确保 ECharts 已加载
-      if (echartsLoaded.value) {
-        renderChart(option);
-      } else {
-        // 如果 ECharts 尚未加载，等待加载完成后再渲染
-        const checkEcharts = setInterval(() => {
-          if (echartsLoaded.value) {
-            clearInterval(checkEcharts);
-            renderChart(option);
-          }
-        }, 100);
-      }
-    } catch (e) {
-      console.error('解析 ECharts 配置失败:', e);
-    }
-  }
-};
 
-// 渲染图表
-const renderChart = (option) => {
-  if (!chart.value) return;
-  
-  if (!myChart) {
-    // 确保 window.echarts 已定义
-    if (typeof window.echarts !== 'undefined') {
-      myChart = window.echarts.init(chart.value);
-    } else {
-      console.error('ECharts 库未加载');
-      return;
-    }
-  }
-  
-  myChart.setOption(option);
-};
-
-// 主题变化处理
-const themeChange = () => {
-  if (themeService) {
-    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
-  }
-};
-
-onMounted(() => {
-  if (typeof window !== 'undefined') {
-    themeService = window['devuiThemeService'];
-  }
-  
-  themeChange();
-  
-  if (themeService && themeService.eventBus) {
-    themeService.eventBus.add('themeChanged', themeChange);
-  }
-  
-  // 加载 ECharts
-  if (typeof window.echarts === 'undefined') {
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js';
-    script.onload = () => {
-      console.log('ECharts 加载完成');
-      echartsLoaded.value = true; // 设置加载完成标志
-    };
-    document.head.appendChild(script);
-  } else {
-    echartsLoaded.value = true; // 如果已加载，直接设置标志
-  }
-  
-  window.addEventListener('resize', () => {
-    if (myChart) {
-      myChart.resize();
-    }
-  });
-});
-</script>
-
-```
-
-:::
-
-:::demo
-
-```vue
-<template>
-  <McMarkdownCard :content="content" :theme="theme">
-    <template #content="{ codeBlockData }">
-      <div class="content-container" v-html="transfer(codeBlockData)"></div>
-    </template>
-  </McMarkdownCard>
-</template>
-<script setup>
-import { ref, onMounted } from 'vue';
-import markdownIt from 'markdown-it';
-import hljs from 'highlight.js';
-let themeService;
-const theme = ref('light');
-const content = ref(`
 **自定义代码行号**
 
 \`\`\`ts
@@ -1220,6 +1106,57 @@ const transfer = (codeBlockData) => {
   return mdt.render(codeBlockStr);
 };
 
+// 处理代码块数据
+const handleCodeBlockData = (codeBlockData) => {
+  if (codeBlockData.language === 'echart') {
+    try {
+      // 解析字符串为 ECharts 配置对象
+      const option = eval(`(${codeBlockData.code})`);
+      
+      // 根据主题设置颜色
+      option.title.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      option.legend.textStyle = option.legend.textStyle || {};
+      option.legend.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      
+      if (option.series && option.series[0] && option.series[0].itemStyle && option.series[0].itemStyle.normal) {
+        option.series[0].itemStyle.normal.label.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      }
+      
+      // 渲染图表 - 确保 ECharts 已加载
+      if (echartsLoaded.value) {
+        renderChart(option);
+      } else {
+        // 如果 ECharts 尚未加载，等待加载完成后再渲染
+        const checkEcharts = setInterval(() => {
+          if (echartsLoaded.value) {
+            clearInterval(checkEcharts);
+            renderChart(option);
+          }
+        }, 100);
+      }
+    } catch (e) {
+      console.error('解析 ECharts 配置失败:', e);
+    }
+  }
+};
+
+// 渲染图表
+const renderChart = (option) => {
+  if (!chart.value) return;
+  
+  if (!myChart) {
+    // 确保 window.echarts 已定义
+    if (typeof window.echarts !== 'undefined') {
+      myChart = window.echarts.init(chart.value);
+    } else {
+      console.error('ECharts 库未加载');
+      return;
+    }
+  }
+  
+  myChart.setOption(option);
+};
+
 const changeTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light';
   themeClass.value = themeClass.value === 'light-background' ? 'dark-background' : 'light-background';
@@ -1239,6 +1176,24 @@ onMounted(() => {
   if (themeService && themeService.eventBus) {
     themeService.eventBus.add('themeChanged', themeChange);
   }
+  // 加载 ECharts
+  if (typeof window.echarts === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js';
+    script.onload = () => {
+      console.log('ECharts 加载完成');
+      echartsLoaded.value = true; // 设置加载完成标志
+    };
+    document.head.appendChild(script);
+  } else {
+    echartsLoaded.value = true; // 如果已加载，直接设置标志
+  }
+  
+  window.addEventListener('resize', () => {
+    if (myChart) {
+      myChart.resize();
+    }
+  });
 });
 </script>
 
