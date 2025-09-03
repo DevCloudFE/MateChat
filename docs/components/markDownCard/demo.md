@@ -941,208 +941,194 @@ onMounted(() => {
 <template>
   <McMarkdownCard :content="content" :theme="theme">
     <template #content="{ codeBlockData }">
+      <!-- 渲染图表容器 -->
       <div ref="chart" style="width: 100%; height: 500px;"></div>
+      
+      <!-- 处理代码块数据 -->
+      {{ handleCodeBlockData(codeBlockData) }}
     </template>
   </McMarkdownCard>
 </template>
+
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
+
 let themeService;
 const theme = ref('light');
-const content = ref(`
-**Echarts渲染**
-\`\`\`
-
-\`\`\`
-`);
 const chart = ref(null);
 let myChart = null;
-let data = [];
-let color=['#00ffff','#00cfff','#006ced','#ffe000','#ffa800','#ff5b00','#ff3000'];
-let trafficWay = [{
-    name: '火车',
-    value: 20
-},{
-    name: '飞机',
-    value: 10
-},{
-    name: '客车',
-    value: 30
-},{
-    name: '轮渡',
-    value: 40
-}];
+const echartsLoaded = ref(false);
 
-const seriesOption = [{
+// 将 ECharts 配置作为字符串传入
+const content = ref(`
+**Echarts渲染**
+\`\`\`echart
+{
+  backgroundColor: theme.value === 'light' ? '#fefefe' : '#34363A',
+  color: ['#00ffff','#00cfff','#006ced','#ffe000','#ffa800','#ff5b00','#ff3000'],
+  title: {
+    text: '交通方式',
+    top: '48%',
+    textAlign: "center",
+    left: "49%",
+    textStyle: {
+      fontSize: 22,
+      fontWeight: '400'
+    }
+  },
+  tooltip: {
+    show: false
+  },
+  legend: {
+    icon: "circle",
+    orient: 'horizontal',
+    x: 'right',
+    data:['火车','飞机','客车','轮渡'],
+    right: 300,
+    bottom: 30,
+    align: 'right',
+    itemGap: 20
+  },
+  toolbox: {
+    show: false 
+  },
+  series: [{
     name: '',
     type: 'pie',
     clockWise: false,
     radius: [105, 109],
     hoverAnimation: false,
     itemStyle: {
-        normal: {
-            label: {
-                show: true,
-                position: 'outside',
-                color: '#252b3a',
-                formatter: function(params) {
-                    var percent = 0;
-                    var total = 0;
-                    for (var i = 0; i < trafficWay.length; i++) {
-                        total += trafficWay[i].value;
-                    }
-                    percent = ((params.value / total) * 100).toFixed(0);
-                    if(params.name !== '') {
-                        return '交通方式：' + params.name + '\n' + '\n' + '占百分比：' + percent + '%';
-                    }else {
-                        return '';
-                    }
-                },
-            },
-            labelLine: {
-                length:30,
-                length2:100,
-                show: true,
-                color:'#00ffff'
+      normal: {
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: function(params) {
+            const staticPercentages = {
+              '火车': '20%',
+              '飞机': '10%',
+              '客车': '30%',
+              '轮渡': '40%'
+            };
+            
+            if (params.name !== '' && staticPercentages[params.name]) {
+              return '交通方式：' + params.name + '\\n' + '\\n' + '占百分比：' + staticPercentages[params.name];
+            } else {
+              return '';
             }
-        }
-    },
-    data: data
-}];
-
-const option = {
-    backgroundColor: theme.value === 'light' ? '#fefefe' : '#34363A',
-    color : color,
-    title: {
-        text: '交通方式',
-        top: '48%',
-        textAlign: "center",
-        left: "49%",
-        textStyle: {
-            color: '#fff',
-            fontSize: 22,
-            fontWeight: '400'
-        }
-    },
-    graphic: {
-    elements: []
-    },
-    tooltip: {
-        show: false
-    },
-    legend: {
-        icon: "circle",
-        orient: 'horizontal',
-        x: 'right',
-        data:['火车','飞机','客车','轮渡'],
-        right: 300,
-        bottom: 30,
-        align: 'right',
-        textStyle: {
-          color: "#fff"
+          },
         },
-        itemGap: 20
-    },
-    toolbox: {
-        show: false 
-    },
-    series: seriesOption
-}
-
-const initChart = () => {
-  if (!chart.value) return;
-  myChart = window.echarts.init(chart.value);
-  myChart.setOption(option);
-}
-
-const setChartData = () => {
-  for (var i = 0; i < trafficWay.length; i++) {
-    data.push({
-        value: trafficWay[i].value,
-        name: trafficWay[i].name,
-        itemStyle: {
-            normal: {
-                borderWidth: 5,
-                shadowBlur: 20,
-                borderColor:color[i],
-                shadowColor: color[i]
-            }
+        labelLine: {
+          length:30,
+          length2:100,
+          show: true,
+          color:'#00ffff'
         }
-    }, {
-        value: 2,
-        name: '',
-        itemStyle: {
-            normal: {
-                label: {
-                    show: false
-                },
-                labelLine: {
-                    show: false
-                },
-                color: 'rgba(0, 0, 0, 0)',
-                borderColor: 'rgba(0, 0, 0, 0)',
-                borderWidth: 0
-            }
+      }
+    },
+    data: [
+      { value: 20, name: '火车', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#00ffff', shadowColor: '#00ffff' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } },
+      { value: 10, name: '飞机', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#00cfff', shadowColor: '#00cfff' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } },
+      { value: 30, name: '客车', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#006ced', shadowColor: '#006ced' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } },
+      { value: 40, name: '轮渡', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#ffe000', shadowColor: '#ffe000' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } }
+    ]
+  }]
 }
-    });
-}
-}
+\`\`\`
+`);
 
-const handleAction = (codeBlockData) => {
-  console.log(codeBlockData);
-}
+// 处理代码块数据
+const handleCodeBlockData = (codeBlockData) => {
+  if (codeBlockData.language === 'echart') {
+    try {
+      // 解析字符串为 ECharts 配置对象
+      const option = eval(`(${codeBlockData.code})`);
+      
+      // 根据主题设置颜色
+      option.title.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      option.legend.textStyle = option.legend.textStyle || {};
+      option.legend.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      
+      if (option.series && option.series[0] && option.series[0].itemStyle && option.series[0].itemStyle.normal) {
+        option.series[0].itemStyle.normal.label.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      }
+      
+      // 渲染图表 - 确保 ECharts 已加载
+      if (echartsLoaded.value) {
+        renderChart(option);
+      } else {
+        // 如果 ECharts 尚未加载，等待加载完成后再渲染
+        const checkEcharts = setInterval(() => {
+          if (echartsLoaded.value) {
+            clearInterval(checkEcharts);
+            renderChart(option);
+          }
+        }, 100);
+      }
+    } catch (e) {
+      console.error('解析 ECharts 配置失败:', e);
+    }
+  }
+};
 
-const changeTheme = () => {
-  theme.value = theme.value === 'light' ? 'dark' : 'light';
-  themeClass.value = themeClass.value === 'light-background' ? 'dark-background' : 'light-background';
-}
+// 渲染图表
+const renderChart = (option) => {
+  if (!chart.value) return;
+  
+  if (!myChart) {
+    // 确保 window.echarts 已定义
+    if (typeof window.echarts !== 'undefined') {
+      myChart = window.echarts.init(chart.value);
+    } else {
+      console.error('ECharts 库未加载');
+      return;
+    }
+  }
+  
+  myChart.setOption(option);
+};
 
+// 主题变化处理
 const themeChange = () => {
   if (themeService) {
     theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
   }
-  if (theme.value === 'light') {
-    option.backgroundColor = '#fefefe';
-    option.title.textStyle.color = '#252b3a';
-    option.legend.textStyle.color = '#252b3a';
-    seriesOption[0].itemStyle.normal.label.color = '#252b3a';
-  } else {
-    option.backgroundColor = '#2b2b2b';
-    option.title.textStyle.color = '#CED1DB';
-    option.legend.textStyle.color = '#CED1DB';
-    seriesOption[0].itemStyle.normal.label.color = '#CED1DB';
-  }
-  if (myChart) {
-    console.log('setoption')
-    myChart.setOption(option);
-  }
-}
+};
 
 onMounted(() => {
-setChartData();
-if(typeof window !== 'undefined'){
-  themeService = window['devuiThemeService'];
-}
-themeChange();
+  if (typeof window !== 'undefined') {
+    themeService = window['devuiThemeService'];
+  }
+  
+  themeChange();
+  
   if (themeService && themeService.eventBus) {
     themeService.eventBus.add('themeChanged', themeChange);
   }
-  if (typeof window.echarts !== 'undefined') {
-    initChart();
-  } else {
+  
+  // 加载 ECharts
+  if (typeof window.echarts === 'undefined') {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js';
     script.onload = () => {
-      initChart();
+      console.log('ECharts 加载完成');
+      echartsLoaded.value = true; // 设置加载完成标志
     };
     document.head.appendChild(script);
+  } else {
+    echartsLoaded.value = true; // 如果已加载，直接设置标志
   }
+  
   window.addEventListener('resize', () => {
     if (myChart) {
       myChart.resize();
     }
   });
-})
+});
 </script>
 
 ```
