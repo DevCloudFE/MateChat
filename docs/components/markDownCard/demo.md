@@ -230,9 +230,9 @@ onMounted(() => {
   <div id="think-demo-content">
     <template v-for="(msg, idx) in messages" :key="idx">
       <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'" :avatarConfig="msg.avatarConfig"></McBubble>
-      <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'">
+      <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'" :class="msg.isThinkShrink ? 'think-block-shrink' : 'think-block-expand'">
 
-        <div class="think-toggle-btn" @click="toggleThink(idx)">
+        <div class="think-toggle-btn" @click="toggleThink(msg)">
           <i class="icon-point"></i>
           <span>{{ thinkBtnText }}</span>
           <i :class="btnIcon"></i>
@@ -320,19 +320,9 @@ const themeChange = () => {
   }
 };
 
-const toggleThink = (idx) => {
-  if (isLoading.value) {
-    return
-  }
-  const targetNode = document.querySelectorAll('#think-demo-content .mc-bubble-content-container')[idx];
-  if (targetNode) {
-    const thinkBlock = targetNode.querySelector('.mc-think-block');
-    if (thinkBlock) {
-      const currentDisplay = getComputedStyle(thinkBlock).display;
-      thinkBlock.style.display = currentDisplay === 'none' ? 'block' : 'none';
-      btnIcon.value = currentDisplay === 'none' ? 'icon-chevron-up-2' :'icon-chevron-down-2'
-    }
-  }
+const toggleThink = (msg) => {
+  msg.isThinkShrink = !msg.isThinkShrink;
+  btnIcon.value = !msg.isThinkShrink ? 'icon-chevron-up-2' :'icon-chevron-down-2'
 }
 
 const generateAnswer = () => {
@@ -409,6 +399,14 @@ onMounted(() => {
   &:hover {
     background-color: var(--devui-btn-common-bg-hover);
   }
+}
+
+.think-block-expand .mc-think-block {
+  display: block;
+}
+
+.think-block-shrink .mc-think-block {
+  display: none;
 }
 </style>
 ```

@@ -13,4 +13,5 @@ export interface IMessage {
   content: unknown;
   loading?: boolean;
   complete?: boolean;
+  isThinkShrink?: boolean;
 }
