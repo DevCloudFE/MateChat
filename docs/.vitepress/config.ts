@@ -55,7 +55,7 @@ export default defineConfig({
       ...sideBarZh,
       ...sideBarEn,
     },
-    outline: { level: 3 },
+    outline: { level: [2, 3] },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
     ],
