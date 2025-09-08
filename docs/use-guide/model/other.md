@@ -23,7 +23,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source';
 const getAIAnswer = (content, type) => {
   abortController = new AbortController();
   const aiAnswer = {
-    from: 'ai-model',
+    from: 'assistant',
     content: '',
     type,
     avatarPosition: 'side-left',

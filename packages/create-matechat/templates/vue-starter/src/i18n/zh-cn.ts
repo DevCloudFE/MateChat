@@ -33,6 +33,11 @@ export default {
     disclaimer: "内容由AI生成，无法确保准确性和完整性，仅供参考",
     privacyStatement: "隐私声明",
   },
+  chat: {
+    thinking: "思考中...",
+    thinkingComplete: "已深度思考",
+    thinkingTime: "（用时{time}秒）",
+  },
   delete: "删除",
   deleteSuccess: "删除成功",
   confirm: "确认",

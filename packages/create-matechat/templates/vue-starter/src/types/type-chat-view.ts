@@ -4,10 +4,14 @@ export interface IMessageAvatar {
   height: number;
 }
 export interface IMessage {
-  from: 'user' | 'ai-model';
+  from: 'user' | 'assistant';
   avatarPosition: 'side-left' | 'side-right';
   avatarConfig: IMessageAvatar;
+  reasoning_content?: string;
+  startTime?: number;
+  endTime?: number;
   content: unknown;
   loading?: boolean;
   complete?: boolean;
+  isThinkShrink?: boolean;
 }
