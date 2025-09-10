@@ -54,6 +54,7 @@ export default {
       items: [
         { text: '快速开始', link: '/use-guide/solution' },
         { text: '主题化', link: '/use-guide/cli-theme' },
+        { text: '多轮对话&深度思考', link: '/use-guide/cli/multi-round-chat' },
       ],
     },
     {
