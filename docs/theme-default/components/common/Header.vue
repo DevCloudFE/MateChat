@@ -48,6 +48,7 @@
           :key="index"
           v-localeHref="item.link"
           :class="['nav-op', { 'nav-active': isActive(item.link) }]"
+          v-bind="getAttr(item)"
         >
           <div v-if="!isGalaxy">
             <img v-if="isActive(item.link)" :src="activeIconMap[index]" />
@@ -173,6 +174,13 @@ onMounted(() => {
     windowThemeChange(mediaQueryListDark);
   }
 });
+
+const getAttr = (item: any) => {
+  if (item.text === 'nav.demo') {
+    return { target: '_blank' };
+  }
+  return {};
+};
 
 const go = (link: string) => {
   router.go(link);

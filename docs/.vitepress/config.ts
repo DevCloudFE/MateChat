@@ -22,6 +22,12 @@ export default defineConfig({
           'chat,AI,vue,GPT,web,MateChat,开源,open source,智能化,components,组件库',
       },
     ],
+    [
+      'script',
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js'
+      }
+    ]
   ],
   markdown: {
     config: (md) => {
@@ -43,13 +49,13 @@ export default defineConfig({
     nav: [
       { text: 'nav.guide', link: '/use-guide/introduction' },
       { text: 'nav.component', link: '/components/introduction/demo' },
-      { text: 'nav.demo', link: '/playground/playground' },
+      { text: 'nav.demo', link: '/vue-starter/' },
     ],
     sidebar: {
       ...sideBarZh,
       ...sideBarEn,
     },
-    outline: { level: 3 },
+    outline: { level: [2, 3] },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
     ],

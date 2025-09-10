@@ -8,6 +8,7 @@ import { ref } from "vue";
 import { useChatHistoryStore } from "./history-store";
 import { useChatModelStore } from "./model-store";
 import { useChatStatusStore } from "./status-store";
+import type { ChunkResponse } from "@/models/types";
 
 export const useChatMessageStore = defineStore("chat-message", () => {
   const chatStatusStore = useChatStatusStore();
@@ -43,8 +44,9 @@ export const useChatMessageStore = defineStore("chat-message", () => {
 
   const getAIAnswer = (content: string) => {
     messages.value.push({
-      from: "ai-model",
+      from: "assistant",
       content: "",
+      reasoning_content: "",
       avatarPosition: "side-left",
       avatarConfig: { ...aiModelAvatar },
       loading: true,
@@ -82,6 +84,7 @@ export const useChatMessageStore = defineStore("chat-message", () => {
           onMessage: onMessageChange,
           onComplete: onMessageComplete,
         },
+        messages: messages.value,
       };
       if (!chatModelStore.currentModel) {
         return;
@@ -103,11 +106,17 @@ export const useChatMessageStore = defineStore("chat-message", () => {
     }
   };
 
-  const onMessageChange = (content: string) => {
+  const onMessageChange = (msg: ChunkResponse) => {
     messages.value.at(-1).loading = false;
-    messages.value[messages.value.length - 1].content = messages.value[
-      messages.value.length - 1
-    ].content += content;
+    const currentMessage = messages.value[messages.value.length - 1];
+    if (!currentMessage.startTime) {
+      currentMessage.startTime = Date.now();
+    }
+    if (!currentMessage.endTime && msg.content) {
+      currentMessage.endTime = Date.now();
+    }
+    currentMessage.reasoning_content += msg.reasoning_content || '';
+    currentMessage.content += msg.content || '';
     messageChangeCount.value++;
   };
 

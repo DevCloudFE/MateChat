@@ -55,20 +55,37 @@ export class OpenAiService implements LLMService {
       if (!this.currentModel) {
         return '模型未选择，请选择模型';
       }
-      const completion = await this.client.chat.completions.create({
+
+      const completionOptions = {
         model: this.currentModel.modelName,
-        messages: [{ role: 'user', content: request.content }],
+        messages: request.messages?.slice(0, -1)?.map((item) => ({
+          role: item.from,
+          content: item.content,
+        })),
         stream: true,
-      });
+        enable_thinking: this.currentModel.enableThink,
+      };
+      const completion = await this.client.chat.completions.create(completionOptions);
 
       let fullAnswer = '';
+      let thinkAnswer = '';
+      let contentAnswer = '';
       for await (const chunk of completion) {
-        const answer = chunk.choices[0]?.delta?.reasoning_content
-          ? chunk.choices[0]?.delta?.reasoning_content
-          : chunk.choices[0]?.delta?.content || '';
-
-        fullAnswer += answer;
-        request.streamOptions?.onMessage?.(answer);
+        const delta = chunk.choices[0]?.delta;
+        if (!delta) {
+          continue;
+        }
+        if (delta?.reasoning_content) {
+          thinkAnswer += delta?.reasoning_content || '';
+        }
+        if (delta?.content) {
+          contentAnswer += delta?.content || '';
+        }
+        fullAnswer = contentAnswer;
+        request.streamOptions?.onMessage?.({
+          reasoning_content: delta?.reasoning_content || '',
+          content: delta?.content || '',
+        });
       }
       request.streamOptions?.onComplete?.();
       return fullAnswer;

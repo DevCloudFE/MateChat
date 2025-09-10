@@ -2,11 +2,12 @@
   <div class="page-nav-container">
     <ul>
       <li
-        v-for="({ link, title }, index) in headers"
+        v-for="({ link, title, level }, index) in headers"
         :key="index"
         :title="title"
         :id="`nav-${link}`"
         class="page-nav-link devui-text-ellipsis"
+        :style="{ paddingLeft: `${16 + level * 12}px` }"
         @click="() => onClick(link)"
       >
         {{ title }}
@@ -16,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import { shallowRef } from 'vue';
 import { onContentUpdated, useData } from 'vitepress';
+import { shallowRef } from 'vue';
 import { getHeaders } from '../composables/outline';
 
 const { frontmatter, theme } = useData();
@@ -36,8 +37,26 @@ const onClick = (link: string) => {
   }, 1000);
 };
 
+// 递归扁平化标题结构，将嵌套的children展开成扁平数组
+const flattenHeaders = (items, level = 0) => {
+  const result = [];
+  for (const item of items) {
+    result.push({
+      ...item,
+      level: level, // 保留层级信息用于缩进显示
+    });
+    if (item.children && item.children.length > 0) {
+      result.push(...flattenHeaders(item.children, level + 1));
+    }
+  }
+  return result;
+};
+
 onContentUpdated(() => {
-  headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline);
+  const nestedHeaders = getHeaders(
+    frontmatter.value.outline ?? theme.value.outline,
+  );
+  headers.value = flattenHeaders(nestedHeaders);
 });
 </script>
 

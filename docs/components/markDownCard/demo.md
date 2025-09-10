@@ -230,9 +230,9 @@ onMounted(() => {
   <div id="think-demo-content">
     <template v-for="(msg, idx) in messages" :key="idx">
       <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'" :avatarConfig="msg.avatarConfig"></McBubble>
-      <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'">
+      <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'" :class="msg.isThinkShrink ? 'think-block-shrink' : 'think-block-expand'">
 
-        <div class="think-toggle-btn" @click="toggleThink(idx)">
+        <div class="think-toggle-btn" @click="toggleThink(msg)">
           <i class="icon-point"></i>
           <span>{{ thinkBtnText }}</span>
           <i :class="btnIcon"></i>
@@ -320,19 +320,9 @@ const themeChange = () => {
   }
 };
 
-const toggleThink = (idx) => {
-  if (isLoading.value) {
-    return
-  }
-  const targetNode = document.querySelectorAll('#think-demo-content .mc-bubble-content-container')[idx];
-  if (targetNode) {
-    const thinkBlock = targetNode.querySelector('.mc-think-block');
-    if (thinkBlock) {
-      const currentDisplay = getComputedStyle(thinkBlock).display;
-      thinkBlock.style.display = currentDisplay === 'none' ? 'block' : 'none';
-      btnIcon.value = currentDisplay === 'none' ? 'icon-chevron-up-2' :'icon-chevron-down-2'
-    }
-  }
+const toggleThink = (msg) => {
+  msg.isThinkShrink = !msg.isThinkShrink;
+  btnIcon.value = !msg.isThinkShrink ? 'icon-chevron-up-2' :'icon-chevron-down-2'
 }
 
 const generateAnswer = () => {
@@ -409,6 +399,14 @@ onMounted(() => {
   &:hover {
     background-color: var(--devui-btn-common-bg-hover);
   }
+}
+
+.think-block-expand .mc-think-block {
+  display: block;
+}
+
+.think-block-shrink .mc-think-block {
+  display: none;
 }
 </style>
 ```
@@ -941,7 +939,10 @@ onMounted(() => {
 <template>
   <McMarkdownCard :content="content" :theme="theme">
     <template #content="{ codeBlockData }">
-      <div class="content-container" v-html="transfer(codeBlockData)"></div>
+      <div v-if="codeBlockData.language === 'echart'" ref="chart" style="width: 100%; height: 500px;">
+        {{ handleCodeBlockData(codeBlockData) }}
+      </div>
+      <div v-else class="content-container" v-html="transfer(codeBlockData)"></div>
     </template>
   </McMarkdownCard>
 </template>
@@ -951,7 +952,92 @@ import markdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 let themeService;
 const theme = ref('light');
-const content = ref(`以下是快速排序的实现方法：
+const chart = ref(null);
+let myChart = null;
+const echartsLoaded = ref(false);
+const content = ref(`
+**Echarts渲染**
+\`\`\`echart
+{
+  backgroundColor: theme.value === 'light' ? '#fefefe' : '#34363A',
+  color: ['#00ffff','#00cfff','#006ced','#ffe000','#ffa800','#ff5b00','#ff3000'],
+  title: {
+    text: '交通方式',
+    top: '48%',
+    textAlign: "center",
+    left: "49%",
+    textStyle: {
+      fontSize: 22,
+      fontWeight: '400'
+    }
+  },
+  tooltip: {
+    show: false
+  },
+  legend: {
+    icon: "circle",
+    orient: 'horizontal',
+    x: 'right',
+    data:['火车','飞机','客车','轮渡'],
+    right: 300,
+    bottom: 30,
+    align: 'right',
+    itemGap: 20
+  },
+  toolbox: {
+    show: false 
+  },
+  series: [{
+    name: '',
+    type: 'pie',
+    clockWise: false,
+    radius: [105, 109],
+    hoverAnimation: false,
+    itemStyle: {
+      normal: {
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: function(params) {
+            const staticPercentages = {
+              '火车': '20%',
+              '飞机': '10%',
+              '客车': '30%',
+              '轮渡': '40%'
+            };
+            
+            if (params.name !== '' && staticPercentages[params.name]) {
+              return '交通方式：' + params.name + '\\n' + '\\n' + '占百分比：' + staticPercentages[params.name];
+            } else {
+              return '';
+            }
+          },
+        },
+        labelLine: {
+          length:30,
+          length2:100,
+          show: true,
+          color:'#00ffff'
+        }
+      }
+    },
+    data: [
+      { value: 20, name: '火车', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#00ffff', shadowColor: '#00ffff' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } },
+      { value: 10, name: '飞机', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#00cfff', shadowColor: '#00cfff' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } },
+      { value: 30, name: '客车', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#006ced', shadowColor: '#006ced' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } },
+      { value: 40, name: '轮渡', itemStyle: { normal: { borderWidth: 5, shadowBlur: 20, borderColor: '#ffe000', shadowColor: '#ffe000' } } },
+      { value: 2, name: '', itemStyle: { normal: { label: { show: false }, labelLine: { show: false }, color: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(0, 0, 0, 0)', borderWidth: 0 } } }
+    ]
+  }]
+}
+\`\`\`
+
+
+**自定义代码行号**
+
 \`\`\`ts
 function quickSort(arr) {
   if (arr.length < 2) {
@@ -1018,6 +1104,57 @@ const transfer = (codeBlockData) => {
   return mdt.render(codeBlockStr);
 };
 
+// 处理代码块数据
+const handleCodeBlockData = (codeBlockData) => {
+  if (codeBlockData.language === 'echart') {
+    try {
+      // 解析字符串为 ECharts 配置对象
+      const option = eval(`(${codeBlockData.code})`);
+      
+      // 根据主题设置颜色
+      option.title.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      option.legend.textStyle = option.legend.textStyle || {};
+      option.legend.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      
+      if (option.series && option.series[0] && option.series[0].itemStyle && option.series[0].itemStyle.normal) {
+        option.series[0].itemStyle.normal.label.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      }
+      
+      // 渲染图表 - 确保 ECharts 已加载
+      if (echartsLoaded.value) {
+        renderChart(option);
+      } else {
+        // 如果 ECharts 尚未加载，等待加载完成后再渲染
+        const checkEcharts = setInterval(() => {
+          if (echartsLoaded.value) {
+            clearInterval(checkEcharts);
+            renderChart(option);
+          }
+        }, 100);
+      }
+    } catch (e) {
+      console.error('解析 ECharts 配置失败:', e);
+    }
+  }
+};
+
+// 渲染图表
+const renderChart = (option) => {
+  if (!chart.value) return;
+  
+  if (!myChart) {
+    // 确保 window.echarts 已定义
+    if (typeof window.echarts !== 'undefined') {
+      myChart = window.echarts.init(chart.value);
+    } else {
+      console.error('ECharts 库未加载');
+      return;
+    }
+  }
+  
+  myChart.setOption(option);
+};
+
 const changeTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light';
   themeClass.value = themeClass.value === 'light-background' ? 'dark-background' : 'light-background';
@@ -1037,6 +1174,24 @@ onMounted(() => {
   if (themeService && themeService.eventBus) {
     themeService.eventBus.add('themeChanged', themeChange);
   }
+  // 加载 ECharts
+  if (typeof window.echarts === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js';
+    script.onload = () => {
+      console.log('ECharts 加载完成');
+      echartsLoaded.value = true; // 设置加载完成标志
+    };
+    document.head.appendChild(script);
+  } else {
+    echartsLoaded.value = true; // 如果已加载，直接设置标志
+  }
+  
+  window.addEventListener('resize', () => {
+    if (myChart) {
+      myChart.resize();
+    }
+  });
 });
 </script>
 
