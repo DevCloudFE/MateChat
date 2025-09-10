@@ -59,7 +59,7 @@ export const AttachmentProps = {
   },
   accept: {
     type: String,
-    default: '*/*',
+    default: '',
   },
   limit: {
     type: Number,
