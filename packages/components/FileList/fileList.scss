@@ -205,7 +205,8 @@
   }
 
   &__progress-ring-track {
-    stroke: rgba(225, 225, 225, 0.4); // 半透明白色轨道
+    stroke: $devui-disabled-bg; // 轨道颜色
+    stroke-opacity: 0.3; // 轨道透明度
   }
 
   &__progress-ring-circle {
