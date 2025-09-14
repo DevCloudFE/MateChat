@@ -11,7 +11,7 @@ export interface FileItem<T = unknown, E = unknown> {
   uid: number;
   name: string;
   size: number;
-  type: string;
+  type?: string;
   status?: FileStatus;
   percentage?: number;
   // 可以存放服务器响应信息

@@ -149,20 +149,21 @@ const extensionMap: Record<string, unknown> = {
 
 // 获取文件类型图标组件
 const getIconComponent = (file: FileItem) => {
+  if (file.type) {
+    // 根据MIME类型做一些通用匹配
+    if (file.type?.startsWith('image/')) return ImageIcon;
+    if (file.type?.startsWith('video/')) return Mp4Icon;
+    if (file.type?.startsWith('audio/')) return Mp4Icon; // 新增：音频文件回退
+    if (file.type?.startsWith('text/')) return DocumentIcon;
+    if (file.type === 'application/pdf') return PdfIcon;
+    if (file.type === 'application/zip' || file.type?.includes('compress'))
+      return CompressedFileIcon;
+  }
   const extension = file.name.split('.').pop()?.toLowerCase();
 
   if (extension && extensionMap[extension]) {
     return extensionMap[extension];
   }
-
-  // 如果没有匹配到，可以根据MIME类型做一些通用匹配
-  if (file.type?.startsWith('image/')) return ImageIcon;
-  if (file.type?.startsWith('video/')) return Mp4Icon;
-  if (file.type?.startsWith('audio/')) return Mp4Icon; // 新增：音频文件回退
-  if (file.type?.startsWith('text/')) return DocumentIcon;
-  if (file.type === 'application/pdf') return PdfIcon;
-  if (file.type === 'application/zip' || file.type?.includes('compress'))
-    return CompressedFileIcon;
 
   return UnknownIcon; // 返回专用的未知文件图标
 };
@@ -175,14 +176,28 @@ const handleRemove = (file: FileItem) => {
 const handleRetryUpload = (file: FileItem) => {
   emit('retry-upload', file);
 };
-// 处理预览
+const isImageFile = (file: FileItem): boolean => {
+  return !!(
+    file.type?.startsWith('image/') ||
+    file.name.match(/\.(jpg|jpeg|png|gif|bmp|webp|svg|tif|tiff)$/i)
+  );
+};
 const handlePreview = (file: FileItem) => {
+  // 先判断是否是图片，图片的链接可能在 thumbUrl 或 url
+  if (isImageFile(file) && (file.thumbUrl || file.url)) {
+    previewFile.value = file;
+    isPreviewVisible.value = true;
+    emit('preview', file);
+    return;
+  }
+
+  // 如果不是图片，再判断是否有 URL (移除了 else)
   if (file.url) {
     previewFile.value = file;
     isPreviewVisible.value = true;
+    emit('preview', file);
+    return;
   }
-  // 仍然可以发出事件，以防父组件需要知道
-  emit('preview', file);
 };
 // 处理重试下载
 const handleRetryDownload = (file: FileItem) => {
@@ -208,7 +223,7 @@ const handleDownload = (file: FileItem, event: Event) => {
         <!-- 文件图标和进度 -->
         <div class="mc-file-item__icon">
           <!-- 图片预览 -->
-          <template v-if="(file.thumbUrl || file.url) && file.type.startsWith('image/')">
+          <template v-if="(file.thumbUrl || file.url) && (file.name.match(/\.(jpg|jpeg|png|gif|bmp|webp|tif|tiff)$/i) || file.type?.startsWith('image/'))">
             <img :src="file.thumbUrl || file.url" :alt="file.name" class="mc-file-item__image-preview" @click="handlePreview(file)">
           </template>
           <!-- 原来的图标 -->
@@ -294,11 +309,11 @@ const handleDownload = (file: FileItem, event: Event) => {
     <transition name="mc-file-preview-fade">
       <div v-if="isPreviewVisible" class="mc-file-preview__overlay" @click.self="isPreviewVisible = false">
         <!-- 图片预览 -->
-        <img v-if="previewFile && previewFile.type.startsWith('image/')" :src="previewFile.url" :alt="previewFile.name" class="mc-file-preview__content" />
+        <img v-if="previewFile && (previewFile.thumbUrl || previewFile.url) && (previewFile.name.match(/\.(jpg|jpeg|png|gif|bmp|webp|tif|tiff)$/i) || previewFile.type?.startsWith('image/'))" :src="previewFile.thumbUrl || previewFile.url" :alt="previewFile.name" class="mc-file-preview__content" />
         <!-- 视频预览 -->
-        <video v-else-if="previewFile && previewFile.type.startsWith('video/')" :src="previewFile.url" controls class="mc-file-preview__content"></video>
+        <video v-else-if="previewFile && (previewFile.name.match(/\.(mp4|webm|ogg)$/i) || previewFile.type?.startsWith('video/'))" :src="previewFile.url" controls class="mc-file-preview__content"></video>
         <!-- PDF 和 文本文件预览 (使用 iframe) -->
-        <iframe v-else-if="previewFile && (previewFile.type === 'application/pdf' || previewFile.type.startsWith('text/'))" :src="previewFile.url" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
+        <iframe v-else-if="previewFile && (previewFile.name.match(/\.(pdf|txt)$/i) || previewFile.type?.startsWith('application/pdf') || previewFile.type?.startsWith('text/'))" :src="previewFile.url" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
         <!-- 其他文件类型的占位符 -->
         <div v-else class="mc-file-preview__unsupported">
           <span>浏览器不支持预览此文件类型：{{ previewFile?.name }}</span>

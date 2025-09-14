@@ -28,6 +28,11 @@ desc: Attachment 组件的详细 API 文档。
 | `progress` | 文件上传时触发。 | `(file: File, fileList: FileItem[]) => void` |
 | `drop` | 文件被拖拽到可拖拽区域时触发。 | `(files: File[]) => void` |
 
+### 插槽
+| 插槽名 | 说明 |
+| --- | --- |
+| `default` | 自定义上传附件按钮样式 |
+
 ### 类型定义
 
 #### UploadOptions
@@ -69,7 +74,7 @@ export interface FileItem<T = unknown, E = unknown> {
   uid: number;
   name: string;
   size: number;
-  type: string;
+  type?: string;
   status?: FileStatus;
   percentage?: number;
   id?: string | number;
