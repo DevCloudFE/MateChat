@@ -157,6 +157,47 @@ const userAvatarTop = {
 
 :::
 
+### 完全自定义头像区域
+
+默认的我们的头像将显示在侧边，你也可以通过 `avatarPosition` 将其显示在气泡上方。
+
+:::demo
+
+```vue
+<template>
+  <div class="demo-container">
+    <McBubble content="Hello MateChat" align="right" avatarPosition="top">
+      <template #avatar>
+        <div class="demo-container" style="gap: 0; align-items: center;">
+          <img src="/png/demo/userAvatar.svg" style="{ width: 40px; height: 40px; }" />
+          <span>User</span>
+        </div>
+      </template>
+    </McBubble>
+    <McBubble :content="'Hello, what can I do for you?'" :avatarConfig="modelAvatar">
+      <template #avatar>
+        <div class="demo-container" style="gap: 0;">
+          <img src="/logo.svg" style="{ width: 40px; height: 40px; }" />
+          <span>MateChat</span>
+        </div>
+      </template>
+    </McBubble>
+  </div>
+</template>
+
+<script setup>
+</script>
+
+<style scoped>
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+</style>
+```
+:::
+
 ### 自定义气泡内容区
 
 我们提供了 `default` 插槽，支持你自定义内容区的显示，进行更复杂的数据渲染，下面将以 `markdown` 为例。
