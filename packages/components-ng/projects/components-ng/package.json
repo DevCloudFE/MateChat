@@ -1,0 +1,14 @@
+{
+  "name": "@matechat/ng",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "前端智能化场景解决方案UI库，轻松构建你的AI应用。",
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
