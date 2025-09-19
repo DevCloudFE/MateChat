@@ -216,6 +216,80 @@ onMounted(() => {
 
 :::
 
+#### stopTyping 接口
+
+通过 `ref` 调用 `McMarkdownCard` 实例的 `stopTyping()` 接口，可在需要时立即终止当前的打字机动效，便于在实时交互或用户中断场景下提升响应体验。
+
+:::demo
+
+```vue
+<template>
+  <McBubble :variant="'bordered'">
+    <div class="stop-typing-demo">
+      <div class="stop-typing-actions">
+        <d-button variant="solid" size="sm" @click="stopTypingManually">立即停止</d-button>
+        <d-button variant="outline" size="sm" @click="restartManualTyping">重新开始</d-button>
+      </div>
+      <McMarkdownCard
+        ref="manualTypingCardRef"
+        :content="stopTypingContent"
+        :theme="theme"
+        :typing="true"
+      ></McMarkdownCard>
+    </div>
+  </McBubble>
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+const MOCK_CONTENT = `**我了解到了你的需求**，*会进行<span style="color:red">打字机效果输出</span>，如果你需要重新执行打字机动效*，可点击重新执行按钮。`;
+let themeService;
+const theme = ref('light');
+const stopTypingContent = ref(MOCK_CONTENT);
+const manualTypingCardRef = ref();
+
+const stopTypingManually = () => {
+  manualTypingCardRef.value?.stopTyping?.();
+};
+
+const restartManualTyping = () => {
+  stopTypingContent.value = '';
+  setTimeout(() => {
+    stopTypingContent.value = MOCK_CONTENT;
+  });
+};
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
+</script>
+
+<style lang="scss" scoped>
+.stop-typing-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.stop-typing-actions {
+  display: flex;
+  gap: 8px;
+}
+</style>
+```
+
+:::
+
 ### think标签支持
 
 支持自定义的 think 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示。

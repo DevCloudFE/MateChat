@@ -25,6 +25,13 @@ const emit = defineEmits(['afterMdtInit', 'typingStart', 'typing', 'typingEnd'])
 const slots = useSlots();
 let timer: ReturnType<typeof setTimeout> | null = null
 
+const clearTypingTimer = () => {
+  if (timer !== null) {
+    clearTimeout(timer);
+    timer = null;
+  }
+}
+
 const mdt: MarkdownIt = markdownit({
   breaks: true,
   linkify: true,
@@ -69,6 +76,17 @@ const parseContent = () => {
   const vnodes = astToVnodes(ast);
   markdownContent.value = h(Fragment, vnodes);
 };
+
+const stopTyping = () => {
+  const wasTyping = isTyping.value;
+  clearTypingTimer();
+  isTyping.value = false;
+  typingIndex.value = props.content?.length || 0;
+  parseContent();
+  if (wasTyping) {
+    emit('typingEnd');
+  }
+}
 
 const astToVnodes = (nodes: ASTNode[]): VNode[] => {
   return nodes.map(node => processASTNode(node));
@@ -224,8 +242,7 @@ const createCodeBlock = (
 };
 
 const typewriterStart = () => {
-  clearTimeout(timer!)
-
+  clearTypingTimer();
   isTyping.value = true;
   emit('typingStart');
   const options = {...defaultTypingConfig, ...props?.typingOptions};
@@ -240,8 +257,7 @@ const typewriterStart = () => {
     emit('typing');
 
     if (typingIndex.value >= props.content!.length) {
-      typewriterEnd();
-      parseContent();
+      stopTyping();
       return;
     }
 
@@ -255,8 +271,7 @@ watch(
   () => props.content,
   (newVal, oldVal) => {
     if (!props.typing) {
-      typingIndex.value = newVal?.length || 0;
-      parseContent();
+      stopTyping();
       return
     }
 
@@ -268,11 +283,6 @@ watch(
   },
   { immediate: true },
 )
-
-const typewriterEnd = () => {
-  isTyping.value = false;
-  emit('typingEnd');
-}
 
 watch(
   () => props.customXssRules,
@@ -302,7 +312,7 @@ onMounted(() => {
   emit('afterMdtInit', mdt);
 });
 
-defineExpose({ mdt });
+defineExpose({ mdt, stopTyping });
 </script>
 
 <style scoped lang="scss">
