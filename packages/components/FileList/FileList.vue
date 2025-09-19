@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMcI18n } from '@matechat/core/Locale';
 import { computed, ref, watch } from 'vue';
 import type { FileItem } from '../Attachment/attachment-types';
 import { fileListEmits, fileListProps } from './fileList-types';
@@ -26,6 +27,8 @@ defineOptions({
 
 const props = defineProps(fileListProps);
 const emit = defineEmits(fileListEmits);
+
+const { t } = useMcI18n();
 
 // 跟踪当前悬停的文件项
 const hoveredFileUid = ref<number | null>(null);
@@ -264,26 +267,26 @@ const handleDownload = (file: FileItem, event: Event) => {
             <template v-if="file.status === 'uploadError' || file.status === 'downloadError'">
               <span 
                 class="mc-file-item__status mc-file-item__status--error" 
-                :title="typeof file.error === 'string' ? file.error : (file.status === 'uploadError' ? '上传失败' : '下载失败')"
+                :title="typeof file.error === 'string' ? file.error : (file.status === 'uploadError' ? t('FileList.uploadFailed')  : t('FileList.downloadFailed'))"
               >
-                {{ file.status === 'uploadError' ? '上传失败' : '下载失败' }}
+                {{ file.status === 'uploadError' ? t('FileList.uploadFailed') : t('FileList.downloadFailed') }}
               </span>
               <span
                 class="mc-file-item__meta-action"
                 @click="file.status === 'uploadError' ? handleRetryUpload(file) : handleRetryDownload(file)"
-              >重试</span>
+              >{{ t('FileList.retry') }}</span>
             </template>
             <!-- 2. 悬停状态 -->
             <template v-else-if="hoveredFileUid === file.uid && file.status === 'success'">
-              <span class="mc-file-item__meta-action" @click="handleDownload(file, $event)">下载</span>
-              <span class="mc-file-item__meta-action" @click="handlePreview(file)">预览</span>
+              <span class="mc-file-item__meta-action" @click="handleDownload(file, $event)">{{ t('FileList.download') }}</span>
+              <span class="mc-file-item__meta-action" @click="handlePreview(file)">{{ t('FileList.preview') }}</span>
             </template>
             <!-- 3. 上传/下载中状态 -->
             <template v-else-if="file.status === 'uploading'">
-              <span class="mc-file-item__status">上传中...</span>
+              <span class="mc-file-item__status">{{ t('FileList.uploading') }}</span>
             </template>
             <template v-else-if="file.status === 'downloading'">
-              <span class="mc-file-item__status">下载中...</span>
+              <span class="mc-file-item__status">{{ t('FileList.downloading') }}</span>
             </template>
             <!-- 4. 默认状态 -->
             <template v-else>
@@ -297,7 +300,7 @@ const handleDownload = (file: FileItem, event: Event) => {
         <button
           class="mc-file-item__action-btn mc-file-item__action-btn--remove"
           @click="handleRemove(file)"
-          title="删除"
+          title="{{ t('FileList.remove') }}"
         >
           ✕
         </button>
@@ -316,11 +319,11 @@ const handleDownload = (file: FileItem, event: Event) => {
         <iframe v-else-if="previewFile && (previewFile.name.match(/\.(pdf|txt)$/i) || previewFile.type?.startsWith('application/pdf') || previewFile.type?.startsWith('text/'))" :src="previewFile.url" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
         <!-- 其他文件类型的占位符 -->
         <div v-else class="mc-file-preview__unsupported">
-          <span>浏览器不支持预览此文件类型：{{ previewFile?.name }}</span>
-          <span class="mc-file-preview__unsupported-tip">请尝试下载后查看</span>
+          <span>{{ t('FileList.unsupportedPreview', { fileName: previewFile?.name }) }}</span>
+          <span class="mc-file-preview__unsupported-tip">{{ t('FileList.tryDownload') }}</span>
         </div>
         <!-- 关闭按钮 -->
-        <button class="mc-file-preview__close-btn" @click="isPreviewVisible = false" title="关闭">✕</button>
+        <button class="mc-file-preview__close-btn" @click="isPreviewVisible = false" :title="t('FileList.close')">✕</button>
       </div>
     </transition>
   </teleport>

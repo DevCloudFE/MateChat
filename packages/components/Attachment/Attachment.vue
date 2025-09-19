@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMcI18n } from '@matechat/core/Locale';
 import { ref, toRefs } from 'vue';
 import { AttachmentEmits, AttachmentProps } from './attachment-types';
 import type { FileItem } from './attachment-types';
@@ -12,6 +13,8 @@ const props = defineProps(AttachmentProps);
 const emit = defineEmits(AttachmentEmits);
 // 使用 defineModel 定义双向绑定(需要同步文件数量)
 const fileList = defineModel<FileItem[]>({ default: [] });
+
+const { t } = useMcI18n();
 
 const inputRef = ref<HTMLInputElement>();
 // 从钩子中获取方法
@@ -29,7 +32,7 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
     <!-- 使用插槽允许用户自定义触发器内容，例如按钮或文本 -->
     <slot>
       <button class="mc-attachment-default-trigger" :disabled="isDisabled">
-        + 附件
+        + {{ t('Attachment.attachFile') }}
       </button>
     </slot>
     <input
@@ -49,10 +52,10 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
       :class="{ 'is-disabled': isDisabled }"
     >
       <template v-if="isDisabled">
-        上传禁用
+        {{ t('Attachment.disabledUpload') }}
       </template>
       <template v-else>
-        拖拽到页面上即可上传
+        {{ t('Attachment.dragToUpload') }}
       </template>
     </div>
   </Teleport>
