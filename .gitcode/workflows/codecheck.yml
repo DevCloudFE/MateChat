@@ -1,0 +1,8 @@
+steps:
+  - name: codecheck-action_task_1
+    uses: codecheck-action@0.0.3
+    with:
+      repo_url: 'https://gitcode.com/DevCloudFE/MateChat'
+      branch: 'dev'
+      rule_sets: '[{"language":"typescript"},{"language:"javascript"}]'
+      access_token: '12345678'
