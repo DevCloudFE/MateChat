@@ -17,7 +17,7 @@
         {
           "id": "matechat",
           "title": "Matechat",
-          "icon": "resources/icon.svg"
+          "icon": "resources/logo.svg"
         }
       ]
     },
@@ -27,7 +27,7 @@
           "id": "matechat-webview.view",
           "name": "Matechat",
           "type": "webview",
-          "icon": "resources/icon.svg"
+          "icon": "resources/logo.svg"
         }
       ]
     }
