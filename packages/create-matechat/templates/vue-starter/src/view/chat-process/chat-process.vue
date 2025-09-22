@@ -116,7 +116,6 @@ const mousedownHandler = (e: MouseEvent) => {
     clickOnScrollbar.value = true;
     return;
   }
-  clickOnScrollbar.value = false;
 };
 
 onMounted(() => {
