@@ -20,7 +20,7 @@
           <BubbleLoading></BubbleLoading>
         </slot>
       </div>
-      <div v-if="(slots.default || content) && !loading" class="mc-bubble-content" :class="[variant]">
+      <div v-if="(slots.default || content) && !loading" :class="['mc-bubble-content', `mc-bubble-${variant}`]">
         <slot>{{ content }}</slot>
       </div>
       <slot v-if="!loading" name="bottom"></slot>

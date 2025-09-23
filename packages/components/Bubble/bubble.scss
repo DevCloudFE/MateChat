@@ -8,17 +8,17 @@
   .mc-bubble-content {
     word-wrap: break-word;
 
-    &.filled,
-    &.bordered {
+    &.mc-bubble-filled,
+    &.mc-bubble-bordered {
       padding: 12px 16px;
       border-radius: 12px;
     }
 
-    &.filled {
+    &.mc-bubble-filled {
       background-color: $devui-global-bg;
     }
 
-    &.bordered {
+    &.mc-bubble-bordered {
       border: 1px solid $devui-dividing-line;
     }
   }
