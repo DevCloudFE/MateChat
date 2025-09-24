@@ -19,7 +19,7 @@
         <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'"
           :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/png/demo/userAvatar.svg' }">
         </McBubble>
-        <McBubble v-else :content="msg.content" :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/logo.svg' }">
+        <McBubble v-else :content="msg.content" :avatarConfig="{ imgSrc: 'https://matechat.gitcode.com/logo.svg' }" :loading="msg.loading">
         </McBubble>
       </template>
     </McLayoutContent>
