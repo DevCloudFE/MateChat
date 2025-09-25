@@ -17,15 +17,11 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { EditorState, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Fragment, Schema } from 'prosemirror-model';
-import type {
-  MarkSpec,
-  Node as ProseMirrorNode,
-  NodeSpec,
-} from 'prosemirror-model';
-import { schema as basicSchema } from 'prosemirror-schema-basic';
+import type { Node as ProseMirrorNode, NodeSpec } from 'prosemirror-model';
 import type { ChatInputProps } from './chat-input-types';
 import { createChatInputPlugins } from './plugins';
 import { serializeNodeToMarkdown, parseMarkdownToNodes } from './utils';
+import { codeBlockSpec, codeMarkSpec } from './plugins/code-block';
 
 interface UseChatInputEditorOptions {
   props: ChatInputProps;
@@ -35,76 +31,29 @@ interface UseChatInputEditorOptions {
 }
 
 const createSchema = () => {
-  const baseCodeBlock = basicSchema.spec.nodes.get('code_block');
-
-  if (!baseCodeBlock) {
-    throw new Error('Missing code_block spec in basic schema');
-  }
-
-  const codeBlockSpec: NodeSpec = {
-    ...baseCodeBlock,
-    attrs: {
-      ...(baseCodeBlock?.attrs ?? {}),
-      language: { default: '' },
+  const docSpec: NodeSpec = { content: 'block+' };
+  const paragraphSpec: NodeSpec = {
+    content: 'inline*',
+    group: 'block',
+    parseDOM: [{ tag: 'p' }],
+    toDOM() {
+      return ['p', 0];
     },
-    parseDOM: [
-      {
-        tag: 'pre',
-        preserveWhitespace: 'full',
-        getAttrs: (dom: Node | string) => {
-          if (typeof dom === 'string' || !(dom instanceof HTMLElement)) {
-            return { language: '' };
-          }
+  };
+  const textSpec: NodeSpec = { group: 'inline' };
 
-          const datasetLanguage = dom.getAttribute('data-language');
-          if (datasetLanguage) {
-            return { language: datasetLanguage };
-          }
-
-          const codeElement = dom.querySelector('code');
-          const className = codeElement?.getAttribute('class') ?? '';
-          const languageClass = className
-            .split(' ')
-            .find((item) => item.startsWith('language-'));
-
-          return {
-            language: languageClass ? languageClass.replace(/^language-/, '') : '',
-          };
-        },
-      },
-    ],
-    toDOM: (node: ProseMirrorNode) => [
-      'pre',
-      {
-        class: 'code-block-line',
-        'data-language': node.attrs.language || null,
-      },
-      [
-        'code',
-        node.attrs.language
-          ? { class: `language-${node.attrs.language}` }
-          : {},
-        0,
-      ],
-    ],
+  const nodesSpec = {
+    doc: docSpec,
+    paragraph: paragraphSpec,
+    code_block: codeBlockSpec,
+    text: textSpec,
   };
 
-  const nodes = basicSchema.spec.nodes.update('code_block', codeBlockSpec);
+  const marksSpec = {
+    code: codeMarkSpec,
+  };
 
-  let marks = basicSchema.spec.marks;
-  marks = marks.remove('strong').remove('em').remove('link');
-
-  const baseCodeMark = basicSchema.spec.marks.get('code');
-  if (!baseCodeMark) {
-    throw new Error('Missing code mark spec in basic schema');
-  }
-
-  const finalMarks = basicSchema.spec.marks.update('code', {
-    ...baseCodeMark,
-    inclusive: false,
-  } as MarkSpec);
-
-  return new Schema({ nodes, marks: finalMarks });
+  return new Schema({ nodes: nodesSpec, marks: marksSpec});
 };
 
 

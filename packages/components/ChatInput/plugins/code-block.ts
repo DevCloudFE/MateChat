@@ -4,9 +4,11 @@
  */
 import {
   Fragment,
-  type Schema,
+  Schema,
   type Node as ProseMirrorNode,
   type NodeType,
+  type NodeSpec,
+  type MarkSpec,
 } from 'prosemirror-model';
 import {
   Plugin,
@@ -22,7 +24,7 @@ import type { ChatInputProps } from '../chat-input-types';
  */
 const CODE_BLOCK_TRIGGER = /^```([a-zA-Z0-9_+-]*)?$/;
 
-const ENTER_BINDINGS = ['Enter', 'Shift-Enter', 'Mod-Enter'] as const;
+const ENTER_BINDINGS: string[] = ['Enter', 'Shift-Enter', 'Mod-Enter'];
 
 const matchFenceBeforeCursor = (
   node: ProseMirrorNode,
@@ -285,4 +287,68 @@ export const createCodeBlockKeymapPlugin = (
   }
 
   return keymap(bindings);
+};
+
+/**
+ * code_block 的 NodeSpec 常量（带 language 扩展与 DOM 映射）。
+ * 作为不可变定义被各处 Schema 复用。
+ */
+export const codeBlockSpec: NodeSpec = {
+  content: 'text*',
+  group: 'block',
+  code: true,
+  defining: true,
+  attrs: {
+    language: { default: '' },
+  },
+  parseDOM: [
+    {
+      tag: 'pre',
+      preserveWhitespace: 'full',
+      getAttrs: (dom: Node | string) => {
+        if (typeof dom === 'string' || !(dom instanceof HTMLElement)) {
+          return { language: '' };
+        }
+
+        const datasetLanguage = dom.getAttribute('data-language');
+        if (datasetLanguage) {
+          return { language: datasetLanguage };
+        }
+
+        const codeElement = dom.querySelector('code');
+        const className = codeElement?.getAttribute('class') ?? '';
+        const languageClass = className
+          .split(' ')
+          .find((item) => item.startsWith('language-'));
+
+        return {
+          language: languageClass ? languageClass.replace(/^language-/, '') : '',
+        };
+      },
+    },
+  ],
+  toDOM: (node: ProseMirrorNode) => [
+    'pre',
+    {
+      class: 'code-block-line',
+      'data-language': node.attrs.language || null,
+    },
+    [
+      'code',
+      node.attrs.language ? { class: `language-${node.attrs.language}` } : {},
+      0,
+    ],
+  ],
+};
+
+/**
+ * code mark 的 MarkSpec 常量：用于行内代码片段。
+ */
+export const codeMarkSpec: MarkSpec = {
+  parseDOM: [{ tag: 'code' }],
+  toDOM() {
+    return ['code', 0];
+  },
+  code: true,
+  inclusive: false,
 };
