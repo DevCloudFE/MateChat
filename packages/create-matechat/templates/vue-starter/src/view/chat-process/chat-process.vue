@@ -49,10 +49,10 @@ const themeStore = useThemeStore();
 const { t } = useI18n();
 
 const conversationRef = ref();
-let scrollbarWidth = 8; // 垂直滚动条宽度
+const scrollbarWidth = 8; // 垂直滚动条宽度
 const isLoading = ref(false);
 const btnIcon = ref('icon-chevron-up-2');
-const headspace = 40; // 判断滚动条是否在最下方预留像素值
+const headspace = 30; // 判断滚动条是否在最下方预留像素值
 const clickOnScrollbar = ref(false); // 是否点击了滚动条
 const wheelHadUp = ref(false); // 是否有向上滑动鼠标滚轮
 
@@ -117,11 +117,6 @@ const mousedownHandler = (e: MouseEvent) => {
     return;
   }
 };
-
-onMounted(() => {
-  scrollbarWidth =
-    conversationRef.value.offsetWidth - conversationRef.value.clientWidth;
-});
 
 watch(
   () => chatMessageStore.messageChangeCount,
