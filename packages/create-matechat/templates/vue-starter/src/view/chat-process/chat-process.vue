@@ -7,7 +7,13 @@
           :content="msg.content"
           :align="'right'"
           :avatarConfig="msg.avatarConfig"
-        ></McBubble>
+        >
+        <template #bottom>
+          <div class="bubble-bottom-operations">
+            <i class="icon-recover" @click="() => onReAnswer(msg)"></i>
+          </div>
+        </template>
+      </McBubble>
         <McBubble
           v-else
           :loading="msg.loading ?? false"
@@ -66,6 +72,10 @@ const renderMessage = (msg: IMessage) => {
     return msg.content;
   }
   return `<think>${msg.reasoning_content}</think>${msg.content}`;
+}
+
+const onReAnswer = (msg: IMessage) => {
+  chatMessageStore.ask(msg.content as string);
 }
 
 watch(
