@@ -49,6 +49,13 @@
             <img v-if="!copied" src="./asset/copy-new.svg" />
             <img v-else src="./asset/right.svg">
           </div>
+          <div
+            class="mc-action-btn mc-copy-btn"
+            :title="t('Md.apply')"
+            @click="applyCode"
+          >
+            <img src="./asset/add-requestor.svg" />
+          </div>
         </div>
       </slot>
     </div>
@@ -132,7 +139,7 @@ const highlightedCode = computed(() => {
             content = hljs.highlight(props.code, { language: props.language }).value;
       }
     } else {
-      if (typeof hljs.highlightAuto !== undefined) {
+      if (typeof hljs.highlightAuto !== "undefined") {
         if (typeIndex !== -1) {
                 content = hljs.highlightAuto(props.code.slice(0, typeIndex)).value + props.code.slice(typeIndex);
         } else {
@@ -218,6 +225,14 @@ const copyCode = debounce((e: Event) => {
     copied.value = false;
   }, 1500);
 }, 300);
+
+const applyCode = () => {
+  const vscode = acquireVsCodeApi();
+  vscode.postMessage({
+    type: 'applyCode',
+    code: props.code,
+  })
+}
 
 const beforeEnter = (el: RendererElement) => {
   if (!el.dataset) {

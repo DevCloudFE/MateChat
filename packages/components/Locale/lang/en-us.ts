@@ -14,5 +14,6 @@ export default {
     zoomIn: 'Zoom In',
     zoomOut: 'Zoom Out',
     downLoad: 'Download',
+    apply: 'Apply Changes',
   },
 };
