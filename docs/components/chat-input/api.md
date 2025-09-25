@@ -24,10 +24,10 @@ title: ChatInput API
 
 | Name | Parameters | Description |
 | --- | --- | --- |
-| `head` | `{ disabled: boolean, value: string }` | Slot for content above the input area. |
-| `prefix` | `{ disabled: boolean, value: string }` | Slot for content to the left of the input area. |
-| `suffix` | `{ disabled: boolean, value: string }` | Slot for content to the right of the input area. |
-| `extra` | `{ disabled: boolean, value: string }` | Slot for content below the input area. |
+| `head` | — | Slot for content above the input area. |
+| `prefix` | — | Slot for content to the left of the input area. |
+| `suffix` | — | Slot for content to the right of the input area. |
+| `extra` | — | Slot for content below the input area. |
 
 ### Methods
 
@@ -35,3 +35,4 @@ title: ChatInput API
 | --- | --- | --- |
 | `clearInput` | `()` | Clears the input content. |
 | `focus` | `()` | Focuses the editor programmatically. |
+| `submit` | `(value?: string)` | Programmatically submits content. If omitted, submits current editor content. |

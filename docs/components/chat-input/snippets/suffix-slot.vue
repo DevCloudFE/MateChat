@@ -6,12 +6,12 @@
       :disabled="isBusy"
       @submit="handleSubmit"
     >
-      <template #suffix="{ disabled: slotDisabled, value: inputValue }">
+      <template #suffix>
         <button
           class="demo-submit"
           type="button"
-          :disabled="slotDisabled || inputValue.trim().length === 0"
-          @click="handleSuffixSubmit(inputValue)"
+          :disabled="isBusy || value.trim().length === 0"
+          @click="handleSuffixSubmit"
         >
           <SendIcon class="demo-submit-icon" />
           <span>发送</span>
@@ -40,7 +40,8 @@ const handleSubmit = (text: string) => {
   value.value = '';
 };
 
-const handleSuffixSubmit = (inputValue: string) => {
+const handleSuffixSubmit = () => {
+  const inputValue = value.value;
   if (!chatInputRef.value || inputValue.trim().length === 0 || isBusy.value) {
     return;
   }

@@ -1,12 +1,12 @@
 <template>
   <div class="demo-wrapper">
     <McChatInput v-model="value" :disabled="isDisabled">
-      <template #prefix="{ disabled }">
+      <template #prefix>
         <div class="demo-prefix">
           <button
             class="demo-prefix-button"
             type="button"
-            :disabled="disabled"
+            :disabled="isDisabled"
             @click="handleAction('attachment')"
           >
             附件
@@ -14,7 +14,7 @@
           <button
             class="demo-prefix-button"
             type="button"
-            :disabled="disabled"
+            :disabled="isDisabled"
             @click="handleAction('voice')"
           >
             语音
@@ -22,7 +22,7 @@
           <button
             class="demo-prefix-button"
             type="button"
-            :disabled="disabled"
+            :disabled="isDisabled"
             @click="handleAction('emoji')"
           >
             表情

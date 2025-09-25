@@ -5,7 +5,7 @@
       :disabled="isGenerating"
       @submit="handleSubmit"
     >
-      <template #extra="{ disabled: slotDisabled, value: inputValue }">
+      <template #extra>
         <div class="demo-extra">
           <span class="demo-extra-metrics">
             {{ charCount }} 字 · 约 {{ tokenCount }} tokens
@@ -13,8 +13,8 @@
           <button
             class="demo-extra-tip"
             type="button"
-            :disabled="slotDisabled"
-            @click="applyTip(inputValue)"
+            :disabled="isGenerating"
+            @click="applyTip"
           >
             插入快捷提示
           </button>
@@ -23,11 +23,11 @@
           </span>
         </div>
       </template>
-      <template #suffix="{ disabled: slotDisabled }">
+      <template #suffix>
         <button
           class="demo-submit"
           type="button"
-          :disabled="slotDisabled || value.trim().length === 0"
+          :disabled="isGenerating || value.trim().length === 0"
           @click="handleSubmit(value)"
         >
           发送
@@ -57,10 +57,11 @@ const handleSubmit = (text: string) => {
   isGenerating.value = true;
 };
 
-const applyTip = (inputValue: string) => {
+const applyTip = () => {
   if (isGenerating.value) {
     return;
   }
+  const inputValue = value.value;
   value.value = inputValue.trim().length > 0 ? `${inputValue}\n${tips[nextTipIndex.value]}` : tips[nextTipIndex.value];
   nextTipIndex.value = (nextTipIndex.value + 1) % tips.length;
 };

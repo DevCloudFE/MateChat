@@ -1,14 +1,13 @@
 <template>
   <div class="demo-wrapper">
     <McChatInput v-model="value" @submit="handleSubmit">
-      <template #head="{ disabled }">
+      <template #head>
         <div class="demo-head">
           <span class="demo-head-label">正在回复</span>
           <span class="demo-head-target">MateChat 助手</span>
           <button
             class="demo-head-button"
             type="button"
-            :disabled="disabled"
             @click="clearReply"
           >
             取消引用

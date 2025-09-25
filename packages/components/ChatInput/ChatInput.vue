@@ -5,26 +5,26 @@
     :aria-disabled="props.disabled ? 'true' : undefined"
   >
     <div v-if="slots.head" class="mc-chat-input__head">
-      <slot name="head" :value="props.modelValue"></slot>
+      <slot name="head"></slot>
     </div>
     <div class="mc-chat-input__body" :class="bodyClasses">
       <div v-if="slots.prefix" class="mc-chat-input__prefix">
-        <slot name="prefix" :value="props.modelValue"></slot>
+        <slot name="prefix"></slot>
       </div>
       <div ref="editorRef" class="mc-chat-input__editor"></div>
       <div v-if="showSuffixInline" class="mc-chat-input__suffix">
-        <slot name="suffix" :value="props.modelValue"></slot>
+        <slot name="suffix"></slot>
       </div>
     </div>
     <div v-if="showFoot" class="mc-chat-input__foot">
       <div v-if="hasExtraSlot" class="mc-chat-input__extra">
-        <slot name="extra" :value="props.modelValue"></slot>
+        <slot name="extra"></slot>
       </div>
       <div
         v-if="showSuffixInFoot"
         class="mc-chat-input__suffix mc-chat-input__suffix--foot"
       >
-        <slot name="suffix" :value="props.modelValue"></slot>
+        <slot name="suffix"></slot>
       </div>
     </div>
   </div>
