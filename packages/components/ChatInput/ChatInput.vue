@@ -38,7 +38,6 @@ import {
   type ChatInputExpose,
 } from "./chat-input-types";
 import { useChatInputEditor } from "./use-chat-input-editor";
-import "prosemirror-view/style/prosemirror.css";
 
 const props = defineProps(chatInputProps);
 const emit = defineEmits(chatInputEmits);
@@ -50,18 +49,27 @@ const hasExtraSlot = computed(() => Boolean(slots.extra));
 const hasHeadSlot = computed(() => Boolean(slots.head));
 const isMultiline = computed(() => (props.modelValue ?? "").includes("\n"));
 
-const onSubmit = (value: string) => {
+const emitSubmitIfValid = (value: string) => {
   if (props.disabled) return;
+  if (value.trim().length === 0) {
+    return;
+  }
   emit("submit", value);
 };
 
-const { editorRef, clearInput, focus } =
-  useChatInputEditor({
-    props,
-    onSubmit,
-    onUpdateModelValue: (value) => emit("update:modelValue", value),
-    onKeydown: (event) => emit("keydown", event),
-  });
+const editorApi = useChatInputEditor({
+  props,
+  onSubmit: emitSubmitIfValid,
+  onUpdateModelValue: (value) => emit("update:modelValue", value),
+  onKeydown: (event) => emit("keydown", event),
+});
+
+const { editorRef, clearInput, focus, getContent } = editorApi;
+
+const submit = (value?: string) => {
+  const content = value ?? getContent();
+  emitSubmitIfValid(content);
+};
 
 // 单行条件（内容无换行 + 无 head/extra 插槽）
 const isSingleLine = computed(
@@ -89,6 +97,7 @@ const showFoot = computed(() => hasExtraSlot.value || showSuffixInFoot.value);
 defineExpose<ChatInputExpose>({
   clearInput,
   focus,
+  submit,
 });
 </script>
 

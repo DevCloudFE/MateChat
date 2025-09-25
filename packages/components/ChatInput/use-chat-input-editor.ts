@@ -119,6 +119,14 @@ export const useChatInputEditor = ({
 
   let activeSchema: Schema | null = null;
 
+  const collectMarkdown = (doc: ProseMirrorNode) => {
+    const contentParts: string[] = [];
+    doc.forEach((node) => {
+      contentParts.push(serializeNodeToMarkdown(node));
+    });
+    return contentParts.join('\n');
+  };
+
   const createPlugins = () => {
     return createChatInputPlugins(
       props.submitKey,
@@ -203,12 +211,7 @@ export const useChatInputEditor = ({
         const newState = view.state.apply(transaction);
         view.updateState(newState);
         if (transaction.docChanged) {
-          const contentParts: string[] = [];
-          newState.doc.forEach((node) => {
-            contentParts.push(serializeNodeToMarkdown(node));
-          });
-          const content = contentParts.join('\n');
-          onUpdateModelValue(content);
+          onUpdateModelValue(collectMarkdown(newState.doc));
         }
       },
     });
@@ -234,11 +237,7 @@ export const useChatInputEditor = ({
         return;
       }
 
-      const contentParts: string[] = [];
-      view.state.doc.forEach((node) => {
-        contentParts.push(serializeNodeToMarkdown(node));
-      });
-      const currentValue = contentParts.join('\n');
+      const currentValue = collectMarkdown(view.state.doc);
       if (newValue === currentValue) {
         return;
       }
@@ -292,5 +291,11 @@ export const useChatInputEditor = ({
     editorRef,
     clearInput,
     focus,
+    getContent: () => {
+      if (view) {
+        return collectMarkdown(view.state.doc);
+      }
+      return props.modelValue ?? '';
+    },
   };
 };

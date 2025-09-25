@@ -36,4 +36,5 @@ export type ChatInputProps = ExtractPropTypes<typeof chatInputProps>;
 export interface ChatInputExpose {
   clearInput: () => void;
   focus: () => void;
+  submit: (value?: string) => void;
 }

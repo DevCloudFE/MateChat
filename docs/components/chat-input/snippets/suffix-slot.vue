@@ -29,7 +29,11 @@ import SendIcon from '@matechat/core/Input/components/SendIcon.vue';
 const value = ref('');
 const isBusy = ref(false);
 
-const chatInputRef = ref<ComponentPublicInstance | null>(null);
+type ChatInputInstance = ComponentPublicInstance & {
+  submit: (value?: string) => void;
+};
+
+const chatInputRef = ref<ChatInputInstance | null>(null);
 
 const handleSubmit = (text: string) => {
   console.log('submit', text);
@@ -40,7 +44,7 @@ const handleSuffixSubmit = (inputValue: string) => {
   if (!chatInputRef.value || inputValue.trim().length === 0 || isBusy.value) {
     return;
   }
-  chatInputRef.value.$emit?.('submit', inputValue);
+  chatInputRef.value.submit(inputValue);
 };
 
 </script>
