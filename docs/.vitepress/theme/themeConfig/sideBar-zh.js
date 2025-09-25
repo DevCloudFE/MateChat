@@ -21,6 +21,7 @@ export default {
       text: '输入',
       items: [
         { text: 'Input 输入', link: '/components/input/demo' },
+        { text: 'ChatInput 对话输入', link: '/components/chat-input/demo' },
         { text: 'Prompt 提示', link: '/components/prompt/demo' },
         { text: 'Mention 快捷操作', link: '/components/mention/demo' },
       ],

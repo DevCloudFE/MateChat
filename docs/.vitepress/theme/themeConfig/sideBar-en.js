@@ -20,6 +20,7 @@ export default {
       text: 'Input',
       items: [
         { text: 'Input', link: '/en/components/input' },
+        { text: 'ChatInput', link: '/en/components/chat-input/demo' },
         { text: 'Prompt', link: '/en/components/prompt' },
         { text: 'Mention', link: '/en/components/mention' },
       ],
