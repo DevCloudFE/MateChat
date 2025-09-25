@@ -202,6 +202,77 @@ const onConfirm = () => {
 
 :::
 
+### 自动调整高度
+
+通过 `autosize` 属性让文本域自动调整高度，支持布尔值和配置对象两种形式。
+
+- 设置为 `true`：使用默认配置（最小1行，最大5行）
+- 设置为对象：可自定义最小和最大行数，如 `{ minRows: 2, maxRows: 10 }`
+
+:::demo
+
+```vue
+<template>
+  <div class="autosize-demo">
+    <h4>默认自动调整（最小1行，最大5行）</h4>
+    <McInput
+      :value="inputValue1"
+      autosize
+      placeholder="输入多行文本查看自动调整效果..."
+      @change="onChange1"
+    />
+
+    <h4>自定义行数范围（最小2行，最大10行）</h4>
+    <McInput
+      :value="inputValue2"
+      :autosize="{ minRows: 2, maxRows: 10 }"
+      placeholder="输入多行文本查看自定义行数效果..."
+      @change="onChange2"
+    />
+
+    <h4>禁用自动调整</h4>
+    <McInput
+      :value="inputValue3"
+      :autosize="false"
+      placeholder="固定高度的文本域"
+      @change="onChange3"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const inputValue1 = ref('');
+const inputValue2 = ref('');
+const inputValue3 = ref('');
+
+const onChange1 = (e) => {
+  inputValue1.value = e;
+};
+
+const onChange2 = (e) => {
+  inputValue2.value = e;
+};
+
+const onChange3 = (e) => {
+  inputValue3.value = e;
+};
+</script>
+
+<style scoped lang="scss">
+.autosize-demo {
+  h4 {
+    margin: 20px 0 10px;
+    color: var(--devui-text);
+    font-size: 14px;
+  }
+}
+</style>
+```
+
+:::
+
 ### 自动聚焦
 
 通过 `autofocus` 属性设置输入框在组件挂载后自动获得焦点，默认为 `false`。当输入框被禁用时，自动聚焦不会生效。
