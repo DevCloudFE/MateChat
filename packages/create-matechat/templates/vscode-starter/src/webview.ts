@@ -16,13 +16,54 @@ export class MatechatWebviewProvider implements vscode.WebviewViewProvider {
       // Allow scripts in the webview
       enableScripts: true,
       localResourceRoots: [
-        vscode.Uri.file(path.join(this._extensionUri.fsPath, 'media')),
         vscode.Uri.file(path.join(this._extensionUri.fsPath, 'resources')),
         this._extensionUri,
       ],
     };
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+    webviewView.webview.onDidReceiveMessage(async (data) => {
+      switch (data.type) {
+        case 'applyCode': {
+          const activeEditor = vscode.window.activeTextEditor;
+          if (!activeEditor) {
+            vscode.window.showErrorMessage('No active editor found');
+            return;
+          }
+          if (activeEditor) {
+            const aiGeneratedCode: string = data.code || '';
+            const untitledUri = vscode.Uri.parse(
+              `untitled:ai_suggestion_${Date.now()}.${activeEditor.document.languageId}`,
+            );
+
+            const edit = new vscode.WorkspaceEdit();
+            edit.insert(
+              untitledUri,
+              new vscode.Position(0, 0),
+              aiGeneratedCode,
+            );
+            await vscode.workspace.applyEdit(edit);
+
+            await vscode.commands.executeCommand(
+              'vscode.diff',
+              activeEditor.document.uri,
+              untitledUri,
+              'Current ↔ AI Suggestion',
+            );
+          }
+
+          // const edit = new vscode.WorkspaceEdit();
+          // edit.replace(
+          //   activeEditor.document.uri,
+          //   new vscode.Range(0, 0, activeEditor.document.lineCount, 0),
+          //   data.code,
+          // );
+          // await vscode.workspace.applyEdit(edit);
+          break;
+        }
+      }
+    });
   }
 
   private _getHtmlForWebview(webview: vscode.Webview): string {
