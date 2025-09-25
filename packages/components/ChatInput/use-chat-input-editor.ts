@@ -37,6 +37,8 @@ export const useChatInputEditor = ({ props, onSubmit, onUpdateModelValue, onKeyd
     controller = new ChatInputEditorController({ props, onSubmit, onUpdateModelValue, onKeydown });
     controller.mount(editorRef.value);
     controller.updateEditable();
+    // 首次挂载后注入外部 v-model，保证初始值与占位符状态正确
+    controller.applyExternalModel(props.modelValue);
     if (props.autofocus) controller.focus();
   });
 
