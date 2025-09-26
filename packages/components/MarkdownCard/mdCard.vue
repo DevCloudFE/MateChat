@@ -331,6 +331,7 @@ defineExpose({ mdt });
   border-left: 1px solid $devui-line;
   padding-left: 8px;
   margin-bottom: 1rem;
+  line-height: 24px;
 }
 
 :deep(.mc-typewriter-color) {
