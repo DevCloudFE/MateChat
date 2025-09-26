@@ -60,8 +60,10 @@ const onCompositionStart = () => {
   lock = true;
 };
 const onCompositionEnd = () => {
-  lock = false;
-  emitChange();
+  setTimeout(()=>{
+    lock = false;
+    emitChange();
+  },10);
 };
 
 const onKeydown = (e: KeyboardEvent) => {
