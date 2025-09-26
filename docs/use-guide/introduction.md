@@ -375,8 +375,8 @@ const fetchData = async (ques) => {
     messages: [{ role: 'user', content: ques }],
     stream: true, // 为 true 则开启接口的流式返回
   });
-  messages.value[messages.value.length - 1].loading = false;
   for await (const chunk of completion) {
+    messages.value[messages.value.length - 1].loading = false;
     const content = chunk.choices[0]?.delta?.content || '';
     const chatId = chunk.id;
     messages.value[messages.value.length - 1].content += content;
