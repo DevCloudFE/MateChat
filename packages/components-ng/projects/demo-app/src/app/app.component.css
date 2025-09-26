@@ -1,0 +1,41 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.demo-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .suggestion-item {
+    border: 1px solid var(--devui-dividing-line);
+    border-radius: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--devui-global-bg);
+    }
+
+    .suggestion-text {
+      margin-left: 8px;
+    }
+
+    .icon-inform {
+      color: var(--devui-info);
+    }
+
+    .icon-mandatory {
+      color: var(--devui-success);
+    }
+
+    .icon-publish-new {
+      color: var(--devui-waiting);
+    }
+  }
+}

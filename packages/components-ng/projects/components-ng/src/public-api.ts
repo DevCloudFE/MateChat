@@ -3,4 +3,5 @@
  */
 
 export * from './Bubble/bubble.component';
-export * from './Bubble/bubble.service';
+export * from './Bubble/bubble-loading/bubble-loading.component';
+export * from './Bubble/bubble.module';

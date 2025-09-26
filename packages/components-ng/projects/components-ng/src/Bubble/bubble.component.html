@@ -1,0 +1,64 @@
+<div class="mc-bubble" [ngClass]="bubbleClasses">
+  <div
+    *ngIf="avatarConfig"
+    class="mc-bubble-avatar"
+    [ngClass]="{ 'empty-avatar': isEmptyAvatar }"
+  >
+    <mc-avatar
+      *ngIf="!isEmptyAvatar"
+      [imgSrc]="avatarConfig?.imgSrc || ''"
+      [name]="avatarConfig?.name || ''"
+      [width]="avatarConfig?.width || 36"
+      [height]="avatarConfig?.height || 36"
+      [gender]="avatarConfig?.gender || ''"
+    />
+    <div *ngIf="isEmptyAvatar" class="mc-bubble-avatar-wrapper" 
+         [style.width.px]="avatarConfig?.width || 36"
+         [style.height.px]="avatarConfig?.height || 36"></div>
+    <span *ngIf="avatarPosition === 'top'" class="mc-bubble-avatar-name">{{
+      avatarConfig?.displayName
+    }}</span>
+  </div>
+  <div
+    class="mc-bubble-content-container"
+    [ngClass]="{ 'with-avatar': avatarConfig }"
+  >
+    <!-- 顶部内容投影 -->
+    <ng-container *ngIf="!loading">
+      <ng-container *ngTemplateOutlet="topTemplate"></ng-container>
+      <ng-content select="[top]"></ng-content>
+    </ng-container>
+    
+    <!-- 加载状态 -->
+    <div *ngIf="loading" class="loading-container">
+      <ng-container *ngIf="loadingTplTemplate; else defaultLoadingTemplate">
+        <ng-container *ngTemplateOutlet="loadingTplTemplate"></ng-container>
+        <ng-content select="[loadingTpl]"></ng-content>
+      </ng-container>
+      <ng-template #defaultLoadingTemplate>
+        <mc-bubble-loading></mc-bubble-loading>
+      </ng-template>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div
+      *ngIf="(defaultTemplate || content) && !loading"
+      class="mc-bubble-content"
+      [ngClass]="[variant]"
+    >
+      <ng-container *ngIf="defaultTemplate; else contentTemplate">
+        <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+        <ng-content></ng-content>
+      </ng-container>
+      <ng-template #contentTemplate>
+        {{ content }}
+      </ng-template>
+    </div>
+    
+    <!-- 底部内容投影 -->
+    <ng-container *ngIf="!loading">
+      <ng-container *ngTemplateOutlet="bottomTemplate"></ng-container>
+      <ng-content select="[bottom]"></ng-content>
+    </ng-container>
+  </div>
+</div>
