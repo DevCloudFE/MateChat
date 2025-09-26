@@ -4,6 +4,8 @@
     class="conversation-area mc-scroll-overlay"
     @wheel="handleWheel"
     @mousedown="mousedownHandler"
+    @scroll="scrollHandler"
+    @mouseup="mouseupHandler"
   >
     <div class='chat-list'>
       <template v-for="(msg, idx) in chatMessageStore.messages" :key="idx">
@@ -52,7 +54,8 @@ const conversationRef = ref();
 const scrollbarWidth = 8; // 垂直滚动条宽度
 const isLoading = ref(false);
 const btnIcon = ref('icon-chevron-up-2');
-const headspace = 30; // 判断滚动条是否在最下方预留像素值
+const headspace = 20; // 判断滚动条是否在最下方预留像素值
+const mouseDown = ref(false);
 const clickOnScrollbar = ref(false); // 是否点击了滚动条
 const wheelHadUp = ref(false); // 是否有向上滑动鼠标滚轮
 
@@ -101,6 +104,7 @@ const handleWheel = (e: WheelEvent) => {
 
 // 鼠标按下事件 判断是否按在滚动条上
 const mousedownHandler = (e: MouseEvent) => {
+  mouseDown.value = true;
   const rect = conversationRef.value.getBoundingClientRect();
   const isVerticalScroll =
     e.clientX >= rect.right - scrollbarWidth && e.clientX <= rect.right;
@@ -115,6 +119,22 @@ const mousedownHandler = (e: MouseEvent) => {
     // 鼠标点击在垂直滚动条上 并且未点击在底部预留范围 则停止跟随AI输出自动滚动到底部
     clickOnScrollbar.value = true;
     return;
+  }
+};
+
+const mouseupHandler = () => {
+  mouseDown.value = false;
+};
+
+const scrollHandler = () => {
+  const container = conversationRef.value;
+  const distanceToBottom =
+    container.scrollHeight - container.clientHeight - container.scrollTop;
+
+  // 拖动到到底部 则继续跟随滚动
+  if (mouseDown.value && distanceToBottom < headspace) {
+    clickOnScrollbar.value = false;
+    wheelHadUp.value = false;
   }
 };
 
