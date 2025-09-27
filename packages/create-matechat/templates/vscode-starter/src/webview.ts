@@ -27,39 +27,43 @@ export class MatechatWebviewProvider implements vscode.WebviewViewProvider {
       switch (data.type) {
         case 'applyCode': {
           const activeEditor = vscode.window.activeTextEditor;
-          if (!activeEditor) {
-            vscode.window.showErrorMessage('No active editor found');
+          if (!activeEditor || activeEditor.document.isUntitled) {
+            vscode.window.showErrorMessage(
+              'No active editor or document found',
+            );
             return;
           }
-          if (activeEditor) {
-            const aiGeneratedCode: string = data.code || '';
-            const untitledUri = vscode.Uri.parse(
-              `untitled:ai_suggestion_${Date.now()}.${activeEditor.document.languageId}`,
-            );
 
-            const edit = new vscode.WorkspaceEdit();
-            edit.insert(
-              untitledUri,
-              new vscode.Position(0, 0),
-              aiGeneratedCode,
-            );
-            await vscode.workspace.applyEdit(edit);
+          const aiGeneratedCode: string = data.code || '';
+          const untitledUri = vscode.Uri.parse(
+            `untitled:ai_suggestion_${Date.now()}.${activeEditor.document.languageId}`,
+          );
 
-            await vscode.commands.executeCommand(
-              'vscode.diff',
-              activeEditor.document.uri,
-              untitledUri,
-              'Current ↔ AI Suggestion',
-            );
-          }
+          const restoreEdit = new vscode.WorkspaceEdit();
+          restoreEdit.insert(
+            untitledUri,
+            new vscode.Position(0, 0),
+            activeEditor.document.getText(),
+          );
+          await vscode.workspace.applyEdit(restoreEdit, {
+            isRefactoring: true,
+          });
 
-          // const edit = new vscode.WorkspaceEdit();
-          // edit.replace(
-          //   activeEditor.document.uri,
-          //   new vscode.Range(0, 0, activeEditor.document.lineCount, 0),
-          //   data.code,
-          // );
-          // await vscode.workspace.applyEdit(edit);
+          const edit = new vscode.WorkspaceEdit();
+          edit.insert(
+            activeEditor.document.uri,
+            activeEditor.selection.active,
+            aiGeneratedCode,
+          );
+          await vscode.workspace.applyEdit(edit);
+
+          await vscode.commands.executeCommand(
+            'vscode.diff',
+            untitledUri,
+            activeEditor.document.uri,
+            `${path.basename(activeEditor.document.fileName)}: Current ↔ AI Suggestion`,
+          );
+
           break;
         }
       }
@@ -72,7 +76,7 @@ export class MatechatWebviewProvider implements vscode.WebviewViewProvider {
       'resources',
       'index.html',
     );
-    console.warn(htmlPath);
+
     const htmlContent = readFileSync(htmlPath, 'utf8').replace(
       /(<link.+?href="|<script.+?src="|<img.+?src=")(.+?)"/g,
       (match, prefix, src) => {
