@@ -5,6 +5,7 @@
     :placeholder="placeholder"
     :disabled="rootProps.disabled"
     :maxlength="rootProps.maxLength"
+    :style="textareaStyle"
     :class="[
       'mc-textarea',
       { 'mc-textarea-simple': rootProps.displayType === DisplayType.Simple, 'mc-textarea-disabled': rootProps.disabled },
@@ -19,15 +20,17 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, inject, computed, ref, onMounted } from 'vue';
+import { nextTick, inject, computed, ref, watch, onMounted } from 'vue';
 import { inputInjectionKey, SubmitShortKey, DisplayType } from '../input-types';
 import type { InputContext } from '../input-types';
 import { useMcI18n } from '@matechat/core/Locale';
+import { useMcTextareaAutosize } from './use-textarea-autosize';
 
 const { t } = useMcI18n();
 
-const textareaRef = ref<HTMLTextAreaElement>();
+const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const { inputValue, rootProps, rootEmits } = inject(inputInjectionKey) as InputContext;
+
 const placeholder = computed(() => {
   let enterKey = '';
   let shiftEnterKey = '';
@@ -44,6 +47,23 @@ const placeholder = computed(() => {
     (enterKey ? t(`Input.pleaseEnterPlaceholder`, { enterKey: enterKey, shiftEnterKey: shiftEnterKey }) : t('Input.pleaseEnter'))
   );
 });
+
+const { textareaStyle, updateTextareaStyle } = useMcTextareaAutosize({
+  textareaRef,
+  autosize: rootProps.autosize
+});
+
+watch(
+  () => inputValue.value,
+  () => {
+    updateTextareaStyle();
+  }
+);
+
+onMounted(() => {
+  updateTextareaStyle();
+});
+
 let lock = false;
 
 const emitChange = () => {
