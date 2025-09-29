@@ -1,0 +1,6 @@
+{
+    "extends": "../../tsconfig.app.json",
+    "compilerOptions": {
+        "types": ["@types/vscode-webview"]
+    },
+}
