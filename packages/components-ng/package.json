@@ -1,5 +1,5 @@
 {
-  "name": "components-ng",
+  "name": "@matechat/components-ng",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
