@@ -129,6 +129,9 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.6.12
         version: 1.6.13
+      '@matechat/common':
+        specifier: workspace:~
+        version: link:../components-common
       '@vue/shared':
         specifier: ^3.5.13
         version: 3.5.13

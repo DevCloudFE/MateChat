@@ -12,7 +12,19 @@ const release = () => {
   const readmeSourceFile = path.resolve(__dirname, '../packages/components/README.md');
   const readmeTargetFile = path.resolve(__dirname, '../packages/components/dist/README.md');
 
-  fs.copySync(packageSourceFile, packageTargetFile);
+  const packageJson = JSON.parse(fs.readFileSync(packageSourceFile, 'utf-8'));
+  // 删除包含workspace:的依赖
+  if (packageJson.dependencies) {
+    Object.keys(packageJson.dependencies).forEach(dep => {
+      if (packageJson.dependencies[dep].includes('workspace:')) {
+        delete packageJson.dependencies[dep];
+      }
+    });
+  }
+  // 将修改后的JSON对象写回文件
+  fs.writeFileSync(packageTargetFile, JSON.stringify(packageJson, null, 2), 'utf-8');
+  
+  // 复制 README.md 文件
   fs.copySync(readmeSourceFile, readmeTargetFile);
 };
 

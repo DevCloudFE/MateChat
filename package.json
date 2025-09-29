@@ -9,6 +9,7 @@
     "playground:dev": "pnpm generate && pnpm --filter @matechat/playground dev",
     "playground:build": "pnpm generate && pnpm --filter @matechat/playground build",
     "build:lib": "pnpm generate && node ./scripts/build-component.js && node ./scripts/release.js",
+    "build:ng": "pnpm --filter @matechat/components-ng build",
     "lint": "biome lint",
     "format": "biome format --write",
     "docs:dev": "pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
