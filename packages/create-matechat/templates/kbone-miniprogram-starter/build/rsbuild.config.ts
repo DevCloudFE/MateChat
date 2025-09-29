@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { defineConfig } from '@rsbuild/core';
+import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
 import { pluginSass } from '@rsbuild/plugin-sass';
 import { pluginVue } from '@rsbuild/plugin-vue';
 import MpPlugin from 'mp-webpack-plugin';
@@ -34,7 +35,7 @@ class WebpackCompatibilityPlugin {
 }
 
 export default defineConfig({
-	plugins: [pluginVue(), pluginSass()],
+	plugins: [pluginVue(), pluginSass(), pluginNodePolyfill()],
 	resolve: {
 		alias: {
 			'@view': path.resolve(__dirname, '../src/view'),
