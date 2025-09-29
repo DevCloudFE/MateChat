@@ -151,6 +151,8 @@ importers:
         specifier: ^1.0.15
         version: 1.0.15
 
+  packages/components-common: {}
+
   packages/components-ng:
     dependencies:
       '@angular/animations':
@@ -180,6 +182,9 @@ importers:
       '@devui-design/icons':
         specifier: ^1.4.0
         version: 1.4.0
+      '@matechat/common':
+        specifier: workspace:~
+        version: link:../components-common
       devui-theme:
         specifier: ^0.0.7
         version: 0.0.7

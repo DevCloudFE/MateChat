@@ -4,7 +4,8 @@ import { BubbleLoadingComponent } from './bubble-loading/bubble-loading.componen
 import { AvatarComponent } from './avatar/avatar.component';
 import { DEFAULT_AVATAR_WIDTH, DEFAULT_AVATAR_HEIGHT, AVATAR_NAME, AVATAR_IMG } from '@matechat/common/Bubble/common/bubble-constants';
 import { BubbleAlign, BubbleVariant, AvatarPosition, BubbleAvatar } from '@matechat/common/Bubble/common/bubble-types';
-import { BubbleFoundation } from '@matechat/common/Bubble/foundation';
+import { BubbleAdapter, BubbleFoundation } from '@matechat/common/Bubble/foundation';
+import BaseComponent from '../Base/base.component';
 
 @Component({
   selector: 'mc-bubble',
@@ -13,7 +14,7 @@ import { BubbleFoundation } from '@matechat/common/Bubble/foundation';
   templateUrl: './bubble.component.html',
   styleUrls: ['./bubble.component.scss']
 })
-export class BubbleComponent {
+export class BubbleComponent extends BaseComponent {
   // 组件属性
   @Input() content: string = '';
   @Input() loading: boolean = false;
@@ -27,37 +28,34 @@ export class BubbleComponent {
   @ContentChild('loadingTpl') loadingTplTemplate: TemplateRef<any> | null = null;
   @ContentChild('defaultTemplate') defaultTemplate: TemplateRef<any> | null = null;
   @ContentChild('bottom') bottomTemplate: TemplateRef<any> | null = null;
-  foundation: BubbleFoundation;
 
-  constructor() { }
+  constructor() { super(); }
 
-  ngOnInit() {
+  override ngOnInit() {
     this.foundation = new BubbleFoundation(this.adapter as any);
     this.foundation.init();
   }
 
-  get adapter() {
+  override get adapter(): BubbleAdapter {
     return {
-      getProp: (key: string) => this,
-      setState: (states: Record<string, any>, cb?: (...args: any) => void) => {
-        Object.assign(this, states);
-        cb && cb();
-      },
-      getState: (key: string) => this,
-      getContext: (key: string) => this,
-      getContexts: () => this,
-      stopPropagation: (e: any) => {
-        e.stopPropagation();
-      },
+      ...super.adapter,
+      getProps: () => ({
+        content: this.content,
+        loading: this.loading,
+        align: this.align,
+        avatarPosition: this.avatarPosition,
+        variant: this.variant,
+        avatarConfig: this.avatarConfig,
+      }),
     }
   }
 
   // 计算属性
   get bubbleClasses(): string {
-    return this.foundation.bubbleClasses();
+    return this.foundation.getBubbleClasses();
   };
 
   get isEmptyAvatar(): boolean {
-    return this.foundation.isEmptyAvatar(this.avatarConfig);
+    return this.foundation.getIsEmptyAvatar(this.avatarConfig);
   };
 }
