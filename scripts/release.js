@@ -13,14 +13,8 @@ const release = () => {
   const readmeTargetFile = path.resolve(__dirname, '../packages/components/dist/README.md');
 
   const packageJson = JSON.parse(fs.readFileSync(packageSourceFile, 'utf-8'));
-  // 删除包含workspace:的依赖
-  if (packageJson.dependencies) {
-    Object.keys(packageJson.dependencies).forEach(dep => {
-      if (packageJson.dependencies[dep].includes('workspace:')) {
-        delete packageJson.dependencies[dep];
-      }
-    });
-  }
+  // 直接删除devDependencies属性，因为包含workspace:的依赖都在其中
+  delete packageJson.devDependencies;
   // 将修改后的JSON对象写回文件
   fs.writeFileSync(packageTargetFile, JSON.stringify(packageJson, null, 2), 'utf-8');
   
