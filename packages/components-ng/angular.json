@@ -58,7 +58,8 @@
               "projects/demo-app/src/assets"
             ],
             "styles": [
-              "projects/demo-app/src/styles.css"
+              "projects/demo-app/src/styles.css",
+              "node_modules/@devui-design/icons/icomoon/devui-icon.css"
             ],
             "scripts": []
           },
