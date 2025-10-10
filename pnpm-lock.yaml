@@ -129,9 +129,6 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.6.12
         version: 1.6.13
-      '@matechat/common':
-        specifier: workspace:~
-        version: link:../components-common
       '@vue/shared':
         specifier: ^3.5.13
         version: 3.5.13
@@ -153,8 +150,10 @@ importers:
       xss:
         specifier: ^1.0.15
         version: 1.0.15
-
-  packages/components-common: {}
+    devDependencies:
+      '@matechat/common':
+        specifier: workspace:~
+        version: link:../components-ng/projects/components-ng/src/components-common
 
   packages/components-ng:
     dependencies:
@@ -185,9 +184,6 @@ importers:
       '@devui-design/icons':
         specifier: ^1.4.0
         version: 1.4.0
-      '@matechat/common':
-        specifier: workspace:~
-        version: link:../components-common
       devui-theme:
         specifier: ^0.0.7
         version: 0.0.7
@@ -237,6 +233,8 @@ importers:
       typescript:
         specifier: ~5.4.2
         version: 5.4.5
+
+  packages/components-ng/projects/components-ng/src/components-common: {}
 
   packages/create-matechat:
     dependencies:

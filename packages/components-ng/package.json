@@ -23,8 +23,7 @@
     "devui-theme": "^0.0.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3",
-    "@matechat/common": "workspace:~"
+    "zone.js": "~0.14.3"
   },
   "peerDependencies": {
   },

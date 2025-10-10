@@ -1,4 +1,4 @@
-import { DefaultAdapter } from '@matechat/common/Base/foundation';
+import { DefaultAdapter } from '../components-common/Base/foundation';
 import { Component } from '@angular/core';
 
 @Component({

@@ -2,9 +2,9 @@ import { Component, Input, computed, ContentChild, TemplateRef } from '@angular/
 import { CommonModule } from '@angular/common';
 import { BubbleLoadingComponent } from './bubble-loading/bubble-loading.component';
 import { AvatarComponent } from './avatar/avatar.component';
-import { DEFAULT_AVATAR_WIDTH, DEFAULT_AVATAR_HEIGHT, AVATAR_NAME, AVATAR_IMG } from '@matechat/common/Bubble/common/bubble-constants';
-import { BubbleAlign, BubbleVariant, AvatarPosition, BubbleAvatar } from '@matechat/common/Bubble/common/bubble-types';
-import { BubbleAdapter, BubbleFoundation } from '@matechat/common/Bubble/foundation';
+import { DEFAULT_AVATAR_WIDTH, DEFAULT_AVATAR_HEIGHT, AVATAR_NAME, AVATAR_IMG } from '../components-common/Bubble/common/bubble-constants';
+import { BubbleAlign, BubbleVariant, AvatarPosition, BubbleAvatar } from '../components-common//Bubble/common/bubble-types';
+import { BubbleAdapter, BubbleFoundation } from '../components-common/Bubble/foundation';
 import BaseComponent from '../Base/base.component';
 
 @Component({
