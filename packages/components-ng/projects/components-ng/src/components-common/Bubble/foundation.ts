@@ -22,7 +22,6 @@ export class BubbleFoundation extends BaseFoundation<BubbleAdapter> {
   }
 
   getIsEmptyAvatar(avatarConfig: BubbleAvatar | undefined) {
-    console.log('test123456')
     if (avatarConfig) {
       // 传了 avatarConfig，但是没有 name 和 imgSrc 时表示头像区域仅占位
       const keys = Object.keys(avatarConfig);

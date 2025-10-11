@@ -13,12 +13,6 @@ export default class BaseComponent {
     this.foundation = null;
   }
 
-  ngOnInit() {
-    this.foundation &&
-      typeof this.foundation.init === 'function' &&
-      this.foundation.init();
-  }
-
   ngOnDestroy() {
     this.foundation &&
       typeof this.foundation.destroy === 'function' &&

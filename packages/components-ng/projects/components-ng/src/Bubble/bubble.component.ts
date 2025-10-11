@@ -31,8 +31,8 @@ export class BubbleComponent extends BaseComponent {
 
   constructor() { super(); }
 
-  override ngOnInit() {
-    this.foundation = new BubbleFoundation(this.adapter as any);
+  ngOnInit() {
+    this.foundation = new BubbleFoundation(this.adapter);
     this.foundation.init();
   }
 
