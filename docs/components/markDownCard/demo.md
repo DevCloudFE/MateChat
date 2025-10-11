@@ -959,7 +959,7 @@ const content = ref(`
 **Echarts渲染**
 \`\`\`echart
 {
-  backgroundColor: theme.value === 'light' ? '#fefefe' : '#34363A',
+  backgroundColor: '#fefefe',
   color: ['#00ffff','#00cfff','#006ced','#ffe000','#ffa800','#ff5b00','#ff3000'],
   title: {
     text: '交通方式',
@@ -998,20 +998,6 @@ const content = ref(`
         label: {
           show: true,
           position: 'outside',
-          formatter: function(params) {
-            const staticPercentages = {
-              '火车': '20%',
-              '飞机': '10%',
-              '客车': '30%',
-              '轮渡': '40%'
-            };
-            
-            if (params.name !== '' && staticPercentages[params.name]) {
-              return '交通方式：' + params.name + '\\n' + '\\n' + '占百分比：' + staticPercentages[params.name];
-            } else {
-              return '';
-            }
-          },
         },
         labelLine: {
           length:30,
@@ -1109,28 +1095,20 @@ const handleCodeBlockData = (codeBlockData) => {
   if (codeBlockData.language === 'echart') {
     try {
       // 解析字符串为 ECharts 配置对象
-      const option = eval(`(${codeBlockData.code})`);
-      
+      const option = new Function('return ' + codeBlockData.code)();
       // 根据主题设置颜色
-      option.title.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+      option.title.textStyle.color = theme?.value === 'light' ? '#252b3a' : '#CED1DB';
       option.legend.textStyle = option.legend.textStyle || {};
-      option.legend.textStyle.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
-      
+      option.legend.textStyle.color = theme?.value === 'light' ? '#252b3a' : '#CED1DB';
+      option.backgroundColor = theme?.value === 'light' ? '#fefefe' : '#34363A';
+
       if (option.series && option.series[0] && option.series[0].itemStyle && option.series[0].itemStyle.normal) {
-        option.series[0].itemStyle.normal.label.color = theme.value === 'light' ? '#252b3a' : '#CED1DB';
+        option.series[0].itemStyle.normal.label.color = theme?.value === 'light' ? '#252b3a' : '#CED1DB';
       }
       
       // 渲染图表 - 确保 ECharts 已加载
       if (echartsLoaded.value) {
         renderChart(option);
-      } else {
-        // 如果 ECharts 尚未加载，等待加载完成后再渲染
-        const checkEcharts = setInterval(() => {
-          if (echartsLoaded.value) {
-            clearInterval(checkEcharts);
-            renderChart(option);
-          }
-        }, 100);
       }
     } catch (e) {
       console.error('解析 ECharts 配置失败:', e);

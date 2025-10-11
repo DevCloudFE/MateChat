@@ -17,6 +17,13 @@ export enum SubmitShortKey {
   ShiftEnter = "shiftEnter",
 }
 
+export type TextareaAutoSize = { minRows?: number; maxRows?: number } | boolean;
+
+export const DEFAULT_AUTOSIZE = {
+  minRows: 1,
+  maxRows: 5
+};
+
 export const inputProps = {
   value: {
     type: String,
@@ -58,6 +65,10 @@ export const inputProps = {
   },
   autofocus: {
     type: Boolean,
+    default: false,
+  },
+  autosize: {
+    type: [Boolean, Object] as PropType<TextareaAutoSize>,
     default: false,
   },
 };

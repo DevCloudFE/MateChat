@@ -20,6 +20,7 @@ iconSrc: '/inputIcon.png'
 | variant        | [InputVariant](#inputvariant)               | 'bordered' | 输入框的形态                                   |
 | sendBtnVariant | [SendBtnVariant](#sendbtnvariant)           | 'full'     | 发送按钮的形态                                 |
 | autofocus      | `boolean`                                   | false      | 是否自动聚焦输入框                             |
+| autosize       | [TextareaAutoSize](#textareaautosize)       | false      | 是否自动调整文本域高度                         |
 
 ### 事件
 
@@ -87,3 +88,16 @@ enum SubmitShortKey {
   ShiftEnter = 'shiftEnter',
 }
 ```
+
+#### TextareaAutoSize
+
+文本域自动调整高度的配置类型。
+
+```ts
+type TextareaAutoSize = { minRows?: number; maxRows?: number } | boolean
+```
+
+- `boolean`：设置为 `true` 时使用默认配置（最小1行，最大5行）
+- `object`：可自定义最小和最大行数
+  - `minRows?: number`：最小行数，默认为1
+  - `maxRows?: number`：最大行数，默认为5

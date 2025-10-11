@@ -127,6 +127,12 @@ const processToken = (token: Token): VNode => {
   if (token.type === 'html_block' || token.type === 'html_inline') {
     return token.type === 'html_block' ? h('div', { innerHTML: token.content }) : h('span', { innerHTML: token.content });
   }
+
+  if (token.type === 'math_block' && token.markup === '$$') {
+    const html = mdt.renderer.render([token], mdt.options, {});
+    const vNode = htmlToVNode(html);
+    return h(Fragment, vNode)
+  }
   
   // 优先使用token的tag属性
   if (token.tag) {
@@ -325,6 +331,7 @@ defineExpose({ mdt });
   border-left: 1px solid $devui-line;
   padding-left: 8px;
   margin-bottom: 1rem;
+  line-height: 24px;
 }
 
 :deep(.mc-typewriter-color) {
