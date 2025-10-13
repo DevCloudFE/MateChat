@@ -91,6 +91,7 @@
       <mc-input
         [value]="inputValue"
         [maxLength]="2000"
+        [showCount]="true"
         [loading]="loading"
         (change)="onInputChange($event)"
         (submit)="onSubmit($event)"
@@ -123,6 +124,65 @@
       submitShortKey="shiftEnter"
       (submit)="onSubmit($event)"
     >
+    </mc-input>
+  </div>
+
+  <div class="demo-container">
+    <mc-input
+      [value]="inputValue"
+      [maxLength]="2000"
+      [showCount]="true"
+      [loading]="loading"
+      (change)="onInputChange($event)"
+      (submit)="onSubmit($event)"
+      (cancel)="onCancel()"
+    >
+      <ng-template #button>
+        <div
+          class="my-button"
+          [ngClass]="{ disabled: !loading && !inputValue }"
+          (click)="onConfirm($event)"
+        >
+          <span class="mc-button-content">
+            <span>{{ loading ? "停止" : "发送" }}</span>
+          </span>
+        </div>
+      </ng-template>
+    </mc-input>
+  </div>
+
+  <div class="demo-container">
+    <mc-input
+      [value]="inputValue"
+      [autofocus]="true"
+      [loading]="loading"
+      (change)="onInputChange($event)"
+      (submit)="onSubmit($event)"
+      (cancel)="onCancel()"
+    ></mc-input>
+  </div>
+
+  <!-- 自定义头部和额外内容 -->
+  <div class="demo-container">
+    <mc-input
+      [value]="inputValue"
+      [loading]="loading"
+      (submit)="onSubmit($event)"
+    >
+      <ng-template #head>
+        <div class="appendix-wrap">
+          <div class="appendix-item">
+            <span>README.md</span>
+            <i class="icon-code-editor-close"></i>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #extra>
+        <div class="input-foot-left">
+          <span><i class="icon-at"></i>智能体</span>
+          <span><i class="icon-appendix"></i>附件</span>
+        </div>
+      </ng-template>
     </mc-input>
   </div>
 </div>

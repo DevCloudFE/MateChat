@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BubbleModule, InputModule } from '@matechat/ng';
 import {
   SendBtnVariant,
@@ -9,7 +10,7 @@ import {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [BubbleModule, InputModule],
+  imports: [CommonModule, BubbleModule, InputModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -44,6 +45,7 @@ export class AppComponent {
   };
   onSubmit = (e) => {
     this.loading = true;
+    this.inputValue = '';
     setTimeout(() => {
       this.loading = false;
     }, 1000);
@@ -52,5 +54,13 @@ export class AppComponent {
   onCancel = () => {
     this.loading = false;
     console.log('input cancel');
+  };
+
+  onConfirm = (e) => {
+    if (this.loading) {
+      this.onCancel();
+    } else {
+      this.onSubmit(e);
+    }
   };
 }
