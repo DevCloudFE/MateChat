@@ -15,6 +15,8 @@
         'mc-textarea-simple': displayType === 'simple',
         'mc-textarea-disabled': disabled
       }"
+      [attr.aria-label]="'Input.ariaLabel' | translate"
+      [attr.aria-disabled]="disabled"
       (input)="onInput()"
       (change)="onChange($event)"
       (compositionstart)="onCompositionStart()"
@@ -48,7 +50,7 @@
   <div *ngIf="displayType === 'full'" class="mc-input-foot">
     <div class="mc-input-foot-left">
       <ng-container *ngIf="extraTemplate; then extraTemplate"></ng-container>
-      <span *ngIf="showCount" class="mc-input-foot-count">
+      <span *ngIf="showCount" id="mc-input-count" class="mc-input-foot-count">
         {{ inputValue.length }}{{ !maxLength ? "" : "/" + maxLength }}
       </span>
     </div>

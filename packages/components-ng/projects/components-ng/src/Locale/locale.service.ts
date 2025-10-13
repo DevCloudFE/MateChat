@@ -39,8 +39,8 @@ export class LocaleService {
   private async loadDefaultLocales(): Promise<void> {
     try {
       // 动态导入默认语言包
-      const zhCN = await import('./lang/zh-cn');
-      const enUS = await import('./lang/en-us');
+      const zhCN = await import('../components-common/Locale/lang/zh-cn');
+      const enUS = await import('../components-common/Locale/lang/en-us');
       
       this._localeData.set('zh-cn', zhCN.default);
       this._localeData.set('en-us', enUS.default);

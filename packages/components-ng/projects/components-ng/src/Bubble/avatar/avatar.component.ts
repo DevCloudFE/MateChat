@@ -2,11 +2,12 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { AvatarBodyIconComponent } from '../avatar-body-icon/avatar-body-icon.component';
 import { AvatarNoBodyIconComponent } from '../avatar-no-body-icon/avatar-no-body-icon.component';
+import { TranslatePipe } from '../../Locale/translate.pipe';
 
 @Component({
   selector: 'mc-avatar',
   standalone: true,
-  imports: [CommonModule, AvatarBodyIconComponent, AvatarNoBodyIconComponent],
+  imports: [CommonModule, AvatarBodyIconComponent, AvatarNoBodyIconComponent, TranslatePipe],
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss']
 })

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SendIconComponent } from '../send-icon/send-icon.component';
 import { SendBtnVariant } from '../../components-common/Input/common/types';
 import BaseComponent from '../../Base/base.component';
-import { LocaleService, TranslatePipe } from '../../components-common/Locale';
+import { LocaleService, TranslatePipe } from '../../Locale';
 import { InputButtonAdapter, InputButtonFoundation } from '../../components-common/Input/button-foundation';
 
 @Component({

@@ -24,7 +24,8 @@ import {
   InputAdapter,
   InputFoundation,
 } from '../components-common/Input/foundation';
-import { LocaleService } from '../components-common/Locale/locale.service';
+import { LocaleService } from '../Locale/locale.service';
+import { TranslatePipe } from '../Locale/translate.pipe';
 
 // 创建一个token用于组件间通信
 export const inputContextToken = 'input-context';
@@ -32,7 +33,7 @@ export const inputContextToken = 'input-context';
 @Component({
   selector: 'mc-input',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonComponent],
+  imports: [CommonModule, FormsModule, ButtonComponent, TranslatePipe],
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   providers: [{ provide: inputContextToken, useExisting: InputComponent }],

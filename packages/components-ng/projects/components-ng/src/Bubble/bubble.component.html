@@ -1,7 +1,7 @@
-<div class="mc-bubble" [ngClass]="bubbleClasses">
+<div class="mc-bubble" [ngClass]="bubbleClasses" role="group" [attr.aria-label]="'Bubble.ariaLabel' | translate">
   <div
     *ngIf="avatarConfig"
-    class="mc-bubble-avatar"
+    class="mc-bubble-avatar" role="img"
     [ngClass]="{ 'empty-avatar': isEmptyAvatar }"
   >
     <mc-avatar
@@ -12,15 +12,15 @@
       [height]="avatarConfig?.height || 36"
       [gender]="avatarConfig?.gender || ''"
     />
-    <div *ngIf="isEmptyAvatar" class="mc-bubble-avatar-wrapper" 
+    <div *ngIf="isEmptyAvatar"    class="mc-bubble-avatar-wrapper" [attr.aria-label]="'Bubble.emptyAvatar' | translate"
          [style.width.px]="avatarConfig?.width || 36"
          [style.height.px]="avatarConfig?.height || 36"></div>
-    <span *ngIf="avatarPosition === 'top'" class="mc-bubble-avatar-name">{{
+    <span *ngIf="avatarPosition === 'top'" class="mc-bubble-avatar-name" [attr.aria-label]="'Bubble.userName' | translate:{ name: avatarConfig?.displayName || '' } ">{{
       avatarConfig?.displayName
     }}</span>
   </div>
   <div
-    class="mc-bubble-content-container"
+    class="mc-bubble-content-container" aria-live="polite"
     [ngClass]="{ 'with-avatar': avatarConfig }"
   >
     <!-- 顶部内容投影 -->
@@ -30,7 +30,7 @@
     </ng-container>
     
     <!-- 加载状态 -->
-    <div *ngIf="loading" class="loading-container">
+    <div *ngIf="loading" class="loading-container" role="status" aria-busy="true">
       <ng-container *ngIf="loadingTplTemplate; else defaultLoadingTemplate">
         <ng-container *ngTemplateOutlet="loadingTplTemplate"></ng-container>
         <ng-content select="[loadingTpl]"></ng-content>
@@ -45,13 +45,14 @@
       *ngIf="(defaultTemplate || content) && !loading"
       class="mc-bubble-content"
       [ngClass]="[variant]"
+      role="region"
     >
       <ng-container *ngIf="defaultTemplate; else contentTemplate">
         <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
         <ng-content></ng-content>
       </ng-container>
       <ng-template #contentTemplate>
-        {{ content }}
+        <span [attr.aria-label]="'Bubble.content' | translate">{{ content }}</span>
       </ng-template>
     </div>
     

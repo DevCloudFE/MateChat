@@ -6,11 +6,12 @@ import { DEFAULT_AVATAR_WIDTH, DEFAULT_AVATAR_HEIGHT, AVATAR_NAME, AVATAR_IMG } 
 import { BubbleAlign, BubbleVariant, AvatarPosition, BubbleAvatar } from '../components-common//Bubble/common/bubble-types';
 import { BubbleAdapter, BubbleFoundation } from '../components-common/Bubble/foundation';
 import BaseComponent from '../Base/base.component';
+import { TranslatePipe } from '../Locale/translate.pipe';
 
 @Component({
   selector: 'mc-bubble',
   standalone: true,
-  imports: [CommonModule, BubbleLoadingComponent, AvatarComponent],
+  imports: [CommonModule, BubbleLoadingComponent, AvatarComponent, TranslatePipe],
   templateUrl: './bubble.component.html',
   styleUrls: ['./bubble.component.scss']
 })

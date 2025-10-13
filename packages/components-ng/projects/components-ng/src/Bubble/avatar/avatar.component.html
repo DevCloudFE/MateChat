@@ -2,7 +2,7 @@
   <img
     *ngIf="imgSrc && !isErrorImg"
     [src]="imgSrc"
-    alt=""
+    [attr.alt]="'Bubble.avatar' | translate:{ name: name }"
     (error)="onErrorImg()"
     [ngStyle]="{
       height: height + 'px',

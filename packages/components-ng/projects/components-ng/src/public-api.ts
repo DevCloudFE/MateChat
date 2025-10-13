@@ -4,4 +4,4 @@
 
 export * from './Bubble/index';
 export * from './Input/index';
-export * from './components-common/Locale/index';
+export * from './Locale/index';

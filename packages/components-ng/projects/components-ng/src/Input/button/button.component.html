@@ -3,6 +3,9 @@
   [disabled]="disabled || (!loading && !inputValue)"
   [ngClass]="buttonClasses"
   (click)="onConfirm($event)"
+  [attr.aria-label]="loading ? ('Input.pauseAnswer' | translate) : ('Input.send' | translate)"
+  [attr.aria-disabled]="disabled || (!loading && !inputValue)"
+  [attr.aria-busy]="loading"
 >
   <span class="mc-button-content">
     <ng-container *ngIf="loading">
