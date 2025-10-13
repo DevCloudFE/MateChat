@@ -16,6 +16,7 @@
         'mc-textarea-disabled': disabled
       }"
       (input)="onInput()"
+      (change)="onChange($event)"
       (compositionstart)="onCompositionStart()"
       (compositionend)="onCompositionEnd()"
       (keydown)="onKeydown($event)"

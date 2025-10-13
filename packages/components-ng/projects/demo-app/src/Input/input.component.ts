@@ -1,46 +1,27 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BubbleModule, InputModule } from '@matechat/ng';
+import { InputModule } from '@matechat/ng';
 import {
   SendBtnVariant,
   DisplayType,
   InputVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
-import { InputDemoComponent } from '../Input/input.component';
+
 @Component({
-  selector: 'app-root',
+  selector: 'input-demo',
   standalone: true,
-  imports: [CommonModule, BubbleModule, InputModule, InputDemoComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  imports: [CommonModule, InputModule],
+  templateUrl: './input.component.html',
+  styleUrl: './input.component.scss',
 })
-export class AppComponent {
-  title = 'demo-app';
-
-  avatarConfig = {
-    imgSrc: 'https://matechat.gitcode.com/logo.svg',
-  };
-  modelAvatar = {
-    imgSrc: 'https://matechat.gitcode.com/logo.svg',
-  };
-  userAvatar = {
-    imgSrc: 'https://matechat.gitcode.com/png/demo/userAvatar.svg',
-  };
-  modelAvatarTop = {
-    ...this.modelAvatar,
-    displayName: 'MateChat',
-  };
-  userAvatarTop = {
-    ...this.userAvatar,
-    displayName: 'User',
-  };
-
+export class InputDemoComponent {
   loading = false;
   inputValue = '';
   SendBtnVariant = SendBtnVariant;
   DisplayType = DisplayType;
   InputVariant = InputVariant;
   onInputChange = (e) => {
+    this.inputValue = e;
     console.log('input change---', e);
   };
   onSubmit = (e) => {

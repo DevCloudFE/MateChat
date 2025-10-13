@@ -82,8 +82,18 @@ export class InputComponent extends BaseComponent implements OnInit {
     return {
       ...super.adapter,
       locale: (key, params) => this.localeService.translate(key, params),
-      emitChange: () => this.change.emit(this.inputValue),
+      emitChange: () => {
+        this.change.emit(this.inputValue);
+      },
+      submit: (inputValue) => {
+        this.submit.emit(inputValue);
+      },
     };
+  }
+
+  onChange(e): void {
+    e.stopPropagation();
+    this.foundation.emitChange();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -116,23 +126,7 @@ export class InputComponent extends BaseComponent implements OnInit {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    if (this.submitShortKey === null) {
-      return;
-    }
-
-    const shiftKey =
-      this.submitShortKey === SubmitShortKey.Enter
-        ? !event.shiftKey
-        : this.submitShortKey === SubmitShortKey.ShiftEnter
-        ? event.shiftKey
-        : false;
-
-    if (shiftKey && event.key === 'Enter' && !this.lock) {
-      event.preventDefault();
-      this.submit.emit(this.inputValue);
-      this.inputValue = '';
-      this.foundation.emitChange();
-    }
+    this.foundation.onKeydown(event);
   }
 
   clearInput(): void {

@@ -9,6 +9,7 @@ import {
 export interface InputAdapter extends DefaultAdapter {
   locale(key: string, params?: Record<string, string>): string;
   emitChange(): void;
+  submit(inputValue: string): void;
 }
 
 export class InputFoundation extends BaseFoundation<InputAdapter> {
@@ -59,23 +60,35 @@ export class InputFoundation extends BaseFoundation<InputAdapter> {
   }
 
   emitChange(): void {
+    console.log('emitChange---2');
     this._adapter.emitChange();
   }
 
-  showClickWave(nativeElement: HTMLElement, event: MouseEvent): void {
-    const rect = nativeElement.getBoundingClientRect();
-    this.setState({
-      waveStyle: {
-        left: event.clientX - rect.left + 'px',
-        top: event.clientY - rect.top + 'px',
-      },
-      showWave: true,
-    });
+  submit(inputValue: string): void {
+    this._adapter.submit(inputValue);
+  }
 
-    setTimeout(() => {
+  onKeydown(event: KeyboardEvent): void {
+    const { submitShortKey, lock } = this.getProps();
+    const inputValue = this.getState('inputValue');
+    if (submitShortKey === null) {
+      return;
+    }
+
+    const shiftKey =
+      submitShortKey === SubmitShortKey.Enter
+        ? !event.shiftKey
+        : submitShortKey === SubmitShortKey.ShiftEnter
+        ? event.shiftKey
+        : false;
+
+    if (shiftKey && event.key === 'Enter' && !lock) {
+      event.preventDefault();
+      this.submit(inputValue);
       this.setState({
-        showWave: false,
+        inputValue: '',
       });
-    }, 300);
+      this.emitChange();
+    }
   }
 }

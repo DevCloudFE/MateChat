@@ -1,0 +1,23 @@
+<div class="demo-container">
+  <mc-input
+    [value]="inputValue"
+    [maxLength]="2000"
+    [showCount]="true"
+    [loading]="loading"
+    (change)="onInputChange($event)"
+    (submit)="onSubmit($event)"
+    (cancel)="onCancel()"
+  >
+    <ng-template #button>
+      <div
+        class="my-button"
+        [ngClass]="{ disabled: !loading && !inputValue }"
+        (click)="onConfirm($event)"
+      >
+        <span class="mc-button-content">
+          <span>{{ loading ? "停止" : "发送" }}</span>
+        </span>
+      </div>
+    </ng-template>
+  </mc-input>
+</div>
