@@ -12,7 +12,7 @@ import {
   ignoreDirs,
 } from './const.js';
 import { resolveFilesInfo } from './utils.js';
-
+// test
 async function buildComponents() {
   const filesInfo = resolveFilesInfo(componentsDir, ['node_modules', 'dist']);
 
