@@ -5,14 +5,13 @@ import fs from 'fs-extra';
 import { build, defineConfig } from 'vite';
 import {
   buildLibOutputDir,
-  buildLibOutputIndexDtsFile,
   buildLibOutputIndexFile,
   componentIndexFile,
   componentsDir,
   ignoreDirs,
 } from './const.js';
 import { resolveFilesInfo } from './utils.js';
-// test
+
 async function buildComponents() {
   const filesInfo = resolveFilesInfo(componentsDir, ['node_modules', 'dist']);
 
@@ -22,7 +21,6 @@ async function buildComponents() {
 
   autoImportCss();
   copyIndex();
-  generateIndexDts();
 }
 
 async function buildSingle(itemFile) {
@@ -82,17 +80,6 @@ function copyIndex() {
   const fileContent = fs.readFileSync(componentIndexFile, 'utf-8');
   fs.ensureFileSync(buildLibOutputIndexFile);
   fs.outputFileSync(buildLibOutputIndexFile, fileContent, 'utf-8');
-}
-
-// 生成index.d.ts
-function generateIndexDts() {
-  const fileStr = `import type { App } from 'vue';
-  declare function install(app: App): void
-  declare const _default: {
-      install: typeof install;
-  };
-  export default _default;`;
-  fs.outputFileSync(buildLibOutputIndexDtsFile, fileStr, 'utf8');
 }
 
 buildComponents();
