@@ -1,0 +1,32 @@
+// 核心：根据框架类型生成对应穿透语法
+@mixin deep($selector: "") {
+  // 校验变量是否定义（防止漏配置）
+  @if $framework == null {
+    @error "未定义 $framework 变量，请在框架配置中设置（'vue' 或 'angular'）";
+  }
+
+  // Vue 穿透语法
+  @if $framework == "vue" {
+    @if ($selector == "") {
+      :deep {
+        @content;
+      }
+    } @else {
+      :deep(#{$selector}) {
+        @content;
+      }
+    }
+  }
+  // Angular 穿透语法
+  @else if $framework == "angular" {
+    @if ($selector == "") {
+      ::ng-deep {
+        @content;
+      }
+    } @else {
+      ::ng-deep #{$selector} {
+        @content;
+      }
+    }
+  }
+}

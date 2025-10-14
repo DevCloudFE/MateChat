@@ -1,4 +1,5 @@
-@use "../../components-common/Input/common/button.scss";
+@import "../../components-common/Base/angular.scss";
+@import "../../components-common/Input/common/button.scss";
 
   .mc-button-simple {
     ::ng-deep {

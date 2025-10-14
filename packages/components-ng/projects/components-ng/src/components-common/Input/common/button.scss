@@ -71,16 +71,15 @@
     transform: translate(-50%, -50%);
     animation: waterWave $devui-animation-duration-slow $devui-animation-linear;
   }
-
+  @include deep() {
   svg {
-    :deep(path) {
-      fill: $devui-light-text;
-    }
     path {
       fill: $devui-light-text;
     }
     margin-right: 4px;
   }
+  }
+
 }
 
 @keyframes rotating {

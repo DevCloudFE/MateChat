@@ -66,5 +66,6 @@ const onConfirm = (e: MouseEvent) => {
 </script>
 
 <style scoped lang="scss">
-@use '@matechat/common/Input/common/button.scss';
+@import '@matechat/common/Base/vue.scss';
+@import '@matechat/common/Input/common/button.scss';
 </style>
