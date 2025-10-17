@@ -170,7 +170,7 @@
     <ng-template [ngTemplateOutlet]="headerTemplate"></ng-template>
   </ng-container>
 
-  <div [@collapse]="expanded ? 'expanded' : 'collapsed'">
+  <div [hidden]="!expanded">
     <div
       *ngIf="isMermaid && showMermaidDiagram && !contentTemplate"
       class="mc-mermaid-content"

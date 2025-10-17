@@ -190,6 +190,9 @@ importers:
       devui-theme:
         specifier: ^0.0.7
         version: 0.0.7
+      diff-dom:
+        specifier: ^5.2.1
+        version: 5.2.1
       highlight.js:
         specifier: ^11.11.0
         version: 11.11.1
@@ -4239,6 +4242,9 @@ packages:
 
   di@0.0.1:
     resolution: {integrity: sha512-uJaamHkagcZtHPqCIHZxnFrXlunQXgBOsZSUOWwFw31QJCAbyTBoHMW75YOTur5ZNx8pIeAKgf6GWIgaqqiLhA==}
+
+  diff-dom@5.2.1:
+    resolution: {integrity: sha512-G6WquwIa/XOxiYDYRMxfJj+c+a6LXMv7zgXoAQ3eRjTYkc8Lc4Aq97krTu/B15r243FR7dyeSxDenzKtO6sbfA==}
 
   diff2html@3.4.51:
     resolution: {integrity: sha512-/rVCSDyokkzSCEGaGjkkElXtIRwyNDRzIa3S8VUhR6pjk25p6+AMnb1s2zGmhjl66D5m/HnV3IeZoxnWsvTy+w==}
@@ -12139,6 +12145,8 @@ snapshots:
   devui-theme@0.0.7: {}
 
   di@0.0.1: {}
+
+  diff-dom@5.2.1: {}
 
   diff2html@3.4.51:
     dependencies:
