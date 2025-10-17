@@ -8,10 +8,11 @@ import {
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { InputDemoComponent } from '../Input/input.component';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
+import { MarkdownTypingDemoComponent } from '../MarkdownCard/markdown-typing/markdown-typinng.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BubbleModule, InputModule, InputDemoComponent, MarkdownCardModule],
+  imports: [CommonModule, BubbleModule, InputModule, InputDemoComponent, MarkdownCardModule, MarkdownTypingDemoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -71,7 +72,6 @@ export class AppComponent {
 
 ### 介绍
 **快速排序（Quick Sort）**：是一种高效的排序算法，它采用分治法（Divide and Conquer）的思想。它的基本思路是：
-
 1. 选择一个基准值（pivot）
 2. 将数组分成两部分：小于基准值的部分和大于等于基准值的部分
 3. 递归地对这两部分进行排序
@@ -108,10 +108,25 @@ const arr = [3, 6, 8, 10, 1, 2, 1];
 console.log(quickSort(arr)); // 输出排序后的数组
 }
 \`\`\`
+
+
+\`\`\`ts
+function quickSort(arr) {
+  function quickSort(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+}
+
+
+\`\`\`
+
+
 `;
 
 ngOnInit() {
-  this.simulateStreaming();
+  this.content = this.fullContent;
+  // this.simulateStreaming();
 }
 
 private simulateStreaming() {
@@ -126,4 +141,8 @@ private simulateStreaming() {
       clearInterval(streamInterval);
     }
   }, charDelay);
-}}
+}
+
+
+}
+

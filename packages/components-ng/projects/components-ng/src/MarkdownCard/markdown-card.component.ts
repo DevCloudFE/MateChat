@@ -10,16 +10,22 @@ import {
   EventEmitter,
   Renderer2,
   ViewContainerRef,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
 } from '@angular/core';
 import markdownit from 'markdown-it';
 import type { Token } from 'markdown-it';
 import { MDCardService } from '../components-common/MarkdownCard/common/MDCardService';
 import type { ASTNode } from '../components-common/MarkdownCard/common/mdCard.types';
 import { CodeBlockComponent } from './code-block.component';
-import { MarkdownCardProps, defaultTypingConfig } from '../components-common/MarkdownCard/common/mdCard.types';
+import {
+  MarkdownCardProps,
+  defaultTypingConfig,
+} from '../components-common/MarkdownCard/common/mdCard.types';
 import BaseComponent from '../Base/base.component';
-import { MarkdownCardAdapter, MarkdownCardFoundation } from '../components-common/MarkdownCard/foundation';
+import {
+  MarkdownCardAdapter,
+  MarkdownCardFoundation,
+} from '../components-common/MarkdownCard/foundation';
 import MdParserUtils from '../components-common/MarkdownCard/common/parser';
 import { MarkdownNodeRenderer } from './markdown-node-renderer';
 
@@ -28,16 +34,19 @@ import { MarkdownNodeRenderer } from './markdown-node-renderer';
   templateUrl: './markdown-card.component.html',
   styleUrls: ['./markdown-card.component.scss'],
 })
-export class MarkdownCardComponent extends BaseComponent implements OnInit, OnChanges {
+export class MarkdownCardComponent
+  extends BaseComponent
+  implements OnInit, OnChanges
+{
   @Input() content: string = '';
   @Input() typing: boolean = false;
   @Input() enableThink: boolean = false;
-  @Input() typingOptions: MarkdownCardProps['typingOptions'] = {};
+  @Input() typingOptions: MarkdownCardProps['typingOptions'] | any = {};
   @Input() thinkOptions: MarkdownCardProps['thinkOptions'] = {};
   @Input() mdOptions: MarkdownCardProps['mdOptions'] = {};
   @Input() mdPlugins: MarkdownCardProps['mdPlugins'] = [];
   @Input() customXssRules: MarkdownCardProps['customXssRules'] = [];
-  @Input() theme: 'light' | 'dark' = 'light';
+  @Input() theme: 'light' | 'dark' | any = 'light';
   @Input() enableMermaid: boolean = false;
   @Input() mermaidConfig: MarkdownCardProps['mermaidConfig'] = {};
 
@@ -74,19 +83,16 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
       ...this.mdOptions,
     });
     this.mdCardService = new MDCardService();
-    // 延迟初始化，因为markdownContainer在构造函数中可能还不可用
-  }
-
-  ngOnInit(): void {
     this.foundation = new MarkdownCardFoundation(this.adapter);
-    this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
-    // 初始化节点渲染器
     this.nodeRenderer = new MarkdownNodeRenderer(
       this.renderer,
-      this.markdownContainer,
       this.mdt,
       (node) => this.foundation.isToken(node)
     );
+  }
+
+  ngOnInit(): void {
+    this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
     this.parseContent();
     this.afterMdtInit.emit(this.mdt);
   }
@@ -94,7 +100,8 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
   override get adapter(): MarkdownCardAdapter {
     return {
       ...super.adapter,
-      locale: (key: string, params?: Record<string, string>) => this.adapter.locale(key, params),
+      locale: (key: string, params?: Record<string, string>) =>
+        this.adapter.locale(key, params),
       typingEnd: () => this.typingEnd.emit(),
     };
   }
@@ -103,7 +110,7 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
     if (changes['content']) {
       if (!this.typing) {
         this.typingIndex = this.content?.length || 0;
-        setTimeout(() => this.parseContent(), 100);
+        this.parseContent();
         return;
       }
 
@@ -114,7 +121,6 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
       ) {
         this.typingIndex = 0;
       }
-
       // 使用setTimeout模拟Vue的nextTick行为
       setTimeout(() => this.typewriterStart());
     }
@@ -149,40 +155,67 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
     // 同时清空nativeElement的子节点，确保所有内容都被清除
     if (this.markdownContainer?.element?.nativeElement) {
       while (this.markdownContainer.element.nativeElement.firstChild) {
-        this.markdownContainer.element.nativeElement.removeChild(this.markdownContainer.element.nativeElement.firstChild);
+        this.markdownContainer.element.nativeElement.removeChild(
+          this.markdownContainer.element.nativeElement.firstChild
+        );
       }
     }
 
     // 解析 Markdown 内容
     const tokens: any = this.mdt.parse(content, {});
     const ast = this.parser.tokensToAst(tokens);
-    this.astToVnodes(ast);
+    const vnodes = this.astToVnodes(ast);
+    this.renderContent(vnodes);
   }
 
-  private astToVnodes(nodes: ASTNode[]): void {
-    nodes.forEach((node) => this.processASTNode(node));
-  }
-
-  private processASTNode(node: ASTNode | Token): void {
-    if ('nodeType' in node) {
-      // 处理ASTNode类型
-      if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
-        this.processHTMLNode(node as ASTNode);
-      } else if (node.nodeType === 'inline') {
-        this.processInlineNode(node as ASTNode);
-      } else if (node.openNode?.tag) {
-        this.processTagNode(node as ASTNode);
+  private renderContent(vnodes) {
+    // 将vnodes节点添加到this.markdownContainer.element.nativeElement
+    vnodes.forEach((node) => {
+      // 判断是否是node节点且容器有效
+      if (
+        node &&
+        this.markdownContainer &&
+        this.markdownContainer.element &&
+        this.markdownContainer.element.nativeElement
+      ) {
+        const container = this.markdownContainer.element.nativeElement;
+        // 检查node是否为有效的DOM节点或可追加的节点类型
+        if (
+          node.nodeType ||
+          typeof node === 'string' ||
+          node instanceof HTMLElement
+        ) {
+          container.appendChild(node);
+        }
       }
-    } else if (this.foundation.isToken(node)) {
-      // 处理Token类型
-      this.processToken(node);
+    });
+  }
+
+  private astToVnodes(nodes: ASTNode[]) {
+    return nodes.map((node) => this.processASTNode(node));
+  }
+
+  private processASTNode(node: ASTNode | Token | any) {
+    if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
+      return this.processHTMLNode(node);
     }
+
+    if (node.nodeType === 'inline') {
+      return this.processInlineToken(node);
+    }
+    if (this.foundation.isToken(node)) {
+      return this.processToken(node);
+    }
+
+    return this.processASTNodeInternal(node);
   }
 
   private processHTMLNode(node: ASTNode): void {
-    if (!this.markdownContainer?.element?.nativeElement || !node.openNode?.content) return;
-    
-    const container = this.renderer.createElement(node.nodeType === 'html_block' ? 'div' : 'span');
+    if (!node.openNode?.content) return;
+
+    const container = this.renderer.createElement(
+      node.nodeType === 'html_block' ? 'div' : 'span'
+    );
     this.renderer.setProperty(container, 'innerHTML', node.openNode.content);
 
     // 处理子节点
@@ -191,44 +224,40 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
         this.processASTNode(child as any);
       });
     }
-
-    this.markdownContainer.element.nativeElement.appendChild(container);
+    return container;
   }
 
-  private processInlineNode(node: ASTNode): void {
-    if (!this.markdownContainer?.element?.nativeElement || !node.openNode) return;
-    
-    // 处理inline节点
+  private processInlineToken(node: ASTNode | any) {
     const div = this.renderer.createElement('div');
-    const html = this.mdt.renderer.render([node.openNode], this.mdt.options, {});
+    const html = this.mdt.renderer.render(
+      [node.openNode],
+      this.mdt.options,
+      {}
+    );
+    
+    // 将HTML字符串转换为DOM节点
     this.renderer.setProperty(div, 'innerHTML', html);
     
-    // 将div的内容转移到容器中，而不是直接添加div
-    while (div.firstChild) {
-      this.markdownContainer.element.nativeElement.appendChild(div.firstChild);
+    // 如果只有一个子节点，直接返回子节点而不是包含div
+    if (div.firstChild && div.childNodes.length === 1) {
+      return div.firstChild;
     }
+    
+    return div;
   }
 
-  private processFenceNode(token: Token): void {
+  private processFenceNode(token: Token) {
     const language =
       token.info?.replace(/<span\b[^>]*>/i, '').replace('</span>', '') || '';
     const code = token.content || '';
-    this.createCodeBlock(language, code, (token as any).tokenIndex || 0);
+    return this.createCodeBlock(language, code, (token as any).tokenIndex || 0);
   }
 
-  // processASTNodeInternal
-  private processTagNode(node: ASTNode): void {
-    if (!this.markdownContainer?.element?.nativeElement || !node.openNode?.tag) return;
-
-    // 特殊处理fence类型的token
-    if (node.openNode.type === 'fence') {
-      this.processFenceNode(node.openNode as unknown as Token);
-      return;
+  private processASTNodeInternal(node: ASTNode | any) {
+    let tagName = 'div';
+    if (node.openNode?.tag && this.parser.isValidTagName(node.openNode?.tag)) {
+      tagName = node.openNode?.tag;
     }
-
-    const tagName = this.parser.isValidTagName(node.openNode.tag)
-      ? node.openNode.tag
-      : 'div';
     const element = this.renderer.createElement(tagName);
 
     // 设置属性
@@ -238,45 +267,75 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
       });
     }
 
-    // 处理子节点
-    if (node.children && node.children.length > 0) {
+    // 特殊处理fence类型的token
+    if (node.openNode.type === 'fence') {
+      return this.processFenceNode(node.openNode as unknown as Token);
+    }
+
+    // 处理所有带tag的AST节点
+    if (node.openNode?.tag) {
+      let tagName = this.parser.isValidTagName(node.openNode?.tag)
+        ? node.openNode?.tag
+        : 'div';
+      const element = this.renderer.createElement(tagName);
+
+      // 递归处理所有子节点并添加到当前元素
       node.children.forEach((child) => {
-        const childElement = this.nodeRenderer.createNodeElement(child);
-        if (childElement) {
-          this.renderer.appendChild(element, childElement);
+
+        const childNode = this.processASTNode(child);
+        if (childNode) {
+          this.renderer.appendChild(element, childNode);
         }
       });
+      return element;
     }
-    this.markdownContainer.element.nativeElement.appendChild(element);
+
+    node.children.forEach((child) => {
+      const childNode = this.processASTNode(child);
+      if (childNode) {
+        this.renderer.appendChild(element, childNode);
+      }
+    });
+    return element;
   }
 
-  private processToken(token: Token): void {
-    if (!this.markdownContainer?.element?.nativeElement) return;
-    
-    const container = this.markdownContainer.element.nativeElement;
-    
+  private processToken(token: Token) {
     if (token.type === 'text') {
       const textNode = this.renderer.createText(token.content || '');
-      container.appendChild(textNode);
-    } else if (token.type === 'inline') {
-      this.processInlineNode(token as any);
-    } else if (token.type === 'fence') {
-      this.processFenceNode(token);
-    } else if (token.type === 'softbreak') {
+      return textNode;
+    }
+
+    if (token.type === 'inline') {
+      return this.processInlineToken(token);
+    }
+
+    if (token.type === 'fence') {
+      return this.processFenceNode(token);
+    }
+
+    if (token.type === 'softbreak') {
       if (this.mdt.options.breaks) {
         const br = this.renderer.createElement('br');
-        container.appendChild(br);
+        return br;
       } else {
         const textNode = this.renderer.createText('\n');
-        container.appendChild(textNode);
+        return textNode;
       }
-    } else if (token.type === 'html_block' || token.type === 'html_inline') {
+    }
+
+    if (token.type === 'html_block' || token.type === 'html_inline') {
       const htmlContainer = this.renderer.createElement(
         token.type === 'html_block' ? 'div' : 'span'
       );
-      this.renderer.setProperty(htmlContainer, 'innerHTML', token.content || '');
-      container.appendChild(htmlContainer);
-    } else if (token.tag) {
+      this.renderer.setProperty(
+        htmlContainer,
+        'innerHTML',
+        token.content || ''
+      );
+      return htmlContainer;
+    }
+
+    if (token.tag) {
       const tagName = this.parser.isValidTagName(token.tag) ? token.tag : 'div';
       const element = this.renderer.createElement(tagName);
 
@@ -293,19 +352,14 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
         this.renderer.appendChild(element, textNode);
       }
 
-      container.appendChild(element);
+      return element;
     }
+
+    const textNode = this.renderer.createText(token.content || '');
+    return textNode;
   }
 
-  // 节点渲染方法已移至 MarkdownNodeRenderer 类
-
-  private createCodeBlock(
-    language: string,
-    code: string,
-    blockIndex: number
-  ): void {
-    if (!this.markdownContainer) return;
-    
+  private createCodeBlock(language: string, code: string, blockIndex: number) {
     const factory = this.resolver.resolveComponentFactory(CodeBlockComponent);
     const componentRef = this.markdownContainer.createComponent(factory);
 
@@ -317,6 +371,7 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
     componentRef.instance.mermaidConfig = this.mermaidConfig || {};
 
     componentRef.changeDetectorRef.detectChanges();
+    return componentRef.hostView;
   }
 
   private typewriterStart(): void {
@@ -326,7 +381,6 @@ export class MarkdownCardComponent extends BaseComponent implements OnInit, OnCh
 
     this.isTyping = true;
     this.typingStart.emit();
-    
     const options = { ...defaultTypingConfig, ...this.typingOptions };
 
     const typingStep = () => {

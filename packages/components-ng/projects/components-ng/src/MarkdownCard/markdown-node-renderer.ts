@@ -10,7 +10,6 @@ import MdParserUtils from '../components-common/MarkdownCard/common/parser';
 export class MarkdownNodeRenderer {
   constructor(
     private renderer: Renderer2,
-    private markdownContainer: ViewContainerRef,
     private mdt: markdownit,
     private isToken: (node: any) => boolean
   ) {}
@@ -53,7 +52,7 @@ export class MarkdownNodeRenderer {
    * 创建HTML节点
    */
   createHTMLNode(node: ASTNode): Node | null {
-    if (!node.openNode?.content || !this.markdownContainer?.element?.nativeElement) return null;
+    if (!node.openNode?.content ) return null;
     
     const htmlContainer = this.renderer.createElement(node.nodeType === 'html_block' ? 'div' : 'span');
     this.renderer.setProperty(htmlContainer, 'innerHTML', node.openNode.content);
@@ -64,7 +63,6 @@ export class MarkdownNodeRenderer {
    * 创建内联元素
    */
   createInlineElement(node: ASTNode): Node | null {
-    if (!node.openNode || !this.markdownContainer?.element?.nativeElement) return null;
     
     const inlineContainer = this.renderer.createElement('div');
     const html = this.mdt.renderer.render([node.openNode as Token], this.mdt.options, {});
@@ -122,8 +120,6 @@ export class MarkdownNodeRenderer {
    * 创建内联Token元素
    */
   createInlineTokenElement(node: Token): Node | null {
-    if (!this.markdownContainer?.element?.nativeElement) return null;
-    
     const div = this.renderer.createElement('div');
     this.renderer.setProperty(
       div,

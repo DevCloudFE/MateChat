@@ -72,12 +72,12 @@
     animation: waterWave $devui-animation-duration-slow $devui-animation-linear;
   }
   @include deep() {
-  svg {
-    path {
-      fill: $devui-light-text;
+   svg {
+     path {
+       fill: $devui-light-text;
+     }
+     margin-right: 4px;
     }
-    margin-right: 4px;
-  }
   }
 
 }
