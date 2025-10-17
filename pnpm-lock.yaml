@@ -81,6 +81,9 @@ importers:
       '@tsconfig/node22':
         specifier: ^22.0.0
         version: 22.0.1
+      '@types/markdown-it':
+        specifier: ^14.1.2
+        version: 14.1.2
       '@types/node':
         specifier: ^22.9.3
         version: 22.13.14
@@ -187,6 +190,12 @@ importers:
       devui-theme:
         specifier: ^0.0.7
         version: 0.0.7
+      highlight.js:
+        specifier: ^11.11.0
+        version: 11.11.1
+      markdown-it:
+        specifier: ^12.2.0
+        version: 12.2.0
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2

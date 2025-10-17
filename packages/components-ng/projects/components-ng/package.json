@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "devui-theme": "^0.0.7"
+    "devui-theme": "^0.0.7",
+    "highlight.js": "^11.11.0"
   },
   "sideEffects": false
 }

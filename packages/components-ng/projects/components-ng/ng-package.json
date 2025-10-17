@@ -5,6 +5,14 @@
     "entryFile": "src/public-api.ts"
   },
   "allowedNonPeerDependencies": [
-    "devui-theme"
+    "devui-theme",
+    "highlight.js"
+  ],
+  "assets": [
+    {
+      "glob": "**/*.svg",
+      "input": "src/MarkdownCard/asset",
+      "output": "assets/MarkdownCard/asset"
+    }
   ]
 }

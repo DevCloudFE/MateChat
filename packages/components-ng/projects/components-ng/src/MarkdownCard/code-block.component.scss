@@ -1,0 +1,242 @@
+$devui-base-bg: #f5f7fa;
+$devui-text: #252b3a;
+$devui-icon-hover-bg: #e9edf3;
+$devui-hover-shadow: rgba(0, 0, 0, 0.1);
+
+.mc-code-block-light {
+  color: #e9edf3;
+  ::ng-deep {
+    @import "highlight.js/styles/a11y-light";
+    .hljs {
+      background: #fefefe;
+      color: #545454;
+    }
+    /* Comment */
+    .hljs-comment,
+    .hljs-quote {
+      color: #696969;
+    }
+    /* Red */
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag,
+    .hljs-name,
+    .hljs-selector-id,
+    .hljs-selector-class,
+    .hljs-regexp,
+    .hljs-deletion {
+      color: #d91e18;
+    }
+    /* Orange */
+    .hljs-number,
+    .hljs-built_in,
+    .hljs-literal,
+    .hljs-type,
+    .hljs-params,
+    .hljs-meta,
+    .hljs-link {
+      color: #aa5d00;
+    }
+    /* Yellow */
+    .hljs-attribute {
+      color: #aa5d00;
+    }
+    /* Green */
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-addition {
+      color: #008000;
+    }
+    /* Blue */
+    .hljs-title,
+    .hljs-section {
+      color: #007faa;
+    }
+    /* Purple */
+    .hljs-keyword,
+    .hljs-selector-tag {
+      color: #7928a1;
+    }
+    .hljs-emphasis {
+      font-style: italic;
+    }
+    .hljs-strong {
+      font-weight: bold;
+    }
+    @media screen and (-ms-high-contrast: active) {
+      .hljs-addition,
+      .hljs-attribute,
+      .hljs-built_in,
+      .hljs-bullet,
+      .hljs-comment,
+      .hljs-link,
+      .hljs-literal,
+      .hljs-meta,
+      .hljs-number,
+      .hljs-params,
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-type,
+      .hljs-quote {
+        color: highlight;
+      }
+      .hljs-keyword,
+      .hljs-selector-tag {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.mc-code-block-light {
+  border: 1px solid #d7d8da;
+  code.hljs {
+    padding: 1em;
+  }
+  background-color: #f5f5f5;
+  .mc-code-lang {
+    color: #252b3a;
+  }
+  .mc-code-block-actions {
+    .mc-copy-btn,
+    .mc-toggle-btn {
+      color: #252b3a;
+      &:hover {
+          background-color: #EBEBEB;
+      }
+    }
+  }
+  .mc-mermaid-content {
+    background: #fefefe;
+  }
+}
+
+
+.mc-code-block-dark {
+  ::ng-deep {
+    @import "highlight.js/styles/a11y-dark";
+  }
+}
+
+// 定义动画
+@keyframes collapse-expand {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px; // 一个足够大的值
+  }
+}
+
+@keyframes collapse-collapse {
+  from {
+    opacity: 1;
+    max-height: 1000px; // 一个足够大的值
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+// 应用动画
+.collapse-expanded {
+  animation: collapse-expand 0.5s ease-out;
+}
+
+.collapse-collapsed {
+  animation: collapse-collapse 0.5s ease-in;
+}
+
+.mc-code-block {
+  margin: 1rem 0;
+  overflow: hidden;
+  border-radius: 14px;
+
+  pre {
+    margin: 0;
+  }
+
+  .mc-action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mc-code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    .mc-code-lang {
+      font-size: 14px;
+    }
+  }
+
+  .mc-mermaid-content {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: inherit;
+  }
+
+  .mc-code-block-actions {
+    display: flex;
+    align-items: center;
+    .mc-copy-btn,
+    .mc-toggle-btn {
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 18px;
+      padding: 4px;
+    }
+  }
+
+  .mc-diagram-switch {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    border-radius: 4px;
+    background-color: $devui-icon-hover-bg;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 24px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: calc(50% - 2px);
+      height: calc(100% - 4px);
+      background-color: $devui-base-bg;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 1px 2px $devui-hover-shadow;
+      z-index: 1;
+    }
+
+    &.mc-show-code::before {
+      transform: translateX(100%);
+    }
+
+    .mc-diagram-switch-active {
+      text-shadow: 0 0 0.4px $devui-text;
+    }
+
+    li {
+      position: relative;
+      padding: 0 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      z-index: 2;
+    }
+  }
+}
