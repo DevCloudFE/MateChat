@@ -125,8 +125,8 @@ function quickSort(arr) {
 `;
 
 ngOnInit() {
-  this.content = this.fullContent;
-  // this.simulateStreaming();
+  this.content = '';
+  this.simulateStreaming();
 }
 
 private simulateStreaming() {

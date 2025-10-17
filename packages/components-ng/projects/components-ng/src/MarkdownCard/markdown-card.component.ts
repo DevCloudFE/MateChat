@@ -1,3 +1,4 @@
+import { DiffDOM } from 'diff-dom';
 import {
   Component,
   Input,
@@ -38,6 +39,7 @@ export class MarkdownCardComponent
   extends BaseComponent
   implements OnInit, OnChanges
 {
+  private diffDom: DiffDOM;
   @Input() content: string = '';
   @Input() typing: boolean = false;
   @Input() enableThink: boolean = false;
@@ -69,7 +71,6 @@ export class MarkdownCardComponent
   constructor(
     private resolver: ComponentFactoryResolver,
     private renderer: Renderer2,
-    private elementRef: ElementRef
   ) {
     super();
     this.mdt = markdownit({
@@ -89,6 +90,8 @@ export class MarkdownCardComponent
       this.mdt,
       (node) => this.foundation.isToken(node)
     );
+    // 初始化 diffDom 实例
+    this.diffDom = new DiffDOM();
   }
 
   ngOnInit(): void {
@@ -150,17 +153,6 @@ export class MarkdownCardComponent
       content = this.foundation.getThinkContent(content, this.thinkOptions);
     }
 
-    // 清空容器
-    this.markdownContainer?.clear();
-    // 同时清空nativeElement的子节点，确保所有内容都被清除
-    if (this.markdownContainer?.element?.nativeElement) {
-      while (this.markdownContainer.element.nativeElement.firstChild) {
-        this.markdownContainer.element.nativeElement.removeChild(
-          this.markdownContainer.element.nativeElement.firstChild
-        );
-      }
-    }
-
     // 解析 Markdown 内容
     const tokens: any = this.mdt.parse(content, {});
     const ast = this.parser.tokensToAst(tokens);
@@ -169,26 +161,32 @@ export class MarkdownCardComponent
   }
 
   private renderContent(vnodes) {
-    // 将vnodes节点添加到this.markdownContainer.element.nativeElement
+    if (
+      !this.markdownContainer ||
+      !this.markdownContainer.element ||
+      !this.markdownContainer.element.nativeElement
+    ) {
+      return;
+    }
+
+    const container = this.markdownContainer.element.nativeElement;
+    // 创建新内容容器
+    const newContent = document.createElement('div');
     vnodes.forEach((node) => {
-      // 判断是否是node节点且容器有效
       if (
         node &&
-        this.markdownContainer &&
-        this.markdownContainer.element &&
-        this.markdownContainer.element.nativeElement
-      ) {
-        const container = this.markdownContainer.element.nativeElement;
-        // 检查node是否为有效的DOM节点或可追加的节点类型
-        if (
-          node.nodeType ||
+        (node.nodeType ||
           typeof node === 'string' ||
-          node instanceof HTMLElement
-        ) {
-          container.appendChild(node);
-        }
+          node instanceof HTMLElement)
+      ) {
+        newContent.appendChild(node);
       }
     });
+
+    let oldNode = container;
+    let newNode = newContent;
+    const patches = this.diffDom.diff(oldNode, newNode);
+    this.diffDom.apply(container, patches);
   }
 
   private astToVnodes(nodes: ASTNode[]) {
@@ -234,15 +232,15 @@ export class MarkdownCardComponent
       this.mdt.options,
       {}
     );
-    
+
     // 将HTML字符串转换为DOM节点
     this.renderer.setProperty(div, 'innerHTML', html);
-    
+
     // 如果只有一个子节点，直接返回子节点而不是包含div
     if (div.firstChild && div.childNodes.length === 1) {
       return div.firstChild;
     }
-    
+
     return div;
   }
 
@@ -281,7 +279,6 @@ export class MarkdownCardComponent
 
       // 递归处理所有子节点并添加到当前元素
       node.children.forEach((child) => {
-
         const childNode = this.processASTNode(child);
         if (childNode) {
           this.renderer.appendChild(element, childNode);
@@ -360,9 +357,15 @@ export class MarkdownCardComponent
   }
 
   private createCodeBlock(language: string, code: string, blockIndex: number) {
+    // 创建一个包装的DOM元素
+    const wrapper = this.renderer.createElement('div');
+    this.renderer.addClass(wrapper, 'code-block-wrapper');
+    
+    // 创建组件工厂并创建组件实例
     const factory = this.resolver.resolveComponentFactory(CodeBlockComponent);
     const componentRef = this.markdownContainer.createComponent(factory);
 
+    // 设置组件属性
     componentRef.instance.language = language;
     componentRef.instance.code = code;
     componentRef.instance.blockIndex = blockIndex;
@@ -370,8 +373,14 @@ export class MarkdownCardComponent
     componentRef.instance.enableMermaid = this.enableMermaid;
     componentRef.instance.mermaidConfig = this.mermaidConfig || {};
 
+    // 触发变更检测
     componentRef.changeDetectorRef.detectChanges();
-    return componentRef.hostView;
+    
+    // 获取组件的DOM元素并附加到包装器
+    const hostElement = componentRef.location.nativeElement;
+    this.renderer.appendChild(wrapper, hostElement);
+    
+    return wrapper;
   }
 
   private typewriterStart(): void {

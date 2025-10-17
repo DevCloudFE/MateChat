@@ -6,8 +6,10 @@
   },
   "allowedNonPeerDependencies": [
     "devui-theme",
-    "highlight.js"
-  ],
+    "highlight.js",
+    "markdown-it",
+    "diff-dom"
+  ],  
   "assets": [
     {
       "glob": "**/*.svg",
