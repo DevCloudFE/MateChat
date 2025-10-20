@@ -8,11 +8,12 @@ import {
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { InputDemoComponent } from '../Input/input.component';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
+import { MarkdownMermaidDemoComponent } from '../MarkdownCard/markdown-mermaid/markdown-mermaid.component';
 import { MarkdownTypingDemoComponent } from '../MarkdownCard/markdown-typing/markdown-typinng.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BubbleModule, InputModule, InputDemoComponent, MarkdownCardModule, MarkdownTypingDemoComponent],
+  imports: [CommonModule, BubbleModule, InputModule, InputDemoComponent, MarkdownCardModule, MarkdownMermaidDemoComponent, MarkdownTypingDemoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -1,10 +1,13 @@
+@import "devui-theme/styles-var/devui-var.scss";
+@import "../components-common/Base/angular.scss";
+@import "../components-common/MarkdownCard/common/mdCard.scss";
+
 $devui-base-bg: #f5f7fa;
 $devui-text: #252b3a;
 $devui-icon-hover-bg: #e9edf3;
 $devui-hover-shadow: rgba(0, 0, 0, 0.1);
 
 .mc-code-block-light {
-  color: #e9edf3;
   ::ng-deep {
     @import "highlight.js/styles/a11y-light";
     .hljs {
@@ -142,6 +145,10 @@ $devui-hover-shadow: rgba(0, 0, 0, 0.1);
   }
 }
 
+.mc-block-hidden {
+  display: none;
+}
+
 // 应用动画
 .collapse-expanded {
   animation: collapse-expand 0.5s ease-out;
@@ -161,8 +168,12 @@ $devui-hover-shadow: rgba(0, 0, 0, 0.1);
   }
 
   .mc-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 24px;
     height: 24px;
+    box-sizing: border-box;
   }
 
   .mc-code-block-header {

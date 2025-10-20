@@ -26,7 +26,8 @@
     "zone.js": "~0.14.3",
     "highlight.js": "^11.11.0",
     "markdown-it": "^12.2.0",
-    "diff-dom": "^5.2.1"
+    "diff-dom": "^5.2.1",
+    "mermaid": "^10.9.1"
   },
   "peerDependencies": {
   },

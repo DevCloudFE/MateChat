@@ -12,6 +12,8 @@ import {
   Renderer2,
   ViewContainerRef,
   ComponentFactoryResolver,
+  TemplateRef,
+  EmbeddedViewRef,
 } from '@angular/core';
 import markdownit from 'markdown-it';
 import type { Token } from 'markdown-it';
@@ -70,7 +72,7 @@ export class MarkdownCardComponent
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private renderer: Renderer2,
+    private renderer: Renderer2
   ) {
     super();
     this.mdt = markdownit({
@@ -91,7 +93,11 @@ export class MarkdownCardComponent
       (node) => this.foundation.isToken(node)
     );
     // 初始化 diffDom 实例
-    this.diffDom = new DiffDOM();
+    this.diffDom = new DiffDOM(
+      {
+       components: ['mc-code-block']
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -105,7 +111,16 @@ export class MarkdownCardComponent
       ...super.adapter,
       locale: (key: string, params?: Record<string, string>) =>
         this.adapter.locale(key, params),
+      typingStart: () => this.typingStart.emit(),
       typingEnd: () => this.typingEnd.emit(),
+      typingEvent: () => this.typingEvent.emit(),
+      parseContent: (content: string) => {
+        // 解析 Markdown 内容
+        const tokens: any = this.mdt.parse(content, {});
+        const ast = this.parser.tokensToAst(tokens);
+        const vnodes = this.astToVnodes(ast);
+        this.renderContent(vnodes);
+      },
     };
   }
 
@@ -143,21 +158,9 @@ export class MarkdownCardComponent
     }
   }
 
-  private parseContent(): void {
-    let content = this.content || '';
-    if (this.typing && this.isTyping) {
-      content = this.foundation.parseTypingContent(content);
-    }
+  private parseContent() {
 
-    if (this.enableThink) {
-      content = this.foundation.getThinkContent(content, this.thinkOptions);
-    }
-
-    // 解析 Markdown 内容
-    const tokens: any = this.mdt.parse(content, {});
-    const ast = this.parser.tokensToAst(tokens);
-    const vnodes = this.astToVnodes(ast);
-    this.renderContent(vnodes);
+    this.foundation.parseContent(this.content || '');
   }
 
   private renderContent(vnodes) {
@@ -170,6 +173,11 @@ export class MarkdownCardComponent
     }
 
     const container = this.markdownContainer.element.nativeElement;
+
+  
+ 
+
+
     // 创建新内容容器
     const newContent = document.createElement('div');
     vnodes.forEach((node) => {
@@ -182,6 +190,17 @@ export class MarkdownCardComponent
         newContent.appendChild(node);
       }
     });
+
+  // 不适用diff-dom，直接替换内容
+    let noDIff = true;
+    if (noDIff) {
+     while (container.firstChild) {
+       container.removeChild(container.firstChild);
+     }
+     container.appendChild(newContent);
+     return;
+    }
+
 
     let oldNode = container;
     let newNode = newContent;
@@ -298,8 +317,7 @@ export class MarkdownCardComponent
 
   private processToken(token: Token) {
     if (token.type === 'text') {
-      const textNode = this.renderer.createText(token.content || '');
-      return textNode;
+      return this.renderer.createText(token.content || '');
     }
 
     if (token.type === 'inline') {
@@ -312,11 +330,9 @@ export class MarkdownCardComponent
 
     if (token.type === 'softbreak') {
       if (this.mdt.options.breaks) {
-        const br = this.renderer.createElement('br');
-        return br;
+        return this.renderer.createElement('br');
       } else {
-        const textNode = this.renderer.createText('\n');
-        return textNode;
+        return this.renderer.createText('\n');
       }
     }
 
@@ -336,7 +352,6 @@ export class MarkdownCardComponent
       const tagName = this.parser.isValidTagName(token.tag) ? token.tag : 'div';
       const element = this.renderer.createElement(tagName);
 
-      // 设置属性
       if (token.attrs) {
         token.attrs.forEach(([key, value]) => {
           this.renderer.setAttribute(element, key, value);
@@ -348,23 +363,21 @@ export class MarkdownCardComponent
         const textNode = this.renderer.createText(token.content);
         this.renderer.appendChild(element, textNode);
       }
-
       return element;
     }
 
-    const textNode = this.renderer.createText(token.content || '');
-    return textNode;
+    return this.renderer.createText(token.content || '');
   }
 
   private createCodeBlock(language: string, code: string, blockIndex: number) {
-    // 创建一个包装的DOM元素
-    const wrapper = this.renderer.createElement('div');
-    this.renderer.addClass(wrapper, 'code-block-wrapper');
-    
-    // 创建组件工厂并创建组件实例
+    const codeBlockContainer = this.renderer.createElement('div');
     const factory = this.resolver.resolveComponentFactory(CodeBlockComponent);
-    const componentRef = this.markdownContainer.createComponent(factory);
-
+    // 创建组件实例，使用当前组件的注入器
+    const componentRef = factory.create(
+      this.markdownContainer.injector,
+      [],
+      codeBlockContainer // 直接将新容器作为组件的宿主元素
+    );
     // 设置组件属性
     componentRef.instance.language = language;
     componentRef.instance.code = code;
@@ -372,15 +385,10 @@ export class MarkdownCardComponent
     componentRef.instance.theme = this.theme;
     componentRef.instance.enableMermaid = this.enableMermaid;
     componentRef.instance.mermaidConfig = this.mermaidConfig || {};
-
     // 触发变更检测
     componentRef.changeDetectorRef.detectChanges();
-    
-    // 获取组件的DOM元素并附加到包装器
-    const hostElement = componentRef.location.nativeElement;
-    this.renderer.appendChild(wrapper, hostElement);
-    
-    return wrapper;
+    this.renderer.addClass(codeBlockContainer, 'code-block-wrapper');
+    return codeBlockContainer;
   }
 
   private typewriterStart(): void {

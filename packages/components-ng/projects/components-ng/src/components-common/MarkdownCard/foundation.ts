@@ -5,7 +5,10 @@ import { defaultTypingConfig } from './common/mdCard.types';
 
 export interface MarkdownCardAdapter extends DefaultAdapter {
   locale(key: string, params?: Record<string, string>): string;
+  typingStart?: () => void;
   typingEnd?: () => void;
+  typingEvent: () => void;
+  parseContent: (content: string) => void;
 }
 
 export class MarkdownCardFoundation extends BaseFoundation<MarkdownCardAdapter> {
@@ -47,5 +50,61 @@ export class MarkdownCardFoundation extends BaseFoundation<MarkdownCardAdapter> 
         }">${content.slice(-5)}</span>`;
     }
     return content || '';
+  };
+
+  parseContent = () => {
+    const { content, thinkOptions, enableThink } = this.getProps();
+    const { typing, isTyping } = this.getStates();
+    let parseContent = content || '';
+    if (typing && isTyping) {
+      parseContent = this.parseTypingContent(content);
+    }
+
+    if (enableThink) {
+      parseContent = this.getThinkContent(content, thinkOptions);
+    }
+
+    parseContent = this._adapter.parseContent(parseContent);
+  };
+
+  typewriterStart = () => {
+    const { typingOptions } = this.getProps();
+    const { timer, typingIndex, content } = this.getStates();
+     if (timer) {
+      clearTimeout(timer);
+    }
+
+    this.setState({ typing: true });
+    this._adapter.typingStart?.();
+    const options = { ...defaultTypingConfig, ...typingOptions };
+
+    const typingStep = () => {
+      let step = options.step || 2;
+      if (Array.isArray(options.step)) {
+        step =
+          options.step[0] +
+          Math.floor(Math.random() * (options.step[1] - options.step[0]));
+      }
+      this.setState({ typingIndex: typingIndex + step });
+      this.parseContent();
+      this._adapter.typingEvent();
+
+      if (typingIndex >= content!.length) {
+        this.typewriterEnd();
+        this.parseContent();
+        return;
+      }
+
+      this.setState({
+        timer: window.setTimeout(
+          typingStep,
+          typeof options.interval === 'number' ? options.interval : 50
+        ),
+      });
+    };
+
+    this.setState({
+      timer: window.setTimeout(typingStep),
+    });
   };
 }

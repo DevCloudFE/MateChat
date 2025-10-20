@@ -10,6 +10,7 @@ export interface DefaultAdapter {
   getCache(c: string): any;
   getCaches(): any;
   setCache(key: any, value: any): void;
+  nextTick(cb: (...args: any) => void): void;
 }
 
 class BaseFoundation<T extends DefaultAdapter> {
@@ -78,6 +79,10 @@ class BaseFoundation<T extends DefaultAdapter> {
 
   setCache(key: string, value: any) {
     return key && this._adapter.setCache(key, value);
+  }
+
+  nextTick(cb: (...args: any) => void) {
+    return this._adapter.nextTick(cb);
   }
 
   _isInProps(key: string) {

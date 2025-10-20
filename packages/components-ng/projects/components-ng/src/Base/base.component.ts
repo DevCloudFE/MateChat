@@ -40,6 +40,7 @@ export default class BaseComponent {
       getCache: (key) => key && this.cache[key],
       getCaches: () => this.cache,
       setCache: (key, value) => key && (this.cache[key] = value),
+      nextTick: (cb) => setTimeout(cb, 0),
     };
   }
 }

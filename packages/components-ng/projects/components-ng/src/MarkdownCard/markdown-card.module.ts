@@ -1,9 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { TranslatePipe } from '../Locale';
 import { MarkdownCardComponent } from './markdown-card.component';
 import { CodeBlockComponent } from './code-block.component';
-
+import { LocaleModule } from '../Locale';
 @NgModule({
   declarations: [
     MarkdownCardComponent,
@@ -11,6 +11,8 @@ import { CodeBlockComponent } from './code-block.component';
   ],
   imports: [
     CommonModule,
+    TranslatePipe,
+    LocaleModule,
   ],
   exports: [
     MarkdownCardComponent,

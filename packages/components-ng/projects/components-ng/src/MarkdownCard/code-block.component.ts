@@ -1,17 +1,28 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+  SimpleChanges,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import hljs from 'highlight.js';
 import { TemplateRef } from '@angular/core';
 import { MDCardService } from '../components-common/MarkdownCard/common/MDCardService';
 import { MermaidService } from '../components-common/MarkdownCard/common/MermaidService';
 import type { MermaidConfig } from '../components-common/MarkdownCard/common/mdCard.types';
-
+import BaseComponent from '../Base/base.component';
+import { CodeBlockAdapter, CodeBlockFoundation } from '../components-common/MarkdownCard/codeblock-foundation';
 @Component({
   selector: 'mc-code-block',
   templateUrl: './code-block.component.html',
-  styleUrls: ['./code-block.component.scss']
+  standalone: false,
+  styleUrls: ['./code-block.component.scss'],
 })
-export class CodeBlockComponent implements OnInit, OnChanges {
+export class CodeBlockComponent extends BaseComponent implements OnInit, OnChanges {
   @Input() code: string = '';
   @Input() language: string = '';
   @Input() blockIndex: number = 0;
@@ -23,21 +34,54 @@ export class CodeBlockComponent implements OnInit, OnChanges {
   @Input() actionsTemplate: TemplateRef<any> | null = null;
 
   @ViewChild('rootRef') rootRef!: ElementRef;
-  @ViewChild('mermaidContent') mermaidContentRef!: ElementRef;
+  @ViewChild('mermaidContent') mermaidContentRef: ElementRef;
 
   expanded: boolean = true;
   copied: boolean = false;
   mermaidContent: string = '';
-  showMermaidDiagram: boolean = true;
+  private _showMermaidDiagram: boolean = true;
+  get showMermaidDiagram(): boolean {
+    return this._showMermaidDiagram;
+  }
+  set showMermaidDiagram(value: boolean) {
+    if (this._showMermaidDiagram !== value) {
+      this._showMermaidDiagram = value;
+      // 当切换为显示图表且当前是mermaid类型时，渲染图表
+      if (value && this.isMermaid) {
+        // 在视图更新后渲染mermaid
+        setTimeout(() => {
+          this.renderMermaid();
+        });
+      }
+    }
+  }
   highlightedCode: string = '';
   isMermaid: boolean = false;
-  
+
   private mermaidService: MermaidService | null = null;
   private copySubject = new Subject<void>();
   private mdCardService: MDCardService;
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
+    super();
     this.mdCardService = new MDCardService();
-    this.copySubject.pipe(debounceTime(300)).subscribe(() => this.copyCodeInternal());
+    this.copySubject
+      .pipe(debounceTime(300))
+      .subscribe(() => this.copyCodeInternal());
+    this.foundation = new CodeBlockFoundation(this.adapter);
+  }
+
+  override get adapter() {
+    return {
+      ...super.adapter,
+      getContainer: () => {
+        return this.mermaidContentRef.nativeElement;
+      },
+    };
+  }
+
+  switchShowMermaid(show: boolean): void {
+    this.showMermaidDiagram = show;
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void {
@@ -48,7 +92,14 @@ export class CodeBlockComponent implements OnInit, OnChanges {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (this.isMermaid) {
+      this.renderMermaid();
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes', changes);
     if (changes['code'] || changes['language']) {
       this.checkIsMermaid();
       this.updateHighlightedCode();
@@ -59,91 +110,44 @@ export class CodeBlockComponent implements OnInit, OnChanges {
         this.renderMermaid();
       }
     }
-    if (changes['showMermaidDiagram'] && this.isMermaid && this.showMermaidDiagram) {
+    if (
+      changes['showMermaidDiagram'] &&
+      this.isMermaid &&
+      this.showMermaidDiagram
+    ) {
       this.renderMermaid();
     }
   }
 
   private checkIsMermaid(): void {
-    this.isMermaid = this.enableMermaid && this.language?.toLowerCase() === 'mermaid';
+    this.isMermaid = this.foundation.checkIsMermaid();
   }
 
   private updateHighlightedCode(): void {
-    try {
-      const typeIndex = this.code.indexOf(`<span class="mc-typewriter`);
-
-      if (this.language && hljs.getLanguage(this.language)) {
-        if (typeIndex !== -1) {
-          this.highlightedCode = hljs.highlight(this.code.slice(0, typeIndex), { language: this.language }).value + this.code.slice(typeIndex);
-        } else {
-          this.highlightedCode = hljs.highlight(this.code, { language: this.language }).value;
-        }
-      } else {
-        if (typeof hljs.highlightAuto !== 'undefined') {
-          if (typeIndex !== -1) {
-            this.highlightedCode = hljs.highlightAuto(this.code.slice(0, typeIndex)).value + this.code.slice(typeIndex);
-          } else {
-            this.highlightedCode = hljs.highlightAuto(this.code).value;
-          }
-        } else {
-          this.highlightedCode = this.mdCardService.filterHtml(this.code);
-        }
-      }
-    } catch (_) {
-      this.highlightedCode = this.code;
-    }
+    this.foundation.updateHighlightedCode();
   }
 
   zoomIn(): void {
-    const container = this.mermaidContentRef.nativeElement;
-    if (container && this.mermaidService) {
-      this.mermaidService.zoomIn(container);
-    }
+    this.foundation.zoomIn();
+    this.cdr.detectChanges();
   }
 
   zoomOut(): void {
-    const container = this.mermaidContentRef.nativeElement;
-    if (container && this.mermaidService) {
-      this.mermaidService.zoomOut(container);
-    }
+    this.foundation.zoomOut();
+    this.cdr.detectChanges();
   }
 
   download(): void {
-    const container = this.mermaidContentRef.nativeElement;
-    if (container && this.mermaidService) {
-      this.mermaidService.download(container);
-    }
+    this.foundation.download();
   }
 
   async renderMermaid(): Promise<void> {
-    if (!this.isMermaid || !this.code || !this.mermaidContentRef) {
-      return;
-    }
-    
-    if (!this.mermaidService) {
-      try {
-        this.mermaidService = new MermaidService();
-        const config: MermaidConfig = {
-          theme: this.theme === 'dark' ? 'dark' : 'default',
-          ...this.mermaidConfig
-        };
-        this.mermaidService.setConfig(config);
-      } catch (error) {
-        console.error('Failed to load MermaidService:', error);
-        return;
-      }
-    }
-    
-    const container = this.mermaidContentRef.nativeElement;
-    if (container) {
-      // 移除打字效果相关的span标签
-      const cleanCode = this.code.replace(/<span[^>]*\bclass\s*=\s*['"]mc-typewriter[^>]*>([\s\S]*?)<\/span>/g, `$1`);
-      await this.mermaidService.renderToContainer(container, cleanCode, this.theme);
-    }
+    await this.foundation.renderMermaid();
   }
 
   toggleExpand(): void {
-    this.expanded = !this.expanded;
+    this.foundation.toggleExpand();
+    this.cdr.detectChanges();
   }
 
   copyCode(): void {
@@ -151,79 +155,6 @@ export class CodeBlockComponent implements OnInit, OnChanges {
   }
 
   private copyCodeInternal(): void {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(this.code).then(() => {
-        this.handleCopySuccess();
-      });
-    } else {
-      const textarea = document.createElement('textarea');
-      textarea.style.position = 'fixed';
-      textarea.style.top = '-9999px';
-      textarea.style.left = '-9999px';
-      textarea.style.zIndex = '-1';
-      textarea.value = this.code;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      this.handleCopySuccess();
-    }
-  }
-
-  private handleCopySuccess(): void {
-    this.copied = true;
-    setTimeout(() => {
-      this.copied = false;
-    }, 1500);
-  }
-
-  // 动画相关方法
-  beforeEnter(el: HTMLElement): void {
-    if (!el.dataset) {
-      // el.dataset = {} as DOMStringMap;
-    }
-    if (el.style.height) {
-      el.dataset["height"] = el.style.height;
-    }
-    el.style.maxHeight = '0px';
-  }
-
-  enter(el: HTMLElement): void {
-    requestAnimationFrame(() => {
-      el.dataset["oldOverflow"] = el.style.overflow;
-      if (el.dataset["height"]) {
-        el.style.maxHeight = el.dataset["height"];
-      } else if (el.scrollHeight !== 0) {
-        el.style.maxHeight = `${el.scrollHeight}px`;
-      } else {
-        el.style.maxHeight = '0px';
-      }
-      el.style.overflow = 'hidden';
-    });
-  }
-
-  afterEnter(el: HTMLElement): void {
-    el.style.maxHeight = '';
-    el.style.overflow = el.dataset["oldOverflow"] || '';
-  }
-
-  beforeLeave(el: HTMLElement): void {
-    if (!el.dataset) {
-      // el.dataset = {} as DOMStringMap;
-    }
-    el.dataset["oldOverflow"] = el.style.overflow;
-    el.style.maxHeight = `${el.scrollHeight}px`;
-    el.style.overflow = 'hidden';
-  }
-
-  leave(el: HTMLElement): void {
-    if (el.scrollHeight !== 0) {
-      el.style.maxHeight = '0px';
-    }
-  }
-
-  afterLeave(el: HTMLElement): void {
-    el.style.maxHeight = '';
-    el.style.overflow = el.dataset["oldOverflow"] || '';
+    this.foundation.copyCodeInternal();
   }
 }
