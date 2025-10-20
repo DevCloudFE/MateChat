@@ -30,7 +30,6 @@ import {
   MarkdownCardFoundation,
 } from '../components-common/MarkdownCard/foundation';
 import MdParserUtils from '../components-common/MarkdownCard/common/parser';
-import { MarkdownNodeRenderer } from './markdown-node-renderer';
 
 @Component({
   selector: 'mc-markdown-card',
@@ -68,7 +67,6 @@ export class MarkdownCardComponent
   private timer: number | null = null;
   private parser = MdParserUtils;
   mdCardService;
-  private nodeRenderer: MarkdownNodeRenderer;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -87,17 +85,11 @@ export class MarkdownCardComponent
     });
     this.mdCardService = new MDCardService();
     this.foundation = new MarkdownCardFoundation(this.adapter);
-    this.nodeRenderer = new MarkdownNodeRenderer(
-      this.renderer,
-      this.mdt,
-      (node) => this.foundation.isToken(node)
-    );
+
     // 初始化 diffDom 实例
-    this.diffDom = new DiffDOM(
-      {
-       components: ['mc-code-block']
-      }
-    );
+    this.diffDom = new DiffDOM({
+      components: ['mc-code-block'],
+    });
   }
 
   ngOnInit(): void {
@@ -159,7 +151,6 @@ export class MarkdownCardComponent
   }
 
   private parseContent() {
-
     this.foundation.parseContent(this.content || '');
   }
 
@@ -174,10 +165,6 @@ export class MarkdownCardComponent
 
     const container = this.markdownContainer.element.nativeElement;
 
-  
- 
-
-
     // 创建新内容容器
     const newContent = document.createElement('div');
     vnodes.forEach((node) => {
@@ -191,16 +178,15 @@ export class MarkdownCardComponent
       }
     });
 
-  // 不适用diff-dom，直接替换内容
+    // 不适用diff-dom，直接替换内容
     let noDIff = true;
     if (noDIff) {
-     while (container.firstChild) {
-       container.removeChild(container.firstChild);
-     }
-     container.appendChild(newContent);
-     return;
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+      container.appendChild(newContent);
+      return;
     }
-
 
     let oldNode = container;
     let newNode = newContent;
@@ -246,11 +232,13 @@ export class MarkdownCardComponent
 
   private processInlineToken(node: ASTNode | any) {
     const div = this.renderer.createElement('div');
-    const html = this.mdt.renderer.render(
-      [node.openNode],
-      this.mdt.options,
-      {}
-    );
+    let html = '';
+    try {
+      html = this.mdt.renderer.render([node.openNode], this.mdt.options, {});
+    } catch (error) {
+      console.error('Error rendering inline token:', node);
+      return null;
+    }
 
     // 将HTML字符串转换为DOM节点
     this.renderer.setProperty(div, 'innerHTML', html);
