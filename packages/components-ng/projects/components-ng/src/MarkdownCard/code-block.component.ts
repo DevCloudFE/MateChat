@@ -11,8 +11,6 @@ import {
 import { debounceTime, Subject } from 'rxjs';
 import hljs from 'highlight.js';
 import { TemplateRef } from '@angular/core';
-import { MDCardService } from '../components-common/MarkdownCard/common/MDCardService';
-import { MermaidService } from '../components-common/MarkdownCard/common/MermaidService';
 import type { MermaidConfig } from '../components-common/MarkdownCard/common/mdCard.types';
 import BaseComponent from '../Base/base.component';
 import { CodeBlockAdapter, CodeBlockFoundation } from '../components-common/MarkdownCard/codeblock-foundation';
@@ -58,19 +56,16 @@ export class CodeBlockComponent extends BaseComponent implements OnInit, OnChang
   highlightedCode: string = '';
   isMermaid: boolean = false;
 
-  private mermaidService: MermaidService | null = null;
   private copySubject = new Subject<void>();
-  private mdCardService: MDCardService;
   constructor(private cdr: ChangeDetectorRef) {
     super();
-    this.mdCardService = new MDCardService();
     this.copySubject
       .pipe(debounceTime(300))
       .subscribe(() => this.copyCodeInternal());
     this.foundation = new CodeBlockFoundation(this.adapter);
   }
 
-  override get adapter() {
+  override get adapter(): CodeBlockAdapter {
     return {
       ...super.adapter,
       getContainer: () => {

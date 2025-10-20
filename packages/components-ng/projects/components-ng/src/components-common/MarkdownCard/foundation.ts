@@ -5,8 +5,8 @@ import { defaultTypingConfig } from './common/mdCard.types';
 
 export interface MarkdownCardAdapter extends DefaultAdapter {
   locale(key: string, params?: Record<string, string>): string;
-  typingStart?: () => void;
-  typingEnd?: () => void;
+  typingStart: () => void;
+  typingEnd: () => void;
   typingEvent: () => void;
   parseContent: (content: string) => void;
 }
@@ -21,7 +21,7 @@ export class MarkdownCardFoundation extends BaseFoundation<MarkdownCardAdapter> 
   };
 
   typewriterEnd = () => {
-    this.setState({ typing: false });
+    this.setState({ isTyping: false });
     this._adapter.typingEnd?.();
   };
 
@@ -69,42 +69,47 @@ export class MarkdownCardFoundation extends BaseFoundation<MarkdownCardAdapter> 
 
   typewriterStart = () => {
     const { typingOptions } = this.getProps();
-    const { timer, typingIndex, content } = this.getStates();
-     if (timer) {
+    const { timer } = this.getStates();
+    if (timer) {
       clearTimeout(timer);
     }
 
-    this.setState({ typing: true });
+    this.setState({ isTyping: true });
     this._adapter.typingStart?.();
     const options = { ...defaultTypingConfig, ...typingOptions };
 
     const typingStep = () => {
+      const { typingIndex, content } = this.getStates();
+
       let step = options.step || 2;
       if (Array.isArray(options.step)) {
         step =
           options.step[0] +
           Math.floor(Math.random() * (options.step[1] - options.step[0]));
       }
-      this.setState({ typingIndex: typingIndex + step });
+      let index = typingIndex + step;
+      this.setState({ typingIndex: index });
       this.parseContent();
       this._adapter.typingEvent();
 
-      if (typingIndex >= content!.length) {
+      if (index >= content!.length) {
         this.typewriterEnd();
         this.parseContent();
         return;
       }
 
+      let typingTimeout = setTimeout(
+        typingStep,
+        typeof options.interval === 'number' ? options.interval : 50
+      );
       this.setState({
-        timer: window.setTimeout(
-          typingStep,
-          typeof options.interval === 'number' ? options.interval : 50
-        ),
+        timer: typingTimeout,
       });
     };
 
+    let typingStepTimeout = setTimeout(typingStep);
     this.setState({
-      timer: window.setTimeout(typingStep),
+      timer: typingStepTimeout,
     });
   };
 }

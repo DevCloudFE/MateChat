@@ -123,12 +123,7 @@ export class MarkdownCardComponent
         this.parseContent();
         return;
       }
-
-      if (
-        this.content &&
-        changes['content']?.previousValue &&
-        this.content.indexOf(changes['content']?.previousValue) === -1
-      ) {
+      if (this.content.indexOf(changes['content']?.previousValue) === -1) {
         this.typingIndex = 0;
       }
       // 使用setTimeout模拟Vue的nextTick行为
@@ -380,41 +375,6 @@ export class MarkdownCardComponent
   }
 
   private typewriterStart(): void {
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
-
-    this.isTyping = true;
-    this.typingStart.emit();
-    const options = { ...defaultTypingConfig, ...this.typingOptions };
-
-    const typingStep = () => {
-      let step = options.step || 2;
-      if (Array.isArray(options.step)) {
-        step =
-          options.step[0] +
-          Math.floor(Math.random() * (options.step[1] - options.step[0]));
-      }
-      this.typingIndex += step;
-      this.parseContent();
-      this.typingEvent.emit();
-
-      if (this.typingIndex >= this.content!.length) {
-        this.typewriterEnd();
-        this.parseContent();
-        return;
-      }
-
-      this.timer = window.setTimeout(
-        typingStep,
-        typeof options.interval === 'number' ? options.interval : 50
-      );
-    };
-
-    this.timer = window.setTimeout(typingStep);
-  }
-
-  private typewriterEnd(): void {
-    this.foundation.typewriterEnd();
+    this.foundation.typewriterStart();
   }
 }
