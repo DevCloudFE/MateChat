@@ -89,7 +89,18 @@ export class MarkdownCardComponent
 
     // 初始化 diffDom 实例
     this.diffDom = new DiffDOM({
-      components: ['mc-code-block'],
+      // 配置filterOuterDiff钩子，识别code-block-wrapper元素并直接替换
+      filterOuterDiff: (t1, t2, diffs) => {
+        // 检查是否是class为code-block-wrapper的div元素
+        const isTargetElement = 
+          t2.nodeName === 'DIV' &&
+          t2.attributes && t2.attributes.class && t2.attributes.class.includes('code-block-wrapper');
+
+        if (isTargetElement) {
+          t1.innerDone = true;
+          console.log(t1, t2, diffs)
+        }
+      }
     });
   }
 
@@ -175,7 +186,7 @@ export class MarkdownCardComponent
     });
 
     // 不适用diff-dom，直接替换内容
-    let noDIff = true;
+    let noDIff = false;
     if (noDIff) {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
@@ -187,7 +198,25 @@ export class MarkdownCardComponent
     let oldNode = container;
     let newNode = newContent;
     const patches = this.diffDom.diff(oldNode, newNode);
+    //code-block-wrapper
     this.diffDom.apply(container, patches);
+    // 从vNodes中找到所有class为code-block-wrapper的div元素
+    const codeBlockWrappers = vnodes.filter((node) => {
+      return node.nodeName === 'DIV' && node.className?.includes('code-block-wrapper');
+    });
+    // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
+    codeBlockWrappers.forEach((newCodeBlock) => {
+      if (newCodeBlock && newCodeBlock.attributes && newCodeBlock.attributes.key) {
+        const key = newCodeBlock.attributes.key.value;
+        // 查找container中对应key的元素
+        const existingElement = container.querySelector(`[key="${key}"]`);
+        
+        if (existingElement && newCodeBlock instanceof HTMLElement) {
+          // 替换元素
+          existingElement.parentNode?.replaceChild(newCodeBlock, existingElement);
+        }
+      }
+    });
   }
 
   private astToVnodes(nodes: ASTNode[]) {
