@@ -60,7 +60,6 @@ export class InputFoundation extends BaseFoundation<InputAdapter> {
   }
 
   emitChange(): void {
-    console.log('emitChange---2');
     this._adapter.emitChange();
   }
 

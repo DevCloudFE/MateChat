@@ -10,10 +10,23 @@ import { InputDemoComponent } from '../Input/input.component';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
 import { MarkdownMermaidDemoComponent } from '../MarkdownCard/markdown-mermaid/markdown-mermaid.component';
 import { MarkdownTypingDemoComponent } from '../MarkdownCard/markdown-typing/markdown-typinng.component';
+import { MarkdownEmojeDemoComponent } from '../MarkdownCard/markdown-emoje/markdown-emoje.component';
+import { MarkdownCodeOperatorDemoComponent } from '../MarkdownCard/markdown-code-operator/markdown-operator.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BubbleModule, InputModule, InputDemoComponent, MarkdownCardModule, MarkdownMermaidDemoComponent, MarkdownTypingDemoComponent],
+  imports: [
+    CommonModule,
+    BubbleModule,
+    InputModule,
+    InputDemoComponent,
+    MarkdownEmojeDemoComponent,
+    MarkdownCardModule,
+    MarkdownMermaidDemoComponent,
+    MarkdownTypingDemoComponent,
+    MarkdownEmojeDemoComponent,
+    MarkdownCodeOperatorDemoComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -125,25 +138,22 @@ function quickSort(arr) {
 
 `;
 
-ngOnInit() {
-  this.content = '';
-  this.simulateStreaming();
+  ngOnInit() {
+    this.content = '';
+    this.simulateStreaming();
+  }
+
+  private simulateStreaming() {
+    let index = 0;
+    const charDelay = 10; // 每个字符的延迟时间（毫秒）
+
+    const streamInterval = setInterval(() => {
+      if (index < this.fullContent.length) {
+        this.content += this.fullContent[index];
+        index++;
+      } else {
+        clearInterval(streamInterval);
+      }
+    }, charDelay);
+  }
 }
-
-private simulateStreaming() {
-  let index = 0;
-  const charDelay = 10; // 每个字符的延迟时间（毫秒）
-  
-  const streamInterval = setInterval(() => {
-    if (index < this.fullContent.length) {
-      this.content += this.fullContent[index];
-      index++;
-    } else {
-      clearInterval(streamInterval);
-    }
-  }, charDelay);
-}
-
-
-}
-

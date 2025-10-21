@@ -1,0 +1,10 @@
+<mc-markdown-card
+  [content]="content"
+  [actionsTemplate]="actionsTemplate"
+>
+    <ng-template #actionsTemplate>
+      <div class="btn-group">
+        <button variant="solid" (click)="handleAction($event)">自定义按钮</button>
+      </div>
+    </ng-template>
+</mc-markdown-card>

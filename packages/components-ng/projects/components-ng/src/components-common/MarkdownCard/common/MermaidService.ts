@@ -108,7 +108,6 @@ export class MermaidService {
   zoomIn(container: HTMLElement) {
     const svg = container.querySelector('svg');
     const state = this.viewStateMap.get(container);
-      console.log('zoomIn', state, svg);
     if (svg && state) {
       state.scale = Math.min(state.scale + 0.2, 3);
       this.applyTransform(container, svg);

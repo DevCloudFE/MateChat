@@ -94,7 +94,6 @@ export class CodeBlockComponent extends BaseComponent implements OnInit, OnChang
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
     if (changes['code'] || changes['language']) {
       this.checkIsMermaid();
       this.updateHighlightedCode();
@@ -149,7 +148,7 @@ export class CodeBlockComponent extends BaseComponent implements OnInit, OnChang
     this.copySubject.next();
   }
 
-  private copyCodeInternal(): void {
+  copyCodeInternal(): void {
     this.foundation.copyCodeInternal();
   }
 }

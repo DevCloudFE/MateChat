@@ -52,6 +52,7 @@ export class MarkdownCardComponent
   @Input() theme: 'light' | 'dark' | any = 'light';
   @Input() enableMermaid: boolean = false;
   @Input() mermaidConfig: MarkdownCardProps['mermaidConfig'] = {};
+  @Input() actionsTemplate: TemplateRef<any> | null = null;
 
   @Output() afterMdtInit = new EventEmitter<markdownit>();
   @Output() typingStart = new EventEmitter<void>();
@@ -368,6 +369,7 @@ export class MarkdownCardComponent
     componentRef.instance.theme = this.theme;
     componentRef.instance.enableMermaid = this.enableMermaid;
     componentRef.instance.mermaidConfig = this.mermaidConfig || {};
+    componentRef.instance.actionsTemplate = this.actionsTemplate;
     // 触发变更检测
     componentRef.changeDetectorRef.detectChanges();
     this.renderer.addClass(codeBlockContainer, 'code-block-wrapper');
