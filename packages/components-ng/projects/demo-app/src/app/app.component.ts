@@ -122,6 +122,12 @@ const arr = [3, 6, 8, 10, 1, 2, 1];
 console.log(quickSort(arr)); // 输出排序后的数组
 }
 \`\`\`
+**快速排序（Quick Sort）**：是一种高效的排序算法，它采用分治法（Divide and Conquer）的思想。它的基本思路是：
+1. 选择一个基准值（pivot）
+2. 将数组分成两部分：小于基准值的部分和大于等于基准值的部分
+3. 递归地对这两部分进行排序
+
+<img src="https://matechat.gitcode.com/logo.svg" />
 
 
 \`\`\`ts

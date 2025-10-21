@@ -230,6 +230,9 @@ export class MarkdownCardComponent
     const div = this.renderer.createElement('div');
     let html = '';
     try {
+      if (!node.openNode) {
+        return null;
+      }
       html = this.mdt.renderer.render([node.openNode], this.mdt.options, {});
     } catch (error) {
       console.error('Error rendering inline token:', node);
@@ -354,14 +357,17 @@ export class MarkdownCardComponent
   }
 
   private createCodeBlock(language: string, code: string, blockIndex: number) {
+    // 创建一个空div容器作为包装器
     const codeBlockContainer = this.renderer.createElement('div');
-    const factory = this.resolver.resolveComponentFactory(CodeBlockComponent);
-    // 创建组件实例，使用当前组件的注入器
-    const componentRef = factory.create(
-      this.markdownContainer.injector,
-      [],
-      codeBlockContainer // 直接将新容器作为组件的宿主元素
-    );
+    // 使用code-block-${blockIndex}作为key
+    this.renderer.setAttribute(codeBlockContainer, 'key', `code-block-${blockIndex}`);
+    
+    // 使用viewContainerRef.createComponent创建组件
+    const componentRef = this.markdownContainer.createComponent(CodeBlockComponent, {
+      projectableNodes: [],
+      injector: this.markdownContainer.injector,
+    });
+    
     // 设置组件属性
     componentRef.instance.language = language;
     componentRef.instance.code = code;
@@ -370,9 +376,17 @@ export class MarkdownCardComponent
     componentRef.instance.enableMermaid = this.enableMermaid;
     componentRef.instance.mermaidConfig = this.mermaidConfig || {};
     componentRef.instance.actionsTemplate = this.actionsTemplate;
+    
     // 触发变更检测
     componentRef.changeDetectorRef.detectChanges();
+    
+    // 将组件的DOM元素附加到容器中
+    this.renderer.appendChild(codeBlockContainer, componentRef.location.nativeElement);
+    
+    // 添加样式类
     this.renderer.addClass(codeBlockContainer, 'code-block-wrapper');
+    
+    // 返回创建的DOM容器
     return codeBlockContainer;
   }
 
