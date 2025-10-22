@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import zhCN from '../components-common/Locale/lang/zh-cn';
+import enUS from '../components-common/Locale/lang/en-us';
 
 // 定义语言包接口
 export interface LocaleData {
@@ -39,11 +41,9 @@ export class LocaleService {
   private async loadDefaultLocales(): Promise<void> {
     try {
       // 动态导入默认语言包
-      const zhCN = await import('../components-common/Locale/lang/zh-cn');
-      const enUS = await import('../components-common/Locale/lang/en-us');
-      
-      this._localeData.set('zh-cn', zhCN.default);
-      this._localeData.set('en-us', enUS.default);
+
+      this._localeData.set('zh-cn', zhCN);
+      this._localeData.set('en-us', enUS);
     } catch (error) {
       console.error('Failed to load default locales:', error);
     }

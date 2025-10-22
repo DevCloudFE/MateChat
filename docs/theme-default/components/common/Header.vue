@@ -79,6 +79,24 @@
           </template>
         </d-dropdown>
       </div>
+        <div class="release">
+        <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
+          <div class="version">
+            <span>生态</span>
+            <i class="icon-chevron-down-2"></i>
+          </div>
+          <template #menu>
+            <ul class="list-menu">
+              <li class="menu-item pointer" @click="go('/components/introduction/demo.html')" >
+                vue 版本
+              </li>
+              <li class="menu-item pointer" @click="go('/angular-components/bubble/demo.html')">
+                angular 版本
+              </li>
+            </ul>
+          </template>
+        </d-dropdown>
+      </div>
       <div v-if="showTheme" class="header-menu-splitter"></div>
       <div v-show="showTheme" class="theme">
         <div>
@@ -248,7 +266,15 @@ function onDropdown(status: boolean) {
 
 <style lang="scss" scoped>
 @import 'devui-theme/styles-var/devui-var.scss';
+.pointer {
+  cursor: pointer;
+  padding: 4px 0;
 
+  &:hover {
+    color: $devui-link;
+    transition: color $devui-animation-duration-base $devui-animation-ease-in-out-smooth;
+  }
+}
 .enhance-icon {
   filter: brightness(10);
 }

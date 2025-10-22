@@ -14,15 +14,6 @@
       [avatarConfig]="avatarConfig"
       [loading]="true"
     ></mc-bubble>
-    <mc-bubble
-      [content]="'Hello MateChat'"
-      [avatarConfig]="avatarConfig"
-      [loading]="true"
-    >
-      <ng-template #loadingTpl>
-        <div>The model is thinking ......</div>
-      </ng-template>
-    </mc-bubble>
   </div>
 
   <div class="demo-container">
@@ -186,3 +177,9 @@
     <markdown-operator-demo></markdown-operator-demo>
   </div>
 </div>
+<app-basic-bubble></app-basic-bubble>
+
+<app-align-bubble></app-align-bubble>
+<app-loading-bubble></app-loading-bubble>
+
+<app-variant-avatar-bubble-show></app-variant-avatar-bubble-show>

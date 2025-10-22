@@ -2,3 +2,4 @@ packages:
   - packages/*
   - playground
   - packages/components-ng/projects/components-ng/src/components-common
+  - packages/components-ng/projects/demo-app
