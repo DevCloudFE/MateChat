@@ -13,7 +13,7 @@ bannerSrc: '/bubbleBanner.png'
 | align          | [BubbleAlign](#bubblealign)       | 'left'   | 气泡对齐方式                                           |
 | avatarPosition | [AvatarPosition](#avatarposition) | 'side'   | 头像位置                                               |
 | variant        | [BubbleVariant](#bubblevariant)   | 'filled' | 气泡样式                                               |
-| avatarConfig   | [BubbleAvatar](#bubbleavatar)     | --       | 头像配置                                               |
+| avatarConfig   | [BubbleAvatar](#bubbleavatar)     | --       | 头像配置，使用 avatar 插槽后该配置无效                      |
 
 ### 插槽
 
@@ -23,6 +23,7 @@ bannerSrc: '/bubbleBanner.png'
 | loadingTpl | --     | 自定义加载样式     |
 | top        | --     | 自定义气泡上方区域 |
 | bottom     | --     | 自定义气泡下方区域 |
+| avatar     | --     | 自定义头像区域   |
 
 ### 类型定义
 
