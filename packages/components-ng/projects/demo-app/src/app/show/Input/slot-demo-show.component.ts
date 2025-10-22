@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputModule } from '@matechat/ng';
-import { AngularDemoComponent } from '../AngularDemo';
-import { SlotInputComponent } from './slot-demo/slot-demo.component';
-import { BaseShowComponent } from '../BaseShow/base-show.component';
+import { AngularDemoComponent } from '../../base/AngularDemo';
+import { SlotInputComponent } from '../../demo/InputDemo/slot-demo/slot-demo.component';
+import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 
 @Component({
     selector: 'app-slot-input-show',
@@ -16,15 +16,13 @@ import { BaseShowComponent } from '../BaseShow/base-show.component';
     `
 })
 export class SlotInputShowComponent extends BaseShowComponent {
-    sourceCode: Array<{ type: string; code: string }> = [];
+    override urls: { type: string; path: string; }[] = [
+        { type: 'html', path: '/demo/InputDemo/slot-demo/slot-demo.component.html' },
+        { type: 'ts', path: '/demo/InputDemo/slot-demo/slot-demo.component.ts' }
+    ];
 
     constructor() {
         super();
-        this.loadFiles([
-            { type: 'html', path: '/demo/InputDemo/slot-demo/slot-demo.component.html' },
-            { type: 'ts', path: '/demo/InputDemo/slot-demo/slot-demo.component.ts' }
-        ]).then(res => {
-            this.sourceCode = res;
-        });
+        this.loadFiles(this.urls);
     }
 }

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputModule } from '@matechat/ng';
-import { AngularDemoComponent } from '../AngularDemo';
-import { SubmitInputComponent } from './submit-demo/submit-demo.component';
-import { BaseShowComponent } from '../BaseShow/base-show.component';
+import { AngularDemoComponent } from '../../base/AngularDemo';
+import { SubmitInputComponent } from '../../demo/InputDemo/submit-demo/submit-demo.component';
+import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 
 @Component({
     selector: 'app-submit-input-show',
@@ -16,15 +16,13 @@ import { BaseShowComponent } from '../BaseShow/base-show.component';
     `
 })
 export class SubmitInputShowComponent extends BaseShowComponent {
-    sourceCode: Array<{ type: string; code: string }> = [];
+    override urls: { type: string; path: string; }[] = [
+        { type: 'html', path: '/demo/InputDemo/submit-demo/submit-demo.component.html' },
+        { type: 'ts', path: '/demo/InputDemo/submit-demo/submit-demo.component.ts' }
+    ];
 
     constructor() {
         super();
-        this.loadFiles([
-            { type: 'html', path: '/demo/InputDemo/submit-demo/submit-demo.component.html' },
-            { type: 'ts', path: '/demo/InputDemo/submit-demo/submit-demo.component.ts' }
-        ]).then(res => {
-            this.sourceCode = res;
-        });
+        this.loadFiles(this.urls);
     }
 }

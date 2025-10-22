@@ -2,18 +2,18 @@ import { NgModule, enableProdMode } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AlignBubbleShowComponent } from '../../demo-app/src/app/BubbleDemo/align-demo-show.component';
-import { LoadingBubbleShowComponent } from '../../demo-app/src/app/BubbleDemo/loading-demo-show.component';
-import { VariantBubbleShowComponent } from '../../demo-app/src/app/BubbleDemo/variant-demo-show.component';
-import { AvatarConfigBubbleShowComponent } from '../../demo-app/src/app/BubbleDemo/avatar-config-demo-show.component';
-import { BasicBubbleShowComponent } from '../../demo-app/src/app/BubbleDemo/basic-demo-show.component';
-import { VariantAvatarBubbleShowComponent } from '../../demo-app/src/app/BubbleDemo/variant-avatar-demo-show.component';
+import { AlignBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/align-demo-show.component';
+import { LoadingBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/loading-demo-show.component';
+import { VariantBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-demo-show.component';
+import { AvatarConfigBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/avatar-config-demo-show.component';
+import { BasicBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/basic-demo-show.component';
+import { VariantAvatarBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-avatar-demo-show.component';
 // 导入Input相关的show组件
-import { BasicInputShowComponent } from '../../demo-app/src/app/InputDemo/basic-demo-show.component';
-import { AutoInputShowComponent } from '../../demo-app/src/app/InputDemo/auto-demo-show.component';
-import { SuffixInputShowComponent } from '../../demo-app/src/app/InputDemo/suffix-demo-show.component';
-import { SlotInputShowComponent } from '../../demo-app/src/app/InputDemo/slot-demo-show.component';
-import { SubmitInputShowComponent } from '../../demo-app/src/app/InputDemo/submit-demo-show.component';
+import { BasicInputShowComponent } from '../../demo-app/src/app/show/Input/basic-demo-show.component';
+import { AutoInputShowComponent } from '../../demo-app/src/app/show/Input/auto-demo-show.component';
+import { SuffixInputShowComponent } from '../../demo-app/src/app/show/Input/suffix-demo-show.component';
+import { SlotInputShowComponent } from '../../demo-app/src/app/show/Input/slot-demo-show.component';
+import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/submit-demo-show.component';
 // 正确定义WebComponentsModule模块
 @NgModule({
   imports: [

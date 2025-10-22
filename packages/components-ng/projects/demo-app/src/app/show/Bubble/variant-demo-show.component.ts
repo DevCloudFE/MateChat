@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BubbleModule } from '@matechat/ng';
-import { AngularDemoComponent } from '../AngularDemo';
-import { VariantBubbleComponent } from './variant-demo/variant-demo.component';
-import { BaseShowComponent } from '../BaseShow/base-show.component';
+import { AngularDemoComponent } from '../../base/AngularDemo';
+import { VariantBubbleComponent } from '../../demo/BubbleDemo/variant-demo/variant-demo.component';
+import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 
 @Component({
     selector: 'app-align-bubble-show',
@@ -16,15 +16,13 @@ import { BaseShowComponent } from '../BaseShow/base-show.component';
     `
 })
 export class VariantBubbleShowComponent extends BaseShowComponent {
-    sourceCode: Array<{ type: string; code: string }> = [];
+    override urls: { type: string; path: string; }[] = [
+        { type: 'html', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.html' },
+        { type: 'ts', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.ts' }
+    ]
     
     constructor() {
         super();
-        this.loadFiles([
-            { type: 'html', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.html' },
-            { type: 'ts', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.ts' }
-        ]).then(res => {
-            this.sourceCode = res;
-        });
+        this.loadFiles(this.urls);
     }
 }

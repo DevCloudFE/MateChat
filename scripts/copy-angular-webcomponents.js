@@ -5,7 +5,7 @@ import path from 'path';
 const sourceDir = path.resolve('packages/components-ng/dist/components-ng/web-components');
 const targetDir = path.resolve('docs/public/angular-webcomponents');
 // demo文件源目录和目标目录
-const demoSourceDir = path.resolve('packages/components-ng/projects/demo-app/src/app');
+const demoSourceDir = path.resolve('packages/components-ng/projects/demo-app/src/app/demo');
 const demoTargetDir = path.resolve('docs/public/demo');
 
 console.log('开始复制Angular Web Components...');

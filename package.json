@@ -15,8 +15,8 @@
     "build:ng": "pnpm --filter @matechat/components-ng build",
     "lint": "biome lint",
     "format": "biome format --write",
-    "docs:dev": "cd packages/components-ng && pnpm build:wc && cd ../.. && node ./scripts/copy-angular-webcomponents.js && pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
-    "docs:build": "cd packages/components-ng && pnpm build:wc && cd ../.. && node ./scripts/copy-angular-webcomponents.js && pnpm generate && vitepress build docs ",
+    "docs:dev": "pnpm --filter @matechat/components-ng build:wc && node ./scripts/copy-angular-webcomponents.js && pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
+    "docs:build": "pnpm --filter @matechat/components-ng build:wc && node ./scripts/copy-angular-webcomponents.js && pnpm generate && vitepress build docs ",
     "docs:preview": "pnpm generate && vitepress preview docs",
     "prepare": "husky"
   },
