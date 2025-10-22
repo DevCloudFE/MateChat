@@ -1,0 +1,61 @@
+
+@import 'devui-theme/styles-var/devui-var.scss';
+@import 'highlight.js/styles/github-dark.css';
+@import 'highlight.js/styles/github.css';
+
+
+pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+// 亮色主题样式
+pre:not(.hljs-github-dark) code {
+  background-color: $devui-global-bg !important;
+  color: #24292e;
+}
+
+// 暗黑主题样式
+pre.hljs-github-dark code {
+  background-color: #0d1117 !important;
+  color: #c9d1d9;
+}
+
+.highlight {
+  border-radius: 6px;
+  padding: 16px;
+  margin: 0;
+  overflow-x: auto;
+  
+  // 亮色主题背景
+  background: #f6f8fa;
+}
+
+// 暗黑主题下的highlight样式
+.dark-theme .highlight,
+.hljs-github-dark.highlight {
+  background: #0d1117;
+}
+
+// 响应式调整
+@media (prefers-color-scheme: dark) {
+  pre:not(.hljs-github) code {
+    background-color: #0d1117 !important;
+    color: #c9d1d9;
+  }
+  
+  .highlight {
+    background: #0d1117;
+  }
+}

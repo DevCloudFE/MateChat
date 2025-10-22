@@ -18,9 +18,15 @@ pnpm-workspace.yaml
 
 /cypress/videos/
 /cypress/screenshots/
+/docs/public/angular-webcomponents
+/docs/public/demo
 
 cache
 /packages/components/index.ts
+/packages/components-ng/assets/demo
+/packages/components-ng/projects/demo-app/assets/demo
+/packages/components-ng/projects/demo-app/src/assets/demo
+
 /components/index.ts
 .temp
 

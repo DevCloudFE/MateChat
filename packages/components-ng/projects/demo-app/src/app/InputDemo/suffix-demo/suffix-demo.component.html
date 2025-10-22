@@ -1,0 +1,16 @@
+ <div class="demo-container">
+    <mc-input
+      [value]="inputValue"
+      [displayType]="DisplayType.Simple"
+      [loading]="loading"
+      [variant]="InputVariant.BorderLess"
+      [sendBtnVariant]="SendBtnVariant.Simple"
+      (submit)="onSubmit($event)"
+    >
+      <ng-template #suffix>
+        <div class="input-prefix-wrap">
+          <i class="icon-appendix"></i>
+        </div>
+      </ng-template>
+    </mc-input>
+  </div>

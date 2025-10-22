@@ -26,8 +26,50 @@ export default {
     },
     {
       text: 'Developing',
+      items: [{ text: 'MarkDown Card', link: '/components/markDownCard/demo' }],
+    },
+  ],
+  '/angular-components/': [
+    {
+      text: '会话',
       items: [
-        { text: 'MarkDown Card', link: '/components/markDownCard/demo' }
+        {
+          text: 'Bubble 气泡',
+          link: '/angular-components/bubble/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/angular-components/bubble/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/angular-components/bubble/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/angular-components/bubble/api.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: '输入',
+      items: [
+        {
+          text: 'Input 输入',
+          link: '/angular-components/input/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/angular-components/input/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/angular-components/input/api.md',
+            },
+          ],
+        },
       ],
     },
   ],
@@ -67,8 +109,8 @@ export default {
         { text: 'How to Use', link: '/use-guide/access' },
         { text: 'Contributing', link: '/use-guide/contributing' },
         { text: 'FAQ', link: '/use-guide/faq' },
-      ]
-    }
+      ],
+    },
   ],
   '/en/playground/': [{ text: 'Demo', link: '/en/playground/playground' }],
 };

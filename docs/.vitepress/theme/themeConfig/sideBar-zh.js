@@ -9,9 +9,7 @@ export default {
     },
     {
       text: '布局',
-      items: [
-        { text: 'Header 头部', link: '/components/header/demo' },
-      ],
+      items: [{ text: 'Header 头部', link: '/components/header/demo' }],
     },
     {
       text: '会话',
@@ -30,6 +28,50 @@ export default {
       items: [
         { text: 'Layout 布局', link: '/components/layout/demo' },
         { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
+      ],
+    },
+  ],
+  '/angular-components/': [
+    {
+      text: '会话',
+      items: [
+        {
+          text: 'Bubble 气泡',
+          link: '/angular-components/bubble/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/angular-components/bubble/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/angular-components/bubble/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/angular-components/bubble/api.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: '输入',
+      items: [
+        {
+          text: 'Input 输入',
+          link: '/angular-components/input/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/angular-components/input/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/angular-components/input/api.md',
+            },
+          ],
+        },
       ],
     },
   ],
@@ -71,8 +113,8 @@ export default {
         { text: '使用MateChat的多种方式', link: '/use-guide/access' },
         { text: '贡献指南', link: '/use-guide/contributing' },
         { text: 'FAQ', link: '/use-guide/faq' },
-      ]
-    }
+      ],
+    },
   ],
   '/playground/': [{ text: '演示', link: '/playground/playground' }],
 };

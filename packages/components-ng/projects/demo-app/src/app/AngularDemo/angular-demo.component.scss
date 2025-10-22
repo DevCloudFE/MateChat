@@ -1,0 +1,271 @@
+// 导入主题变量
+@import 'devui-theme/styles-var/devui-var.scss';
+.demo-block {
+  margin: 10px 0;
+  border: solid 1px $devui-line;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+
+/* Code Tabs Styles */
+.code-tabs {
+  display: flex;
+  background-color: $devui-base-bg;
+  border-bottom: 1px solid $devui-line;
+  padding: 0 16px;
+}
+
+.code-tab {
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.code-tab:hover {
+  color: #4096ff;
+}
+
+.code-tab.active {
+  color: #4096ff;
+  border-bottom-color: #4096ff;
+  background-color: transparent;
+}
+
+/* 代码内容容器样式 */
+.code-content {
+  display: none;
+}
+
+.code-content.active {
+  display: block;
+}
+
+.demo-block.hover {
+  box-shadow:
+    0 0 8px 0 $devui-light-shadow,
+    0 2px 4px 0 $devui-light-shadow;
+}
+
+:deep(.mc-markdown-render p) {
+  margin: 0 !important;
+}
+
+.source {
+  box-sizing: border-box;
+  padding: 24px;
+  transition: 0.2s;
+  overflow: auto;
+}
+
+.meta {
+  border-top: solid 1px $devui-line;
+  background-color: $devui-base-bg;
+  overflow: hidden;
+  height: 0;
+  transition: height 0.2s;
+}
+
+.description {
+  border: solid 1px $devui-line;
+  border-radius: 3px;
+  padding: 20px;
+  box-sizing: border-box;
+  line-height: 26px;
+  color: var(--c-text);
+  word-break: break-word;
+  margin: 10px 10px 6px 10px;
+  background-color: #fff;
+}
+
+.highlight {
+  margin: 10px;
+  pre {
+    margin: 0 !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  code {
+  }
+}
+
+.demo-block-control {
+  border-top: solid 1px $devui-line;
+  height: 44px;
+  box-sizing: border-box;
+  background-color: $devui-base-bg;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  text-align: center;
+  margin-top: -1px;
+  color: $devui-text !important;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-caret-down,
+.icon-caret-up {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  content: '';
+  width: 0;
+  height: 0;
+  border-color: inherit;
+  border: 6px solid transparent;
+}
+
+.icon-caret-down {
+  border-top: 7.5px solid;
+  margin-right: 5px;
+}
+
+.icon-caret-up {
+  border-bottom: 7px solid;
+  margin-right: 5px;
+}
+
+.demo-block-control.is-fixed {
+  position: sticky;
+  bottom: 0;
+  border-right: solid 1px $devui-line;
+  z-index: 2;
+}
+
+.demo-block-control .icon-control {
+  transition: 0.3s;
+  margin-top: 8px;
+}
+
+.demo-block-control .icon-control.icon-caret-up {
+  transition: 0.3s;
+  margin-top: 0;
+}
+
+.demo-block-control .icon-control.hovering {
+  color: $devui-text;
+  transform: translateX(-20px);
+}
+
+.demo-block-control .control-text {
+  font-size: 14px;
+  line-height: 44px;
+  font-weight: 500;
+  transition: 0.3s;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.demo-block-control:hover {
+  color: var(--c-brand, #4096ff);
+}
+
+.demo-block-control .control-button {
+  color: var(--c-brand, #4096ff);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.demo-block-control .control-button-wrap {
+  line-height: 43px;
+  margin-left: 15px;
+}
+
+.demo-block-control:hover .control-text,
+.demo-block-control:hover .control-button {
+  opacity: 1;
+}
+
+/* 确保高亮代码块的样式正确 */
+pre code {
+  display: block;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.control-icon {
+  display: inline-block;
+  width: 16px;
+  height: 100%;
+  position: relative;
+  font-size: 16px;
+  line-height: 44px;
+  transition: 0.3s;
+
+  &::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-color: inherit;
+    border: 6px solid transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.icon-caret-down::before {
+    border-top: 7.5px solid;
+    margin-top: -2.5px;
+  }
+
+  &.icon-caret-up::before {
+    border-bottom: 7px solid;
+    margin-top: -8.5px;
+  }
+
+  &.hovering {
+    color: $devui-text;
+    transform: translateX(-40px);
+  }
+}
+
+.demo-block-control.is-fixed {
+  position: sticky;
+  bottom: 0;
+  border-right: solid 1px $devui-line;
+  z-index: 2;
+}
+
+.control-text {
+  transform: translateX(-30px);
+  font-size: 14px;
+  line-height: 44px;
+  font-weight: 500;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.demo-block-control:hover {
+  color: var(--c-brand);
+}
+
+.control-button {
+  color: var(--c-brand);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 10px;
+}
+
+.control-button-wrap {
+  line-height: 43px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 5px;
+  padding-right: 25px;
+}

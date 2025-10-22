@@ -42,5 +42,7 @@ export function useDefaultAdapter<T extends Record<string, any> = any>(
         cache[key] = value;
       }
     },
+    nextTick() {
+    },
   };
 }

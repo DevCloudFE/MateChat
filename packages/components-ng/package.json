@@ -7,7 +7,9 @@
     "watch": "ng build components-ng --watch --configuration development",
     "test": "ng test components-ng",
     "demo:source": "ng serve demo-app --port 4201",
-    "demo:dist": "ng serve demo-app --port 4202 --configuration=dist"
+    "demo:dist": "ng serve demo-app --port 4202 --configuration=dist",
+    "build:wc": "ng run components-ng:build-web-components",
+    "build:wc:prod": "ng run components-ng:build-web-components:production"
   },
   "private": true,
   "dependencies": {
@@ -15,12 +17,15 @@
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
+    "@angular/elements": "^17.3.12",
     "@angular/forms": "^17.3.0",
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@devui-design/icons": "^1.4.0",
+    "@matechat/common": "workspace:~",
     "devui-theme": "^0.0.7",
+    "highlight.js": "^11.11.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3",
@@ -30,13 +35,15 @@
     "markdown-it-emoji": "^3.0.0",
     "mermaid": "^10.9.1"
   },
-  "peerDependencies": {
-  },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^17.0.2",
     "@angular-devkit/build-angular": "^17.3.17",
     "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.0",
+    "@matechat/ng-demo": "workspace:~",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^22.13.14",
+    "css-loader": "^7.1.2",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -44,6 +51,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^17.3.0",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^4.0.0",
     "typescript": "~5.4.2"
   }
 }
