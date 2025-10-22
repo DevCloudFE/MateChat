@@ -4,6 +4,8 @@ import {
   Input,
   OnInit,
   OnChanges,
+  OnDestroy,
+  ChangeDetectorRef,
   SimpleChanges,
   ViewChild,
   ElementRef,
@@ -38,7 +40,7 @@ import MdParserUtils from '../components-common/MarkdownCard/common/parser';
 })
 export class MarkdownCardComponent
   extends BaseComponent
-  implements OnInit, OnChanges
+  implements OnInit, OnChanges, OnDestroy
 {
   private diffDom: DiffDOM;
   @Input() content: string = '';
@@ -53,6 +55,9 @@ export class MarkdownCardComponent
   @Input() enableMermaid: boolean = false;
   @Input() mermaidConfig: MarkdownCardProps['mermaidConfig'] = {};
   @Input() actionsTemplate: TemplateRef<any> | null = null;
+  
+  // 组件缓存映射表，用于存储已创建的CodeBlockComponent实例
+  private codeBlockComponentsCache: Map<string, {componentRef: any, container: HTMLElement}> = new Map();
 
   @Output() afterMdtInit = new EventEmitter<markdownit>();
   @Output() typingStart = new EventEmitter<void>();
@@ -71,7 +76,8 @@ export class MarkdownCardComponent
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public cdr: ChangeDetectorRef
   ) {
     super();
     this.mdt = markdownit({
@@ -98,7 +104,6 @@ export class MarkdownCardComponent
 
         if (isTargetElement) {
           t1.innerDone = true;
-          console.log(t1, t2, diffs)
         }
       }
     });
@@ -213,7 +218,9 @@ export class MarkdownCardComponent
         
         if (existingElement && newCodeBlock instanceof HTMLElement) {
           // 替换元素
-          existingElement.parentNode?.replaceChild(newCodeBlock, existingElement);
+          if (newCodeBlock !== existingElement) {
+              existingElement.parentNode?.replaceChild(newCodeBlock, existingElement);
+          }
         }
       }
     });
@@ -386,12 +393,28 @@ export class MarkdownCardComponent
   }
 
   private createCodeBlock(language: string, code: string, blockIndex: number) {
-    // 创建一个空div容器作为包装器
-    const codeBlockContainer = this.renderer.createElement('div');
-    // 使用code-block-${blockIndex}作为key
-    this.renderer.setAttribute(codeBlockContainer, 'key', `code-block-${blockIndex}`);
+    const key = `code-block-${blockIndex}`;
     
-    // 使用viewContainerRef.createComponent创建组件
+    // 检查缓存中是否已存在相同blockIndex的组件
+    if (this.codeBlockComponentsCache.has(key)) {
+      const cachedItem = this.codeBlockComponentsCache.get(key);
+      if (cachedItem) {
+        // 更新现有组件的属性
+        const componentRef = cachedItem.componentRef;
+        componentRef.setInput('language', language);
+        componentRef.setInput('code', code);
+        
+        // 触发变更检测
+        componentRef.changeDetectorRef.detectChanges();
+        // 返回缓存的容器，无需重新创建
+        return cachedItem.container;
+      }
+    }
+    
+    // 缓存中不存在，创建新组件
+    const codeBlockContainer = this.renderer.createElement('div');
+    this.renderer.setAttribute(codeBlockContainer, 'key', key);
+    
     const componentRef = this.markdownContainer.createComponent(CodeBlockComponent, {
       projectableNodes: [],
       injector: this.markdownContainer.injector,
@@ -415,11 +438,26 @@ export class MarkdownCardComponent
     // 添加样式类
     this.renderer.addClass(codeBlockContainer, 'code-block-wrapper');
     
+    // 缓存组件实例和容器
+    this.codeBlockComponentsCache.set(key, {
+      componentRef: componentRef,
+      container: codeBlockContainer
+    });
+    
     // 返回创建的DOM容器
     return codeBlockContainer;
   }
 
   private typewriterStart(): void {
     this.foundation.typewriterStart();
+  }
+  
+  // 在组件销毁时清理缓存，避免内存泄漏
+  override ngOnDestroy(): void {
+    // 销毁所有缓存的组件实例
+    this.codeBlockComponentsCache.forEach((cachedItem) => {
+      cachedItem.componentRef.destroy();
+    });
+    this.codeBlockComponentsCache.clear();
   }
 }
