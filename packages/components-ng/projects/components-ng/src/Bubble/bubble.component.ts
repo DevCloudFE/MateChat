@@ -1,4 +1,4 @@
-import { Component, Input, computed, ContentChild, TemplateRef } from '@angular/core';
+import { Component, Input, computed, ContentChild, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BubbleLoadingComponent } from './bubble-loading/bubble-loading.component';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -25,11 +25,19 @@ export class BubbleComponent extends BaseComponent {
   @Input() avatarConfig?: BubbleAvatar;
 
   // 内容投影模板引用
+  @ContentChild('avatar') avatarTemplate: TemplateRef<any> | null = null;
   @ContentChild('top') topTemplate: TemplateRef<any> | null = null;
   @ContentChild('loadingTpl') loadingTplTemplate: TemplateRef<any> | null = null;
-  @ContentChild('defaultTemplate') defaultTemplate: TemplateRef<any> | null = null;
   @ContentChild('bottom') bottomTemplate: TemplateRef<any> | null = null;
-
+  
+  // 检测是否有内容投影
+  @ContentChildren('ng-content') contentChildren: QueryList<any>;
+  
+  // 计算是否有内容投影
+  get ngContentProjected(): boolean {
+    return this.contentChildren && this.contentChildren.length > 0;
+  }
+  
   constructor() { super(); }
 
   ngOnInit() {

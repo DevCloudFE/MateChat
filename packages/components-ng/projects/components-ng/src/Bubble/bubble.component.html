@@ -1,6 +1,12 @@
 <div class="mc-bubble" [ngClass]="bubbleClasses" role="group" [attr.aria-label]="'Bubble.ariaLabel' | translate">
-  <div
-    *ngIf="avatarConfig"
+  <!-- 自定义头像区域 -->
+  <div *ngIf="avatarTemplate" class="mc-bubble-avatar" role="img">
+    <ng-container *ngTemplateOutlet="avatarTemplate"></ng-container>
+    <ng-content select="[avatar]"></ng-content>
+  </div>
+  
+  <!-- 默认头像配置 -->
+  <div *ngIf="!avatarTemplate && avatarConfig"
     class="mc-bubble-avatar" role="img"
     [ngClass]="{ 'empty-avatar': isEmptyAvatar }"
   >
@@ -21,7 +27,7 @@
   </div>
   <div
     class="mc-bubble-content-container" aria-live="polite"
-    [ngClass]="{ 'with-avatar': avatarConfig }"
+    [ngClass]="{ 'with-avatar': avatarTemplate || avatarConfig }"
   >
     <!-- 顶部内容投影 -->
     <ng-container *ngIf="!loading">
@@ -42,18 +48,15 @@
     
     <!-- 主要内容 -->
     <div
-      *ngIf="(defaultTemplate || content) && !loading"
+      *ngIf="!loading"
       class="mc-bubble-content"
       [ngClass]="[variant]"
       role="region"
     >
-      <ng-container *ngIf="defaultTemplate; else contentTemplate">
-        <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
-        <ng-content></ng-content>
-      </ng-container>
-      <ng-template #contentTemplate>
+      <ng-content></ng-content>
+      <ng-container *ngIf="content && !ngContentProjected">
         <span [attr.aria-label]="'Bubble.content' | translate">{{ content }}</span>
-      </ng-template>
+      </ng-container>
     </div>
     
     <!-- 底部内容投影 -->
