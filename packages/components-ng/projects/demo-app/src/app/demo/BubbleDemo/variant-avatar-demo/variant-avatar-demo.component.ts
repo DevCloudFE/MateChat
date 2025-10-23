@@ -6,7 +6,8 @@ import { BubbleModule } from '@matechat/ng';
     selector: 'app-variant-avatar-bubble',
     standalone: true,
     imports: [CommonModule, BubbleModule],
-    templateUrl: './variant-avatar-demo.component.html'
+    templateUrl: './variant-avatar-demo.component.html',
+    styleUrl: './variant-avatar-demo.component.scss'
 })
 export class VariantAvatarBubbleComponent {
 }

@@ -17,8 +17,8 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class BasicBubbleShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/BubbleDemo/basic-demo/basic-demo.component.html' },
-        { type: 'ts', path: '/demo/BubbleDemo/basic-demo/basic-demo.component.ts' }
+        { type: 'HTML', path: '/demo/BubbleDemo/basic-demo/basic-demo.component.html' },
+        { type: 'TS', path: '/demo/BubbleDemo/basic-demo/basic-demo.component.ts' }
     ];
 
     constructor() {

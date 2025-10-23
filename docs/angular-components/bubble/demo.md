@@ -53,6 +53,17 @@ bannerSrc: '/bubbleBanner.png'
 默认的我们的头像将显示在侧边，你也可以通过 `avatarPosition` 将其显示在气泡上方。
 <mc-ng-bubble-avatar-config></mc-ng-bubble-avatar-config>
 
+### 完全自定义头像区域
+
+我们提供了 `avatar` 插槽，支持你自定义头像区的显示，进行更复杂的头像渲染。
+<mc-ng-bubble-avatar-plus></mc-ng-bubble-avatar-plus>
+
+### 自定义气泡内容区
+
+我们提供了 `default` 插槽，支持你自定义内容区的显示，进行更复杂的数据渲染，下面将以 `markdown` 为例。
+
+<mc-ng-bubble-custom></mc-ng-bubble-custom>
+
 ### 完全自定义气泡内容区域
 
 将 `variant` 设置为 `none` 之后我们将不会为气泡内容区添加任何样式，方便你进行更多个性化的展示。

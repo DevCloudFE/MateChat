@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BubbleModule } from '@matechat/ng';
 import { AngularDemoComponent } from '../../base/AngularDemo';
@@ -6,7 +6,7 @@ import { VariantBubbleComponent } from '../../demo/BubbleDemo/variant-demo/varia
 import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 
 @Component({
-    selector: 'app-align-bubble-show',
+    selector: 'app-variant-bubble-show',
     standalone: true,
     imports: [CommonModule, BubbleModule, AngularDemoComponent, VariantBubbleComponent],
     template: `
@@ -17,10 +17,11 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class VariantBubbleShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.html' },
-        { type: 'ts', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.ts' }
+        { type: 'HTML', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.html' },
+        { type: 'TS', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.ts' },
+        { type: 'SCSS', path: '/demo/BubbleDemo/variant-demo/variant-demo.component.scss' }
     ]
-    
+
     constructor() {
         super();
         this.loadFiles(this.urls);

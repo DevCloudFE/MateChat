@@ -12,27 +12,25 @@
   display: flex;
   background-color: $devui-base-bg;
   border-bottom: 1px solid $devui-line;
-  padding: 0 16px;
+  .code-tab:not(:first-child) {
+    margin-left: 24px;
+  }
 }
 
 .code-tab {
-  padding: 8px 16px;
+  line-height: 31px;
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 12px;
-  color: #666;
+  font-size: 14px;
+  color: $devui-text;
   border-bottom: 2px solid transparent;
   transition: all 0.3s;
 }
 
-.code-tab:hover {
-  color: #4096ff;
-}
-
 .code-tab.active {
-  color: #4096ff;
-  border-bottom-color: #4096ff;
+  color: $devui-text;
+  border-bottom-color: $devui-text;
   background-color: transparent;
 }
 
@@ -89,8 +87,6 @@
     white-space: pre-wrap;
     word-wrap: break-word;
   }
-  code {
-  }
 }
 
 .demo-block-control {
@@ -132,6 +128,7 @@
 .icon-caret-up {
   border-bottom: 7px solid;
   margin-right: 5px;
+  margin-bottom: 4px;
 }
 
 .demo-block-control.is-fixed {
@@ -163,18 +160,6 @@
   transition: 0.3s;
   display: inline-block;
   margin: 0 10px;
-}
-
-.demo-block-control:hover {
-  color: var(--c-brand, #4096ff);
-}
-
-.demo-block-control .control-button {
-  color: var(--c-brand, #4096ff);
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0 10px;
-  cursor: pointer;
 }
 
 .demo-block-control .control-button-wrap {

@@ -17,8 +17,8 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class BasicInputShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/InputDemo/basic-demo/basic-demo.component.html' },
-        { type: 'ts', path: '/demo/InputDemo/basic-demo/basic-demo.component.ts' }
+        { type: 'HTML', path: '/demo/InputDemo/basic-demo/basic-demo.component.html' },
+        { type: 'TS', path: '/demo/InputDemo/basic-demo/basic-demo.component.ts' }
     ];
 
     constructor() {

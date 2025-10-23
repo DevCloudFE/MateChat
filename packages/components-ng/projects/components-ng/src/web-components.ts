@@ -8,9 +8,13 @@ import { VariantBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/v
 import { AvatarConfigBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/avatar-config-demo-show.component';
 import { BasicBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/basic-demo-show.component';
 import { VariantAvatarBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-avatar-demo-show.component';
+import { AvatarPlusBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/avatar-plus-demo-show.component';
+import { CustomBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/custom-demo-show.component';
 // 导入Input相关的show组件
 import { BasicInputShowComponent } from '../../demo-app/src/app/show/Input/basic-demo-show.component';
+import { ButtonInputShowComponent } from '../../demo-app/src/app/show/Input/button-demo-show.component';
 import { AutoInputShowComponent } from '../../demo-app/src/app/show/Input/auto-demo-show.component';
+import { AutoSizeInputShowComponent } from '../../demo-app/src/app/show/Input/auto-size-demo-show.component';
 import { SuffixInputShowComponent } from '../../demo-app/src/app/show/Input/suffix-demo-show.component';
 import { SlotInputShowComponent } from '../../demo-app/src/app/show/Input/slot-demo-show.component';
 import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/submit-demo-show.component';
@@ -24,6 +28,8 @@ import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/subm
     VariantBubbleShowComponent,
     AvatarConfigBubbleShowComponent,
     VariantAvatarBubbleShowComponent,
+    AvatarPlusBubbleShowComponent,
+    CustomBubbleShowComponent,
     // 添加Input相关的show组件
     BasicInputShowComponent,
     AutoInputShowComponent,
@@ -73,6 +79,14 @@ platformBrowserDynamic()
       const VariantAvatarWebComponent = createCustomElement(VariantAvatarBubbleShowComponent, {
         injector: injector
       });
+      
+      // 将新创建的Bubble组件转换为webcomponent
+      const AvatarPlusBubbleWebComponent = createCustomElement(AvatarPlusBubbleShowComponent, {
+        injector: injector
+      });
+      const CustomBubbleWebComponent = createCustomElement(CustomBubbleShowComponent, {
+        injector: injector
+      });
 
       // 将Input组件转换为webcomponent
       const BasicInputWebComponent = createCustomElement(BasicInputShowComponent, {
@@ -90,6 +104,12 @@ platformBrowserDynamic()
       const SubmitInputWebComponent = createCustomElement(SubmitInputShowComponent, {
         injector: injector
       });
+      const ButtonInputWebComponent = createCustomElement(ButtonInputShowComponent, {
+        injector: injector
+      });
+      const AutoSizeInputWebComponent = createCustomElement(AutoSizeInputShowComponent, {
+        injector: injector
+      });
 
       // 注册Bubble相关webcomponent
       customElements.define('mc-ng-bubble-basic', BubbleWebComponent);
@@ -98,9 +118,13 @@ platformBrowserDynamic()
       customElements.define('mc-ng-bubble-variant', VariantBubbleWebComponent);
       customElements.define('mc-ng-bubble-avatar-config', ConfigBubbleWebComponent);
       customElements.define('mc-ng-bubble-variant-avatar', VariantAvatarWebComponent);
+      customElements.define('mc-ng-bubble-avatar-plus', AvatarPlusBubbleWebComponent);
+      customElements.define('mc-ng-bubble-custom', CustomBubbleWebComponent);
       
       // 注册Input相关webcomponent
+      customElements.define('mc-ng-input-button', ButtonInputWebComponent);
       customElements.define('mc-ng-input-basic', BasicInputWebComponent);
+      customElements.define('mc-ng-input-auto-size', AutoSizeInputWebComponent);
       customElements.define('mc-ng-input-auto', AutoInputWebComponent);
       customElements.define('mc-ng-input-suffix', SuffixInputWebComponent);
       customElements.define('mc-ng-input-slot', SlotInputWebComponent);

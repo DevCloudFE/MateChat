@@ -6,7 +6,7 @@ import { VariantAvatarBubbleComponent } from '../../demo/BubbleDemo/variant-avat
 import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 
 @Component({
-    selector: 'app-align-bubble-show',
+    selector: 'app-variant-avatar-bubble-show',
     standalone: true,
     imports: [CommonModule, BubbleModule, AngularDemoComponent, VariantAvatarBubbleComponent],
     template: `
@@ -17,8 +17,9 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class VariantAvatarBubbleShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/BubbleDemo/variant-avatar-demo/variant-avatar-demo.component.html' },
-        { type: 'ts', path: '/demo/BubbleDemo/variant-avatar-demo/variant-avatar-demo.component.ts' }
+        { type: 'HTML', path: '/demo/BubbleDemo/variant-avatar-demo/variant-avatar-demo.component.html' },
+        { type: 'TS', path: '/demo/BubbleDemo/variant-avatar-demo/variant-avatar-demo.component.ts' },
+        { type: 'SCSS', path: '/demo/BubbleDemo/variant-avatar-demo/variant-avatar-demo.component.scss' }
     ]
 
     constructor() {

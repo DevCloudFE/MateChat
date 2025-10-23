@@ -17,8 +17,8 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class AutoInputShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/InputDemo/auto-demo/auto-demo.component.html' },
-        { type: 'ts', path: '/demo/InputDemo/auto-demo/auto-demo.component.ts' }
+        { type: 'HTML', path: '/demo/InputDemo/auto-demo/auto-demo.component.html' },
+        { type: 'TS', path: '/demo/InputDemo/auto-demo/auto-demo.component.ts' }
     ];
 
     constructor() {

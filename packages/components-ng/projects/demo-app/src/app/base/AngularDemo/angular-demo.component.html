@@ -1,6 +1,7 @@
 <div
   #demoBlock
-  [class]="['demo-block', blockClass, { hover: hover }]"
+  class="demo-block blockClass"
+  [ngClass]="{ hover: hover }"
   (mouseenter)="hover = true"
   (mouseleave)="hover = false"
 >
@@ -20,7 +21,7 @@
         </button>
       </div>
       <div *ngFor="let codeItem of sourceCode" class="code-content" [ngClass]="{ active: activeTab === codeItem.type }">
-        <mc-code-highlight [code]="codeItem.code" [language]="codeItem.type"></mc-code-highlight>
+        <mc-code-highlight [code]="codeItem.code" [language]="codeItem.type | lowercase"></mc-code-highlight>
       </div>
     </div>
   </div>

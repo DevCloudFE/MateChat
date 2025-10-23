@@ -6,6 +6,7 @@ import { BubbleModule } from '@matechat/ng';
     selector: 'app-avatar-config-bubble',
     standalone: true,
     imports: [CommonModule, BubbleModule],
+    styleUrls: ['./avatar-config-demo.component.scss'],
     templateUrl: './avatar-config-demo.component.html'
 })
 export class AvatarConfigBubbleComponent {

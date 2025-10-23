@@ -7,9 +7,10 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
 // import html from 'highlight.js/lib/languages/html';
 
+hljs.registerLanguage('scss', css)
 hljs.registerLanguage('css', css);
 hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('html', xml);
 // hljs.registerLanguage('html', html);
 
 @Component({

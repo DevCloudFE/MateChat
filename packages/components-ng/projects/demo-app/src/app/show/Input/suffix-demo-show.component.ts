@@ -17,8 +17,9 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class SuffixInputShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/InputDemo/suffix-demo/suffix-demo.component.html' },
-        { type: 'ts', path: '/demo/InputDemo/suffix-demo/suffix-demo.component.ts' }
+        { type: 'HTML', path: '/demo/InputDemo/suffix-demo/suffix-demo.component.html' },
+        { type: 'TS', path: '/demo/InputDemo/suffix-demo/suffix-demo.component.ts' },
+        { type: 'SCSS', path: '/demo/InputDemo/suffix-demo/suffix-demo.component.scss' }
     ];
 
     constructor() {

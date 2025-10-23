@@ -4,9 +4,10 @@ import { BubbleModule } from '@matechat/ng';
 import { AngularDemoComponent } from '../../base/AngularDemo';
 import { LoadingBubbleComponent } from '../../demo/BubbleDemo/loading-demo/loading-demo.component';
 import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
+import { type } from 'os';
 
 @Component({
-    selector: 'app-align-bubble-show',
+    selector: 'app-loading-bubble-show',
     standalone: true,
     imports: [CommonModule, BubbleModule, AngularDemoComponent, LoadingBubbleComponent],
     template: `
@@ -17,8 +18,9 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class LoadingBubbleShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/BubbleDemo/loading-demo/loading-demo.component.html' },
-        { type: 'ts', path: '/demo/BubbleDemo/loading-demo/loading-demo.component.ts' }
+        { type: 'HTML', path: '/demo/BubbleDemo/loading-demo/loading-demo.component.html' },
+        { type: 'TS', path: '/demo/BubbleDemo/loading-demo/loading-demo.component.ts' },
+        { type: 'SCSS', path: '/demo/BubbleDemo/loading-demo/loading-demo.component.scss'}
     ]
 
 

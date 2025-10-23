@@ -8,6 +8,7 @@ import { DisplayType, InputVariant, SendBtnVariant } from '@matechat/common/Inpu
   selector: 'app-slot-input',
   standalone: true,
   imports: [CommonModule, FormsModule, InputModule],
+  styleUrls: ['./slot-demo.component.scss'],
   templateUrl: './slot-demo.component.html'
 })
 export class SlotInputComponent {

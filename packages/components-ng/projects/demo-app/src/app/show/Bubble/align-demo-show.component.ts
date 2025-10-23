@@ -17,8 +17,9 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class AlignBubbleShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/BubbleDemo/align-demo/align-demo.component.html' },
-        { type: 'ts', path: '/demo/BubbleDemo/align-demo/align-demo.component.ts' }
+        { type: 'HTML', path: '/demo/BubbleDemo/align-demo/align-demo.component.html' },
+        { type: 'TS', path: '/demo/BubbleDemo/align-demo/align-demo.component.ts' },
+        { type: 'SCSS', path: '/demo/BubbleDemo/align-demo/align-demo.component.scss' }
     ];
     
     constructor() {

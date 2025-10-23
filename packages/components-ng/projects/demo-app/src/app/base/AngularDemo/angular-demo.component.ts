@@ -25,7 +25,7 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
   isExpanded: boolean = false;
   isShowTip: boolean = false;
   isUseVueFile: boolean = false;
-  activeTab: string = 'html';
+  activeTab: string = 'HTML';
   fixedControl: boolean = false;
   
   @ViewChild('demoBlock') demoBlock!: ElementRef;

@@ -6,17 +6,16 @@
   background: none;
   cursor: pointer;
   font-size: 12px;
-  color: #666;
+  color: $devui-text; 
   border-bottom: 2px solid transparent;
   transition: all 0.3s;
 
   &:hover {
-    color: #4096ff;
+    color: $devui-brand;
   }
 
   &.active {
-    color: #4096ff;
-    border-bottom-color: #4096ff;
-    background-color: #fff;
+    color: $devui-brand;
+    border-bottom-color: $devui-brand;
   }
 }

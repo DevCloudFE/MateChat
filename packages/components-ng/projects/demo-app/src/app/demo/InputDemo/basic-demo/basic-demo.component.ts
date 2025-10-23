@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputModule } from '@matechat/ng';
-import { DisplayType, InputVariant, SendBtnVariant } from '@matechat/common/Input/common/types';
 
 @Component({
     selector: 'app-basic-input',
@@ -13,9 +12,6 @@ import { DisplayType, InputVariant, SendBtnVariant } from '@matechat/common/Inpu
 export class BasicInputComponent {
     inputValue: string = '';
     loading: boolean = false;
-    SendBtnVariant = SendBtnVariant;
-    DisplayType = DisplayType;
-    InputVariant = InputVariant;
 
     onInputChange(e) {
         console.log('input change---', e);

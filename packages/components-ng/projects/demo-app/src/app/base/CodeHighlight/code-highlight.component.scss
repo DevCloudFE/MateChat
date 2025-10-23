@@ -1,14 +1,11 @@
-
 @import 'devui-theme/styles-var/devui-var.scss';
-@import 'highlight.js/styles/github-dark.css';
-@import 'highlight.js/styles/github.css';
-
 
 pre {
   margin: 0;
   padding: 0;
   background: transparent;
   overflow: hidden;
+
 }
 
 code {
@@ -18,12 +15,9 @@ code {
   display: block;
   white-space: pre-wrap;
   word-wrap: break-word;
-}
-
-// 亮色主题样式
-pre:not(.hljs-github-dark) code {
-  background-color: $devui-global-bg !important;
-  color: #24292e;
+  margin-top: 8px;
+  border-radius: 8px;
+  background-color: #282c34;
 }
 
 // 暗黑主题样式
@@ -37,25 +31,92 @@ pre.hljs-github-dark code {
   padding: 16px;
   margin: 0;
   overflow-x: auto;
-  
+
   // 亮色主题背景
   background: #f6f8fa;
 }
 
-// 暗黑主题下的highlight样式
-.dark-theme .highlight,
-.hljs-github-dark.highlight {
-  background: #0d1117;
-}
+:host ::ng-deep .ng-highlight {
+  code {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #abb2bf;
 
-// 响应式调整
-@media (prefers-color-scheme: dark) {
-  pre:not(.hljs-github) code {
-    background-color: #0d1117 !important;
-    color: #c9d1d9;
-  }
-  
-  .highlight {
-    background: #0d1117;
+    .hljs {
+      color: #abb2bf;
+    }
+
+    // hljs 主题色覆盖
+    .hljs-quote {
+      color: #5c6370;
+      font-style: italic;
+    }
+
+    .hljs-doctag,
+    .hljs-keyword,
+    .hljs-formula {
+      color: #c678dd;
+    }
+
+    .hljs-section,
+    .hljs-name,
+    .hljs-selector-tag,
+    .hljs-deletion,
+    .hljs-subst {
+      color: #e06c75;
+    }
+
+    .hljs-literal {
+      color: #56b6c2;
+    }
+
+    .hljs-string,
+    .hljs-regexp,
+    .hljs-addition,
+    .hljs-attribute,
+    .hljs-meta-string {
+      color: #98c379;
+    }
+
+    .hljs-built_in,
+    .hljs-class .hljs-title {
+      color: #e6c07b;
+    }
+
+    .hljs-attr,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-type,
+    .hljs-selector-class,
+    .hljs-selector-attr,
+    .hljs-selector-pseudo,
+    .hljs-number {
+      color: #d19a66;
+    }
+
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-link,
+    .hljs-meta,
+    .hljs-selector-id,
+    .hljs-title {
+      color: #61aeee;
+    }
+
+    .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .hljs-strong {
+      font-weight: bold;
+    }
+
+    .hljs-link {
+      text-decoration: underline;
+    }
   }
 }

@@ -62,6 +62,20 @@ Input 输入框是最基础的表单组件，用于收集用户输入。本组�
 
 <mc-ng-input-submit></mc-ng-input-submit>
 
+### 自定义发送按钮
+
+通过`button`插槽自定义发送按钮，实现按钮 disable、loading 等状态和按钮图标、按钮文案的自定义。
+
+<mc-ng-input-button></mc-ng-input-button>
+
+### 自动调整高度
+
+通过 `autosize` 属性让文本域自动调整高度，支持布尔值和配置对象两种形式。
+
+- 设置为 `true`：使用默认配置（最小1行，最大5行）
+- 设置为对象：可自定义最小和最大行数，如 `{ minRows: 2, maxRows: 10 }`
+<mc-ng-input-auto-size></mc-ng-input-auto-size>
+
 ### 自定义插槽
 
 通过`head`插槽自定义输入框顶部的内容，通过`extra`自定义发送按钮左侧的内容。

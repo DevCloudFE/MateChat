@@ -8,6 +8,7 @@ import { DisplayType, InputVariant, SendBtnVariant } from '@matechat/common/Inpu
   selector: 'app-suffix-input',
   standalone: true,
   imports: [CommonModule, FormsModule, InputModule],
+  styleUrls: ['./suffix-demo.component.scss'],
   templateUrl: './suffix-demo.component.html'
 })
 export class SuffixInputComponent {

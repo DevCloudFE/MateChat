@@ -29,7 +29,6 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3",
-    "highlight.js": "^11.11.0",
     "markdown-it": "^12.2.0",
     "diff-dom": "^5.2.1",
     "markdown-it-emoji": "^3.0.0",

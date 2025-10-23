@@ -6,6 +6,7 @@ import { BubbleModule } from '@matechat/ng';
     selector: 'app-align-bubble',
     standalone: true,
     imports: [CommonModule, BubbleModule],
+    styleUrls: ['./align-demo.component.scss'],
     templateUrl: './align-demo.component.html'
 })
 export class AlignBubbleComponent {

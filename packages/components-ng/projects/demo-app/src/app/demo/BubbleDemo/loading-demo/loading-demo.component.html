@@ -1,7 +1,15 @@
 <div class="demo-container">
     <mc-bubble 
-    [content]="'Hello MateChat'" 
-    [avatarConfig]="avatarConfig" 
-    [loading]="true">
+        [content]="'Hello MateChat'" 
+        [avatarConfig]="avatarConfig" 
+        [loading]="true">
+    </mc-bubble>
+    <mc-bubble 
+        [content]="'Hello MateChat'" 
+        [avatarConfig]="avatarConfig" 
+        [loading]="true">
+        <ng-template #loadingTpl>
+            <div>The model is thinking ......</div>
+        </ng-template>
     </mc-bubble>
 </div>

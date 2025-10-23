@@ -1,0 +1,29 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.input-foot-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--devui-font-size-sm);
+  color: var(--devui-text);
+
+  i {
+    margin-right: 4px;
+  }
+}
+
+.appendix-wrap {
+  display: flex;
+  padding: 4px 16px;
+
+  .appendix-item {
+    padding: 4px 8px;
+    border-radius: var(--devui-border-radius);
+    background-color: var(--devui-area);
+
+    i {
+      margin-left: 4px;
+      cursor: pointer;
+    }
+  }
+}
