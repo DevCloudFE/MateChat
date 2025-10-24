@@ -11,16 +11,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // 忽略解析错误
-      onwarn: (warning, warn) => {
-        // 忽略特定的解析错误
-        if (
-          warning.code === 'PLUGIN_ERROR' &&
-          warning.message?.includes('docs/angular-components/bubble/api.mdx')
-        ) {
-          return;
-        }
-        warn(warning);
-      },
     },
   },
 });
