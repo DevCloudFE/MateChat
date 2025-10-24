@@ -6,7 +6,6 @@ import {
   DisplayType,
   InputVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
-import { InputDemoComponent } from '../Input/input.component';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
 import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
 import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
@@ -19,7 +18,6 @@ import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markd
     CommonModule,
     BubbleModule,
     InputModule,
-    InputDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCardModule,
     MarkdownMermaidDemoComponent,
