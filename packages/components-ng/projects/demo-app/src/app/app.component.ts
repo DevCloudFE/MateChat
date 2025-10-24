@@ -8,10 +8,10 @@ import {
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { InputDemoComponent } from '../Input/input.component';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
-import { MarkdownMermaidDemoComponent } from '../MarkdownCard/markdown-mermaid/markdown-mermaid.component';
-import { MarkdownTypingDemoComponent } from '../MarkdownCard/markdown-typing/markdown-typinng.component';
-import { MarkdownEmojeDemoComponent } from '../MarkdownCard/markdown-emoje/markdown-emoje.component';
-import { MarkdownCodeOperatorDemoComponent } from '../MarkdownCard/markdown-code-operator/markdown-operator.component';
+import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
+import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
+import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markdown-code-operator/markdown-operator.component';
 @Component({
   selector: 'app-root',
   standalone: true,

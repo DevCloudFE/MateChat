@@ -18,6 +18,13 @@ import { AutoSizeInputShowComponent } from '../../demo-app/src/app/show/Input/au
 import { SuffixInputShowComponent } from '../../demo-app/src/app/show/Input/suffix-demo-show.component';
 import { SlotInputShowComponent } from '../../demo-app/src/app/show/Input/slot-demo-show.component';
 import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/submit-demo-show.component';
+
+// 导入MarkdownCard相关的show组件
+import { MarkdownCodeOperatorShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-code-operator-show.component';
+import { MarkdownEmojeShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-emoje-show.component';
+import { MarkdownMermaidShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-mermaid-show.component';
+import { MarkdownTypingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-typing-show.component';
+import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
 // 正确定义WebComponentsModule模块
 @NgModule({
   imports: [
@@ -35,7 +42,12 @@ import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/subm
     AutoInputShowComponent,
     SuffixInputShowComponent,
     SlotInputShowComponent,
-    SubmitInputShowComponent
+    SubmitInputShowComponent,
+    // 添加MarkdownCard相关的show组件
+    MarkdownCodeOperatorShowComponent,
+    MarkdownEmojeShowComponent,
+    MarkdownMermaidShowComponent,
+    MarkdownTypingShowComponent,
   ],
   providers: []
 })
@@ -111,6 +123,23 @@ platformBrowserDynamic()
         injector: injector
       });
 
+      // 将MarkdownCard组件转换为webcomponent
+      const MarkdownCodeOperatorWebComponent = createCustomElement(MarkdownCodeOperatorShowComponent, {
+        injector: injector
+      });
+      const MarkdownEmojeWebComponent = createCustomElement(MarkdownEmojeShowComponent, {
+        injector: injector
+      });
+      const MarkdownMermaidWebComponent = createCustomElement(MarkdownMermaidShowComponent, {
+        injector: injector
+      });
+      const MarkdownTypingWebComponent = createCustomElement(MarkdownTypingShowComponent, {
+        injector: injector
+      });
+      const MarkdownBasicWebComponent = createCustomElement(MarkdownBasicShowComponent, {
+        injector: injector
+      });
+
       // 注册Bubble相关webcomponent
       customElements.define('mc-ng-bubble-basic', BubbleWebComponent);
       customElements.define('mc-ng-bubble-loading', LoadingBubbleWebComponent);
@@ -129,6 +158,12 @@ platformBrowserDynamic()
       customElements.define('mc-ng-input-suffix', SuffixInputWebComponent);
       customElements.define('mc-ng-input-slot', SlotInputWebComponent);
       customElements.define('mc-ng-input-submit', SubmitInputWebComponent);
+
+      customElements.define('mc-ng-markdown-basic', MarkdownBasicWebComponent);
+      customElements.define('mc-ng-markdown-code-operator', MarkdownCodeOperatorWebComponent);
+      customElements.define('mc-ng-markdown-emoje', MarkdownEmojeWebComponent);
+      customElements.define('mc-ng-markdown-mermaid', MarkdownMermaidWebComponent);
+      customElements.define('mc-ng-markdown-typing', MarkdownTypingWebComponent);
     } catch (error) {
       console.error('创建WebComponent时出错:', error);
     }

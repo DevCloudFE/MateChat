@@ -7,50 +7,41 @@
 <div>
   <span class="demo-title">默认效果</span>
   <mc-bubble [variant]="'bordered'">
-    <ng-template #defaultTemplate>
       <mc-markdown-card
         [content]="content"
         [theme]="theme"
         [typing]="true"
       ></mc-markdown-card>
-    </ng-template>
   </mc-bubble>
   <span class="demo-title">打字机并配置打字速度</span>
   <mc-bubble [variant]="'bordered'">
-    <ng-template #defaultTemplate>
       <mc-markdown-card
         [content]="content"
         [theme]="theme"
         [typing]="true"
         [typingOptions]="typingOptions1"
       ></mc-markdown-card>
-    </ng-template>
   </mc-bubble>
   <span class="demo-title">渐变打字</span>
   <mc-bubble [variant]="'bordered'">
-    <ng-template #defaultTemplate>
       <mc-markdown-card
         [content]="content"
         [theme]="theme"
         [typing]="true"
         [typingOptions]="typingOptions2"
       ></mc-markdown-card>
-    </ng-template>
   </mc-bubble>
   <span class="demo-title">彩色打字</span>
   <mc-bubble [variant]="'bordered'">
-    <ng-template #defaultTemplate>
       <mc-markdown-card
         [content]="content"
         [theme]="theme"
         [typing]="true"
         [typingOptions]="typingOptions3"
       ></mc-markdown-card>
-    </ng-template>
   </mc-bubble>
   <span class="demo-title">流式返回</span>
   <mc-bubble [variant]="'bordered'">
-    <ng-template #defaultTemplate>
       <mc-markdown-card
         [content]="content1"
         [theme]="theme"
@@ -58,6 +49,5 @@
         [typingOptions]="typingOptions4"
         (typingEnd)="typingEnd()"
       ></mc-markdown-card>
-    </ng-template>
   </mc-bubble>
 </div>

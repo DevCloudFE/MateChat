@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MarkdownCardModule, BubbleModule } from '@matechat/ng';
+import { MarkdownCardModule } from '@matechat/ng';
 import { full as emoji } from 'markdown-it-emoji';
 @Component({
   selector: 'markdown-emoje-demo',

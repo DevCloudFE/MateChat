@@ -71,6 +71,24 @@ export default {
           ],
         },
       ],
+    },  {
+      text: '演进中',
+      items: [
+        {
+          text: 'MarkDown 卡片',
+          link: '/angular-components/markdownCard/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/angular-components/markdownCard/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/angular-components/markdownCard/api.md',
+            },
+          ],
+        },
+      ],
     },
   ],
   '/en/design/': [

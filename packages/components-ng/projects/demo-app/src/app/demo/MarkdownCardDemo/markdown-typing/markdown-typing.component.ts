@@ -71,13 +71,13 @@ export class MarkdownTypingDemoComponent {
 
  themeChange(){
     this.theme = this.theme === 'light' ? 'dark' : 'light';
-    console.log(this.theme);
 //   if (this.themeService) {
 //     this.theme = this.themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
 //   }
 };
 
 ngOnInit()  {
+  console.log('markdown-typing-demo init');
   this.streamContent();
   if(typeof window !== 'undefined'){
     this.themeService = window['devuiThemeService'];
