@@ -76,18 +76,27 @@ const astToVnodes = (nodes: ASTNode[]): VNode[] => {
 
 const processASTNode = (node: ASTNode | Token): VNode => {
   if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
-    const outerVnode: VNode = htmlToVNode(node.openNode?.content || '')[0] as VNode;
-    if (outerVnode) {
-      const outerChildren = outerVnode?.children || [];
-      if (Array.isArray(outerChildren)) {
-        outerVnode.children = [...outerChildren, ...node.children.map(child => processASTNode(child))];
-      } else {
-        outerVnode.children = [outerChildren, ...node.children.map(child => processASTNode(child))];
-      }
-      return outerVnode;
-    } else {
-      return node.openNode?.content || ''
+    const vNodes = htmlToVNode(node.openNode?.content || '');
+    
+    if (!vNodes || vNodes.length === 0) {
+      return h('span', node.openNode?.content || '');
     }
+    
+    const processedVNodes = vNodes.map(vNode => {
+      if (typeof vNode === 'string') {
+        return h('span', vNode);
+      }
+      
+      const children = node.children.map(child => processASTNode(child));
+      if (Array.isArray(vNode.children)) {
+        vNode.children = [...vNode.children, ...children];
+      } else {
+        vNode.children = [vNode.children, ...children].filter(n => n);
+      }
+      return vNode;
+    });
+    
+    return h(Fragment, processedVNodes);
   }
 
   if (node.nodeType === 'inline') {
@@ -292,6 +301,7 @@ watch(
 watch(
   () => props.mdPlugins,
   (plugins) => {
+    console.log('plugins', plugins)
     mdCardService.setMdPlugins(plugins, mdt);
     parseContent();
   },
