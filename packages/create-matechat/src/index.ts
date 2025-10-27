@@ -10,6 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const templateMap = new Map([
   ['Vue Starter', path.join(__dirname, '../templates/vue-starter')],
+  ['H5 Starter', path.join(__dirname, '../templates/H5-starter')],
 ]);
 
 function isValidProjectName(name: string) {

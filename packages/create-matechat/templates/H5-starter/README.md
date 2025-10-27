@@ -1,11 +1,11 @@
 # MateChat
 
 - 子项目包名规则: @matechat/\*
-- 包名: @matechat/vue-starter
+- 包名: @matechat/H5-starter
 
 ## 依赖安装
 
-可以在本子项目根目录(packages/vue-starter)下执行：
+可以在本子项目根目录(packages/H5-starter)下执行：
 
 ```bash
 pnpm install
@@ -16,10 +16,10 @@ pnpm install
 ```bash
 // 推荐执行一次, 可能本地项目之前用npm安装的依赖, 该指令会为根项目和所有子项目安装依赖
 pnpm install
-// 只会对vue-starter子项目安装依赖
-pnpm install --filter vue-starter
+// 只会对H5-starter子项目安装依赖
+pnpm install --filter H5-starter
 // 为子项目安装指定包
-pnpm add "package-name" --filter vue-starter
+pnpm add "package-name" --filter H5-starter
 ```
 
 ## 启动
@@ -27,10 +27,10 @@ pnpm add "package-name" --filter vue-starter
 在根项目根目录下执行：
 
 ```bash
-pnpm run dev:vue-starter
+pnpm run dev:H5-starter
 ```
 
-或者在子项目 vue-starter 目录下执行：
+或者在子项目 H5-starter 目录下执行：
 
 ```bash
 pnpm run dev
