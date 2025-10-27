@@ -11,8 +11,8 @@ desc: Attachment 组件的详细 API 文档。
 | `upload-options` | `UploadOptions` | `{}` | **核心上传配置**，包含上传地址 `uri`、请求方法、请求头等。详见下文 `UploadOptions` 类型定义。 |
 | `disabled` | `boolean` | `false` | 是否禁用上传功能。 |
 | `accept` | `string` | `''` | 接受上传的文件类型，与原生 `input` 标签的 `accept` 属性相同。例如：`'image/*, .pdf'`。 |
-| `limit` | `number` | `Infinity` | 允许上传的最大文件数量。 |
-| `size` | `number` | `Infinity` | 允许上传的单个文件最大尺寸，单位为 **MB**。 |
+| `maxCount` | `number` | `Infinity` | 允许上传的最大文件数量。 |
+| `maxSize` | `number` | `Infinity` | 允许上传的单个文件最大尺寸，单位为 **MB**。 |
 | `multiple` | `boolean` | `true` | 是否支持多选文件。 |
 | `draggable` | `boolean` | `true` | 是否支持拖拽上传。 |
 | `placeholder` | `string` | `'请选择附件上传'` | 触发区域的占位文字（当插槽为空时）。 |

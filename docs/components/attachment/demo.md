@@ -40,7 +40,7 @@ import { McAttachment } from '@matechat/core';
           :draggable="false"
           :upload-options="uploadOptions"
           accept="image/*"
-          :size="0.5"
+          :max-size="0.5"
           @success="handleSuccess"
           @error="handleError"
         >
@@ -114,7 +114,7 @@ const handleRetryUpload = (file: FileItem) => {
           v-model="dragFileList" 
           :upload-options="uploadOptions"
           accept="image/*"
-          :size="0.5"
+          :max-size="0.5"
           multiple
         >
         </McAttachment>
@@ -165,7 +165,7 @@ const uploadOptions = ref<UploadOptions>({
           :upload-options="uploadOptions"
           :before-upload="handleBeforeUpload"
           accept="image/*"
-          :size="0.5"
+          :max-size="0.5"
           multiple
         >
         </McAttachment>

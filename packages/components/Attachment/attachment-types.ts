@@ -61,11 +61,11 @@ export const AttachmentProps = {
     type: String,
     default: '',
   },
-  limit: {
+  maxCount: {
     type: Number,
     default: Number.POSITIVE_INFINITY,
   },
-  size: {
+  maxSize: {
     type: Number,
     default: Number.POSITIVE_INFINITY,
   },

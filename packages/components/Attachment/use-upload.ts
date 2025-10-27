@@ -23,7 +23,7 @@ export function useUpload(
   // 创建一个计算属性来统一管理禁用状态
   const isDisabled = computed(() => {
     // 如果外部传入了 disabled，或者文件数量达到或超过了限制，则禁用
-    return props.disabled || fileList.value.length >= props.limit;
+    return props.disabled || fileList.value.length >= props.maxCount;
   });
 
   const getFileItem = (file: File): FileItem => {
@@ -44,12 +44,12 @@ export function useUpload(
     if (files.length === 0) return;
 
     // 检查文件数量限制
-    if (fileList.value.length + files.length > props.limit) {
+    if (fileList.value.length + files.length > props.maxCount) {
       // 使用自定义的 alert 服务进行提示
       showAlert({
         type: 'error',
         title: '文件数量超出限制',
-        message: `文件数量超出限制，最多允许 ${props.limit} 个文件。`,
+        message: `文件数量超出限制，最多允许 ${props.maxCount} 个文件。`,
       });
       return;
     }
@@ -82,9 +82,9 @@ export function useUpload(
       }
 
       // 2.2 文件大小校验
-      if (isFileValid && file.size / 1024 / 1024 > props.size) {
+      if (isFileValid && file.size / 1024 / 1024 > props.maxSize) {
         errorMessages.push(
-          `文件 "${file.name}": 大小超出限制 (最大 ${props.size}MB)。`,
+          `文件 "${file.name}": 大小超出限制 (最大 ${props.maxSize}MB)。`,
         );
         isFileValid = false;
       }
