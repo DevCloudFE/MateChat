@@ -301,7 +301,6 @@ watch(
 watch(
   () => props.mdPlugins,
   (plugins) => {
-    console.log('plugins', plugins)
     mdCardService.setMdPlugins(plugins, mdt);
     parseContent();
   },
