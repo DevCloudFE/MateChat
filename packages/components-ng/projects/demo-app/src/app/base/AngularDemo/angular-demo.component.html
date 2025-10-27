@@ -14,13 +14,13 @@
         <button
           *ngFor="let codeItem of sourceCode"
           class="code-tab"
-          [ngClass]="{ active: activeTab === codeItem.type }"
+          [ngClass]="{ active: (activeTab | uppercase) === (codeItem.type | uppercase) }"
           (click)="onTabChange(codeItem.type)"
         >
-          {{ codeItem.type }}
+          {{ codeItem.type | uppercase }}
         </button>
       </div>
-      <div *ngFor="let codeItem of sourceCode" class="code-content" [ngClass]="{ active: activeTab === codeItem.type }">
+      <div *ngFor="let codeItem of sourceCode" class="code-content" [ngClass]="{ active: (activeTab | uppercase) === (codeItem.type | uppercase) }">
         <mc-code-highlight [code]="codeItem.code" [language]="codeItem.type | lowercase"></mc-code-highlight>
       </div>
     </div>
@@ -28,7 +28,8 @@
 
   <div
     #control
-    [class]="['demo-block-control', { 'is-fixed': fixedControl }]"
+    class="demo-block-control"
+    [ngClass]="{ 'is-fixed': fixedControl, 'demo-block-control-expanded': isExpanded }"
     (click)="onClickControl()"
   >
     <i class="icon-control " [class]="{

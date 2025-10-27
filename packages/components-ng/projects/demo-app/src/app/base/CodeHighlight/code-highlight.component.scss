@@ -17,7 +17,7 @@ code {
   word-wrap: break-word;
   margin-top: 8px;
   border-radius: 8px;
-  background-color: #282c34;
+  background-color: var(--vp-c-bg-alt);
 }
 
 // 暗黑主题样式
@@ -38,16 +38,16 @@ pre.hljs-github-dark code {
 
 :host ::ng-deep .ng-highlight {
   code {
-    padding: 4px 8px;
+    padding: 16px;
     border-radius: 4px;
     font-size: 14px;
     line-height: 1.5;
     white-space: pre-wrap;
     word-wrap: break-word;
-    color: #abb2bf;
+    color: var(--vp-code-block-color);
 
     .hljs {
-      color: #abb2bf;
+      color: var(--vp-code-block-color);
     }
 
     // hljs 主题色覆盖

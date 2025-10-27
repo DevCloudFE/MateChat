@@ -31,25 +31,25 @@ export default {
       ],
     },
   ],
-  '/angular-components/': [
+  '/ng-components/': [
     {
       text: '会话',
       items: [
         {
           text: 'Bubble 气泡',
-          link: '/angular-components/bubble/demo',
+          link: '/ng-components/bubble/demo',
           children: [
             {
               text: 'Introduction',
-              link: '/angular-components/bubble/demo.md',
+              link: '/ng-components/bubble/demo.md',
             },
             {
               text: 'Demos',
-              link: '/angular-components/bubble/demo.md',
+              link: '/ng-components/bubble/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/angular-components/bubble/api.md',
+              link: '/ng-components/bubble/api.md',
             },
           ],
         },
@@ -60,15 +60,15 @@ export default {
       items: [
         {
           text: 'Input 输入',
-          link: '/angular-components/input/demo',
+          link: '/ng-components/input/demo',
           children: [
             {
               text: 'Demos',
-              link: '/angular-components/input/demo.md',
+              link: '/ng-components/input/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/angular-components/input/api.md',
+              link: '/ng-components/input/api.md',
             },
           ],
         },
@@ -78,15 +78,15 @@ export default {
       items: [
         {
           text: 'MarkDown 卡片',
-          link: '/angular-components/markDownCard/demo',
+          link: '/ng-components/markDownCard/demo',
           children: [
             {
               text: 'Demos',
-              link: '/angular-components/markDownCard/demo.md',
+              link: '/ng-components/markDownCard/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/angular-components/markDownCard/api.md',
+              link: '/ng-components/markDownCard/api.md',
             },
           ],
         },

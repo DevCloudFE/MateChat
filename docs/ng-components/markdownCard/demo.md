@@ -5,7 +5,7 @@ bannerSrc: '/bubbleBanner.png'
 ---
  <script type="text/javascript">
   // 加载webcomponent脚本
-  import { loadWebComponentScript } from '/angular-components/utils/web-component-loader.js';
+  import { loadWebComponentScript } from '/ng-components/utils/web-component-loader.js';
   const webComponentConfig = {
       scriptUrl: '/angular-webcomponents/main.js',
       polyfillsUrl: '/angular-webcomponents/polyfills.js',

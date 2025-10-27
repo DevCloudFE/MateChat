@@ -60,7 +60,7 @@
           {{ $t(item.text) }}
         </a>
       </div>
-      <div class="release">
+      <div class="release" v-if="showRelease">
         <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
           <div class="version">
             <span>1.5.1</span>
@@ -79,23 +79,16 @@
           </template>
         </d-dropdown>
       </div>
-        <div class="release">
-        <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
-          <div class="version">
-            <span>生态</span>
-            <i class="icon-chevron-down-2"></i>
+        <div class="release" v-if="showRelease">
+          <div class="cli-icon" v-if="isNg" @click="go('/components/introduction/demo.html')">
+            <img src="https://cn.vuejs.org/logo.svg"></img>
+            <span>Vue</span>
           </div>
-          <template #menu>
-            <ul class="list-menu">
-              <li class="menu-item pointer" @click="go('/components/introduction/demo.html')" >
-                vue 版本
-              </li>
-              <li class="menu-item pointer" @click="go('/angular-components/bubble/demo.html')">
-                angular 版本
-              </li>
-            </ul>
-          </template>
-        </d-dropdown>
+          <div class="cli-icon" v-if="!isNg" @click="go('/ng-components/bubble/demo.html')">
+             <!-- <img src="/logo.svg" /> -->
+            <img src="/angular.svg" />
+            <span>Angular</span>
+          </div>
       </div>
       <div v-if="showTheme" class="header-menu-splitter"></div>
       <div v-show="showTheme" class="theme">
@@ -124,7 +117,7 @@
 import { galaxyTheme, infinityTheme } from 'devui-theme';
 import { useData } from 'vitepress';
 import { useRouter } from 'vitepress';
-import { computed, inject, onMounted, ref } from 'vue';
+import { computed, inject, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { APPEARANCE_KEY } from '../../../shared';
 import { useLangs } from '../../composables/langs';
@@ -138,6 +131,9 @@ const isGalaxy = ref(false);
 const isZh = ref(true);
 const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
+const showRelease = computed(() => window.location.pathname?.length > 1);
+const isNg = ref(false); 
+// computed(() => window.location.pathname?.includes('/ng-components'));
 
 const iconMap = [
   '/png/header/instruction.png',
@@ -175,6 +171,7 @@ const isActive = (link: string) => {
 const isDropdown = ref(false);
 
 onMounted(() => {
+  isNg.value = window.location.pathname?.includes('/ng-components');
   if (typeof localStorage !== 'undefined') {
     if (localStorage.getItem('theme') === ThemeKey.Galaxy) {
       isGalaxy.value = true;
@@ -262,6 +259,11 @@ function collapseSideMenu() {
 function onDropdown(status: boolean) {
   isDropdown.value = status;
 }
+
+// 监听路由变化
+watch(() => router.route.path, (newPath, oldPath) => {
+  isNg.value = window.location.pathname?.includes('/ng-components');
+});
 </script>
 
 <style lang="scss" scoped>
@@ -532,6 +534,18 @@ function onDropdown(status: boolean) {
   justify-self: center;
   box-shadow: 0 2px 0 0 $devui-shadow !important;
 }
+
+.cli-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 12px;
+    height: 12px;
+  }
+}
+
 
 .intro-header-right-nav-dropdown {
   left: 0 !important;
