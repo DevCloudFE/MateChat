@@ -8,7 +8,8 @@
     "devui-theme",
     "highlight.js",
     "markdown-it",
-    "diff-dom"
+    "diff-dom",
+    "xss"
   ],  
   "assets": [
     {
