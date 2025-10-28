@@ -19,6 +19,14 @@ export default {
     attachFile: 'Attachment',
     disabledUpload: 'Upload disabled',
     dragToUpload: 'Drag to upload',
+    exceedCountTitle: 'Exceeded file count limit',
+    exceedCountMessage: 'You can only upload a maximum of {maxCount} files.',
+    unsupportedFileType: 'Unsupported file type: {fileName}',
+    exceedSizeLimit: 'File {fileName} exceeds the size limit of {maxSize}MB.',
+    uploadRejected: 'Upload was rejected for file: {fileName}',
+    beforeUploadFailed:
+      'The before-upload check failed for {fileName}: {errorMsg}',
+    uploadFailedTitle: 'File upload failed',
   },
   FileList: {
     uploadFailed: 'Upload failed',

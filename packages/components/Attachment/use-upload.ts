@@ -1,3 +1,4 @@
+import { useMcI18n } from '@matechat/core/Locale';
 import type { Ref } from 'vue';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { showAlert } from './Alert.vue'; // 引入新的 alert 服务
@@ -16,6 +17,7 @@ export function useUpload(
   inputRef: Ref<HTMLInputElement | undefined>,
   fileList: Ref<FileItem[]>, // 直接接收 defineModel 返回的 ref
 ) {
+  const { t } = useMcI18n();
   const isDragging = ref(false);
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   let dragCounter = 0;
@@ -48,8 +50,10 @@ export function useUpload(
       // 使用自定义的 alert 服务进行提示
       showAlert({
         type: 'error',
-        title: '文件数量超出限制',
-        message: `文件数量超出限制，最多允许 ${props.maxCount} 个文件。`,
+        title: t('Attachment.exceedCountTitle'),
+        message: t('Attachment.exceedCountMessage', {
+          maxCount: props.maxCount,
+        }),
       });
       return;
     }
@@ -76,7 +80,9 @@ export function useUpload(
         });
 
         if (!isTypeValid) {
-          errorMessages.push(`文件 "${file.name}": 格式不受支持。`);
+          errorMessages.push(
+            t('Attachment.unsupportedFileType', { fileName: file.name }),
+          );
           isFileValid = false;
         }
       }
@@ -84,7 +90,10 @@ export function useUpload(
       // 2.2 文件大小校验
       if (isFileValid && file.size / 1024 / 1024 > props.maxSize) {
         errorMessages.push(
-          `文件 "${file.name}": 大小超出限制 (最大 ${props.maxSize}MB)。`,
+          t('Attachment.exceedSizeLimit', {
+            fileName: file.name,
+            maxSize: props.maxSize,
+          }),
         );
         isFileValid = false;
       }
@@ -94,13 +103,18 @@ export function useUpload(
         try {
           const result = await Promise.resolve(props.beforeUpload(file));
           if (result === false) {
-            errorMessages.push(`文件 "${file.name}": 上传不合规被阻止。`);
+            errorMessages.push(
+              t('Attachment.uploadRejected', { fileName: file.name }),
+            );
             isFileValid = false;
           }
         } catch (e) {
           const errorMsg = e instanceof Error ? e.message : String(e);
           errorMessages.push(
-            `文件 "${file.name}": 上传前校验失败 (${errorMsg})。`,
+            t('Attachment.beforeUploadFailed', {
+              fileName: file.name,
+              errorMsg,
+            }),
           );
           isFileValid = false;
         }
@@ -115,7 +129,7 @@ export function useUpload(
     if (errorMessages.length > 0) {
       showAlert({
         type: 'error',
-        title: '文件上传失败',
+        title: t('Attachment.uploadFailedTitle'),
         message: errorMessages.join('\n'),
       });
     }
