@@ -27,10 +27,6 @@ $\\sqrt{3x-1}+(1+x)^2$
 ]
   changeTheme = () => {
     this.theme = this.theme === 'light' ? 'dark' : 'light';
-    this.themeClass =
-      this.themeClass === 'light-background'
-        ? 'dark-background'
-        : 'light-background';
   };
 
   themeChange = () => {
@@ -39,10 +35,6 @@ $\\sqrt{3x-1}+(1+x)^2$
         this.themeService.currentTheme.id === 'infinity-theme'
           ? 'light'
           : 'dark';
-          this.themeClass =
-      this.themeClass === 'light-background'
-        ? 'dark-background'
-        : 'light-background';
     }
   };
 

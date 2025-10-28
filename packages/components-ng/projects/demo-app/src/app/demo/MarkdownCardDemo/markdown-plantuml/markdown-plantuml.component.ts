@@ -33,10 +33,6 @@ Long --> "Bob()" : ok
   ];
   changeTheme = () => {
     this.theme = this.theme === 'light' ? 'dark' : 'light';
-    this.themeClass =
-      this.themeClass === 'light-background'
-        ? 'dark-background'
-        : 'light-background';
   };
 
   themeChange = () => {
@@ -45,10 +41,6 @@ Long --> "Bob()" : ok
         this.themeService.currentTheme.id === 'infinity-theme'
           ? 'light'
           : 'dark';
-      this.themeClass =
-        this.themeClass === 'light-background'
-          ? 'dark-background'
-          : 'light-background';
     }
   };
 

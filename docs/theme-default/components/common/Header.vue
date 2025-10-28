@@ -80,11 +80,11 @@
         </d-dropdown>
       </div>
         <div class="release" v-if="showRelease">
-          <div class="cli-icon" v-if="isNg" @click="go('/components/introduction/demo.html')">
+          <div class="cli-icon" v-show="isNg" @click="go('/components/introduction/demo.html')">
             <img src="https://cn.vuejs.org/logo.svg"></img>
             <span>Vue</span>
           </div>
-          <div class="cli-icon" v-if="!isNg" @click="go('/components-ng/bubble/demo.html')">
+          <div class="cli-icon" v-show="!isNg" @click="go('/components-ng/bubble/demo.html')">
              <!-- <img src="/logo.svg" /> -->
             <img src="/angular.svg" />
             <span>Angular</span>

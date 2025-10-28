@@ -68,7 +68,7 @@ export class MarkdownTypingDemoComponent {
     }
   }
 
-  themeChange() {
+  themeChange = () => {
     if (this.themeService) {
       this.theme =
         this.themeService.currentTheme.id === 'infinity-theme'
