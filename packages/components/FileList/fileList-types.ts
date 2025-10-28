@@ -10,7 +10,6 @@ export const fileListProps = {
   // 组件上下文，决定其外观和行为
   context: {
     type: String as PropType<'input' | 'dialog'>,
-    default: 'input', // 默认为输入框上下文
     validator: (value: string) => ['input', 'dialog'].includes(value),
   },
 } as const;

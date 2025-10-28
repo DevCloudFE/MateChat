@@ -318,7 +318,7 @@ const handleDownload = (file: FileItem, event: Event) => {
         <button
           class="mc-file-item__action-btn mc-file-item__action-btn--remove"
           @click="handleRemove(file)"
-          title="{{ t('FileList.remove') }}"
+          :title="t('FileList.remove')"
         >
           ✕
         </button>

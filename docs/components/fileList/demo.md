@@ -13,13 +13,13 @@ import { McFileList } from '@matechat/core';
 
 `McFileList` 组件的核心功能是接收一个文件对象数组，并将它们渲染为信息卡片。通过 `fileItems` 属性传入数据，并可使用 `context` 属性控制其在不同场景下的外观。
 
-以下示例展示了在 `context="input"` 模式下，组件如何根据文件后缀名渲染出所有支持的图标类型。
+卡片信息展示示例：
 
 :::demo
 
 ```vue
 <template>
-  <McFileList :fileItems="allTypesList" context="input" @remove="handleRemove" />
+  <McFileList :fileItems="allTypesList" @remove="handleRemove" />
 </template>
 
 <script setup lang="ts">
@@ -155,6 +155,7 @@ onMounted(() => {
   <p>点击下方文件卡片上的各种按钮，在控制台查看事件触发信息。</p>
   <McFileList 
     :fileItems="interactiveList" 
+    context="input"
     @remove="handleRemove"
     @preview="handlePreview"
     @download="handleDownload"

@@ -9,6 +9,12 @@
     position: relative;
     padding-bottom: 5px;
 
+    // 将高度限制和滚动条样式仅应用于 input 上下文
+    .mc-file-list__container {
+      max-height: 170px;
+      overflow-y: auto;
+    }
+
     &::after {
       content: '';
       position: absolute;
@@ -38,11 +44,11 @@
       border-color: transparent;
 
       &--downloadError {
-        border-color: $devui-line;
+        // border-color: $devui-line;
         background-color: $devui-base-bg;
       }
       &--downloading {
-        border-color: $devui-line;
+        // border-color: $devui-line;
         background-color: $devui-base-bg;
       }
     }
@@ -50,11 +56,8 @@
   }
   &__container {
     display: flex;
-    // 设置固定高度，超出部分滚动
-    max-height: 170px; // 或者你想要的高度
     padding: 2px 0;
     flex-wrap: wrap;
-    overflow-y: auto; 
     
     &::-webkit-scrollbar {
       width: 4px;
@@ -84,8 +87,8 @@
   border-radius: $devui-border-radius-card;
 
   &:hover {
-    border-color: transparent; 
-    box-shadow: 0 2px 4px $devui-light-shadow; // 添加阴影
+    // border-color: transparent; 
+    // box-shadow: 0 2px 4px $devui-light-shadow; // 添加阴影
     .mc-file-item__actions {
       opacity: 1;
     }
