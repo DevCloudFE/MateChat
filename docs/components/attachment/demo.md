@@ -36,7 +36,6 @@ import { McAttachment } from '@matechat/core';
       <div class="input-foot-left">
         <McAttachment 
           v-model="fileList" 
-          :placeholder="'点击上传附件，允许上传图片，且小于 500KB'"
           :draggable="false"
           :upload-options="uploadOptions"
           accept="image/*"
@@ -161,7 +160,6 @@ const uploadOptions = ref<UploadOptions>({
         <McAttachment 
           v-model="validatedList"
           :draggable="false"
-          :placeholder="'点击上传附件，允许上传图片，且小于 500KB，且不含test字符'"
           :upload-options="uploadOptions"
           :before-upload="handleBeforeUpload"
           accept="image/*"

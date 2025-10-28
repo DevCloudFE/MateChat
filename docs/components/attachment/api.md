@@ -15,7 +15,6 @@ desc: 用于上传和管理文件附件的组件，支持拖拽、自定义上�
 | `maxSize` | `number` | `Infinity` | 允许上传的单个文件最大尺寸，单位为 **MB**。 |
 | `multiple` | `boolean` | `true` | 是否支持多选文件。 |
 | `draggable` | `boolean` | `true` | 是否支持拖拽上传。 |
-| `placeholder` | `string` | `'请选择附件上传'` | 触发区域的占位文字（当插槽为空时）。 |
 | `before-upload` | `(file: File) => boolean \| Promise<boolean>` | `null` | 上传文件之前的钩子，参数为上传的文件。若返回 `false` 或返回一个被 `reject` 的 `Promise`，则停止上传。 |
 
 ### 事件

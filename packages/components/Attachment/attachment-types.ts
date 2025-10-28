@@ -77,10 +77,6 @@ export const AttachmentProps = {
     type: Boolean,
     default: true,
   },
-  placeholder: {
-    type: String,
-    default: '请选择附件上传',
-  },
   beforeUpload: {
     type: Function as PropType<(file: File) => boolean | Promise<boolean>>,
     default: null,

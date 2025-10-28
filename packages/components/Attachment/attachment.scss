@@ -4,32 +4,6 @@
   cursor: pointer;
   position: relative;
 
-  // 当鼠标悬停时，显示自定义的提示框
-  &::after {
-    content: attr(data-placeholder); 
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-20%);
-    margin-bottom: 2px; 
-    color: $devui-text;
-    border: 1px solid $devui-shadow; 
-    padding: 5px 10px;
-    border-radius: $devui-border-radius;
-    font-size: $devui-font-size-sm;
-    white-space: nowrap; 
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none; 
-    transition: opacity 0.2s; 
-  }
-
-  // 当鼠标悬停在 .mc-attachment 上时，显示 ::after 伪元素
-  &:hover::after {
-    opacity: 1;
-    visibility: visible;
-  }
-
   // 隐藏原生的 input 元素
   .mc-attachment-file {
     display: none;

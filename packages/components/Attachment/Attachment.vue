@@ -27,7 +27,7 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
 </script>
 
 <template>
-  <div class="mc-attachment" @click="handleClick" :data-placeholder="placeholder"
+  <div class="mc-attachment" @click="handleClick"
   :class="{ 'is-disabled': isDisabled }">
     <!-- 使用插槽允许用户自定义触发器内容，例如按钮或文本 -->
     <slot>
