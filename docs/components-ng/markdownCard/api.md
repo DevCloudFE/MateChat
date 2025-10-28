@@ -20,16 +20,10 @@ bannerSrc: '/bubbleBanner.png'
 | typingOptions | [`TypingOptions`](#typingoptions)  | `{ step: 2, interval: 50, style: 'normal' }`   |  打字机效果配置  |     
 | enableMermaid | `boolean`                       | false         | 是否开启mermaid图形渲染 |
 | mermaidConfig | `object`                       | {}         | mermaid相关配置，可参考[Mermaid](https://mermaid.nodejs.cn/config/usage.html)官网|
+| actionsTemplate | `TemplateRef<any>` | --         | 代码块头部右侧自定义操作区域模板, 插槽参数{ codeBlockData: [CodeBlockData](#codeblockdata) }     |
+| headerTemplate | `TemplateRef<any>` | --         | 自定义代码块头部区域模板, 插槽参数{ codeBlockData: [CodeBlockData](#codeblockdata) }     |
+| contentTemplate | `TemplateRef<any>` | --         | 自定义代码块内容区域模板, 插槽参数{ codeBlockData: [CodeBlockData](#codeblockdata) }     |
 
-
-
-### 代码块插槽
-
-| 插槽名     | 返回值 | 说明               |
-| ---------- | ------ | ------------------ |
-| codeActions    | { codeBlockData: [CodeBlockData](#codeblockdata) }     | 代码块头部右侧自定义操作区域     |
-| codeHeader     | { codeBlockData: [CodeBlockData](#codeblockdata) }     | 自定义代码块头部区域     |
-| codeContent     | { codeBlockData: [CodeBlockData](#codeblockdata) }     | 自定义代码块内容区域     |
 
 ### 事件
 

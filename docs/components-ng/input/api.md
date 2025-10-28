@@ -36,11 +36,11 @@ iconSrc: '/inputIcon.png'
 
 | 插槽名 | 返回值 | 说明                                                     |
 | ------ | ------ | -------------------------------------------------------- |
-| head   | --     | 自定义输入框顶部的内容                                   |
-| prefix | --     | 自定义输入框左侧的内容                                   |
-| suffix | --     | 自定义输入框右侧的内容                                   |
-| extra  | --     | 自定义发送按钮左侧的内容，仅在`displayType='full'`时生效 |
-| button | --     | 自定义输入框的发送按钮                                   |
+| headTemplate   | --     | 自定义输入框顶部的内容                                   |
+| prefixTemplate | --     | 自定义输入框左侧的内容                                   |
+| suffixTemplate | --     | 自定义输入框右侧的内容                                   |
+| extraTemplate  | --     | 自定义发送按钮左侧的内容，仅在`displayType='full'`时生效 |
+| buttonTemplate | --     | 自定义输入框的发送按钮                                   |
 
 ### 方法
 
