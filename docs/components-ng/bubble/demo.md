@@ -20,7 +20,11 @@ bannerSrc: '/bubbleBanner.png'
   loadWebComponentScript(webComponentConfig);
    
    </script>
+按需引入路径：
 
+```ts
+import { BubbleModule } from '@matechat/ng';
+```
 
 ### 基础用法
 

@@ -21,6 +21,12 @@ iconSrc: '/inputIcon.png'
 
 </script>
 
+按需引入路径：
+
+```ts
+import { InputModule } from '@matechat/ng';
+```
+
 # Input 输入框组件
 
 ## 介绍

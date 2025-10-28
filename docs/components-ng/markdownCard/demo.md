@@ -20,7 +20,7 @@ bannerSrc: '/bubbleBanner.png'
 按需引入路径：
 
 ```ts
-import { McMarkdownCardModule } from '@matechat/ng';
+import { MarkdownCardModule } from '@matechat/ng';
 ```
 
 ### 基本用法
