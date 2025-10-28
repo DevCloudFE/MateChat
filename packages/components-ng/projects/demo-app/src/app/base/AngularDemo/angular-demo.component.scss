@@ -90,9 +90,9 @@
 }
 
 .demo-block-control {
-  border-top: solid 1px $devui-line;
   height: 44px;
   box-sizing: border-box;
+  border-top: solid 1px $devui-line;
   background-color: $devui-base-bg;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -105,6 +105,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.demo-block-control-expanded {
+  border-top: none;
 }
 
 .icon-caret-down,
