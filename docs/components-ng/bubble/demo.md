@@ -7,12 +7,12 @@ bannerSrc: '/bubbleBanner.png'
 
  <script type="text/javascript">
   // 加载webcomponent脚本
-  import { loadWebComponentScript } from '/ng-components/utils/web-component-loader.js';
+  import { loadWebComponentScript } from '/components-ng/utils/web-component-loader.js';
   const webComponentConfig = {
-      scriptUrl: './angular-webcomponents/main.js',
-      polyfillsUrl: './angular-webcomponents/polyfills.js',
+      scriptUrl: '/angular-webcomponents/main.js',
+      polyfillsUrl: '/angular-webcomponents/polyfills.js',
       runtimeUrl: '/angular-webcomponents/runtime.js',
-      componentName: 'mc-ng-bubble',
+      componentName: 'mc-ng-input',
       maxRetries: 3,
       retryDelay: 2000
   };            
