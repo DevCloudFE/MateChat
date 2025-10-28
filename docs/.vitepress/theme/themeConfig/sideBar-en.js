@@ -22,13 +22,15 @@ export default {
         { text: 'Input', link: '/en/components/input' },
         { text: 'Prompt', link: '/en/components/prompt' },
         { text: 'Mention', link: '/en/components/mention' },
-        { text: 'Attachment', link: '/en/components/attachment' },
-        { text: 'FileList', link: '/en/components/fileList' },
       ],
     },
     {
       text: 'Developing',
-      items: [{ text: 'MarkDown Card', link: '/components/markDownCard/demo' }],
+      items: [
+        { text: 'MarkDown Card', link: '/components/markDownCard/demo' },
+        { text: 'Attachment', link: '/en/components/attachment' },
+        { text: 'FileList', link: '/en/components/fileList' },
+      ],
     },
   ],
   '/en/design/': [
