@@ -258,3 +258,23 @@ pre code {
   padding-left: 5px;
   padding-right: 25px;
 }
+
+::ng-deep .demo-btn {
+  background-color: var(--devui-primary, #5e7ce0);
+  border-color: transparent;
+  color: var(--devui-light-text, #ffffff);
+  min-width: 64px;
+  border-radius: var(--devui-border-radius, 2px);
+  cursor: pointer;
+  position: relative;
+  padding: var(--devui-btn-padding, 0 20px);
+  font-size: var(--devui-font-size-md, 12px);
+  height: 32px;
+  line-height: var(--devui-line-height-base, 1.5);
+  border-width: 1px;
+  border-color: transparent;
+
+  &:active {
+    background-color: var(--devui-primary-active, #344899);
+  }
+}

@@ -72,6 +72,10 @@ console.log(quickSort(arr)); // 输出排序后的数组
     if (this.themeService) {
       this.theme =
         this.themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+          this.themeClass =
+      this.themeClass === 'light-background'
+        ? 'dark-background'
+        : 'light-background';
     }
   };
 

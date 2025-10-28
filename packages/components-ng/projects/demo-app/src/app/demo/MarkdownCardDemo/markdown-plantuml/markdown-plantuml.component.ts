@@ -45,6 +45,10 @@ Long --> "Bob()" : ok
         this.themeService.currentTheme.id === 'infinity-theme'
           ? 'light'
           : 'dark';
+      this.themeClass =
+        this.themeClass === 'light-background'
+          ? 'dark-background'
+          : 'light-background';
     }
   };
 

@@ -10,7 +10,7 @@ import { MarkdownCardModule, BubbleModule } from '@matechat/ng';
 })
 export class MarkdownBasicDemoComponent {
   theme = 'light';
-
+  themeService;
   content = `
 # 快速排序（Quick Sort）
 
@@ -55,5 +55,28 @@ console.log(quickSort(arr)); // 输出排序后的数组
 
   handleAction(codeBlockData) {
     console.log(codeBlockData);
+  }
+
+  changeTheme = () => {
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
+  };
+
+  themeChange = () => {
+    if (this.themeService) {
+      this.theme =
+        this.themeService.currentTheme.id === 'infinity-theme'
+          ? 'light'
+          : 'dark';
+    }
+  };
+
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      this.themeService = window['devuiThemeService'];
+    }
+    this.themeChange();
+    if (this.themeService && this.themeService.eventBus) {
+      this.themeService.eventBus.add('themeChanged', this.themeChange);
+    }
   }
 }
