@@ -1,125 +1,133 @@
 <div style="padding: 20px">
   <h1>组件演示</h1>
   <p>这是我们的Angular组件库演示应用</p>
+  <div *ngIf="false">
+    <div class="demo-container">
+      <mc-bubble [content]="'Hello MateChat'"></mc-bubble>
+    </div>
 
+    <div class="demo-container">
+      <mc-bubble
+        [content]="'Hello MateChat'"
+        [avatarConfig]="avatarConfig"
+        [loading]="true"
+      ></mc-bubble>
+    </div>
 
-  <h2>McBubble 示例</h2>
-  <div class="demo-container">
-    <mc-bubble [content]="'Hello MateChat'"></mc-bubble>
-  </div>
+    <div class="demo-container">
+      <mc-bubble [content]="'Hello MateChat'"></mc-bubble>
+      <mc-bubble
+        [content]="'Hello MateChat'"
+        [variant]="'bordered'"
+      ></mc-bubble>
+      <mc-bubble [content]="'Hello MateChat'" [variant]="'none'"></mc-bubble>
+    </div>
 
-  <div class="demo-container">
-    <mc-bubble
-      [content]="'Hello MateChat'"
-      [avatarConfig]="avatarConfig"
-      [loading]="true"
-    ></mc-bubble>
-  </div>
+    <div class="demo-container">
+      <mc-bubble [content]="'Hello MateChat'" [align]="'right'"></mc-bubble>
+      <mc-bubble [content]="'Hello, what can I do for you?'"></mc-bubble>
+    </div>
 
-  <div class="demo-container">
-    <mc-bubble [content]="'Hello MateChat'"></mc-bubble>
-    <mc-bubble [content]="'Hello MateChat'" [variant]="'bordered'"></mc-bubble>
-    <mc-bubble [content]="'Hello MateChat'" [variant]="'none'"></mc-bubble>
-  </div>
+    <div class="demo-container">
+      <mc-bubble
+        [content]="'Hello MateChat'"
+        [align]="'right'"
+        [avatarConfig]="userAvatar"
+      ></mc-bubble>
+      <mc-bubble
+        [content]="'Hello, what can I do for you?'"
+        [avatarConfig]="modelAvatar"
+      ></mc-bubble>
+      <mc-bubble
+        [content]="'You can ask me everything~'"
+        [avatarConfig]="{}"
+      ></mc-bubble>
+      <mc-bubble
+        [content]="'Hello MateChat'"
+        [align]="'right'"
+        [avatarConfig]="userAvatarTop"
+        [avatarPosition]="'top'"
+      ></mc-bubble>
+      <mc-bubble
+        [content]="'Hello, what can I do for you?'"
+        [avatarConfig]="modelAvatarTop"
+        [avatarPosition]="'top'"
+      ></mc-bubble>
+    </div>
 
-  <div class="demo-container">
-    <mc-bubble [content]="'Hello MateChat'" [align]="'right'"></mc-bubble>
-    <mc-bubble [content]="'Hello, what can I do for you?'"></mc-bubble>
-  </div>
-
-  <div class="demo-container">
-    <mc-bubble
-      [content]="'Hello MateChat'"
-      [align]="'right'"
-      [avatarConfig]="userAvatar"
-    ></mc-bubble>
-    <mc-bubble
-      [content]="'Hello, what can I do for you?'"
-      [avatarConfig]="modelAvatar"
-    ></mc-bubble>
-    <mc-bubble
-      [content]="'You can ask me everything~'"
-      [avatarConfig]="{}"
-    ></mc-bubble>
-    <mc-bubble
-      [content]="'Hello MateChat'"
-      [align]="'right'"
-      [avatarConfig]="userAvatarTop"
-      [avatarPosition]="'top'"
-    ></mc-bubble>
-    <mc-bubble
-      [content]="'Hello, what can I do for you?'"
-      [avatarConfig]="modelAvatarTop"
-      [avatarPosition]="'top'"
-    ></mc-bubble>
-  </div>
-
-  <div class="demo-container">
-    <mc-bubble
-      [variant]="'none'"
-      [avatarConfig]="{ imgSrc: 'https://matechat.gitcode.com/logo.svg' }"
-    >
-      <div class="suggestion-list" #defaultTemplate>
-        <div class="suggestion-item">
-          <i class="icon-inform"></i>
-          <span class="suggestion-text"
-            >Do you want me to inform you at Monday afternoon ?</span
-          >
+    <div class="demo-container">
+      <mc-bubble
+        [variant]="'none'"
+        [avatarConfig]="{ imgSrc: 'https://matechat.gitcode.com/logo.svg' }"
+      >
+        <div class="suggestion-list" #defaultTemplate>
+          <div class="suggestion-item">
+            <i class="icon-inform"></i>
+            <span class="suggestion-text"
+              >Do you want me to inform you at Monday afternoon ?</span
+            >
+          </div>
+          <div class="suggestion-item">
+            <i class="icon-mandatory"></i>
+            <span class="suggestion-text"
+              >Add this item to your todo list ?</span
+            >
+          </div>
+          <div class="suggestion-item">
+            <i class="icon-publish-new"></i>
+            <span class="suggestion-text">Send this message to chat ?</span>
+          </div>
         </div>
-        <div class="suggestion-item">
-          <i class="icon-mandatory"></i>
-          <span class="suggestion-text">Add this item to your todo list ?</span>
-        </div>
-        <div class="suggestion-item">
-          <i class="icon-publish-new"></i>
-          <span class="suggestion-text">Send this message to chat ?</span>
-        </div>
-      </div>
-    </mc-bubble>
-  </div>
-
-  <div class="demo-container">
-    <div>
-      <mc-input
-        [value]="inputValue"
-        [maxLength]="2000"
-        [showCount]="true"
-        [loading]="loading"
-        (change)="onInputChange($event)"
-        (submit)="onSubmit($event)"
-        (cancel)="onCancel()"
-      ></mc-input>
+      </mc-bubble>
     </div>
   </div>
 
-  <div class="demo-container">
-    <mc-input
-      [value]="inputValue"
-      [displayType]="DisplayType.Simple"
-      [loading]="loading"
-      [variant]="InputVariant.BorderLess"
-      [sendBtnVariant]="SendBtnVariant.Simple"
-      (submit)="onSubmit($event)"
-    >
-      <ng-template #suffix>
-        <div class="input-prefix-wrap">
-          <i class="icon-appendix"></i>
-        </div>
-      </ng-template>
-    </mc-input>
-  </div>
+  <div *ngIf="false">
+    <div class="demo-container">
+      <div>
+        <mc-input
+          [value]="inputValue"
+          [maxLength]="2000"
+          [showCount]="true"
+          [loading]="loading"
+          (change)="onInputChange($event)"
+          (submit)="onSubmit($event)"
+          (cancel)="onCancel()"
+        ></mc-input>
+      </div>
+    </div>
 
-  <div class="demo-container">
-    <mc-input
-      [value]="inputValue"
-      [loading]="loading"
-      submitShortKey="shiftEnter"
-      (submit)="onSubmit($event)"
-    >
-    </mc-input>
-  </div>
+    <!-- input组件 -->
+    <div class="demo-container">
+      <mc-input
+        [value]="inputValue"
+        [displayType]="DisplayType.Simple"
+        [loading]="loading"
+        [variant]="InputVariant.BorderLess"
+        [sendBtnVariant]="SendBtnVariant.Simple"
+        (submit)="onSubmit($event)"
+      >
+        <ng-template #suffix>
+          <div class="input-prefix-wrap">
+            <i class="icon-appendix"></i>
+          </div>
+        </ng-template>
+      </mc-input>
+    </div>
 
     <div class="demo-container">
+      <mc-input
+        [value]="inputValue"
+        [loading]="loading"
+        submitShortKey="shiftEnter"
+        (submit)="onSubmit($event)"
+      >
+      </mc-input>
+    </div>
+  </div>
+
+  <!-- markdown组件 -->
+  <!-- <div class="demo-container">
     <mc-markdown-card [content]="content" [enableMermaid]="true"></mc-markdown-card>
   </div>
 
@@ -138,5 +146,28 @@
   
   <div class="demo-container">
     <markdown-operator-demo></markdown-operator-demo>
+  </div> -->
+
+  <div class="demo-container">
+    <markdown-thinking-demo></markdown-thinking-demo>
   </div>
-</div>
+
+  <div class="demo-container">
+    <markdown-theme-demo></markdown-theme-demo>
+  </div>
+  
+  <div class="demo-container">
+    <markdown-math-demo></markdown-math-demo>
+  </div>
+  
+  <div class="demo-container">
+    <markdown-plantuml-demo></markdown-plantuml-demo>
+  </div>
+  
+  <div class="demo-container">
+    <markdown-header-demo></markdown-header-demo>
+  </div>
+
+  <div class="demo-container">
+    <markdown-content-demo></markdown-content-demo>
+  </div>

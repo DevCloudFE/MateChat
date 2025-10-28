@@ -42,6 +42,8 @@ import { McMarkdownCard } from '@matechat/core';
 
 支持自定义的 think 标签，用于包裹特定内容并渲染为自定义样式的块级元素。适合用于强调思考过程或特殊内容展示。
 
+<mc-ng-markdown-thinking></mc-ng-markdown-thinking>
+
 
 
 ### 主题切换

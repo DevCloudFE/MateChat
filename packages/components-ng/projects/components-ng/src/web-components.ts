@@ -25,6 +25,8 @@ import { MarkdownEmojeShowComponent } from '../../demo-app/src/app/show/Markdown
 import { MarkdownMermaidShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-mermaid-show.component';
 import { MarkdownTypingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-typing-show.component';
 import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
+import { MarkdownThinkingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-thinking-show.component';
+
 // 正确定义WebComponentsModule模块
 @NgModule({
   imports: [
@@ -139,6 +141,11 @@ platformBrowserDynamic()
       const MarkdownBasicWebComponent = createCustomElement(MarkdownBasicShowComponent, {
         injector: injector
       });
+      const MarkdownThinkingWebComponent = createCustomElement(MarkdownThinkingShowComponent, {
+        injector: injector
+      });
+
+
 
       // 注册Bubble相关webcomponent
       customElements.define('mc-ng-bubble-basic', BubbleWebComponent);
@@ -164,6 +171,7 @@ platformBrowserDynamic()
       customElements.define('mc-ng-markdown-emoje', MarkdownEmojeWebComponent);
       customElements.define('mc-ng-markdown-mermaid', MarkdownMermaidWebComponent);
       customElements.define('mc-ng-markdown-typing', MarkdownTypingWebComponent);
+      customElements.define('mc-ng-markdown-thinking', MarkdownThinkingWebComponent);
     } catch (error) {
       console.error('创建WebComponent时出错:', error);
     }

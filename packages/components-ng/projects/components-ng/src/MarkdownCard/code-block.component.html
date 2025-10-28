@@ -232,11 +232,11 @@
       </div>
     </ng-container>
     <ng-container *ngIf="actionsTemplate">
-      <ng-template [ngTemplateOutlet]="actionsTemplate"></ng-template>
+      <ng-template [ngTemplateOutlet]="actionsTemplate" [ngTemplateOutletContext]="{ $implicit: {code, language}, codeBlockData: {code, language} }"></ng-template>
     </ng-container>
   </div>
   <ng-container *ngIf="headerTemplate">
-    <ng-template [ngTemplateOutlet]="headerTemplate"></ng-template>
+    <ng-template [ngTemplateOutlet]="headerTemplate" [ngTemplateOutletContext]="{ $implicit: {code, language}, codeBlockData: {code, language} }"></ng-template>
   </ng-container>
 
   <div [ngClass]="{ 'mc-block-hidden': !expanded }">
@@ -246,7 +246,7 @@
     <pre><code [ngClass]="'hljs language-' + language" [innerHTML]="highlightedCode"></code></pre>
     } @else {
     <ng-container *ngIf="contentTemplate">
-      <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
+      <ng-template [ngTemplateOutlet]="contentTemplate" [ngTemplateOutletContext]="{ $implicit: {code, language}, codeBlockData: {code, language} }"></ng-template>
     </ng-container>
     }
   </div>

@@ -1,0 +1,29 @@
+.btn-container {
+  display: flex;
+  margin-bottom: 12px;
+}
+@import "devui-theme/styles-var/devui-var.scss";
+.think-toggle-btn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border-radius: 10px;
+  padding: 7px 10px;
+  margin-bottom: 12px;
+  width: fit-content;
+  cursor: pointer;
+  background-color: $devui-area;
+  &:hover {
+    background-color: var(--devui-btn-common-bg-hover);
+  }
+}
+
+::ng-deep {
+  .think-block-expand .mc-think-block {
+    display: block;
+  }
+
+  .think-block-shrink .mc-think-block {
+    display: none;
+  }
+}

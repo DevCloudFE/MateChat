@@ -122,6 +122,32 @@ $devui-hover-shadow: rgba(0, 0, 0, 0.1);
   }
 }
 
+.mc-code-block-dark {
+  border: 1px solid #4e5057;
+  code.hljs {
+    padding: 1em;
+  }
+    background-color: #34363A;
+  .mc-code-lang {
+      color: #CED1DB;
+  }
+  .mc-code-block-actions {
+    .mc-copy-btn,
+    .mc-toggle-btn {
+        color: #CED1DB;
+      &:hover {
+        background-color: #393a3e;
+      }
+      img {
+        filter: brightness(1.5);
+      }
+    }
+  }
+  .mc-mermaid-content {
+    background: #2b2b2b;
+  }
+}
+
 // 定义动画
 @keyframes collapse-expand {
   from {

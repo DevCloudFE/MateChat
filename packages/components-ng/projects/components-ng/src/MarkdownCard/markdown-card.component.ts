@@ -8,14 +8,12 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   ViewChild,
-  ElementRef,
   Output,
   EventEmitter,
   Renderer2,
   ViewContainerRef,
   ComponentFactoryResolver,
   TemplateRef,
-  EmbeddedViewRef,
 } from '@angular/core';
 import markdownit from 'markdown-it';
 import type { Token } from 'markdown-it';
@@ -55,6 +53,8 @@ export class MarkdownCardComponent
   @Input() enableMermaid: boolean = false;
   @Input() mermaidConfig: MarkdownCardProps['mermaidConfig'] = {};
   @Input() actionsTemplate: TemplateRef<any> | null = null;
+  @Input() headerTemplate: TemplateRef<any> | null = null;
+  @Input() contentTemplate: TemplateRef<any> | null = null;
   
   // 组件缓存映射表，用于存储已创建的CodeBlockComponent实例
   private codeBlockComponentsCache: Map<string, {componentRef: any, container: HTMLElement}> = new Map();
@@ -68,10 +68,10 @@ export class MarkdownCardComponent
   markdownContainer!: ViewContainerRef;
 
   private mdt: markdownit;
-  private typingIndex: number = 0;
-  private isTyping: boolean = false;
-  private timer: number | null = null;
-  private parser = MdParserUtils;
+  typingIndex: number = 0;
+  isTyping: boolean = false;
+  timer: number | null = null;
+  parser = MdParserUtils;
   mdCardService;
 
   constructor(
@@ -256,7 +256,10 @@ export class MarkdownCardComponent
     // 处理子节点
     if (node.children && node.children.length > 0) {
       node.children.forEach((child) => {
-        this.processASTNode(child as any);
+        const childVnode = this.processASTNode(child as any);
+        if (childVnode) {
+          this.renderer.appendChild(container.firstChild || container, childVnode);
+        }
       });
     }
     return container;
@@ -403,6 +406,7 @@ export class MarkdownCardComponent
         const componentRef = cachedItem.componentRef;
         componentRef.setInput('language', language);
         componentRef.setInput('code', code);
+        componentRef.setInput('theme', this.theme);
         
         // 触发变更检测
         componentRef.changeDetectorRef.detectChanges();
@@ -428,6 +432,8 @@ export class MarkdownCardComponent
     componentRef.instance.enableMermaid = this.enableMermaid;
     componentRef.instance.mermaidConfig = this.mermaidConfig || {};
     componentRef.instance.actionsTemplate = this.actionsTemplate;
+    componentRef.instance.headerTemplate = this.headerTemplate;
+    componentRef.instance.contentTemplate = this.contentTemplate;
     
     // 触发变更检测
     componentRef.changeDetectorRef.detectChanges();

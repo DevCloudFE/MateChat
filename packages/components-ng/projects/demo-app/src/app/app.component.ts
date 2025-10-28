@@ -7,10 +7,17 @@ import {
   InputVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
+import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
 import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
 import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
 import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
 import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markdown-code-operator/markdown-operator.component';
+import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
+import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
+import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
+import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
+import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,8 +29,14 @@ import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markd
     MarkdownCardModule,
     MarkdownMermaidDemoComponent,
     MarkdownTypingDemoComponent,
+    MarkdownThinkDemoComponent,
+    MarkdownContentDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCodeOperatorDemoComponent,
+    MarkdownThemeDemoComponent,
+    MarkdownMathDemoComponent,
+    MarkdownHeaderDemoComponent,
+    MarkdownPlantumlDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

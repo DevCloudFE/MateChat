@@ -1,0 +1,8 @@
+<mc-markdown-card [content]="content" [theme]="theme" [contentTemplate]="contentTemplate">
+    <ng-template #contentTemplate let-codeBlockData>
+      <div *ngIf="codeBlockData?.language === 'echart'" #chart style="width: 100%; height: 500px;">
+        {{ handleCodeBlockData(codeBlockData) }}
+      </div>
+      <div *ngIf="codeBlockData?.language !== 'echart'" class="content-container" [innerHTML]="transfer(codeBlockData)"></div>
+    </ng-template>
+  </mc-markdown-card>
