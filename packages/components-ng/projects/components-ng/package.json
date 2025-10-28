@@ -14,5 +14,8 @@
     "markdown-it": "^12.2.0",
     "diff-dom": "^5.2.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false
 }
