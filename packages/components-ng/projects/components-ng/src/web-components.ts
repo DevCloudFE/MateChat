@@ -26,6 +26,11 @@ import { MarkdownMermaidShowComponent } from '../../demo-app/src/app/show/Markdo
 import { MarkdownTypingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-typing-show.component';
 import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
 import { MarkdownThinkingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-thinking-show.component';
+import { MarkdownContentShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-content-show.component';
+import { MarkdownMathShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-math-show.component';
+import { MarkdownPlantumlShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-plantuml-show.component';
+import { MarkdownThemeShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-theme-show.component';
+import { MarkdownHeaderShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-header-show.component';
 
 // 正确定义WebComponentsModule模块
 @NgModule({
@@ -50,6 +55,11 @@ import { MarkdownThinkingShowComponent } from '../../demo-app/src/app/show/Markd
     MarkdownEmojeShowComponent,
     MarkdownMermaidShowComponent,
     MarkdownTypingShowComponent,
+    MarkdownContentShowComponent,
+    MarkdownMathShowComponent,
+    MarkdownPlantumlShowComponent,
+    MarkdownThemeShowComponent,
+    MarkdownHeaderShowComponent,
   ],
   providers: []
 })
@@ -98,6 +108,29 @@ platformBrowserDynamic()
       const AvatarPlusBubbleWebComponent = createCustomElement(AvatarPlusBubbleShowComponent, {
         injector: injector
       });
+      
+      // 将MarkdownCard相关组件转换为webcomponent
+      const MarkdownContentWebComponent = createCustomElement(MarkdownContentShowComponent, {
+        injector: injector
+      });
+      const MarkdownMathWebComponent = createCustomElement(MarkdownMathShowComponent, {
+        injector: injector
+      });
+      const MarkdownPlantumlWebComponent = createCustomElement(MarkdownPlantumlShowComponent, {
+        injector: injector
+      });
+      const MarkdownThemeWebComponent = createCustomElement(MarkdownThemeShowComponent, {
+        injector: injector
+      });
+      const MarkdownHeaderWebComponent = createCustomElement(MarkdownHeaderShowComponent, {
+        injector: injector
+      });
+      
+      customElements.define('mc-ng-markdown-content', MarkdownContentWebComponent);
+      customElements.define('mc-ng-markdown-math', MarkdownMathWebComponent);
+      customElements.define('mc-ng-markdown-plantuml', MarkdownPlantumlWebComponent);
+      customElements.define('mc-ng-markdown-theme', MarkdownThemeWebComponent);
+      customElements.define('mc-ng-markdown-header', MarkdownHeaderWebComponent);
       const CustomBubbleWebComponent = createCustomElement(CustomBubbleShowComponent, {
         injector: injector
       });

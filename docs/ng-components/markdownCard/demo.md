@@ -50,11 +50,12 @@ import { McMarkdownCard } from '@matechat/core';
 
 组件提供了浅色与深色两种主题，默认使用浅色主题，可以通过 theme 属性来切换主题。
 
+<mc-ng-markdown-theme></mc-ng-markdown-theme>
 
 ### 数学公式
 通过配置md-plugins katex插件，进行数学公式渲染（DEMO未实际渲染，实际使用时解开代码中注释即可按预期渲染）。
 
-
+<mc-ng-markdown-math></mc-ng-markdown-math>
 
 ### Mermaid 渲染
 1. 设置enableMermaid为true开启mermaid渲染。注意：开启此功能前请确保项目已正确安装mermaid库。
@@ -73,6 +74,8 @@ $ npm install mermaid
 
 ### PlantUML 渲染
 通过配置md-plugins plantuml插件，进行plantuml图渲染。
+
+<mc-ng-markdown-plantuml></mc-ng-markdown-plantuml>
 
 
 
@@ -95,10 +98,12 @@ $ npm install mermaid
 
 我们提供了 `header` 插槽，支持你自定义代码块头部区域。
 
+<mc-ng-markdown-header></mc-ng-markdown-header>
+
 
 
 ### 自定义代码块内容区
 
 我们提供了 `content` 插槽，支持你自定义代码块内容区。
 
-
+<mc-ng-markdown-content></mc-ng-markdown-content>
