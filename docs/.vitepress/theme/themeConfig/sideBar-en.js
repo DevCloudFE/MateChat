@@ -29,25 +29,25 @@ export default {
       items: [{ text: 'MarkDown Card', link: '/components/markDownCard/demo' }],
     },
   ],
-  '/angular-components/': [
+  '/components-ng/': [
     {
       text: '会话',
       items: [
         {
           text: 'Bubble 气泡',
-          link: '/angular-components/bubble/demo',
+          link: '/components-ng/bubble/demo',
           children: [
             {
               text: 'Introduction',
-              link: '/angular-components/bubble/demo.md',
+              link: '/components-ng/bubble/demo.md',
             },
             {
               text: 'Demos',
-              link: '/angular-components/bubble/demo.md',
+              link: '/components-ng/bubble/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/angular-components/bubble/api.md',
+              link: '/components-ng/bubble/api.md',
             },
           ],
         },
@@ -58,15 +58,15 @@ export default {
       items: [
         {
           text: 'Input 输入',
-          link: '/angular-components/input/demo',
+          link: '/components-ng/input/demo',
           children: [
             {
               text: 'Demos',
-              link: '/angular-components/input/demo.md',
+              link: '/components-ng/input/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/angular-components/input/api.md',
+              link: '/components-ng/input/api.md',
             },
           ],
         },
@@ -76,15 +76,15 @@ export default {
       items: [
         {
           text: 'MarkDown 卡片',
-          link: '/angular-components/markdownCard/demo',
+          link: '/components-ng/markdownCard/demo',
           children: [
             {
               text: 'Demos',
-              link: '/angular-components/markdownCard/demo.md',
+              link: '/components-ng/markdownCard/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/angular-components/markdownCard/api.md',
+              link: '/components-ng/markdownCard/api.md',
             },
           ],
         },

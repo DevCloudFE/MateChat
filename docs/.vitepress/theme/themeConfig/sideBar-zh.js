@@ -31,25 +31,25 @@ export default {
       ],
     },
   ],
-  '/ng-components/': [
+  '/components-ng/': [
     {
       text: '会话',
       items: [
         {
           text: 'Bubble 气泡',
-          link: '/ng-components/bubble/demo',
+          link: '/components-ng/bubble/demo',
           children: [
             {
               text: 'Introduction',
-              link: '/ng-components/bubble/demo.md',
+              link: '/components-ng/bubble/demo.md',
             },
             {
               text: 'Demos',
-              link: '/ng-components/bubble/demo.md',
+              link: '/components-ng/bubble/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/ng-components/bubble/api.md',
+              link: '/components-ng/bubble/api.md',
             },
           ],
         },
@@ -60,15 +60,15 @@ export default {
       items: [
         {
           text: 'Input 输入',
-          link: '/ng-components/input/demo',
+          link: '/components-ng/input/demo',
           children: [
             {
               text: 'Demos',
-              link: '/ng-components/input/demo.md',
+              link: '/components-ng/input/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/ng-components/input/api.md',
+              link: '/components-ng/input/api.md',
             },
           ],
         },
@@ -78,15 +78,15 @@ export default {
       items: [
         {
           text: 'MarkDown 卡片',
-          link: '/ng-components/markDownCard/demo',
+          link: '/components-ng/markDownCard/demo',
           children: [
             {
               text: 'Demos',
-              link: '/ng-components/markDownCard/demo.md',
+              link: '/components-ng/markDownCard/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/ng-components/markDownCard/api.md',
+              link: '/components-ng/markDownCard/api.md',
             },
           ],
         },

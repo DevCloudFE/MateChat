@@ -84,7 +84,7 @@
             <img src="https://cn.vuejs.org/logo.svg"></img>
             <span>Vue</span>
           </div>
-          <div class="cli-icon" v-if="!isNg" @click="go('/ng-components/bubble/demo.html')">
+          <div class="cli-icon" v-if="!isNg" @click="go('/components-ng/bubble/demo.html')">
              <!-- <img src="/logo.svg" /> -->
             <img src="/angular.svg" />
             <span>Angular</span>
@@ -133,7 +133,6 @@ const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
 const showRelease = computed(() => window.location.pathname?.length > 1);
 const isNg = ref(false); 
-// computed(() => window.location.pathname?.includes('/ng-components'));
 
 const iconMap = [
   '/png/header/instruction.png',
@@ -171,7 +170,7 @@ const isActive = (link: string) => {
 const isDropdown = ref(false);
 
 onMounted(() => {
-  isNg.value = window.location.pathname?.includes('/ng-components');
+  isActiveNg();
   if (typeof localStorage !== 'undefined') {
     if (localStorage.getItem('theme') === ThemeKey.Galaxy) {
       isGalaxy.value = true;
@@ -260,9 +259,14 @@ function onDropdown(status: boolean) {
   isDropdown.value = status;
 }
 
+function isActiveNg() {
+  const prefix = window.location.pathname.split('/')[1];
+  isNg.value = prefix?.endsWith('-ng');
+}
+
 // 监听路由变化
 watch(() => router.route.path, (newPath, oldPath) => {
-  isNg.value = window.location.pathname?.includes('/ng-components');
+  isActiveNg();
 });
 </script>
 
