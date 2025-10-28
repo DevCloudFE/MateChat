@@ -28,7 +28,6 @@ export default {
       text: 'Developing',
       items: [
         { text: 'MarkDown Card', link: '/components/markDownCard/demo' },
-        { text: 'Attachment', link: '/en/components/attachment' },
         { text: 'FileList', link: '/en/components/fileList' },
       ],
     },
