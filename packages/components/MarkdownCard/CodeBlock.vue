@@ -132,7 +132,7 @@ const highlightedCode = computed(() => {
             content = hljs.highlight(props.code, { language: props.language }).value;
       }
     } else {
-      if (typeof hljs.highlightAuto !== "undefined") {
+      if (typeof hljs.highlightAuto !== undefined) {
         if (typeIndex !== -1) {
                 content = hljs.highlightAuto(props.code.slice(0, typeIndex)).value + props.code.slice(typeIndex);
         } else {
@@ -368,7 +368,7 @@ onMounted(() => {
     transition: all 0.3s ease;
     overflow: hidden;
     height: 24px;
-
+    
     &::before {
       content: '';
       position: absolute;
@@ -382,7 +382,7 @@ onMounted(() => {
       box-shadow: 0 1px 2px var(--devui-hover-shadow);
       z-index: 1;
     }
-
+    
     &.mc-show-code::before {
       transform: translateX(100%);
     }
@@ -390,7 +390,7 @@ onMounted(() => {
     .mc-diagram-switch-active {
       text-shadow: 0 0 .4px var(--devui-text);
     }
-
+    
     li {
       position: relative;
       padding: 0 8px;
