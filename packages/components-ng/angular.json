@@ -50,7 +50,7 @@
             "scripts": [],
             "extractLicenses": false,
             "optimization": false,
-            "sourceMap": true,
+            "sourceMap": false,
             "namedChunks": true,
             "customWebpackConfig": {
               "path": "./webpack.config.js",
