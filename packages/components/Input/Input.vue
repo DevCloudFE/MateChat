@@ -50,6 +50,11 @@ const inputClasses = computed(() => ({
 const clearInput = () => {
   inputValue.value = "";
 };
+const clearInputAfterSubmit = () => {
+  if (props.autoclear) {
+    clearInput();
+  }
+};
 const getInput = () => inputValue.value;
 
 watch(
@@ -61,7 +66,7 @@ watch(
 );
 
 defineExpose({ clearInput, getInput });
-provide(inputInjectionKey, { inputValue, rootProps: props, rootEmits: emits });
+provide(inputInjectionKey, { inputValue, rootProps: props, rootEmits: emits, clearInputAfterSubmit });
 </script>
 
 <style lang="scss">

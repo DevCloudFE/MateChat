@@ -312,6 +312,44 @@ const onCancel = () => {
 
 :::
 
+### 自动清空
+
+通过 `autoclear` 属性设置输入框在提交后是否自动清空内容，默认为 `true`。
+可以通过 `clearInput` 方法手动清空输入框内容。
+
+:::demo
+
+```vue
+<template>
+  <McInput ref="mcInputRef" :value="inputValue" :autoclear="false" :loading="loading" @submit="onSubmit" @cancel="onCancel">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const mcInputRef = ref();
+const inputValue = ref('');
+const loading = ref(false);
+
+const onSubmit = (e) => {
+  loading.value = true;
+  setTimeout(() => {
+    // 发送成功后手动清空输入框内容
+    mcInputRef.value.clearInput();
+    loading.value = false;
+  }, 1000);
+  console.log('input submit---', e);
+};
+const onCancel = () => {
+  loading.value = false;
+  console.log('input cancel');
+};
+</script>
+```
+
+:::
+
 ### 自定义插槽
 
 通过`head`插槽自定义输入框顶部的内容，通过`extra`自定义发送按钮左侧的内容。
