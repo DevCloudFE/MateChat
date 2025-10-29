@@ -77,7 +77,6 @@ import hljs from "highlight.js";
 import { debounce } from "lodash-es";
 import { MDCardService } from "./MDCardService";
 import { useMcI18n } from "@matechat/core/Locale";
-import { isVscode, vscode } from './vs-api';
 
 type MermaidConfig = {
   theme?: string;
@@ -219,13 +218,6 @@ const copyCode = debounce((e: Event) => {
     copied.value = false;
   }, 1500);
 }, 300);
-
-const applyCode = () => {
-  vscode.postMessage({
-    type: 'applyCode',
-    code: props.code,
-  });
-};
 
 const beforeEnter = (el: RendererElement) => {
   if (!el.dataset) {
