@@ -14,6 +14,5 @@ export default {
     zoomIn: '放大',
     zoomOut: '缩小',
     downLoad: '下载',
-    apply: '应用更改',
   },
 };

@@ -50,9 +50,6 @@
             <img v-else src="./asset/right.svg">
           </div>
         </div>
-        <div class="mc-action-btn mc-copy-btn" :title="t('Md.apply')" @click="applyCode" v-if="isVscode">
-          <img src="./asset/add-requestor.svg" />
-        </div>
       </slot>
     </div>
     <slot name="header" v-else></slot>
