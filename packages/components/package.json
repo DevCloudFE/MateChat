@@ -25,15 +25,12 @@
     "@floating-ui/dom": "^1.6.12",
     "@vue/shared": "^3.5.13",
     "devui-theme": "^0.0.7",
-    "highlight.js": "^11.11.0",
     "lodash-es": "^4.17.21",
+    "highlight.js": "^11.11.0",
     "markdown-it": "12.2.0",
     "xss": "^1.0.15"
   },
   "peerDependencies": {
     "vue": "^3.5.13"
-  },
-  "devDependencies": {
-    "@types/vscode-webview": "^1.57.5"
   }
 }
