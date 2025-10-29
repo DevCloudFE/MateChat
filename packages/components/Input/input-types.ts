@@ -71,6 +71,10 @@ export const inputProps = {
     type: [Boolean, Object] as PropType<TextareaAutoSize>,
     default: false,
   },
+  autoClear: {
+    type: Boolean,
+    default: true,
+  },
 };
 export type InputProps = ExtractPropTypes<typeof inputProps>;
 
@@ -78,6 +82,7 @@ export interface InputContext {
   inputValue: Ref<string>;
   rootProps: InputProps;
   rootEmits: (event: string, ...args: any[]) => void;
+  clearInputAfterSubmit: () => void;
 }
 
 export const inputEmits = ["change", "submit", "cancel", "focus", "blur"];
