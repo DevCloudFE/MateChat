@@ -51,7 +51,7 @@ const clearInput = () => {
   inputValue.value = "";
 };
 const clearInputAfterSubmit = () => {
-  if (props.autoclear) {
+  if (props.autoClear) {
     clearInput();
   }
 };

@@ -312,16 +312,16 @@ const onCancel = () => {
 
 :::
 
-### 自动清空
+### 提交时不自动清空输入
 
-通过 `autoclear` 属性设置输入框在提交后是否自动清空内容，默认为 `true`。
+通过 `autoClear` 属性设置输入框在提交后是否自动清空内容，默认为 `true`。
 可以通过 `clearInput` 方法手动清空输入框内容。
 
 :::demo
 
 ```vue
 <template>
-  <McInput ref="mcInputRef" :value="inputValue" :autoclear="false" :loading="loading" @submit="onSubmit" @cancel="onCancel">
+  <McInput ref="mcInputRef" :value="inputValue" :autoClear="false" :loading="loading" @submit="onSubmit" @cancel="onCancel">
   </McInput>
 </template>
 

@@ -71,7 +71,7 @@ export const inputProps = {
     type: [Boolean, Object] as PropType<TextareaAutoSize>,
     default: false,
   },
-  autoclear: {
+  autoClear: {
     type: Boolean,
     default: true,
   },

@@ -21,6 +21,7 @@ iconSrc: '/inputIcon.png'
 | sendBtnVariant | [SendBtnVariant](#sendbtnvariant)           | 'full'     | 发送按钮的形态                                 |
 | autofocus      | `boolean`                                   | false      | 是否自动聚焦输入框                             |
 | autosize       | [TextareaAutoSize](#textareaautosize)       | false      | 是否自动调整文本域高度                         |
+| autoClear      | `boolean`                                   | true       | 提交时是否自动清空输入框                             |
 
 ### 事件
 
