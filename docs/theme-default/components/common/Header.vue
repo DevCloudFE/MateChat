@@ -80,16 +80,26 @@
         </d-dropdown>
       </div>
         <div class="release" v-if="showRelease">
-          <div class="cli-icon" v-show="isNg" @click="go('/components/introduction/demo.html')">
-            <img src="https://cn.vuejs.org/logo.svg"></img>
-            <span>Vue</span>
-          </div>
-          <div class="cli-icon" v-show="!isNg" @click="go('/components-ng/bubble/demo.html')">
-             <!-- <img src="/logo.svg" /> -->
-            <img src="/angular.svg" />
-            <span>Angular</span>
-          </div>
-      </div>
+          <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
+            <div class="version">
+              <span class="cli-icon cli-span">
+                <img :src="isNg ?  '/angular.svg' : 'https://cn.vuejs.org/logo.svg'" />
+                <span>{{ isNg ? 'Angular' : 'Vue 3.0' }}</span>
+              </span>
+              <i class="icon-chevron-down-2"></i>
+            </div>
+            <template #menu>
+              <ul class="list-menu">
+                <li class="menu-item">
+                  <div class="cli-icon" @click="go(isNg ? '/components/introduction/demo.html' : '/components-ng/bubble/demo.html')">
+                    <img :src="isNg ? 'https://cn.vuejs.org/logo.svg' : '/angular.svg'" />
+                    <span>{{ isNg ? 'Vue 3.0' : 'Angular' }}</span>
+                  </div>
+                </li>
+              </ul>
+            </template>
+          </d-dropdown>
+        </div>
       <div v-if="showTheme" class="header-menu-splitter"></div>
       <div v-show="showTheme" class="theme">
         <div>
@@ -332,6 +342,8 @@ watch(() => router.route.path, (newPath, oldPath) => {
 
     .version {
       line-height: 32px;
+      display: flex;
+      align-items: center;
     }
 
     &:hover {
@@ -468,6 +480,12 @@ watch(() => router.route.path, (newPath, oldPath) => {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .cli-icon {
+    img {
+      margin-right: 8px;
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -549,7 +567,6 @@ watch(() => router.route.path, (newPath, oldPath) => {
     height: 12px;
   }
 }
-
 
 .intro-header-right-nav-dropdown {
   left: 0 !important;
