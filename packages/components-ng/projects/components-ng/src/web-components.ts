@@ -10,6 +10,7 @@ import { BasicBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/bas
 import { VariantAvatarBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-avatar-demo-show.component';
 import { AvatarPlusBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/avatar-plus-demo-show.component';
 import { CustomBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/custom-demo-show.component';
+import { CustomActionDemoShowComponent } from '../../demo-app/src/app/show/Bubble/custom-action-demo-show.component';
 // 导入Input相关的show组件
 import { BasicInputShowComponent } from '../../demo-app/src/app/show/Input/basic-demo-show.component';
 import { ButtonInputShowComponent } from '../../demo-app/src/app/show/Input/button-demo-show.component';
@@ -44,6 +45,7 @@ import { MarkdownHeaderShowComponent } from '../../demo-app/src/app/show/Markdow
     VariantAvatarBubbleShowComponent,
     AvatarPlusBubbleShowComponent,
     CustomBubbleShowComponent,
+    CustomActionDemoShowComponent,
     // 添加Input相关的show组件
     BasicInputShowComponent,
     AutoInputShowComponent,
@@ -134,6 +136,9 @@ platformBrowserDynamic()
       const CustomBubbleWebComponent = createCustomElement(CustomBubbleShowComponent, {
         injector: injector
       });
+      const CustomActionBubbleWebComponent = createCustomElement(CustomActionDemoShowComponent, {
+        injector: injector
+      });
 
       // 将Input组件转换为webcomponent
       const BasicInputWebComponent = createCustomElement(BasicInputShowComponent, {
@@ -189,6 +194,7 @@ platformBrowserDynamic()
       customElements.define('mc-ng-bubble-variant-avatar', VariantAvatarWebComponent);
       customElements.define('mc-ng-bubble-avatar-plus', AvatarPlusBubbleWebComponent);
       customElements.define('mc-ng-bubble-custom', CustomBubbleWebComponent);
+      customElements.define('mc-ng-bubble-custom-action', CustomActionBubbleWebComponent);
       
       // 注册Input相关webcomponent
       customElements.define('mc-ng-input-button', ButtonInputWebComponent);

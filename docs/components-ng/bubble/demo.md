@@ -73,3 +73,9 @@ import { BubbleModule } from '@matechat/ng';
 将 `variant` 设置为 `none` 之后我们将不会为气泡内容区添加任何样式，方便你进行更多个性化的展示。
 
 <mc-ng-bubble-variant-avatar></mc-ng-bubble-variant-avatar>
+
+### 自定义气泡操作区域
+
+我们还为气泡提供了 `top` 和 `bottom` 两个自定义区域，方便你实现一些自定义需求。
+
+<mc-ng-bubble-custom-action></mc-ng-bubble-custom-action>

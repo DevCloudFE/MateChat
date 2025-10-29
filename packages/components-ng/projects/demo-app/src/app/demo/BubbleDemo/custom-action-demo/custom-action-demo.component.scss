@@ -1,0 +1,19 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.bubble-top-area {
+  margin-bottom: 4px;
+}
+
+.bubble-bottom-area {
+  margin-top: 4px;
+
+  .icon {
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $devui-icon-hover-bg;
+    }
+  }
+}
