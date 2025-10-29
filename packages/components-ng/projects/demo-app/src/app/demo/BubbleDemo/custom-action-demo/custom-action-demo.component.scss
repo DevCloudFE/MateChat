@@ -1,5 +1,3 @@
-@import 'devui-theme/styles-var/devui-var.scss';
-
 .bubble-top-area {
   margin-bottom: 4px;
 }
@@ -13,7 +11,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $devui-icon-hover-bg;
+      background-color: var(--devui-icon-hover-bg, #EBEBEB);
     }
   }
 }
