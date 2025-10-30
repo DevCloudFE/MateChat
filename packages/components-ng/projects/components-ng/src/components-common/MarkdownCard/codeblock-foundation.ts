@@ -8,6 +8,7 @@ import { MDCardService } from './common/MDCardService';
 
 export interface CodeBlockAdapter extends DefaultAdapter {
   getContainer(): HTMLElement | null;
+  highlightCodeChange(code: string, language: string): void;
 }
 
 export class CodeBlockFoundation extends BaseFoundation<CodeBlockAdapter> {
@@ -109,7 +110,7 @@ export class CodeBlockFoundation extends BaseFoundation<CodeBlockAdapter> {
     } catch (_) {
       highlightedCode = code;
     }
-    this.setState({ highlightedCode });
+    this._adapter.highlightCodeChange(highlightedCode, language);
   };
 
   renderMermaid = async () => {

@@ -7,20 +7,29 @@ import {
   OnChanges,
   SimpleChanges,
   ChangeDetectorRef,
+  ViewChildren,
+  QueryList,
 } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import hljs from 'highlight.js';
 import { TemplateRef } from '@angular/core';
 import type { MermaidConfig } from '../components-common/MarkdownCard/common/mdCard.types';
 import BaseComponent from '../Base/base.component';
-import { CodeBlockAdapter, CodeBlockFoundation } from '../components-common/MarkdownCard/codeblock-foundation';
+import { DiffDOM } from 'diff-dom';
+import {
+  CodeBlockAdapter,
+  CodeBlockFoundation,
+} from '../components-common/MarkdownCard/codeblock-foundation';
 @Component({
   selector: 'mc-code-block',
   templateUrl: './code-block.component.html',
   standalone: false,
   styleUrls: ['./code-block.component.scss'],
 })
-export class CodeBlockComponent extends BaseComponent implements OnInit, OnChanges {
+export class CodeBlockComponent
+  extends BaseComponent
+  implements OnInit, OnChanges
+{
   @Input() code: string = '';
   @Input() language: string = '';
   @Input() blockIndex: number = 0;
@@ -33,10 +42,14 @@ export class CodeBlockComponent extends BaseComponent implements OnInit, OnChang
 
   @ViewChild('rootRef') rootRef!: ElementRef;
   @ViewChild('mermaidContent') mermaidContentRef: ElementRef;
+  @ViewChild('codeElement', { static: false }) codeElementRef: ElementRef;
+  @ViewChildren('codeElementTemplate')
+  codeElementTemplates: QueryList<ElementRef>;
 
   expanded: boolean = true;
   copied: boolean = false;
   mermaidContent: string = '';
+  private diffDom: DiffDOM;
   private _showMermaidDiagram: boolean = true;
   get showMermaidDiagram(): boolean {
     return this._showMermaidDiagram;
@@ -63,6 +76,7 @@ export class CodeBlockComponent extends BaseComponent implements OnInit, OnChang
       .pipe(debounceTime(300))
       .subscribe(() => this.copyCodeInternal());
     this.foundation = new CodeBlockFoundation(this.adapter);
+    this.diffDom = new DiffDOM();
   }
 
   override get adapter(): CodeBlockAdapter {
@@ -71,11 +85,32 @@ export class CodeBlockComponent extends BaseComponent implements OnInit, OnChang
       getContainer: () => {
         return this.mermaidContentRef.nativeElement;
       },
+      highlightCodeChange: (highlightedCode: string, language: string) => {
+        this.highlightedCode = highlightedCode;
+        if (this.codeElementRef?.nativeElement) {
+          const newElement = document.createElement('code');
+          newElement.className = `hljs language-${language}`;
+          newElement.innerHTML = highlightedCode;
+          const diff = this.diffDom.diff(
+            this.codeElementRef.nativeElement,
+            newElement
+          );
+          this.diffDom.apply(this.codeElementRef.nativeElement, diff);
+        }
+      },
     };
   }
 
   switchShowMermaid(show: boolean): void {
     this.showMermaidDiagram = show;
+    if (!this.showMermaidDiagram) {
+      this.codeElementTemplates.changes.subscribe(() => {
+        if (this.codeElementRef?.nativeElement && !this.showMermaidDiagram) {
+          this.codeElementRef.nativeElement.innerHTML = this.highlightedCode;
+        }
+      });
+    }
+
     this.cdr.detectChanges();
   }
 

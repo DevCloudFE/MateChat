@@ -239,11 +239,11 @@
     <ng-template [ngTemplateOutlet]="headerTemplate" [ngTemplateOutletContext]="{ $implicit: {code, language}, codeBlockData: {code, language} }"></ng-template>
   </ng-container>
 
-  <div [ngClass]="{ 'mc-block-hidden': !expanded }">
+  <div [ngClass]="{ 'mc-block-hidden': !expanded }" >
     @if (showMermaidDiagram && isMermaid && !contentTemplate) {
     <div class="mc-mermaid-content" #mermaidContent></div>
     } @else if(!contentTemplate) {
-    <pre><code [ngClass]="'hljs language-' + language" [innerHTML]="highlightedCode"></code></pre>
+    <pre #codeElementTemplate><code #codeElement [ngClass]="'hljs language-' + language" ></code></pre>
     } @else {
     <ng-container *ngIf="contentTemplate">
       <ng-template [ngTemplateOutlet]="contentTemplate" [ngTemplateOutletContext]="{ $implicit: {code, language}, codeBlockData: {code, language} }"></ng-template>

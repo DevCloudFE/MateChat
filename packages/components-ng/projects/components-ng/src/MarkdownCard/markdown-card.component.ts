@@ -55,9 +55,12 @@ export class MarkdownCardComponent
   @Input() actionsTemplate: TemplateRef<any> | null = null;
   @Input() headerTemplate: TemplateRef<any> | null = null;
   @Input() contentTemplate: TemplateRef<any> | null = null;
-  
+
   // 组件缓存映射表，用于存储已创建的CodeBlockComponent实例
-  private codeBlockComponentsCache: Map<string, {componentRef: any, container: HTMLElement}> = new Map();
+  private codeBlockComponentsCache: Map<
+    string,
+    { componentRef: any; container: HTMLElement }
+  > = new Map();
 
   @Output() afterMdtInit = new EventEmitter<markdownit>();
   @Output() typingStart = new EventEmitter<void>();
@@ -98,17 +101,20 @@ export class MarkdownCardComponent
       // 配置filterOuterDiff钩子，识别code-block-wrapper元素并直接替换
       filterOuterDiff: (t1, t2, diffs) => {
         // 检查是否是class为code-block-wrapper的div元素
-        const isTargetElement = 
+        const isTargetElement =
           t2.nodeName === 'DIV' &&
-          t2.attributes && t2.attributes.class && t2.attributes.class.includes('code-block-wrapper');
+          t2.attributes &&
+          t2.attributes.class &&
+          t2.attributes.class.includes('code-block-wrapper');
 
         if (isTargetElement) {
           t1.innerDone = true;
+          t2.innerDone = true;
         }
-      }
+      },
     });
   }
-
+  renderVisited: string[] = [];
   ngOnInit(): void {
     this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
     this.parseContent();
@@ -179,6 +185,13 @@ export class MarkdownCardComponent
 
     // 创建新内容容器
     const newContent = document.createElement('div');
+    // 从vNodes中找到所有class为code-block-wrapper的div元素
+    const codeBlockWrappers = vnodes.filter((node) => {
+      return (
+        node.nodeName === 'DIV' &&
+        node.className?.includes('code-block-wrapper')
+      );
+    });
     vnodes.forEach((node) => {
       if (
         node &&
@@ -186,7 +199,14 @@ export class MarkdownCardComponent
           typeof node === 'string' ||
           node instanceof HTMLElement)
       ) {
-        newContent.appendChild(node);
+        if (codeBlockWrappers.includes(node)) {
+          const codeNode = document.createElement('div');
+          codeNode.className = 'code-block-wrapper';
+          codeNode.setAttribute('key', node.attributes.key.value);
+          newContent.appendChild(codeNode);
+        } else {
+          newContent.appendChild(node);
+        }
       }
     });
 
@@ -203,23 +223,20 @@ export class MarkdownCardComponent
     let oldNode = container;
     let newNode = newContent;
     const patches = this.diffDom.diff(oldNode, newNode);
-    //code-block-wrapper
     this.diffDom.apply(container, patches);
-    // 从vNodes中找到所有class为code-block-wrapper的div元素
-    const codeBlockWrappers = vnodes.filter((node) => {
-      return node.nodeName === 'DIV' && node.className?.includes('code-block-wrapper');
-    });
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
-      if (newCodeBlock && newCodeBlock.attributes && newCodeBlock.attributes.key) {
+      if (
+        newCodeBlock &&
+        newCodeBlock.attributes &&
+        newCodeBlock.attributes.key
+      ) {
         const key = newCodeBlock.attributes.key.value;
-        // 查找container中对应key的元素
         const existingElement = container.querySelector(`[key="${key}"]`);
-        
         if (existingElement && newCodeBlock instanceof HTMLElement) {
-          // 替换元素
           if (newCodeBlock !== existingElement) {
-              existingElement.parentNode?.replaceChild(newCodeBlock, existingElement);
+            existingElement.replaceWith(newCodeBlock);
+            this.renderVisited.push(key);
           }
         }
       }
@@ -258,7 +275,10 @@ export class MarkdownCardComponent
       node.children.forEach((child) => {
         const childVnode = this.processASTNode(child as any);
         if (childVnode) {
-          this.renderer.appendChild(container.firstChild || container, childVnode);
+          this.renderer.appendChild(
+            container.firstChild || container,
+            childVnode
+          );
         }
       });
     }
@@ -397,7 +417,7 @@ export class MarkdownCardComponent
 
   private createCodeBlock(language: string, code: string, blockIndex: number) {
     const key = `code-block-${blockIndex}`;
-    
+
     // 检查缓存中是否已存在相同blockIndex的组件
     if (this.codeBlockComponentsCache.has(key)) {
       const cachedItem = this.codeBlockComponentsCache.get(key);
@@ -407,23 +427,26 @@ export class MarkdownCardComponent
         componentRef.setInput('language', language);
         componentRef.setInput('code', code);
         componentRef.setInput('theme', this.theme);
-        
+
         // 触发变更检测
         componentRef.changeDetectorRef.detectChanges();
         // 返回缓存的容器，无需重新创建
         return cachedItem.container;
       }
     }
-    
+
     // 缓存中不存在，创建新组件
     const codeBlockContainer = this.renderer.createElement('div');
     this.renderer.setAttribute(codeBlockContainer, 'key', key);
-    
-    const componentRef = this.markdownContainer.createComponent(CodeBlockComponent, {
-      projectableNodes: [],
-      injector: this.markdownContainer.injector,
-    });
-    
+
+    const componentRef = this.markdownContainer.createComponent(
+      CodeBlockComponent,
+      {
+        projectableNodes: [],
+        injector: this.markdownContainer.injector,
+      }
+    );
+
     // 设置组件属性
     componentRef.instance.language = language;
     componentRef.instance.code = code;
@@ -434,22 +457,25 @@ export class MarkdownCardComponent
     componentRef.instance.actionsTemplate = this.actionsTemplate;
     componentRef.instance.headerTemplate = this.headerTemplate;
     componentRef.instance.contentTemplate = this.contentTemplate;
-    
+
     // 触发变更检测
     componentRef.changeDetectorRef.detectChanges();
-    
+
     // 将组件的DOM元素附加到容器中
-    this.renderer.appendChild(codeBlockContainer, componentRef.location.nativeElement);
-    
+    this.renderer.appendChild(
+      codeBlockContainer,
+      componentRef.location.nativeElement
+    );
+
     // 添加样式类
     this.renderer.addClass(codeBlockContainer, 'code-block-wrapper');
-    
+
     // 缓存组件实例和容器
     this.codeBlockComponentsCache.set(key, {
       componentRef: componentRef,
-      container: codeBlockContainer
+      container: codeBlockContainer,
     });
-    
+
     // 返回创建的DOM容器
     return codeBlockContainer;
   }
@@ -457,7 +483,7 @@ export class MarkdownCardComponent
   private typewriterStart(): void {
     this.foundation.typewriterStart();
   }
-  
+
   // 在组件销毁时清理缓存，避免内存泄漏
   override ngOnDestroy(): void {
     // 销毁所有缓存的组件实例
