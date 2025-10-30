@@ -45,7 +45,7 @@
   "devDependencies": {
     "@babel/parser": "^7.26.5",
     "@babel/traverse": "^7.26.5",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.2.4",
     "@intlify/unplugin-vue-i18n": "^6.0.5",
     "@matechat/ng-demo": "workspace:~",
     "@tsconfig/node22": "^22.0.0",

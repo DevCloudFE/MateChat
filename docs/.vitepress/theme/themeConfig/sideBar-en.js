@@ -26,7 +26,10 @@ export default {
     },
     {
       text: 'Developing',
-      items: [{ text: 'MarkDown Card', link: '/components/markDownCard/demo' }],
+      items: [
+        { text: 'MarkDown Card', link: '/components/markDownCard/demo' },
+        { text: 'FileList', link: '/en/components/fileList' },
+      ],
     },
   ],
   '/components-ng/': [

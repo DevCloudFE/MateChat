@@ -28,6 +28,7 @@ export default {
       items: [
         { text: 'Layout 布局', link: '/components/layout/demo' },
         { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
+        { text: 'FileList 文件列表', link: '/components/fileList/demo' },
       ],
     },
   ],

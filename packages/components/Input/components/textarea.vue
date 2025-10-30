@@ -29,7 +29,7 @@ import { useMcTextareaAutosize } from './use-textarea-autosize';
 const { t } = useMcI18n();
 
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
-const { inputValue, rootProps, rootEmits } = inject(inputInjectionKey) as InputContext;
+const { inputValue, rootProps, rootEmits, clearInputAfterSubmit } = inject(inputInjectionKey) as InputContext;
 
 const placeholder = computed(() => {
   let enterKey = '';
@@ -99,7 +99,7 @@ const onKeydown = (e: KeyboardEvent) => {
   if (shiftKey && e.key === 'Enter' && !lock) {
     e.preventDefault();
     rootEmits('submit', inputValue.value);
-    inputValue.value = '';
+    clearInputAfterSubmit();
     rootEmits('change', inputValue.value);
   }
 };

@@ -1,0 +1,25 @@
+@import "@devui-design/icons/icomoon/devui-icon.css";
+@import "vue-devui/style.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.mc-scroll-overlay {
+    overflow: auto;
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background-color: #dbdbdb;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color:#babbc0;
+        }
+    }
+}

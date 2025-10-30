@@ -27,7 +27,7 @@ import { useMcI18n } from "@matechat/core/Locale";
 
 const { t } = useMcI18n();
 
-const { inputValue, rootProps, rootEmits } = inject(
+const { inputValue, rootProps, rootEmits, clearInputAfterSubmit } = inject(
   inputInjectionKey
 ) as InputContext;
 const isMouseDown = ref(false);
@@ -59,7 +59,7 @@ const onConfirm = (e: MouseEvent) => {
     rootEmits("cancel");
   } else {
     rootEmits("submit", inputValue.value);
-    inputValue.value = "";
+    clearInputAfterSubmit();
     rootEmits('change', inputValue.value);
   }
 };
