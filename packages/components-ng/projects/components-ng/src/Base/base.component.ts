@@ -1,4 +1,4 @@
-import { DefaultAdapter } from '../components-common/Base/foundation';
+import BaseFoundation, { DefaultAdapter } from '../components-common/Base/foundation';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,11 +6,10 @@ import { Component } from '@angular/core';
   standalone: true,
   template: '',
 })
-export default class BaseComponent {
-  foundation: any;
+export default class BaseComponent<T extends BaseFoundation<DefaultAdapter>> {
+  foundation: T;
   cache: any;
   constructor() {
-    this.foundation = null;
   }
 
   ngOnDestroy() {

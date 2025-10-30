@@ -37,7 +37,7 @@ import MdParserUtils from '../components-common/MarkdownCard/common/parser';
   styleUrls: ['./markdown-card.component.scss'],
 })
 export class MarkdownCardComponent
-  extends BaseComponent
+  extends BaseComponent<MarkdownCardFoundation>
   implements OnInit, OnChanges, OnDestroy
 {
   private diffDom: DiffDOM;
@@ -169,7 +169,7 @@ export class MarkdownCardComponent
   }
 
   private parseContent() {
-    this.foundation.parseContent(this.content || '');
+    this.foundation.parseContent();
   }
 
   private renderContent(vnodes) {

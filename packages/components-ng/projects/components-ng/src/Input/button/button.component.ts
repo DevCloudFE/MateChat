@@ -12,7 +12,7 @@ import { InputButtonAdapter, InputButtonFoundation } from '../../components-comm
   imports: [CommonModule, SendIconComponent, TranslatePipe],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-})export class ButtonComponent extends BaseComponent {
+})export class ButtonComponent extends BaseComponent<InputButtonFoundation> {
   @Input() disabled: boolean = false;
   @Input() loading: boolean = false;
   @Input() inputValue: string = '';
@@ -30,7 +30,7 @@ import { InputButtonAdapter, InputButtonFoundation } from '../../components-comm
   
   constructor(private localeService: LocaleService) { super(); }
   
-  get buttonClasses(): string {
+  get buttonClasses(): Record<string, any> {
     return this.foundation.getButtonClasses();
   }
   

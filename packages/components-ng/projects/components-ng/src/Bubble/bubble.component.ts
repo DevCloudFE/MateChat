@@ -15,7 +15,7 @@ import { TranslatePipe } from '../Locale/translate.pipe';
   templateUrl: './bubble.component.html',
   styleUrls: ['./bubble.component.scss']
 })
-export class BubbleComponent extends BaseComponent {
+export class BubbleComponent extends BaseComponent<BubbleFoundation> {
   // 组件属性
   @Input() content: string = '';
   @Input() loading: boolean = false;

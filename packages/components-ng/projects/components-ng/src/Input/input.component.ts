@@ -48,7 +48,7 @@ export const inputContextToken = 'input-context';
   styleUrls: ['./input.component.scss'],
   providers: [{ provide: inputContextToken, useExisting: InputComponent }],
 })
-export class InputComponent extends BaseComponent implements OnInit {
+export class InputComponent extends BaseComponent<InputFoundation> implements OnInit {
   @Input() value: string = '';
   @Input() placeholder: string = '';
   @Input() disabled: boolean = false;
@@ -124,7 +124,7 @@ export class InputComponent extends BaseComponent implements OnInit {
     }
   }
 
-  get inputClasses(): string {
+  get inputClasses(): Record<string, any> {
     return this.foundation.getInputClasses();
   }
 

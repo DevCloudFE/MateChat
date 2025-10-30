@@ -27,7 +27,7 @@ import {
   styleUrls: ['./code-block.component.scss'],
 })
 export class CodeBlockComponent
-  extends BaseComponent
+  extends BaseComponent<CodeBlockFoundation>
   implements OnInit, OnChanges
 {
   @Input() code: string = '';
