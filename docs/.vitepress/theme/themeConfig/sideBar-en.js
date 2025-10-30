@@ -101,6 +101,9 @@ export default {
       ],
     },
   ],
+  '/en/use-guide-ng/': [
+      { text: '快速开始', link: '/use-guide-ng/introduction' }
+    ],
   '/en/use-guide/': [
     { text: 'Start', link: '/en/use-guide/introduction' },
     { text: 'On-demand Import', link: '/use-guide/require' },

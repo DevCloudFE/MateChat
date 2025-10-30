@@ -103,6 +103,9 @@ export default {
       ],
     },
   ],
+    '/use-guide-ng/': [
+      { text: '快速开始', link: '/use-guide-ng/introduction' }
+    ],
   '/use-guide/': [
     // { text: '更新日志', link: '/use-guide/changelog' },
     { text: '快速开始', link: '/use-guide/introduction' },

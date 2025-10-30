@@ -16,7 +16,7 @@
         <template #menu>
           <div class="nav-drop-menu">
             <ul>
-              <li v-for="(item, index) in theme.nav" :key="index" @click="go(item.link)">
+              <li v-for="(item, index) in nav" :key="index" @click="go(item.link)">
                 <img :class="{ 'enhance-icon': isGalaxy }" :src="iconMap[index]" />
                 <span>{{ $t(item.text) }}</span>
               </li>
@@ -44,7 +44,7 @@
 
     <div class="nav-list">
         <a
-          v-for="(item, index) in theme.nav"
+          v-for="(item, index) in nav"
           :key="index"
           v-localeHref="item.link"
           :class="['nav-op', { 'nav-active': isActive(item.link) }]"
@@ -84,7 +84,7 @@
             <div class="version">
               <span class="cli-icon cli-span">
                 <img :src="isNg ?  '/angular.svg' : '/vue-logo.svg'" />
-                <span>{{ isNg ? 'Angular' : 'Vue 3.0' }}</span>
+                <span>{{ isNg ? 'Angular' : 'Vue 3' }}</span>
               </span>
               <i class="icon-chevron-down-2"></i>
             </div>
@@ -93,7 +93,7 @@
                 <li class="menu-item">
                   <div class="cli-icon" @click="go(isNg ? '/components/introduction/demo.html' : '/components-ng/bubble/demo.html')">
                     <img :src="isNg ? '/vue-logo.svg' : '/angular.svg'" />
-                    <span>{{ isNg ? 'Vue 3.0' : 'Angular' }}</span>
+                    <span>{{ isNg ? 'Vue 3' : 'Angular' }}</span>
                   </div>
                 </li>
               </ul>
@@ -143,6 +143,15 @@ const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
 const showRelease = computed(() => window.location.pathname?.length > 1);
 const isNg = ref(false); 
+const ngNav = ref([
+    { text: 'nav.guide', link: '/use-guide-ng/introduction' },
+    { text: 'nav.component', link: '/components-ng/bubble/demo' },
+    { text: 'nav.demo', link: '/vue-starter/' },
+]);
+
+const nav = computed(()=> {
+  return isNg.value ? ngNav.value : theme.value.nav;
+})
 
 const iconMap = [
   '/png/header/instruction.png',
@@ -482,8 +491,15 @@ watch(() => router.route.path, (newPath, oldPath) => {
   align-items: center;
 
   .cli-icon {
+      border-radius: 4px;
+      padding: 4px 8px;
+      width: 100%;
+      margin-right: 4px;
     img {
       margin-right: 8px;
+    }
+    &:hover {
+        background: $devui-list-item-hover-bg;
     }
   }
 }
