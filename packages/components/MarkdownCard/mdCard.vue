@@ -313,7 +313,8 @@ defineExpose({ mdt });
 
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
-@import "./markdown.scss";
+@import "@matechat/common/Base/vue.scss";
+@import "@matechat/common/MarkdownCard/common/markdown.scss";
 
 .mc-markdown-render {
   font-size: var(--devui-font-size, 14px);

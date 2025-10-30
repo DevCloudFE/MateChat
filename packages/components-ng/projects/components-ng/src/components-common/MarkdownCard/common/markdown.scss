@@ -1,104 +1,113 @@
 @import "devui-theme/styles-var/devui-var.scss";
-.mc-markdown-render ::ng-deep {
-  ul,
-  ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  ul {
-    list-style-type: disc;
-    padding-left: 16px;
-  }
-
-  ol {
-    list-style-type: decimal;
-    padding-inline-start: 1.75em;
-  }
-
-  p {
-    line-height: 28px;
-    margin: 0;
-    padding: 0;
-    overflow-wrap: break-word;
-  }
-
-  h1 {
-    font-size: 32px;
-    line-height: 40px;
-    overflow-wrap: break-word;
-  }
-
-  h3 {
-    line-height: 28px;
-    font-size: 20px;
-    overflow-wrap: break-word;
-  }
-
-  table {
-    margin-bottom: 10px;
-    border-collapse: collapse;
-    display: table;
-  }
-
-  td,
-  th {
-    padding: 5px 10px;
-    border: 1px solid $devui-dividing-line;
-    background-color: $devui-base-bg;
-  }
-
-  caption {
-    border: 1px dashed $devui-line;
-    border-bottom: 0;
-    padding: 3px;
-    text-align: center;
-  }
-
-  th {
-    border-top: 1px solid $devui-dividing-line;
-    background-color: $devui-global-bg;
-  }
-
-  td p {
-    margin: 0;
-    padding: 0;
-  }
-
-  .h1,
-  .h2,
-  .h3,
-  .h4,
-  .h5,
-  .h6,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-  }
-
-  blockquote {
-    padding: 0 8px;
-    margin: 0;
-    color: $devui-text-weak;
-    border-left: 5px solid $devui-dividing-line;
-  }
-
-  a {
-    color: $devui-link;
-    text-decoration: underline;
-    cursor: pointer;
-
-    &:hover {
-      color: $devui-link-active;
+// markdown 通用样式表
+.mc-markdown-render {
+  @include deep() {
+    // 标题/段落/文本
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+      margin: 16px 0 12px 0;
+      &:first-child {
+        margin-top: 0;
+      }
     }
-  }
+    h1 {
+      font-size: 32px;
+      line-height: 40px;
+      overflow-wrap: break-word;
+    }
+    h3 {
+      line-height: 28px;
+      font-size: 20px;
+      overflow-wrap: break-word;
+    }
+    caption {
+      border: 1px dashed $devui-line;
+      border-bottom: 0;
+      padding: 3px;
+      text-align: center;
+    }
+    p {
+      overflow-wrap: break-word;
+      margin: 0;
+      padding: 0;
+      line-height: 24px;
+    }
+    p:last-child {
+      margin: 0;
+    }
 
-  img {
-    max-width: 100%;
+    // 列表
+    ul,
+    ol {
+      margin: 0;
+      padding: 0;
+      padding-inline-start: 1.75em;
+      > li {
+        line-height: 21px;
+      }
+    }
+    ul {
+      list-style-type: disc;
+      li::marker {
+        font-size: 20px;
+      }
+    }
+    ol {
+      list-style-type: decimal;
+    }
+
+    // 表格
+    table {
+      margin-bottom: 10px;
+      border-collapse: collapse;
+      display: table;
+    }
+    td,
+    th {
+      padding: 5px 10px;
+      border: 1px solid $devui-dividing-line;
+      background-color: $devui-base-bg;
+    }
+    th {
+      border-top: 1px solid $devui-dividing-line;
+      background-color: $devui-global-bg;
+    }
+    td p {
+      margin: 0;
+      padding: 0;
+    }
+
+    // 其他
+    blockquote {
+      padding: 0 8px;
+      margin: 0;
+      color: $devui-text-weak;
+      border-left: 5px solid $devui-dividing-line;
+    }
+
+    a {
+      color: $devui-link;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        color: $devui-link-active;
+      }
+    }
+
+    img {
+      max-width: 100%;
+    }
   }
 }
