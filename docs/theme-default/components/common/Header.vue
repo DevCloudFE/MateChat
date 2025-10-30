@@ -494,7 +494,7 @@ watch(() => router.route.path, (newPath, oldPath) => {
       border-radius: 4px;
       padding: 4px 8px;
       width: 100%;
-      margin-right: 4px;
+      margin-left: -8px;
     img {
       margin-right: 8px;
     }
