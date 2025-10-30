@@ -18,7 +18,8 @@ import { MarkdownHeaderDemoComponent } from '../../demo/MarkdownCardDemo/markdow
 export class MarkdownHeaderShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
         { type: 'HTML', path: '/demo/MarkdownCardDemo/markdown-header/markdown-header.component.html' },
-        { type: 'TS', path: '/demo/MarkdownCardDemo/markdown-header/markdown-header.component.ts' }
+        { type: 'TS', path: '/demo/MarkdownCardDemo/markdown-header/markdown-header.component.ts' },
+        { type: 'SCSS', path: '/demo/MarkdownCardDemo/markdown-header/markdown-header.component.scss' },
     ];
 
     constructor() {
