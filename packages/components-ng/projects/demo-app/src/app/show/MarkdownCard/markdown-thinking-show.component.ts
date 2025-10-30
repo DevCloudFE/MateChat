@@ -17,8 +17,9 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 })
 export class MarkdownThinkingShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
-        { type: 'html', path: '/demo/MarkdownCardDemo/markdown-thinking/markdown-thinking.component.html' },
-        { type: 'ts', path: '/demo/MarkdownCardDemo/markdown-thinking/markdown-thinking.component.ts' }
+        { type: 'html', path: '/demo/MarkdownCardDemo/markdown-think/markdown-think.component.html' },
+        { type: 'ts', path: '/demo/MarkdownCardDemo/markdown-think/markdown-think.component.ts' },
+        { type: 'scss', path: '/demo/MarkdownCardDemo/markdown-think/markdown-think.component.scss' },
     ];
 
     constructor() {

@@ -18,7 +18,8 @@ import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
 export class MarkdownTypingShowComponent extends BaseShowComponent {
     override urls: { type: string; path: string; }[] = [
         { type: 'html', path: '/demo/MarkdownCardDemo/markdown-typing/markdown-typing.component.html' },
-        { type: 'ts', path: '/demo/MarkdownCardDemo/markdown-typing/markdown-typing.component.ts' }
+        { type: 'ts', path: '/demo/MarkdownCardDemo/markdown-typing/markdown-typing.component.ts' },
+        { type: 'scss', path: '/demo/MarkdownCardDemo/markdown-typing/markdown-typing.component.scss' },
     ];
 
     constructor() {
