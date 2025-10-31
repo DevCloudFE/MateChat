@@ -30,6 +30,7 @@ export default {
       items: [
         { text: 'Layout 布局', link: '/components/layout/demo' },
         { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
+        { text: 'FileList 文件列表', link: '/components/fileList/demo' },
       ],
     },
   ],
@@ -71,8 +72,8 @@ export default {
         { text: '使用MateChat的多种方式', link: '/use-guide/access' },
         { text: '贡献指南', link: '/use-guide/contributing' },
         { text: 'FAQ', link: '/use-guide/faq' },
-      ]
-    }
+      ],
+    },
   ],
   '/playground/': [{ text: '演示', link: '/playground/playground' }],
 };

@@ -1,0 +1,314 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.mc-file-list {
+  background-color: $devui-base-bg;
+  padding: 0 10px;
+  
+  // 根据上下文添加底部边框
+  &--context-input {
+    position: relative;
+    padding-bottom: 5px;
+
+    // 将高度限制和滚动条样式仅应用于 input 上下文
+    .mc-file-list__container {
+      max-height: 170px;
+      overflow-y: auto;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 97%; 
+      height: 1px; 
+      background-color: $devui-dividing-line; 
+    }
+  }
+  // 新增：对话框上下文的特定样式
+  &--context-dialog {
+    padding: 0;
+    // 在对话框中，让容器自适应内容，而不是滚动
+    .mc-file-list__container {
+      // 设置最大宽度以容纳3个文件项
+      max-width: 606px;
+
+      // 移除高度限制和滚动条
+      max-height: none;
+      overflow-y: visible;
+      background-color: $devui-global-bg;
+      border-radius: $devui-border-radius-card;
+    }
+    .mc-file-item {
+      border-color: transparent;
+
+      &--downloadError {
+        // border-color: $devui-line;
+        background-color: $devui-base-bg;
+      }
+      &--downloading {
+        // border-color: $devui-line;
+        background-color: $devui-base-bg;
+      }
+    }
+      
+  }
+  &__container {
+    display: flex;
+    padding: 2px 0;
+    flex-wrap: wrap;
+    
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: $devui-global-bg;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: $devui-disabled-bg;
+      border-radius: 2px;
+    }
+  }
+}
+
+.mc-file-item {
+  position: relative;
+  width: 192px;
+  height: 58px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid $devui-line; 
+  transition: all 0.3s ease;
+  border-radius: $devui-border-radius-card;
+
+  &:hover {
+    // border-color: transparent; 
+    // box-shadow: 0 2px 4px $devui-light-shadow; // 添加阴影
+    .mc-file-item__actions {
+      opacity: 1;
+    }
+  }
+
+  &__image-preview {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: $devui-border-radius;
+    cursor: pointer;
+  }
+
+  &--success {
+    background-color: $devui-base-bg;
+  }
+
+  &--uploadError {
+    background-color: $devui-base-bg;
+  }
+
+  &--downloadError {
+    background-color: $devui-base-bg;
+  }
+
+  &__icon {
+    margin-right: 10px;
+    flex-shrink: 0;
+    position: relative; // 关键：为子元素的绝对定位提供基准
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__type-icon {
+    display: inline-block;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: $devui-font-size-sm;
+    color: $devui-text;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    font-size: $devui-font-size-sm;
+    color: $devui-aide-text;
+    gap: 8px;
+  }
+
+  &__meta-action {
+    color: $devui-link; // 蓝色
+    cursor: pointer;
+  }
+
+  &__size {
+    color: $devui-aide-text;
+  }
+
+  &__status {
+
+    &--error {
+      color: $devui-danger;
+    }
+  }
+
+
+  &__progress-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 105%;                      
+    height: 105%;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px; 
+    overflow: hidden;
+  }
+
+  &__progress-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); // 半透明灰色蒙版
+  }
+  // 错误图标样式
+  &__wrong-icon {
+    position: relative; // 确保在蒙版之上
+    z-index: 999;
+  }
+
+  
+  &__progress-ring {
+    position: relative; // 使其在蒙版之上
+    width: 17.5px;
+    height: 17.5px;
+  }
+
+  &__progress-ring-track,
+  &__progress-ring-circle {
+    fill: transparent;
+    stroke-width: 5;
+  }
+
+  &__progress-ring-track {
+    stroke: $devui-disabled-bg; // 轨道颜色
+    stroke-opacity: 0.3; // 轨道透明度
+  }
+
+  &__progress-ring-circle {
+    stroke: $devui-base-bg; // 进度条颜色
+    stroke-linecap: round; // 让进度条末端是圆角
+    transition: stroke-dashoffset 0.3s;
+  }
+
+  &__actions {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+&__action-btn {
+  border: none;
+  background: #C2C2C2;
+  cursor: pointer;
+  // padding: 6px;
+  border-radius: 50%;
+  font-size: 8px;
+  width: 12px;
+  height: 12px;
+  line-height: 11px;
+  padding: 0;
+  transition: all 0.3s ease;
+  &--remove {
+    color: $devui-light-text;
+  }
+}
+}
+
+// 预览浮层的样式
+.mc-file-preview__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.mc-file-preview__content {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.mc-file-preview__iframe {
+  width: 80vw;
+  height: 90vh;
+  border: none;
+}
+
+.mc-file-preview__unsupported {
+  padding: 40px 60px;
+  background-color: $devui-base-bg; // 基础背景色
+  border-radius: $devui-border-radius;
+  color: $devui-text; // 主要文字颜色
+  font-size: $devui-font-size;
+}
+
+.mc-file-preview__close-btn {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.5);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.mc-file-preview-fade-enter-active,
+.mc-file-preview-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.mc-file-preview-fade-enter-from,
+.mc-file-preview-fade-leave-to {
+  opacity: 0;
+}

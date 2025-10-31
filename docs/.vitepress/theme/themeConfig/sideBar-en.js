@@ -27,7 +27,8 @@ export default {
     {
       text: 'Developing',
       items: [
-        { text: 'MarkDown Card', link: '/components/markDownCard/demo' }
+        { text: 'MarkDown Card', link: '/components/markDownCard/demo' },
+        { text: 'FileList', link: '/en/components/fileList' },
       ],
     },
   ],
@@ -67,8 +68,8 @@ export default {
         { text: 'How to Use', link: '/use-guide/access' },
         { text: 'Contributing', link: '/use-guide/contributing' },
         { text: 'FAQ', link: '/use-guide/faq' },
-      ]
-    }
+      ],
+    },
   ],
   '/en/playground/': [{ text: 'Demo', link: '/en/playground/playground' }],
 };

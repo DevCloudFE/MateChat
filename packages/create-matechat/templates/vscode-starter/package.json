@@ -1,0 +1,58 @@
+{
+  "name": "matechat-webview",
+  "displayName": "matechat-webview",
+  "description": "Matechat Webview Extension",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "matechat",
+          "title": "Matechat",
+          "icon": "resources/logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "matechat": [
+        {
+          "id": "matechat-webview.view",
+          "name": "Matechat",
+          "type": "webview",
+          "icon": "resources/logo.svg"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "tsdown",
+    "watch": "tsdown --watch",
+    "package": "tsdown --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "lint": "biome check src",
+    "lint:fix": "biome check src --fix",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.104.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "ts-loader": "^9.5.4",
+    "tsdown": "^0.15.1",
+    "typescript": "^5.9.2"
+  }
+}

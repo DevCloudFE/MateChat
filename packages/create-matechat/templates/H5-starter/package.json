@@ -1,0 +1,42 @@
+{
+  "name": "@matechat/vue-starter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.5",
+  "dependencies": {
+    "@devui-design/icons": "^1.4.0",
+    "@matechat/core": "^1.5.2",
+    "@vueuse/core": "^12.5.0",
+    "dayjs": "^1.11.13",
+    "devui-theme": "^0.1.0",
+    "openai": "^5.3.0",
+    "pinia": "^3.0.2",
+    "sass": "^1.89.2",
+    "uuid": "^11.1.0",
+    "vue": "^3.5.13",
+    "vue-devui": "^1.6.32",
+    "vue-i18n": "^11.1.2",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.2.0",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.7.2",
+    "unplugin-auto-import": "^19.1.2",
+    "vite": "^6.2.0",
+    "vue-tsc": "^2.2.4"
+  }
+}
