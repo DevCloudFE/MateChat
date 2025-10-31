@@ -238,6 +238,8 @@
   font-size: 8px;
   width: 12px;
   height: 12px;
+  line-height: 11px;
+  padding: 0;
   transition: all 0.3s ease;
   &--remove {
     color: $devui-light-text;
