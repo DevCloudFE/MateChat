@@ -24,9 +24,8 @@ import { McFileList } from '@matechat/core';
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { FileItem } from '@matechat/core/Attachment';
 
-const allTypesList = ref<FileItem[]>([
+const allTypesList = ref([
   { uid: 1, name: '年度报告.docx', size: 1024 * 24, type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'},
   { uid: 2, name: '设计规范.pdf', size: 1024 * 512, type: 'application/pdf'},
   { uid: 3, name: '财务报表.xlsx', size: 1024 * 128, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'},
@@ -43,7 +42,7 @@ const allTypesList = ref<FileItem[]>([
   { uid: 14, name: '未知文件.dat', size: 1024 * 100, type: 'application/octet-stream' }, // 未知类型
 ]);
 
-const handleRemove = (file: FileItem) => {
+const handleRemove = (file) => {
   // 实际项目中，这里会调用 API，成功后再从列表中移除
   allTypesList.value = allTypesList.value.filter(item => item.uid !== file.uid);
 };
@@ -83,7 +82,6 @@ const handleRemove = (file: FileItem) => {
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import type { FileItem } from '@matechat/core/Attachment';
 
 const inputValue = ref('');
 
@@ -92,24 +90,24 @@ const userAvatar = {
 };
 
 // 用于 Input 上下文的列表
-const inputList = ref<FileItem[]>([
+const inputList = ref([
   { uid: 101, name: '用户手册.pdf', size: 1024 * 1024 * 2, type: 'application/pdf', status: 'success' },
   { uid: 102, name: '功能演示.mp4', size: 1024 * 1024 * 15, type: 'video/mp4', status: 'uploading', percentage: 66 },
   { uid: 103, name: '错误日志.log', size: 1024 * 5, type: 'text/plain', status: 'uploadError', error: '上传中断' },
 ]);
 
 // 用于 Dialog 上下文的列表
-const dialogList = ref<FileItem[]>([
+const dialogList = ref([
   { uid: 201, name: '用户手册.pdf', size: 1024 * 1024 * 2, type: 'application/pdf', status: 'success' },
   { uid: 202, name: '界面设计稿.png', size: 1024 * 345, type: 'image/png', status: 'success' },
   { uid: 203, name: '项目依赖.zip', size: 1024 * 1024 * 8, type: 'application/zip', status: 'success' },
 ]);
 
-const handleRemove = (file: FileItem) => {
+const handleRemove = (file) => {
   inputList.value = inputList.value.filter(item => item.uid !== file.uid);
 };
 
-const handleRetryUpload = (file: FileItem) => {
+const handleRetryUpload = (file) => {
   const targetFile = inputList.value.find(item => item.uid === file.uid);
   if (targetFile) {
     targetFile.status = 'uploading';
@@ -166,9 +164,8 @@ onMounted(() => {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { FileItem } from '@matechat/core/Attachment';
 
-const interactiveList = ref<FileItem[]>([
+const interactiveList = ref([
   { uid: 301, name: '可预览和下载的图片.jpg', size: 1024 * 450, type: 'image/jpeg', status: 'success', url: '/example1.png' },
   { uid: 302, name: '上传失败的文件.pdf', size: 1024 * 1024, type: 'application/pdf', status: 'uploadError', error: '上传中断' },
   { uid: 303, name: '下载失败的文件.zip', size: 1024 * 1024 * 5, type: 'application/zip', status: 'downloadError', error: '下载链接已失效' },
@@ -177,7 +174,7 @@ const interactiveList = ref<FileItem[]>([
 const downloadIntervals = new Map();
 
 // 模拟下载逻辑
-const simulateDownload = (file: FileItem) => {
+const simulateDownload = (file) => {
   if (downloadIntervals.has(file.uid)) return;
 
   file.status = 'downloading';
@@ -202,31 +199,31 @@ const simulateDownload = (file: FileItem) => {
   downloadIntervals.set(file.uid, intervalId);
 };
 
-const handleDownload = (file: FileItem, event: Event) => {
+const handleDownload = (file, event: Event) => {
   console.log(`[Event:download] 触发下载: ${file.name}`);
   // 父组件现在负责更新状态
   simulateDownload(file);
 };
 
-const handleRetryDownload = (file: FileItem) => {
+const handleRetryDownload = (file) => {
   console.log(`[Event:retry-download] 触发重试下载: ${file.name}`);
   // 父组件现在负责更新状态
   simulateDownload(file);
 };
 
-const handleRetryUpload = (file: FileItem) => {
+const handleRetryUpload = (file) => {
   console.log(`[Event:retry-upload] 触发重试上传: ${file.name}`);
   file.status = 'uploading';
   file.percentage = 0;
   // ... 此处应有真实上传逻辑
 };
 
-const handleRemove = (file: FileItem) => {
+const handleRemove = (file) => {
   console.log(`[Event:remove] 触发删除: ${file.name}`);
   interactiveList.value = interactiveList.value.filter(item => item.uid !== file.uid);
 };
 
-const handlePreview = (file: FileItem) => {
+const handlePreview = (file) => {
   console.log(`[Event:preview] 触发预览: ${file.name}`);
 };
 </script>
