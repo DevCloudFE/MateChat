@@ -12,7 +12,6 @@ import {
   EventEmitter,
   Renderer2,
   ViewContainerRef,
-  ComponentFactoryResolver,
   TemplateRef,
 } from '@angular/core';
 import markdownit from 'markdown-it';
@@ -76,12 +75,9 @@ export class MarkdownCardComponent
   timer: number | null = null;
   parser = MdParserUtils;
   mdCardService;
+  noDiff: boolean = false;
 
-  constructor(
-    private resolver: ComponentFactoryResolver,
-    private renderer: Renderer2,
-    public cdr: ChangeDetectorRef
-  ) {
+  constructor(private renderer: Renderer2, public cdr: ChangeDetectorRef) {
     super();
     this.mdt = markdownit({
       breaks: true,
@@ -181,10 +177,13 @@ export class MarkdownCardComponent
       return;
     }
 
-    const container = this.markdownContainer.element.nativeElement;
+    if (this.noDiff) {
+      this.renderContentNoDiff(vnodes);
+      return;
+    }
 
-    // 创建新内容容器
-    const newContent = document.createElement('div');
+    const container = this.markdownContainer.element.nativeElement;
+    const newContentFragement = this.renderer.createElement('div');
     // 从vNodes中找到所有class为code-block-wrapper的div元素
     const codeBlockWrappers = vnodes.filter((node) => {
       return (
@@ -192,6 +191,7 @@ export class MarkdownCardComponent
         node.className?.includes('code-block-wrapper')
       );
     });
+
     vnodes.forEach((node) => {
       if (
         node &&
@@ -203,26 +203,16 @@ export class MarkdownCardComponent
           const codeNode = document.createElement('div');
           codeNode.className = 'code-block-wrapper';
           codeNode.setAttribute('key', node.attributes.key.value);
-          newContent.appendChild(codeNode);
+          newContentFragement.appendChild(codeNode);
         } else {
-          newContent.appendChild(node);
+          newContentFragement.appendChild(node);
         }
       }
     });
-
-    // 不适用diff-dom，直接替换内容
-    let noDIff = false;
-    if (noDIff) {
-      while (container.firstChild) {
-        container.removeChild(container.firstChild);
-      }
-      container.appendChild(newContent);
-      return;
-    }
+    let newContent = newContentFragement;
 
     let oldNode = container;
-    let newNode = newContent;
-    const patches = this.diffDom.diff(oldNode, newNode);
+    const patches = this.diffDom.diff(oldNode, newContent as any);
     this.diffDom.apply(container, patches);
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
@@ -262,31 +252,47 @@ export class MarkdownCardComponent
     return this.processASTNodeInternal(node);
   }
 
-  private processHTMLNode(node: ASTNode): void {
+  private processHTMLNode(node: ASTNode) {
     if (!node.openNode?.content) return;
 
-    const container = this.renderer.createElement(
-      node.nodeType === 'html_block' ? 'div' : 'span'
+    const parser = new DOMParser();
+    const tagName = node.nodeType === 'html_block' ? 'div' : 'span';
+    const container = parser.parseFromString(
+      `<${tagName}>${node.openNode.content}</${tagName}>`,
+      'text/html'
     );
-    this.renderer.setProperty(container, 'innerHTML', node.openNode.content);
-
     // 处理子节点
     if (node.children && node.children.length > 0) {
       node.children.forEach((child) => {
         const childVnode = this.processASTNode(child as any);
         if (childVnode) {
-          this.renderer.appendChild(
-            container.firstChild || container,
-            childVnode
-          );
+          (container.body.firstChild || container.body).appendChild(childVnode);
         }
       });
     }
-    return container;
+    return container.body;
+  }
+
+  private renderContentNoDiff(vnodes) {
+    const container = this.markdownContainer.element.nativeElement;
+    const newContentFragement = this.renderer.createElement('div');
+    vnodes.forEach((node) => {
+      if (
+        node &&
+        (node.nodeType ||
+          typeof node === 'string' ||
+          node instanceof HTMLElement)
+      ) {
+        newContentFragement.appendChild(node);
+      }
+    });
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+    container.appendChild(newContentFragement);
   }
 
   private processInlineToken(node: ASTNode | any) {
-    const div = this.renderer.createElement('div');
     let html = '';
     try {
       if (!node.openNode) {
@@ -299,14 +305,13 @@ export class MarkdownCardComponent
     }
 
     // 将HTML字符串转换为DOM节点
-    this.renderer.setProperty(div, 'innerHTML', html);
-
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`<div>${html}</div>`, 'text/html');
     // 如果只有一个子节点，直接返回子节点而不是包含div
-    if (div.firstChild && div.childNodes.length === 1) {
-      return div.firstChild;
+    if (doc.body && doc.body.childNodes.length === 1) {
+      return doc.body.firstChild;
     }
-
-    return div;
+    return doc.body;
   }
 
   private processFenceNode(token: Token) {
@@ -346,7 +351,7 @@ export class MarkdownCardComponent
       node.children.forEach((child) => {
         const childNode = this.processASTNode(child);
         if (childNode) {
-          this.renderer.appendChild(element, childNode);
+          element.appendChild(childNode);
         }
       });
       return element;
@@ -355,7 +360,7 @@ export class MarkdownCardComponent
     node.children.forEach((child) => {
       const childNode = this.processASTNode(child);
       if (childNode) {
-        this.renderer.appendChild(element, childNode);
+        element.appendChild(childNode);
       }
     });
     return element;
@@ -383,15 +388,17 @@ export class MarkdownCardComponent
     }
 
     if (token.type === 'html_block' || token.type === 'html_inline') {
-      const htmlContainer = this.renderer.createElement(
-        token.type === 'html_block' ? 'div' : 'span'
+      const parser = new DOMParser();
+      const tagName = token.type === 'html_block' ? 'div' : 'span';
+      const doc = parser.parseFromString(
+        `<${tagName}>${token.content}</${tagName}>`,
+        'text/html'
       );
-      this.renderer.setProperty(
-        htmlContainer,
-        'innerHTML',
-        token.content || ''
-      );
-      return htmlContainer;
+      // 如果只有一个子节点，直接返回子节点而不是包含div
+      if (doc.body.firstChild && doc.body.childNodes.length === 1) {
+        return doc.body.firstChild;
+      }
+      return doc.body;
     }
 
     if (token.tag) {
@@ -407,7 +414,7 @@ export class MarkdownCardComponent
       // 设置内容
       if (token.content) {
         const textNode = this.renderer.createText(token.content);
-        this.renderer.appendChild(element, textNode);
+        element.appendChild(textNode);
       }
       return element;
     }
