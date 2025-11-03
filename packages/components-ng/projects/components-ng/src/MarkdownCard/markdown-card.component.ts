@@ -110,7 +110,7 @@ export class MarkdownCardComponent
       },
     });
   }
-  renderVisited: string[] = [];
+  
   ngOnInit(): void {
     this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
     this.parseContent();
@@ -169,11 +169,7 @@ export class MarkdownCardComponent
   }
 
   private renderContent(vnodes) {
-    if (
-      !this.markdownContainer ||
-      !this.markdownContainer.element ||
-      !this.markdownContainer.element.nativeElement
-    ) {
+    if (!this.markdownContainer || !this.markdownContainer.element) {
       return;
     }
 
@@ -184,12 +180,8 @@ export class MarkdownCardComponent
 
     const container = this.markdownContainer.element.nativeElement;
     const newContentFragement = this.renderer.createElement('div');
-    // 从vNodes中找到所有class为code-block-wrapper的div元素
     const codeBlockWrappers = vnodes.filter((node) => {
-      return (
-        node.nodeName === 'DIV' &&
-        node.className?.includes('code-block-wrapper')
-      );
+      return node.nodeName === 'DIV' && node.className?.includes('code-block-wrapper');
     });
 
     vnodes.forEach((node) => {
@@ -202,17 +194,14 @@ export class MarkdownCardComponent
         if (codeBlockWrappers.includes(node)) {
           const codeNode = document.createElement('div');
           codeNode.className = 'code-block-wrapper';
-          codeNode.setAttribute('key', node.attributes.key.value);
+          codeNode.setAttribute('key', node?.attributes?.key?.value);
           newContentFragement.appendChild(codeNode);
         } else {
           newContentFragement.appendChild(node);
         }
       }
     });
-    let newContent = newContentFragement;
-
-    let oldNode = container;
-    const patches = this.diffDom.diff(oldNode, newContent as any);
+    const patches = this.diffDom.diff(container, newContentFragement);
     this.diffDom.apply(container, patches);
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
@@ -226,7 +215,6 @@ export class MarkdownCardComponent
         if (existingElement && newCodeBlock instanceof HTMLElement) {
           if (newCodeBlock !== existingElement) {
             existingElement.replaceWith(newCodeBlock);
-            this.renderVisited.push(key);
           }
         }
       }
