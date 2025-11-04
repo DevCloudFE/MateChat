@@ -10,7 +10,7 @@
     "markdown-it",
     "diff-dom",
     "xss"
-  ],  
+  ],
   "assets": [
     {
       "glob": "**/*.svg",
