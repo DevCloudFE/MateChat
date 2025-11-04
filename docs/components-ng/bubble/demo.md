@@ -3,23 +3,6 @@ title: Bubble 气泡
 desc: 用于承载对话内容的气泡组件
 bannerSrc: '/bubbleBanner.png'
 ---
-
-
- <script type="text/javascript">
-  // 加载webcomponent脚本
-  import { loadWebComponentScript } from '/components-ng/utils/web-component-loader.js';
-  const webComponentConfig = {
-      scriptUrl: '/angular-webcomponents/main.js',
-      polyfillsUrl: '/angular-webcomponents/polyfills.js',
-      runtimeUrl: '/angular-webcomponents/runtime.js',
-      componentName: 'mc-ng-input',
-      maxRetries: 3,
-      retryDelay: 2000
-  };            
-
-  loadWebComponentScript(webComponentConfig);
-   
-   </script>
 按需引入路径：
 
 ```ts

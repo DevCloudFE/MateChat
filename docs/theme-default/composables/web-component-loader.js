@@ -6,7 +6,6 @@
  * @property {string} scriptUrl - 主脚本URL
  * @property {string} polyfillsUrl - polyfills脚本URL
  * @property {string} runtimeUrl - runtime脚本URL
- * @property {string} componentName - 组件名称
  * @property {number} maxRetries - 最大重试次数
  * @property {number} retryDelay - 重试延迟(毫秒)
  */
