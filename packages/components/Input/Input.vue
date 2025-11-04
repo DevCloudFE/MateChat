@@ -70,5 +70,5 @@ provide(inputInjectionKey, { inputValue, rootProps: props, rootEmits: emits, cle
 </script>
 
 <style lang="scss">
-@use '@matechat/common/Input/common/input.scss';
+@import "./input.scss";
 </style>

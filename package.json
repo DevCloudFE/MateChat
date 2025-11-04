@@ -12,7 +12,7 @@
     "playground:dev": "pnpm generate && pnpm --filter @matechat/playground dev",
     "playground:build": "pnpm generate && pnpm --filter @matechat/playground build",
     "build:lib": "pnpm generate && node ./scripts/build-component.js && node ./scripts/release.js",
-    "build:ng": "pnpm --filter @matechat/components-ng build",
+    "build:ng": "pnpm --filter @matechat/components-ng build:all-versions",
     "build:ng-demo": "pnpm --filter @matechat/components-ng build:wc && node ./scripts/copy-angular-webcomponents.js",
     "lint": "biome lint",
     "format": "biome format --write",

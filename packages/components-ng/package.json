@@ -9,7 +9,10 @@
     "demo:source": "ng serve demo-app --port 4201",
     "demo:dist": "ng serve demo-app --port 4202 --configuration=dist",
     "build:wc": "ng run components-ng:build-web-components",
-    "build:wc:prod": "ng run components-ng:build-web-components:production"
+    "build:wc:prod": "ng run components-ng:build-web-components:production",
+    "build:angular17": "node scripts/build-multi-version.js angular17",
+    "build:angular20": "node scripts/build-multi-version.js angular20",
+    "build:all-versions": "node scripts/build-multi-version.js"
   },
   "private": true,
   "dependencies": {
