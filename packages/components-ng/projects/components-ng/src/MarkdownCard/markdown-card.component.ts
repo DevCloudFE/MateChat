@@ -257,20 +257,21 @@ export class MarkdownCardComponent
 
     const parser = new DOMParser();
     const tagName = node.nodeType === 'html_block' ? 'div' : 'span';
-    const container = parser.parseFromString(
+    const containerDocument = parser.parseFromString(
       `<${tagName}>${node.openNode.content}</${tagName}>`,
       'text/html'
     );
+    const containerBody = containerDocument.body.firstChild;
     // 处理子节点
     if (node.children && node.children.length > 0) {
       node.children.forEach((child) => {
         const childVnode = this.processASTNode(child as any);
-        if (childVnode) {
-          (container.body.firstChild || container.body).appendChild(childVnode);
+        if (childVnode && containerBody) {
+          (containerBody?.firstChild || containerBody).appendChild(childVnode);
         }
       });
     }
-    return container.body;
+    return containerBody;
   }
 
   private renderContentNoDiff(vnodes) {
@@ -307,11 +308,12 @@ export class MarkdownCardComponent
     // 将HTML字符串转换为DOM节点
     const parser = new DOMParser();
     const doc = parser.parseFromString(`<div>${html}</div>`, 'text/html');
+    const token = doc.body.firstChild;
     // 如果只有一个子节点，直接返回子节点而不是包含div
-    if (doc.body && doc.body.childNodes.length === 1) {
-      return doc.body.firstChild;
+    if (token && token.childNodes.length === 1) {
+      return token.firstChild;
     }
-    return doc.body;
+    return token;
   }
 
   private processFenceNode(token: Token) {
@@ -394,11 +396,12 @@ export class MarkdownCardComponent
         `<${tagName}>${token.content}</${tagName}>`,
         'text/html'
       );
+      const tokenDom = doc.body;
       // 如果只有一个子节点，直接返回子节点而不是包含div
-      if (doc.body.firstChild && doc.body.childNodes.length === 1) {
-        return doc.body.firstChild;
+      if (tokenDom.firstChild && tokenDom.childNodes.length === 1) {
+        return tokenDom.firstChild;
       }
-      return doc.body;
+      return tokenDom;
     }
 
     if (token.tag) {
