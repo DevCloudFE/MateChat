@@ -120,5 +120,33 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@use '@matechat/common/Input/common/textarea.scss';
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.mc-textarea {
+  width: 100%;
+  height: 64px;
+  padding: 4px 0;
+  color: $devui-text;
+  font-size: var(--devui-font-size, 14px);
+  background-color: $devui-form-control-bg;
+  vertical-align: middle;
+  outline: none;
+  box-sizing: border-box;
+  resize: none;
+  border: none;
+
+  &.mc-textarea-simple {
+    height: 32px;
+  }
+
+  &.mc-textarea-disabled {
+    color: $devui-disabled-text;
+    background-color: $devui-disabled-bg;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: $devui-placeholder;
+  }
+}
 </style>
