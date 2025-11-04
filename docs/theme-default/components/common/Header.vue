@@ -131,6 +131,7 @@ import { computed, inject, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { APPEARANCE_KEY } from '../../../shared';
 import { useLangs } from '../../composables/langs';
+import { loadWebComponentScript } from '../../composables/web-component-loader';
 import { themeServiceInstance } from '../../index';
 import { LocaleKey, ThemeKey } from '../datas/type';
 const emit = defineEmits(['themeUpdate']);
@@ -281,6 +282,20 @@ function onDropdown(status: boolean) {
 function isActiveNg() {
   const prefix = window.location.pathname.split('/')[1];
   isNg.value = prefix?.endsWith('-ng');
+  if(isNg.value) {
+    loadScript();
+  }
+}
+
+function loadScript() {
+   const webComponentConfig = {
+      scriptUrl: '/angular-webcomponents/main.js',
+      polyfillsUrl: '/angular-webcomponents/polyfills.js',
+      runtimeUrl: '/angular-webcomponents/runtime.js',
+      maxRetries: 3,
+      retryDelay: 2000
+  };   
+  loadWebComponentScript(webComponentConfig, ()=> {});
 }
 
 // 监听路由变化
