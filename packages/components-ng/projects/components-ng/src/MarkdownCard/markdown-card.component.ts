@@ -110,7 +110,7 @@ export class MarkdownCardComponent
       },
     });
   }
-  
+
   ngOnInit(): void {
     this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
     this.parseContent();
@@ -179,9 +179,13 @@ export class MarkdownCardComponent
     }
 
     const container = this.markdownContainer.element.nativeElement;
-    const newContentFragement = this.renderer.createElement('div');
+    const parser = new DOMParser();
+    const newContainerDiv = parser.parseFromString(`<div></div>`, 'text/html');
     const codeBlockWrappers = vnodes.filter((node) => {
-      return node.nodeName === 'DIV' && node.className?.includes('code-block-wrapper');
+      return (
+        node.nodeName === 'DIV' &&
+        node.className?.includes('code-block-wrapper')
+      );
     });
 
     vnodes.forEach((node) => {
@@ -192,16 +196,15 @@ export class MarkdownCardComponent
           node instanceof HTMLElement)
       ) {
         if (codeBlockWrappers.includes(node)) {
-          const codeNode = document.createElement('div');
-          codeNode.className = 'code-block-wrapper';
-          codeNode.setAttribute('key', node?.attributes?.key?.value);
-          newContentFragement.appendChild(codeNode);
+          newContainerDiv.body.firstChild?.appendChild(this.getEmptyCodeBlock(node));
         } else {
-          newContentFragement.appendChild(node);
+          newContainerDiv.body.firstChild?.appendChild(node);
         }
       }
     });
-    const patches = this.diffDom.diff(container, newContentFragement);
+    let newContainerDivHTML =
+      (newContainerDiv.body?.firstChild as HTMLElement)?.outerHTML || '';
+    const patches = this.diffDom.diff(container, newContainerDivHTML);
     this.diffDom.apply(container, patches);
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
@@ -210,15 +213,24 @@ export class MarkdownCardComponent
         newCodeBlock.attributes &&
         newCodeBlock.attributes.key
       ) {
-        const key = newCodeBlock.attributes.key.value;
+        const key = newCodeBlock?.attributes?.key?.value;
         const existingElement = container.querySelector(`[key="${key}"]`);
-        if (existingElement && newCodeBlock instanceof HTMLElement) {
-          if (newCodeBlock !== existingElement) {
-            existingElement.replaceWith(newCodeBlock);
-          }
+        if (
+          existingElement &&
+          newCodeBlock instanceof HTMLElement &&
+          existingElement !== newCodeBlock
+        ) {
+          existingElement.replaceWith(newCodeBlock);
         }
       }
     });
+  }
+
+  private getEmptyCodeBlock(node) {
+    const codeNode = document.createElement('div');
+    codeNode.className = 'code-block-wrapper';
+    codeNode.setAttribute('key', node?.attributes?.key?.value);
+    return codeNode;
   }
 
   private astToVnodes(nodes: ASTNode[]) {
