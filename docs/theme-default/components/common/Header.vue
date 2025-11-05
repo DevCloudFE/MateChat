@@ -142,7 +142,12 @@ const isGalaxy = ref(false);
 const isZh = ref(true);
 const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
-const showRelease = computed(() => window.location.pathname?.length > 1);
+const showRelease = computed(() => {
+  if(typeof window === 'undefined') {
+    return false;
+  }
+  return window.location.pathname?.length > 1;
+});
 const isNg = ref(false); 
 const ngNav = ref([
     { text: 'nav.guide', link: '/use-guide-ng/introduction' },
@@ -280,6 +285,9 @@ function onDropdown(status: boolean) {
 }
 
 function isActiveNg() {
+  if(typeof window === 'undefined') {
+    return;
+  }
   const prefix = window.location.pathname.split('/')[1];
   isNg.value = prefix?.endsWith('-ng');
   if(isNg.value) {

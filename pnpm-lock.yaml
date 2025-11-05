@@ -138,6 +138,9 @@ importers:
       vitepress-theme-demoblock:
         specifier: ^3.0.7
         version: 3.1.1(@algolia/client-search@5.23.0)(@types/node@22.13.14)(async-validator@4.2.5)(less@4.4.1)(postcss@8.5.6)(sass-embedded@1.86.0)(sass@1.86.0)(search-insights@2.17.3)(terser@5.44.0)(typescript@5.7.3)
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.13(typescript@5.7.3)
 
   packages/components:
     dependencies:
@@ -12018,7 +12021,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.13':
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.28.5
       '@vue/shared': 3.5.13
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -12031,7 +12034,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.13':
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.28.5
       '@vue/compiler-core': 3.5.13
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-ssr': 3.5.13
