@@ -3,7 +3,7 @@
     <img alt="MateChat Logo" src="https://matechat.gitcode.com/logo.svg" width="180" style="max-width:100%;">
   </a>
 </p>
-<h1 align="center">MateChat/Angular</h1>
+<h1 align="center">MateChat / Angular</h1>
 <p align="center">前端智能化场景解决方案UI库，轻松构建你的AI应用。已服务于华为内部多个应用智能化改造，并助力CodeArts、InsCode AI IDE等智能化助手搭建。</p>
 
 ![example](https://matechat.gitcode.com/example1.png)
