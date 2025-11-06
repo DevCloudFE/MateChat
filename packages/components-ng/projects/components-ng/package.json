@@ -3,7 +3,14 @@
   "version": "20.1.0",
   "license": "MIT",
   "description": "前端智能化场景解决方案UI库，轻松构建你的AI应用。",
-  "keywords": ["AI", "GPT", "Chat", "angular-components", "angular", "devui"],
+  "keywords": [
+    "AI",
+    "GPT",
+    "Chat",
+    "angular-components",
+    "angular",
+    "devui"
+  ],
   "homepage": "https://matechat.gitcode.com/",
   "repository": {
     "type": "git",

@@ -6,17 +6,18 @@ import { CodeBlockComponent } from './code-block.component';
 import { LocaleModule } from '../Locale';
 @NgModule({
   declarations: [
+    CodeBlockComponent,
     MarkdownCardComponent,
-    CodeBlockComponent
   ],
   imports: [
     CommonModule,
     TranslatePipe,
     LocaleModule,
+    
   ],
   exports: [
-    MarkdownCardComponent,
-    CodeBlockComponent
+    CodeBlockComponent,
+    MarkdownCardComponent
   ],
   providers: [
   ],

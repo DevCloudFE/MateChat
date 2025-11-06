@@ -86,10 +86,3 @@ $ npm install mermaid
 
 <mc-ng-markdown-header></mc-ng-markdown-header>
 
-
-
-### 自定义代码块内容区
-
-我们提供了 `content` 插槽，支持你自定义代码块内容区。
-
-<mc-ng-markdown-content></mc-ng-markdown-content>

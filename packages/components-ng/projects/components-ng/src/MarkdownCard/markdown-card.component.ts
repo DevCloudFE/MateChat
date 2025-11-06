@@ -32,6 +32,7 @@ import MdParserUtils from '../components-common/MarkdownCard/common/parser';
 
 @Component({
   selector: 'mc-markdown-card',
+  standalone: false,
   templateUrl: './markdown-card.component.html',
   styleUrls: ['./markdown-card.component.scss'],
 })
