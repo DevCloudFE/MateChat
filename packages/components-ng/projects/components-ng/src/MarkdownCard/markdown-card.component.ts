@@ -74,7 +74,7 @@ export class MarkdownCardComponent
   isTyping: boolean = false;
   timer: number | null = null;
   parser = MdParserUtils;
-  mdCardService;
+  mdCardService: MDCardService;
   noDiff: boolean = false;
 
   constructor(private renderer: Renderer2, public cdr: ChangeDetectorRef) {
@@ -204,7 +204,7 @@ export class MarkdownCardComponent
     });
     let newContainerDivHTML =
       (newContainerDiv.body?.firstChild as HTMLElement)?.outerHTML || '';
-    const patches = this.diffDom.diff(container, newContainerDivHTML);
+    const patches = this.diffDom.diff(container, this.mdCardService.filterHtml(newContainerDivHTML));
     this.diffDom.apply(container, patches);
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {

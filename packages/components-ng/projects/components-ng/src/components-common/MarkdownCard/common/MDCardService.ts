@@ -12,7 +12,7 @@ export class MDCardService {
     this.xssWhiteList['input'] = ['type', 'checked', 'disabled', 'class'];
     this.xssWhiteList['label'] = ['for'];
     this.xssWhiteList['ul'] = ['class'];
-    this.xssWhiteList['div'] = ['class'];
+    this.xssWhiteList['div'] = ['class', 'key'];
     this.xssWhiteList['a'] = ['href', 'class', 'target', 'name'];
     this.xssWhiteList['ol'] = ['start'];
 

@@ -1,6 +1,6 @@
 {
   "name": "@matechat/ng",
-  "version": "17.0.1",
+  "version": "20.1.0",
   "license": "MIT",
   "description": "前端智能化场景解决方案UI库，轻松构建你的AI应用。",
   "keywords": ["AI", "GPT", "Chat", "angular-components", "angular", "devui"],

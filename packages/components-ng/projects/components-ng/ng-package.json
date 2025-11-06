@@ -10,12 +10,5 @@
     "markdown-it",
     "diff-dom",
     "xss"
-  ],
-  "assets": [
-    {
-      "glob": "**/*.svg",
-      "input": "src/MarkdownCard/asset",
-      "output": "assets/MarkdownCard/asset"
-    }
   ]
 }
