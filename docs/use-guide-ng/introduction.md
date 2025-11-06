@@ -86,10 +86,10 @@ export class AppComponent {}
 ```ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BubbleModule, InputComponent, MarkdownCardModule } from '@matechat/ng';
+import { BubbleModule, InputModule, MarkdownCardModule } from '@matechat/ng';
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, BubbleModule, InputComponent, MarkdownCardModule],
+  imports: [CommonModule, BubbleModule, InputModule, MarkdownCardModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
