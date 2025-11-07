@@ -63,7 +63,7 @@
       <div class="release" v-if="showRelease">
         <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
           <div class="version">
-            <span>1.5.1</span>
+            <span>{{ isNg ? '20.1.0' : '1.10.0' }}</span>
             <i class="icon-chevron-down-2"></i>
           </div>
           <template #menu>
