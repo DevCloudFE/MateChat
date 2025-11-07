@@ -25,7 +25,7 @@
 如果你还没有新建项目，可以使用 Angular CLI 首先初始化一个`angular`项目：
 
 ```bash
-$ npm install -g @angular/cli
+$ npm install -g @angular/cli@latest
 
 $ ng new matechat-demo
 
@@ -34,7 +34,7 @@ $ npm i @matechat/ng
 
 ### 2. 引入
 
-在`app.component.ts`文件中引入模块
+在`app.ts`文件中引入模块
 
 ```ts
 import { Component } from "@angular/core";
@@ -53,7 +53,7 @@ export class AppComponent {}
 
 ### 3. 使用
 
-在`app.component.html`文件中使用 MateChat 组件，如：
+在`app.html`文件中使用 MateChat 组件，如：
 
 ```html
 <mc-bubble [content]="'Hello, MateChat'" [avatarConfig]="{ name: 'matechat' }"></mc-bubble>
@@ -62,24 +62,22 @@ export class AppComponent {}
 以下为一个简单的对话界面搭建示例：
 
 ```html
-<template>
-  <div class="chat-container">
-    <div class="chat-list">
-      <ng-container *ngFor="let msg of messages">
-        @if (msg.from === 'user') {
-        <mc-bubble class="user-bubble" [align]="'right'" [content]="msg.content"></mc-bubble>
-        } @else if (msg.from === 'model') {
-        <mc-bubble class="model-bubble" [align]="'left'">
-          <mc-markdown-card [content]="msg.content" [enableMermaid]="true"></mc-markdown-card>
-        </mc-bubble>
-        }
-      </ng-container>
-    </div>
-    <div class="chat-footer">
-      <mc-input (submit)="onSubmit($event)"></mc-input>
-    </div>
+<div class="chat-container">
+  <div class="chat-list">
+    <ng-container *ngFor="let msg of messages">
+      @if (msg.from === 'user') {
+      <mc-bubble class="user-bubble" [align]="'right'" [content]="msg.content"></mc-bubble>
+      } @else if (msg.from === 'model') {
+      <mc-bubble class="model-bubble" [align]="'left'">
+        <mc-markdown-card [content]="msg.content" [enableMermaid]="true"></mc-markdown-card>
+      </mc-bubble>
+      }
+    </ng-container>
   </div>
-</template>
+  <div class="chat-footer">
+    <mc-input (submit)="onSubmit($event)"></mc-input>
+  </div>
+</div>
 ```
 
 
