@@ -185,5 +185,6 @@ export class CodeBlockComponent
 
   copyCodeInternal(): void {
     this.foundation.copyCodeInternal();
+    this.cdr.detectChanges();
   }
 }

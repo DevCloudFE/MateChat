@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MarkdownCardModule } from '@matechat/ng';
 import markdownIt from 'markdown-it';
@@ -10,7 +10,8 @@ import hljs from 'highlight.js';
   templateUrl: './markdown-content.component.html',
   styleUrl: './markdown-content.component.scss',
 })
-export class MarkdownContentDemoComponent {
+export class MarkdownContentDemoComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(private cdr: ChangeDetectorRef) {}
   theme = 'light';
 
   content = `**Echarts渲染**
@@ -180,8 +181,17 @@ console.log(quickSort(arr)); // 输出排序后的数组
     return this.mdt.render(codeBlockStr);
   };
 
-  // 处理代码块数据
-  handleCodeBlockData = (codeBlockData) => {
+  private currentCodeBlockData: any = null;
+  
+  // 处理代码块数据 - 不再直接在模板中调用
+ async processCodeBlockData(codeBlockData: any) {
+    // 只有当数据变化时才处理，避免重复处理
+    if (codeBlockData.language !== 'echart' || this.currentCodeBlockData?.code === codeBlockData?.code) {
+      return;
+    }
+    
+    this.currentCodeBlockData = JSON.parse(JSON.stringify(codeBlockData));
+    
     if (codeBlockData.language === 'echart') {
       try {
         // 解析字符串为 ECharts 配置对象
@@ -205,17 +215,22 @@ console.log(quickSort(arr)); // 输出排序后的数组
         }
 
         // 渲染图表 - 确保 ECharts 已加载
-        if (this.echartsLoaded) {
-          this.renderChart(option);
-        }
+        if (!this.echartsLoaded) {
+          await this.loadECharts();
+        } 
+        this.renderChart(option);
       } catch (e) {
         console.error('解析 ECharts 配置失败:', e);
       }
     }
-  };
-
+  }
+  
+  handleCodeBlockData(codeBlockData: any) {
+    this.processCodeBlockData(codeBlockData);
+  }
+  
   // 渲染图表
-  renderChart = (option) => {
+  renderChart(option: any): void {
     if (!this.chart) return;
 
     if (!this.myChart) {
@@ -231,9 +246,30 @@ console.log(quickSort(arr)); // 输出排序后的数组
     if (this.myChart) {
       (this.myChart as any).setOption(option);
     }
-  };
+  }
 
-  ngOnInit() {
+  // 加载ECharts库的Promise方法
+  private loadECharts(): Promise<void> {
+    return new Promise((resolve) => {
+      if (typeof (window as any).echarts !== 'undefined') {
+        this.echartsLoaded = true;
+        resolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js';
+      script.onload = () => {
+        console.log('ECharts 加载完成');
+        this.echartsLoaded = true;
+        resolve();
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  // 异步初始化方法
+  async ngOnInit() {
     if (typeof window !== 'undefined') {
       this.themeService = window['devuiThemeService'];
     }
@@ -241,24 +277,35 @@ console.log(quickSort(arr)); // 输出排序后的数组
     if (this.themeService && this.themeService.eventBus) {
       this.themeService.eventBus.add('themeChanged', this.themeChange);
     }
-    // 加载 ECharts
-    if (typeof (window as any).echarts === 'undefined') {
-      const script = document.createElement('script');
-      script.src =
-        'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js';
-      script.onload = () => {
-        console.log('ECharts 加载完成');
-        this.echartsLoaded = true; // 设置加载完成标志
-      };
-      document.head.appendChild(script);
-    } else {
-      this.echartsLoaded = true; // 如果已加载，直接设置标志
-    }
 
-    window.addEventListener('resize', () => {
-      if (this.myChart) {
-        (this.myChart as any).resize();
-      }
-    });
+
+
+    window.addEventListener('resize', this.handleResize);
   }
+  
+  ngAfterViewInit() {
+    // 当视图初始化完成后，可以执行额外的初始化逻辑
+    this.cdr.detectChanges();
+  }
+  
+  ngOnDestroy() {
+    // 清理事件监听器
+    if (this.themeService && this.themeService.eventBus) {
+      this.themeService.eventBus.remove('themeChanged', this.themeChange);
+    }
+    window.removeEventListener('resize', this.handleResize);
+    
+    // 销毁图表实例，释放资源
+    if (this.myChart) {
+      (this.myChart as any).dispose();
+      this.myChart = null;
+    }
+  }
+  
+  // 将resize处理函数提取为类方法，便于在销毁时清理
+  private handleResize = () => {
+    if (this.myChart) {
+      (this.myChart as any).resize();
+    }
+  };
 }
