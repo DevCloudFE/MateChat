@@ -3,7 +3,7 @@
     <img alt="MateChat Logo" src="https://matechat.gitcode.com/logo.svg" width="180" style="max-width:100%;">
   </a>
 </p>
-<h1 align="center">MateChat/Angular</h1>
+<h1 align="center">MateChat / Angular</h1>
 <p align="center">前端智能化场景解决方案UI库，轻松构建你的AI应用。已服务于华为内部多个应用智能化改造，并助力CodeArts、InsCode AI IDE等智能化助手搭建。</p>
 
 ![example](https://matechat.gitcode.com/example1.png)
@@ -25,7 +25,7 @@
 如果你还没有新建项目，可以使用 Angular CLI 首先初始化一个`angular`项目：
 
 ```bash
-$ npm install -g @angular/cli
+$ npm install -g @angular/cli@latest
 
 $ ng new matechat-demo
 
@@ -34,7 +34,7 @@ $ npm i @matechat/ng
 
 ### 2. 引入
 
-在`app.component.ts`文件中引入模块
+在`app.ts`文件中引入模块
 
 ```ts
 import { Component } from "@angular/core";
@@ -53,70 +53,76 @@ export class AppComponent {}
 
 ### 3. 使用
 
-在`app.component.html`文件中使用 MateChat 组件，如：
+在`app.html`文件中使用 MateChat 组件，如：
 
 ```html
-<mc-bubble [content]="'Hello, MateChat'" [avatarConfig]="{ name: 'matechat' }"></mc-bubble>
+<mc-bubble
+  [content]="'Hello, MateChat'"
+  [avatarConfig]="{ name: 'matechat' }"
+></mc-bubble>
 ```
 
 以下为一个简单的对话界面搭建示例：
 
 ```html
-<template>
-  <div class="chat-container">
-    <div class="chat-list">
-      <ng-container *ngFor="let msg of messages">
-        @if (msg.from === 'user') {
-        <mc-bubble class="user-bubble" [align]="'right'" [content]="msg.content"></mc-bubble>
-        } @else if (msg.from === 'model') {
-        <mc-bubble class="model-bubble" [align]="'left'">
-          <mc-markdown-card [content]="msg.content" [enableMermaid]="true"></mc-markdown-card>
-        </mc-bubble>
-        }
-      </ng-container>
-    </div>
-    <div class="chat-footer">
-      <mc-input (submit)="onSubmit($event)"></mc-input>
-    </div>
+<div class="chat-container">
+  <div class="chat-list">
+    <ng-container *ngFor="let msg of messages">
+      @if (msg.from === 'user') {
+      <mc-bubble
+        class="user-bubble"
+        [align]="'right'"
+        [content]="msg.content"
+      ></mc-bubble>
+      } @else if (msg.from === 'model') {
+      <mc-bubble class="model-bubble" [align]="'left'">
+        <mc-markdown-card
+          [content]="msg.content"
+          [enableMermaid]="true"
+        ></mc-markdown-card>
+      </mc-bubble>
+      }
+    </ng-container>
   </div>
-</template>
+  <div class="chat-footer">
+    <mc-input (submit)="onSubmit($event)"></mc-input>
+  </div>
+</div>
 ```
 
-
 ```ts
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BubbleModule, InputModule, MarkdownCardModule } from '@matechat/ng';
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { BubbleModule, InputModule, MarkdownCardModule } from "@matechat/ng";
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   imports: [CommonModule, BubbleModule, InputModule, MarkdownCardModule],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  templateUrl: "./app.html",
+  styleUrl: "./app.css",
 })
 export class App {
-  inputValue = '';
+  inputValue = "";
   messages: any = [];
 
   onSubmit = (evt: any) => {
-    this.inputValue = '';
+    this.inputValue = "";
     // 用户发送消息
     this.messages.push({
-      from: 'user',
+      from: "user",
       content: evt,
     });
     setTimeout(() => {
       // 模型返回消息
       this.messages.push({
-        from: 'model',
+        from: "model",
         content: evt,
       });
     }, 200);
   };
 }
-
 ```
 
-```scss
+```css
 .chat-container {
   max-width: 1200px;
   width: 100%;
@@ -136,6 +142,7 @@ export class App {
   margin-top: 8px;
 }
 ```
+
 ### 4. 主题化
 
 在`main.ts`中初始化主题
@@ -148,11 +155,14 @@ import { ThemeServiceInit, infinityTheme } from "devui-theme";
 
 // 使用无限主题
 ThemeServiceInit({ infinityTheme }, "infinityTheme");
-bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+bootstrapApplication(AppComponent, appConfig).catch((err) =>
+  console.error(err)
+);
 ```
+
 ## 🧩 对接模型服务
 
-在搭建完成页面后，可以开始对接模型服务，如 `盘古大模型`、`ChatGPT` 等优秀大模型，在注册并生成对应模型的调用API_Key后，可以参考如下方法进行调用：
+在搭建完成页面后，可以开始对接模型服务，如 `盘古大模型`、`ChatGPT` 等优秀大模型，在注册并生成对应模型的调用 API_Key 后，可以参考如下方法进行调用：
 
 1. 通过 npm 安装 openai:
 
@@ -160,7 +170,7 @@ bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err))
 $ npm install openai
 ```
 
-2. 使用OpenAI初始化并调用模型接口，如下为一段代码示例：
+2. 使用 OpenAI 初始化并调用模型接口，如下为一段代码示例：
 
 ```js
 import OpenAI from 'openai';
@@ -193,16 +203,16 @@ const fetchData = (ques) => {
 
 ```ts
 onSubmit = (evt) => {
-  this.inputValue = '';
+  this.inputValue = "";
   // 用户发送消息
   this.messages.push({
-    from: 'user',
+    from: "user",
     content: evt,
   });
   setTimeout(() => {
     // 模型返回消息
     this.messages.push({
-      from: 'model',
+      from: "model",
       content: evt,
     });
   }, 200);
@@ -212,21 +222,21 @@ onSubmit = (evt) => {
 修改为：
 
 ```ts
-import OpenAI from 'openai';
+import OpenAI from "openai";
 
 client = new OpenAI({
-  apiKey: '', // 模型APIKey
-  baseURL: '', // 模型API地址
+  apiKey: "", // 模型APIKey
+  baseURL: "", // 模型API地址
   dangerouslyAllowBrowser: true,
 });
 
- onSubmit = async (evt) => {
-  this.inputValue = '';
+onSubmit = async (evt) => {
+  this.inputValue = "";
   // 用户发送消息
   this.messages.push({
-    from: 'user',
+    from: "user",
     content: evt,
-    avatarConfig: { name: 'user' },
+    avatarConfig: { name: "user" },
   });
 
   this.fetchData(evt);
@@ -234,20 +244,20 @@ client = new OpenAI({
 
 fetchData = async (ques) => {
   this.messages.push({
-    from: 'model',
-    content: '',
-    avatarConfig: { name: 'model' },
-    id: '',
+    from: "model",
+    content: "",
+    avatarConfig: { name: "model" },
+    id: "",
     loading: true,
   });
   const completion = await this.client.chat.completions.create({
-    model: 'my-model', // 替换为自己的model名称
-    messages: [{ role: 'user', content: ques }],
+    model: "my-model", // 替换为自己的model名称
+    messages: [{ role: "user", content: ques }],
     stream: true, // 为 true 则开启接口的流式返回
   });
   for await (const chunk of completion) {
     this.messages[this.messages.length - 1].loading = false;
-    const content = chunk.choices[0]?.delta?.content || '';
+    const content = chunk.choices[0]?.delta?.content || "";
     const chatId = chunk.id;
     this.messages[this.messages.length - 1].content += content;
     this.messages[this.messages.length - 1].id = chatId;
@@ -255,7 +265,7 @@ fetchData = async (ques) => {
 };
 ```
 
-完成模型API地址与APIKey填充后，即拥有了一个对接大模型的简单应用。如果你想要参考更完整的页面示例，可参考[演示场景](https://matechat.gitcode.com/vue-starter/)。
+完成模型 API 地址与 APIKey 填充后，即拥有了一个对接大模型的简单应用。如果你想要参考更完整的页面示例，可参考[演示场景](https://matechat.gitcode.com/vue-starter/)。
 
 ## 📝 提出意见&建议
 

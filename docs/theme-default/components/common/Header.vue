@@ -63,7 +63,7 @@
       <div class="release" v-if="showRelease">
         <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
           <div class="version">
-            <span>1.5.1</span>
+            <span>{{ isNg ? '20.1.0' : '1.10.0' }}</span>
             <i class="icon-chevron-down-2"></i>
           </div>
           <template #menu>
@@ -125,8 +125,7 @@
 
 <script setup lang="ts">
 import { galaxyTheme, infinityTheme } from 'devui-theme';
-import { useData } from 'vitepress';
-import { useRouter } from 'vitepress';
+import { useData, useRouter } from 'vitepress';
 import { computed, inject, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { APPEARANCE_KEY } from '../../../shared';
@@ -134,6 +133,7 @@ import { useLangs } from '../../composables/langs';
 import { loadWebComponentScript } from '../../composables/web-component-loader';
 import { themeServiceInstance } from '../../index';
 import { LocaleKey, ThemeKey } from '../datas/type';
+
 const emit = defineEmits(['themeUpdate']);
 const i18n = useI18n();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
@@ -143,21 +143,21 @@ const isZh = ref(true);
 const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
 const showRelease = computed(() => {
-  if(typeof window === 'undefined') {
+  if (typeof window === 'undefined') {
     return false;
   }
   return window.location.pathname?.length > 1;
 });
-const isNg = ref(false); 
+const isNg = ref(false);
 const ngNav = ref([
-    { text: 'nav.guide', link: '/use-guide-ng/introduction' },
-    { text: 'nav.component', link: '/components-ng/bubble/demo' },
-    { text: 'nav.demo', link: '/vue-starter/' },
+  { text: 'nav.guide', link: '/use-guide-ng/introduction' },
+  { text: 'nav.component', link: '/components-ng/bubble/demo' },
+  { text: 'nav.demo', link: '/vue-starter/' },
 ]);
 
-const nav = computed(()=> {
+const nav = computed(() => {
   return isNg.value ? ngNav.value : theme.value.nav;
-})
+});
 
 const iconMap = [
   '/png/header/instruction.png',
@@ -285,31 +285,34 @@ function onDropdown(status: boolean) {
 }
 
 function isActiveNg() {
-  if(typeof window === 'undefined') {
+  if (typeof window === 'undefined') {
     return;
   }
   const prefix = window.location.pathname.split('/')[1];
   isNg.value = prefix?.endsWith('-ng');
-  if(isNg.value) {
+  if (isNg.value) {
     loadScript();
   }
 }
 
 function loadScript() {
-   const webComponentConfig = {
-      scriptUrl: '/angular-webcomponents/main.js',
-      polyfillsUrl: '/angular-webcomponents/polyfills.js',
-      runtimeUrl: '/angular-webcomponents/runtime.js',
-      maxRetries: 3,
-      retryDelay: 2000
-  };   
-  loadWebComponentScript(webComponentConfig, ()=> {});
+  const webComponentConfig = {
+    scriptUrl: '/angular-webcomponents/main.js',
+    polyfillsUrl: '/angular-webcomponents/polyfills.js',
+    runtimeUrl: '/angular-webcomponents/runtime.js',
+    maxRetries: 3,
+    retryDelay: 2000,
+  };
+  loadWebComponentScript(webComponentConfig, () => {});
 }
 
 // 监听路由变化
-watch(() => router.route.path, (newPath, oldPath) => {
-  isActiveNg();
-});
+watch(
+  () => router.route.path,
+  (newPath, oldPath) => {
+    isActiveNg();
+  },
+);
 </script>
 
 <style lang="scss" scoped>
