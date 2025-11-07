@@ -16,7 +16,7 @@
         <template #menu>
           <div class="nav-drop-menu">
             <ul>
-              <li v-for="(item, index) in theme.nav" :key="index" @click="go(item.link)">
+              <li v-for="(item, index) in nav" :key="index" @click="go(item.link)">
                 <img :class="{ 'enhance-icon': isGalaxy }" :src="iconMap[index]" />
                 <span>{{ $t(item.text) }}</span>
               </li>
@@ -44,7 +44,7 @@
 
     <div class="nav-list">
         <a
-          v-for="(item, index) in theme.nav"
+          v-for="(item, index) in nav"
           :key="index"
           v-localeHref="item.link"
           :class="['nav-op', { 'nav-active': isActive(item.link) }]"
@@ -60,7 +60,7 @@
           {{ $t(item.text) }}
         </a>
       </div>
-      <div class="release">
+      <div class="release" v-if="showRelease">
         <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
           <div class="version">
             <span>1.5.1</span>
@@ -79,6 +79,27 @@
           </template>
         </d-dropdown>
       </div>
+        <div class="release" v-if="showRelease">
+          <d-dropdown :trigger="'hover'" style="width: 100px" :position="['bottom-end', 'right', 'top-end']">
+            <div class="version">
+              <span class="cli-icon cli-span">
+                <img :src="isNg ?  '/angular.svg' : '/vue-logo.svg'" />
+                <span>{{ isNg ? 'Angular' : 'Vue 3' }}</span>
+              </span>
+              <i class="icon-chevron-down-2"></i>
+            </div>
+            <template #menu>
+              <ul class="list-menu">
+                <li class="menu-item">
+                  <div class="cli-icon" @click="go(isNg ? '/components/introduction/demo.html' : '/components-ng/bubble/demo.html')">
+                    <img :src="isNg ? '/vue-logo.svg' : '/angular.svg'" />
+                    <span>{{ isNg ? 'Vue 3' : 'Angular' }}</span>
+                  </div>
+                </li>
+              </ul>
+            </template>
+          </d-dropdown>
+        </div>
       <div v-if="showTheme" class="header-menu-splitter"></div>
       <div v-show="showTheme" class="theme">
         <div>
@@ -106,10 +127,11 @@
 import { galaxyTheme, infinityTheme } from 'devui-theme';
 import { useData } from 'vitepress';
 import { useRouter } from 'vitepress';
-import { computed, inject, onMounted, ref } from 'vue';
+import { computed, inject, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { APPEARANCE_KEY } from '../../../shared';
 import { useLangs } from '../../composables/langs';
+import { loadWebComponentScript } from '../../composables/web-component-loader';
 import { themeServiceInstance } from '../../index';
 import { LocaleKey, ThemeKey } from '../datas/type';
 const emit = defineEmits(['themeUpdate']);
@@ -120,6 +142,22 @@ const isGalaxy = ref(false);
 const isZh = ref(true);
 const router = useRouter();
 const href = computed(() => localeLinks.value[0].link);
+const showRelease = computed(() => {
+  if(typeof window === 'undefined') {
+    return false;
+  }
+  return window.location.pathname?.length > 1;
+});
+const isNg = ref(false); 
+const ngNav = ref([
+    { text: 'nav.guide', link: '/use-guide-ng/introduction' },
+    { text: 'nav.component', link: '/components-ng/bubble/demo' },
+    { text: 'nav.demo', link: '/vue-starter/' },
+]);
+
+const nav = computed(()=> {
+  return isNg.value ? ngNav.value : theme.value.nav;
+})
 
 const iconMap = [
   '/png/header/instruction.png',
@@ -157,6 +195,7 @@ const isActive = (link: string) => {
 const isDropdown = ref(false);
 
 onMounted(() => {
+  isActiveNg();
   if (typeof localStorage !== 'undefined') {
     if (localStorage.getItem('theme') === ThemeKey.Galaxy) {
       isGalaxy.value = true;
@@ -244,11 +283,46 @@ function collapseSideMenu() {
 function onDropdown(status: boolean) {
   isDropdown.value = status;
 }
+
+function isActiveNg() {
+  if(typeof window === 'undefined') {
+    return;
+  }
+  const prefix = window.location.pathname.split('/')[1];
+  isNg.value = prefix?.endsWith('-ng');
+  if(isNg.value) {
+    loadScript();
+  }
+}
+
+function loadScript() {
+   const webComponentConfig = {
+      scriptUrl: '/angular-webcomponents/main.js',
+      polyfillsUrl: '/angular-webcomponents/polyfills.js',
+      runtimeUrl: '/angular-webcomponents/runtime.js',
+      maxRetries: 3,
+      retryDelay: 2000
+  };   
+  loadWebComponentScript(webComponentConfig, ()=> {});
+}
+
+// 监听路由变化
+watch(() => router.route.path, (newPath, oldPath) => {
+  isActiveNg();
+});
 </script>
 
 <style lang="scss" scoped>
 @import 'devui-theme/styles-var/devui-var.scss';
+.pointer {
+  cursor: pointer;
+  padding: 4px 0;
 
+  &:hover {
+    color: $devui-link;
+    transition: color $devui-animation-duration-base $devui-animation-ease-in-out-smooth;
+  }
+}
 .enhance-icon {
   filter: brightness(10);
 }
@@ -300,6 +374,8 @@ function onDropdown(status: boolean) {
 
     .version {
       line-height: 32px;
+      display: flex;
+      align-items: center;
     }
 
     &:hover {
@@ -436,6 +512,19 @@ function onDropdown(status: boolean) {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .cli-icon {
+      border-radius: 4px;
+      padding: 4px 8px;
+      width: 100%;
+      margin-left: -8px;
+    img {
+      margin-right: 8px;
+    }
+    &:hover {
+        background: $devui-list-item-hover-bg;
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -505,6 +594,17 @@ function onDropdown(status: boolean) {
   display: flex;
   justify-self: center;
   box-shadow: 0 2px 0 0 $devui-shadow !important;
+}
+
+.cli-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .intro-header-right-nav-dropdown {

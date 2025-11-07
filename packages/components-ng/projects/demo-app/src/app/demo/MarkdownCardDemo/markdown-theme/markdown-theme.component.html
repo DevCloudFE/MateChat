@@ -1,0 +1,6 @@
+  <div class="btn-container">
+    <button class="demo-btn" variant="solid" (click)="changeTheme()">切换主题</button>
+  </div>
+  <div class="theme-container" [class]="themeClass">
+    <mc-markdown-card [content]="content" [theme]="theme"></mc-markdown-card>
+  </div>
