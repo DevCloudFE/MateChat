@@ -1,0 +1,36 @@
+<div class="btn-container">
+  <button class="demo-btn" variant="solid" (click)="generateAnswer()">
+    {{ isLoading ? "停止" : "重新生成" }}
+  </button>
+</div>
+<div id="think-demo-content">
+  <ng-container *ngFor="let msg of messages; index as idx">
+    <mc-bubble
+      *ngIf="msg.from === 'user'"
+      [content]="msg.content"
+      [align]="'right'"
+      [avatarConfig]="msg.avatarConfig"
+    >
+    </mc-bubble>
+    <mc-bubble
+      *ngIf="msg.from !== 'user'"
+      [loading]="msg.loading ?? false"
+      [avatarConfig]="msg.avatarConfig"
+      [ngClass]="{
+        'think-block-shrink': msg.isThinkShrink,
+        'think-block-expand': !msg.isThinkShrink
+      }"
+    >
+      <div class="think-toggle-btn" (click)="toggleThink(msg)">
+        <i class="icon-point"></i>
+        <span>{{ thinkBtnText }}</span>
+        <i [ngClass]="btnIcon"></i>
+      </div>
+      <mc-markdown-card
+        [enableThink]="true"
+        [content]="msg.content"
+        [theme]="theme"
+      ></mc-markdown-card>
+    </mc-bubble>
+  </ng-container>
+</div>

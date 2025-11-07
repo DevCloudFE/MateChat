@@ -1,0 +1,67 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+/* 深浅主题临时方案 */
+body[ui-theme='infinity-theme'] {
+  --mc-text: #aeaeae;
+  --mc-box-shadow: rgba(25, 25, 25, 0.06);
+}
+
+body[ui-theme='galaxy-theme'] {
+  --mc-text: #4e5057;
+  --mc-box-shadow: rgba(206, 209, 219, 0.06);
+}
+
+.mc-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 12px 0;
+  border: 1px solid $devui-form-control-line;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background-color: $devui-base-bg;
+
+  &.mc-input-simple {
+    border-radius: 24px;
+
+    .mc-input-content {
+      padding: 0 20px;
+    }
+  }
+
+  &.mc-input-borderless {
+    border: none;
+    box-shadow: 0 1px 8px 0 var(--mc-box-shadow, rgba(25, 25, 25, 0.06));
+  }
+
+  &.mc-input-disabled {
+    background-color: $devui-disabled-bg;
+    cursor: not-allowed;
+  }
+
+  .mc-input-content {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 16px;
+  }
+
+  .mc-input-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+    padding: 0 16px;
+
+    .mc-input-foot-left {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      .mc-input-foot-count {
+        color: var(--mc-text, #aeaeae);
+        font-size: $devui-font-size-sm;
+      }
+    }
+  }
+}

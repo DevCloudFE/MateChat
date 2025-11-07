@@ -1,0 +1,40 @@
+<span class="mc-bubble-avatar-wrapper">
+  <img
+    *ngIf="imgSrc && !isErrorImg"
+    [src]="imgSrc"
+    [attr.alt]="'Bubble.avatar' | translate:{ name: name }"
+    (error)="onErrorImg()"
+    [ngStyle]="{
+      height: height + 'px',
+      width: width + 'px',
+      borderRadius: isRound ? '100%' : '0'
+    }"
+  />
+  <span
+    *ngIf="!imgSrc && !isNobody && nameDisplay?.length !== 0"
+    [ngClass]="['mc-bubble-avatar-style', 'mc-bubble-avatar-background-' + code]"
+    [ngStyle]="{
+      height: height + 'px',
+      width: width + 'px',
+      lineHeight: height + 'px',
+      fontSize: fontSize + 'px',
+      borderRadius: isRound ? '100%' : '0'
+    }"
+  >
+    {{ nameDisplay }}
+  </span>
+  <span
+    *ngIf="!imgSrc && !isNobody && nameDisplay?.length === 0"
+    class="mc-bubble-avatar-style"
+    [ngStyle]="{ borderRadius: isRound ? '100%' : '0' }"
+  >
+    <mc-avatar-body-icon [width]="width" [height]="height" />
+  </span>
+  <span
+    *ngIf="(!imgSrc && isNobody) || (imgSrc && isErrorImg)"
+    class="mc-bubble-avatar-style"
+    [ngStyle]="{ borderRadius: isRound ? '100%' : '0' }"
+  >
+    <mc-avatar-no-body-icon [width]="width" [height]="height" />
+  </span>
+</span>
