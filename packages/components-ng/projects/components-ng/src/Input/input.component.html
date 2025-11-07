@@ -1,0 +1,74 @@
+<div [ngClass]="inputClasses">
+  <ng-container *ngIf="headTemplate; then headTemplate"></ng-container>
+
+  <div class="mc-input-content">
+    <ng-container *ngIf="prefixTemplate; then prefixTemplate"></ng-container>
+
+    <textarea
+      #textarea
+      [(ngModel)]="inputValue"
+      [placeholder]="placeholderText"
+      [disabled]="disabled"
+      [maxlength]="maxLength"
+      class="mc-textarea"
+      [ngClass]="{
+        'mc-textarea-simple': displayType === 'simple',
+        'mc-textarea-disabled': disabled
+      }"
+      [ngStyle]="textareaStyle"
+      [attr.aria-label]="'Input.ariaLabel' | translate"
+      [attr.aria-disabled]="disabled"
+      (input)="onInput()"
+      (change)="onChange($event)"
+      (compositionstart)="onCompositionStart()"
+      (compositionend)="onCompositionEnd()"
+      (keydown)="onKeydown($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    ></textarea>
+    <ng-container *ngIf="suffixTemplate; then suffixTemplate"></ng-container>
+
+    <ng-container *ngIf="displayType === 'simple'">
+      <ng-container *ngIf="buttonTemplate; else defaultButton">
+        <ng-container
+          *ngIf="buttonTemplate; then buttonTemplate"
+        ></ng-container>
+      </ng-container>
+      <ng-template #defaultButton>
+        <mc-button
+          [disabled]="disabled || (!loading && !inputValue)"
+          [loading]="loading"
+          [inputValue]="inputValue"
+          [sendBtnVariant]="sendBtnVariant"
+          (submit)="onButtonSubmit($event)"
+          (cancel)="onButtonCancel()"
+          (change)="onButtonChange($event)"
+        ></mc-button>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <div *ngIf="displayType === 'full'" class="mc-input-foot">
+    <div class="mc-input-foot-left">
+      <ng-container *ngIf="extraTemplate; then extraTemplate"></ng-container>
+      <span *ngIf="showCount" id="mc-input-count" class="mc-input-foot-count">
+        {{ inputValue.length }}{{ !maxLength ? "" : "/" + maxLength }}
+      </span>
+    </div>
+
+    <ng-container *ngIf="buttonTemplate; else defaultFooterButton">
+      <ng-container *ngIf="buttonTemplate; then buttonTemplate"></ng-container>
+    </ng-container>
+    <ng-template #defaultFooterButton>
+      <mc-button
+        [disabled]="disabled || (!loading && !inputValue)"
+        [loading]="loading"
+        [inputValue]="inputValue"
+        [sendBtnVariant]="sendBtnVariant"
+        (submit)="onButtonSubmit($event)"
+        (cancel)="onButtonCancel()"
+        (change)="onButtonChange($event)"
+      ></mc-button>
+    </ng-template>
+  </div>
+</div>

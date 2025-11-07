@@ -1,0 +1,25 @@
+<div class="demo-container">
+    <mc-bubble 
+        [content]="'Hello MateChat'" 
+        [align]="'right'"
+        [avatarPosition]="'top'">
+        <ng-template #avatar>
+          <div class="demo-container" style="gap: 0; align-items: center;">
+            <img src="https://matechat.gitcode.com/logo.svg" [ngStyle]="{ width: '40px', height: '40px' }" />
+            <span>User</span>
+          </div>
+        </ng-template>
+    </mc-bubble>
+
+    <mc-bubble 
+        [content]="'Hello, what can I do for you?'" 
+        [align]="'left'"
+        [avatarPosition]="'top'">
+        <ng-template #avatar>
+          <div class="demo-container" style="gap: 0;">
+            <img src="https://matechat.gitcode.com/logo.svg" [ngStyle]="{ width: '40px', height: '40px' }" />
+            <span>MateChat</span>
+          </div>
+        </ng-template>
+    </mc-bubble>
+  </div>

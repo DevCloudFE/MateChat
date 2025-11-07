@@ -1,0 +1,29 @@
+@use 'sass:meta';
+@import 'devui-theme/styles-var/devui-var.scss';
+
+body[ui-theme='galaxy-theme'] {
+  @include meta.load-css('highlight.js/styles/github-dark.css');
+}
+
+body[ui-theme='infinity-theme'] {
+  @include meta.load-css('highlight.js/styles/github.css');
+}
+
+.content-container ::ng-deep {
+  padding: 12px 12px 12px 22px;
+  background-color: $devui-base-bg;
+
+  &.hljs {
+    margin: 0;
+    background-color: $devui-base-bg;
+  }
+
+  pre {
+    margin: 0;
+  }
+
+  ol {
+    margin: 0;
+    background-color: $devui-base-bg;
+  }
+}

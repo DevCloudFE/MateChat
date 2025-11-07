@@ -1,0 +1,18 @@
+<div class="demo-container">
+  <mc-input [value]="inputValue" [loading]="loading" (submit)="onSubmit($event)">
+    <ng-template #head>
+      <div class="appendix-wrap">
+        <div class="appendix-item">
+          <span>README.md</span>
+          <i class="icon-code-editor-close"></i>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #extra>
+      <div class="input-foot-left">
+        <span><i class="icon-at"></i>智能体</span>
+        <span><i class="icon-appendix"></i>附件</span>
+      </div>
+    </ng-template>
+  </mc-input>
+</div>

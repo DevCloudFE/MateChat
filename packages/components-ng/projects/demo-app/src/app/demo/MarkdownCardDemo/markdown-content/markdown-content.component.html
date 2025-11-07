@@ -1,0 +1,9 @@
+<mc-markdown-card [content]="content" [theme]="theme" [contentTemplate]="contentTemplate">
+    <ng-template #contentTemplate let-codeBlockData>
+      <div *ngIf="codeBlockData?.language === 'echart'" #chart style="width: 100%; height: 500px;">
+        <!-- 图表将在这里通过processCodeBlockData方法渲染 -->
+      </div>
+      <div *ngIf="codeBlockData?.language !== 'echart'" class="content-container" [innerHTML]="transfer(codeBlockData)"></div>
+      {{ handleCodeBlockData(codeBlockData) }}
+    </ng-template>
+</mc-markdown-card>
