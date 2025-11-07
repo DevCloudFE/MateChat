@@ -93,3 +93,10 @@ $ npm install mermaid
 我们提供了 `content` 插槽，支持你自定义代码块内容区。
 
 <mc-ng-markdown-content></mc-ng-markdown-content>
+
+
+### 自定义XSS过滤规则
+
+通过配置`customXssRules`属性，你可以自定义XSS过滤规则。
+
+<mc-ng-markdown-xss></mc-ng-markdown-xss>

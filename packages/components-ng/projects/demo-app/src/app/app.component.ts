@@ -17,6 +17,7 @@ import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math
 import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
 import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
 import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
+import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-c
     MarkdownMermaidDemoComponent,
     MarkdownTypingDemoComponent,
     MarkdownThinkDemoComponent,
+    MarkdownXssDemoComponent,
     MarkdownContentDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCodeOperatorDemoComponent,

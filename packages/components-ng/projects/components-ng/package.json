@@ -17,8 +17,8 @@
     "url": "git@gitcode.com:DevCloudFE/MateChat.git"
   },
   "peerDependencies": {
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0",
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0",
     "mermaid": "^11.10.1"
   },
   "dependencies": {

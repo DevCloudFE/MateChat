@@ -32,6 +32,7 @@ import { MarkdownMathShowComponent } from '../../demo-app/src/app/show/MarkdownC
 import { MarkdownPlantumlShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-plantuml-show.component';
 import { MarkdownThemeShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-theme-show.component';
 import { MarkdownHeaderShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-header-show.component';
+import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-xss-show.component';
 
 // 正确定义WebComponentsModule模块
 @NgModule({
@@ -62,6 +63,7 @@ import { MarkdownHeaderShowComponent } from '../../demo-app/src/app/show/Markdow
     MarkdownPlantumlShowComponent,
     MarkdownThemeShowComponent,
     MarkdownHeaderShowComponent,
+    MarkdownXssShowComponent,
   ],
   providers: []
 })
@@ -127,12 +129,16 @@ platformBrowserDynamic()
       const MarkdownHeaderWebComponent = createCustomElement(MarkdownHeaderShowComponent, {
         injector: injector
       });
+      const MarkdownXssWebComponent = createCustomElement(MarkdownXssShowComponent, {
+        injector: injector
+      });
       
       customElements.define('mc-ng-markdown-content', MarkdownContentWebComponent);
       customElements.define('mc-ng-markdown-math', MarkdownMathWebComponent);
       customElements.define('mc-ng-markdown-plantuml', MarkdownPlantumlWebComponent);
       customElements.define('mc-ng-markdown-theme', MarkdownThemeWebComponent);
       customElements.define('mc-ng-markdown-header', MarkdownHeaderWebComponent);
+      customElements.define('mc-ng-markdown-xss', MarkdownXssWebComponent);
       const CustomBubbleWebComponent = createCustomElement(CustomBubbleShowComponent, {
         injector: injector
       });

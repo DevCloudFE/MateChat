@@ -114,6 +114,7 @@ export class MarkdownCardComponent
 
   ngOnInit(): void {
     this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
+    this.mdCardService.setCustomXssRules(this.customXssRules || []);
     this.parseContent();
     this.afterMdtInit.emit(this.mdt);
   }
@@ -141,7 +142,6 @@ export class MarkdownCardComponent
       if (!this.typing) {
         this.typingIndex = this.content?.length || 0;
         this.parseContent();
-        return;
       }
       if (this.content.indexOf(changes['content']?.previousValue) === -1) {
         this.typingIndex = 0;
@@ -150,12 +150,12 @@ export class MarkdownCardComponent
       setTimeout(() => this.typewriterStart());
     }
 
-    if (changes['enableThink'] || changes['thinkOptions'] || changes['theme']) {
+    if (changes['customXssRules']) {
+      this.mdCardService.setCustomXssRules(this.customXssRules || []);
       this.parseContent();
     }
 
-    if (changes['customXssRules']) {
-      this.mdCardService.setCustomXssRules(this.customXssRules || []);
+    if (changes['enableThink'] || changes['thinkOptions'] || changes['theme']) {
       this.parseContent();
     }
 
