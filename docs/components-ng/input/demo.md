@@ -11,13 +11,6 @@ iconSrc: '/inputIcon.png'
 import { InputModule } from '@matechat/ng';
 ```
 
-# Input 输入框组件
-
-## 介绍
-
-Input 输入框是最基础的表单组件，用于收集用户输入。本组件提供了丰富的功能和样式选项，满足各种输入场景需求。
-
-
 ### 基本用法
 绑定 `value` 等基本参数进行使用。
 
@@ -64,6 +57,7 @@ Input 输入框是最基础的表单组件，用于收集用户输入。本组�
 
 - 设置为 `true`：使用默认配置（最小1行，最大5行）
 - 设置为对象：可自定义最小和最大行数，如 `{ minRows: 2, maxRows: 10 }`
+
 <mc-ng-input-auto-size></mc-ng-input-auto-size>
 
 ### 自定义插槽
