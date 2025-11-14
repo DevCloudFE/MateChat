@@ -178,7 +178,12 @@ const processASTNodeInternal = (node: ASTNode): VNode => {
     let tagName = isValidTagName(node.openNode?.tag) ? node.openNode?.tag : 'div'
     const children = node.children.map(child => processASTNode(child));
     const attrs = convertAttrsToProps(node.openNode?.attrs || []);
-    return h(tagName, { ...attrs, key: node.vNodeKey }, children);
+    const vNode = h(tagName, { ...attrs, key: node.vNodeKey }, children);
+    if (tagName === 'table') {
+      const tableContainer = h('div', { className: 'mc-table-container', key: `${node.vNodeKey}-table-container` }, [vNode]);
+      return tableContainer;
+    }
+    return vNode;
   }
   
   const children = node.children.map(child => processASTNode(child));
@@ -336,6 +341,10 @@ defineExpose({ mdt });
   }
 }
 
+:deep(.mc-table-container) {
+  max-width: 100%;
+  overflow-x: auto;
+}
 :deep(.mc-think-block) {
   color: $devui-aide-text;
   border-left: 1px solid $devui-line;
