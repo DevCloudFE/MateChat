@@ -1207,3 +1207,65 @@ body[ui-theme='infinity-theme'] {
 ```
 
 :::
+### 表格
+
+:::demo
+
+```vue
+<template>
+  <McMarkdownCard :content="content" :theme="theme" />
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+let themeService;
+const theme = ref('light');
+const content = ref(`**以下是正常显示的表格：**
+
+| 左对齐 | 居中对齐 | 右对齐 |
+|:-------|:--------:|-------:|
+| 数据1  | 数据2    | 数据3  |
+
+**以下是内容超长，正常换行显示的表格：**
+
+| 左对齐 | 居中对齐 | 右对齐 |
+|:-------|:--------:|-------:|
+| 这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长  | 数据2    | 数据3  |
+
+**以下是内容超长，设置了不换行显示的表格：**
+<div class="mc-table-demo">
+
+| 左对齐 | 居中对齐 | 右对齐 |
+|:-------|:--------:|-------:|
+| 这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长  | 数据2    | 数据3  |
+
+</div>
+`);
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  if(typeof window !== 'undefined'){
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
+</script>
+<style lang="scss">
+.mc-table-demo {
+  .mc-table-container {
+    table {
+      white-space: nowrap;
+    }
+  }
+}
+</style>
+```
+
+:::
