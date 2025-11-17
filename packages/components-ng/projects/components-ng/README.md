@@ -61,25 +61,68 @@ export class AppComponent {}
 
 以下为一个简单的对话界面搭建示例：
 
+在app.html使用如下代码：
+
 ```html
-<div class="chat-container">
-  <div class="chat-list">
-    <ng-container *ngFor="let msg of messages">
-      @if (msg.from === 'user') {
-      <mc-bubble class="user-bubble" [align]="'right'" [content]="msg.content"></mc-bubble>
-      } @else if (msg.from === 'model') {
-      <mc-bubble class="model-bubble" [align]="'left'">
-        <mc-markdown-card [content]="msg.content" [enableMermaid]="true"></mc-markdown-card>
-      </mc-bubble>
-      }
-    </ng-container>
-  </div>
-  <div class="chat-footer">
-    <mc-input (submit)="onSubmit($event)"></mc-input>
+<div class="mc-layout">
+  <div class="chat-container">
+    <div class="chat-header" :title="'MateChat'" :logoImg="'https://matechat.gitcode.com/logo.svg'">
+      <img src="https://matechat.gitcode.com/logo.svg" />
+      <span>MateChat</span>
+    </div>
+    @if (newPage) {
+    <div class="welcom-page">
+      <div class="content-wrapper">
+        <div class="mc-introduction">
+          <div class="mc-introduction-logo-container">
+            <img src="https://matechat.gitcode.com/logo2x.svg" alt="MateChat" />
+            <div class="mc-introduction-title">MateChat</div>
+          </div>
+          <!--v-if-->
+          <div class="mc-introduction-description">
+            <div>MateChat 可以辅助研发人员编码、查询知识和相关作业信息、编写文档等。</div>
+            <div>
+              作为AI模型，MateChat 提供的答案可能不总是确定或准确的，但您的反馈可以帮助 MateChat
+              做的更好。
+            </div>
+          </div>
+        </div>
+        <div class="guess-question">
+          <div class="guess-title">
+            <div>猜你想问</div>
+          </div>
+          <div class="guess-content">
+            <ng-container *ngFor="let item of questionList">
+              <span (click)="onSubmit(item)">{{ item }}</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    } @else {
+    <div class="chat-list">
+      <ng-container *ngFor="let msg of messages">
+        @if (msg.from === 'user') {
+        <mc-bubble class="user-bubble" [align]="'right'" [content]="msg.content" [avatarConfig]="avatarConfig"></mc-bubble>
+        } @else if (msg.from === 'model') {
+        <mc-bubble class="model-bubble" [align]="'left'" [loading]="msg.loading" [avatarConfig]="modelAvatar">
+          <mc-markdown-card [theme]="theme" [content]="msg.content" [enableMermaid]="true"></mc-markdown-card>
+        </mc-bubble>
+        }
+      </ng-container>
+    </div>
+    }
+    <div class="chat-footer">
+      <mc-input (submit)="onSubmit($event)"> </mc-input>
+      <div class="statement-box">
+        <span>内容由AI生成，无法确保准确性和完整性，仅供参考</span>
+      </div>
+    </div>
   </div>
 </div>
 ```
 
+在app.ts中使用如下代码：
 
 ```ts
 import { Component } from '@angular/core';
@@ -89,13 +132,27 @@ import { BubbleModule, InputModule, MarkdownCardModule } from '@matechat/ng';
   selector: 'app-root',
   imports: [CommonModule, BubbleModule, InputModule, MarkdownCardModule],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrl: './app.scss',
 })
 export class App {
   inputValue = '';
   messages: any = [];
+  newPage = true;
+  questionList = [
+    '帮我写一篇文章',
+    '你可以帮我做些什么？',
+    '帮我写一个快速排序',
+    '使用 js 格式化时间',
+  ];
+  avatarConfig = {
+    imgSrc: 'https://matechat.gitcode.com/png/demo/userAvatar.svg',
+  };
+  modelAvatar = {
+    imgSrc: 'https://matechat.gitcode.com/logo.svg',
+  };
 
   onSubmit = (evt: any) => {
+    this.newPage = false;
     this.inputValue = '';
     // 用户发送消息
     this.messages.push({
@@ -111,42 +168,208 @@ export class App {
     }, 200);
   };
 }
-
 ```
 
+在将模板应用中的app.css修改成`app.scss`，使用如下代码：
+
+
 ```scss
-.chat-container {
-  max-width: 1200px;
+::ng-deep body {
+  margin: 0;
+  color: var(--devui-text, #252b3a);
+}
+
+.mc-layout {
+  height: 100vh;
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    to bottom,
+    #d0c9ff 0%,
+    #e6d6f0 8%,
+    #f1dbea 12%,
+    #c8dcfb 40%,
+    #abc6f6 60%,
+    #87aefe 90%
+  );
+}
+
+::ng-deep body[ui-theme='galaxy-theme'] .mc-layout {
+  background: var(--devui-global-bg, #f6f6f8);
+
+  .chat-container {
+    background: transparent;
+    border: none;
+  }
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+.welcom-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  gap: 24px;
+}
+
+.guess-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--devui-text, #252b3a);
+  margin-bottom: 16px;
+}
+
+.guess-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.mc-introduction-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mc-introduction-description {
+  text-align: center;
+  font-size: 14px;
+  color: var(--devui-text, #252b3a);
+}
+
+.mc-introduction-title {
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: var(--devui-text, #252b3a);
+}
+
+.guess-question {
+  width: 100%;
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 24px;
+  box-sizing: border-box;
+  background-color: var(--devui-base-bg, #ffffff);
+}
+
+.guess-question-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--devui-text, #252b3a);
+  margin-bottom: 16px;
+}
+
+.guess-question span {
+  font-size: var(--devui-font-size, 12px);
+  color: var(--devui-aide-text, #71757f);
+  padding: 10px 16px;
+  border-radius: var(--devui-border-radius-full, 100px);
+  background-color: var(--devui-dividing-line, #f2f2f3);
+  cursor: pointer;
+}
+
+.content-wrapper {
+  margin: auto 0;
+}
+
+.chat-container {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  border-radius: 20px;
   margin: 0 auto;
   border: 1px solid #e5e5e5;
+  background: linear-gradient(180deg, #fffffff2, #f8fafff2 99%);
 }
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+  span {
+    font-size: 20px;
+    color: var(--devui-text, #252b3a);
+  }
+}
+
+.mc-introduction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
 .chat-list {
-  margin-bottom: 12px;
-  height: 500px;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 12px;
   overflow: auto;
+
+  .user-bubble,
+  .model-bubble {
+    display: block;
+    margin-top: 8px;
+  }
 }
-.user-bubble,
-.model-bubble {
-  display: block;
+
+.chat-footer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 12px 12px;
+  box-sizing: border-box;
+}
+
+.statement-box {
+  font-size: 12px;
   margin-top: 8px;
+  color: var(--devui-aide-text, #71757f);
+  text-align: center;
 }
 ```
 ### 4. 主题化
 
-在`main.ts`中初始化主题
+在`main.ts`中初始化主题，更多用法可参考 [devui-theme](https://matechat.gitcode.com/use-guide/theme.html)
 
 ```ts
-import { bootstrapApplication } from "@angular/platform-browser";
-import { appConfig } from "./app/app.config";
-import { AppComponent } from "./app/app.component";
-import { ThemeServiceInit, infinityTheme } from "devui-theme";
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
+import { ThemeServiceInit, infinityTheme, galaxyTheme } from 'devui-theme';
 
-// 使用无限主题
-ThemeServiceInit({ infinityTheme }, "infinityTheme");
-bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+ThemeServiceInit(
+  {
+    'galaxy-theme': galaxyTheme, // 暗黑主题
+    'infinity-theme': infinityTheme,
+  },
+  'infinity-theme'
+);
+bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+
 ```
 ## 🧩 对接模型服务
 
