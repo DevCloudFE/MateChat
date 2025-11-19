@@ -63,6 +63,7 @@ export class MarkdownCardComponent
   > = new Map();
 
   @Output() afterMdtInit = new EventEmitter<markdownit>();
+  @Output() mdRenderChange = new EventEmitter<string>();
   @Output() typingStart = new EventEmitter<void>();
   @Output() typingEvent = new EventEmitter<void>();
   @Output() typingEnd = new EventEmitter<void>();
@@ -139,29 +140,38 @@ export class MarkdownCardComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['content']) {
-      if (!this.typing) {
-        this.typingIndex = this.content?.length || 0;
-        this.parseContent();
-      }
-      if (this.content.indexOf(changes['content']?.previousValue) === -1) {
-        this.typingIndex = 0;
-      }
-      // 使用setTimeout模拟Vue的nextTick行为
-      setTimeout(() => this.typewriterStart());
+      this.contentChange(changes['content']);
     }
 
-    if (changes['customXssRules']) {
+    if (changes['customXssRules'] && !changes['customXssRules'].firstChange) {
       this.mdCardService.setCustomXssRules(this.customXssRules || []);
       this.parseContent();
     }
 
-    if (changes['enableThink'] || changes['thinkOptions'] || changes['theme']) {
+    if (
+      (changes['enableThink'] && !changes['enableThink'].firstChange) ||
+      (changes['thinkOptions'] && !changes['thinkOptions'].firstChange) ||
+      (changes['theme'] && !changes['theme'].firstChange)
+    ) {
       this.parseContent();
     }
 
-    if (changes['mdPlugins']) {
+    if (changes['mdPlugins'] && !changes['mdPlugins'].firstChange) {
       this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
       this.parseContent();
+    }
+  }
+
+  contentChange(change) {
+    if (!this.typing) {
+      this.typingIndex = this.content?.length || 0;
+      this.parseContent();
+    } else {
+      if (this.content.indexOf(change.previousValue) === -1) {
+        this.typingIndex = 0;
+      }
+      // 使用setTimeout模拟Vue的nextTick行为
+      setTimeout(() => this.typewriterStart());
     }
   }
 
@@ -197,7 +207,9 @@ export class MarkdownCardComponent
           node instanceof HTMLElement)
       ) {
         if (codeBlockWrappers.includes(node)) {
-          newContainerDiv.body.firstChild?.appendChild(this.getEmptyCodeBlock(node));
+          newContainerDiv.body.firstChild?.appendChild(
+            this.getEmptyCodeBlock(node)
+          );
         } else {
           newContainerDiv.body.firstChild?.appendChild(node);
         }
@@ -205,7 +217,10 @@ export class MarkdownCardComponent
     });
     let newContainerDivHTML =
       (newContainerDiv.body?.firstChild as HTMLElement)?.outerHTML || '';
-    const patches = this.diffDom.diff(container, this.mdCardService.filterHtml(newContainerDivHTML));
+    const patches = this.diffDom.diff(
+      container,
+      this.mdCardService.filterHtml(newContainerDivHTML)
+    );
     this.diffDom.apply(container, patches);
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
@@ -225,6 +240,7 @@ export class MarkdownCardComponent
         }
       }
     });
+    this.mdRenderChange.emit(newContainerDivHTML);
   }
 
   private getEmptyCodeBlock(node) {

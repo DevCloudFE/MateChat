@@ -123,6 +123,7 @@ export class CodeBlockComponent
   }
 
   ngAfterViewInit(): void {
+    this.updateHighlightedCode();
     if (this.isMermaid) {
       this.renderMermaid();
     }

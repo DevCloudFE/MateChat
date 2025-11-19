@@ -29,7 +29,8 @@ bannerSrc: '/bubbleBanner.png'
 
 | 事件名     | 返回值 | 说明               |
 | ---------- | ------ | ------------------ |
-| after-mdt-init    | Object  | markdown-it实例mdt，在初始化完成后返回     |
+| afterMdtInit    | Object  | markdown-it实例mdt，在初始化完成后返回     |
+| mdRenderChange    | string  | 渲染后的html字符串，在每次渲染完成后返回     |
 | typingStart    | --  | 打字效果开始回调     |
 | typing    | --  | 打字中每一步回调     |
 | typingEnd    | --  | 打字结束回调     |
