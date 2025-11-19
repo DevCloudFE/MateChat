@@ -586,13 +586,11 @@ onMounted(() => {
 $ npm install mermaid
 ```
 
-2. 通过配置md-plugins Mermaid插件，进行Mermaid图渲染。
-
 :::demo
 
 ```vue
 <template>
-  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme"></McMarkdownCard>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
