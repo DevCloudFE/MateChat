@@ -43,6 +43,11 @@ body[ui-theme='galaxy-theme'] {
     display: flex;
     align-items: flex-end;
     padding: 0 16px;
+
+    .editable-block-container {
+      width: 100%;
+      min-height: 64px;
+    }
   }
 
   .mc-input-foot {

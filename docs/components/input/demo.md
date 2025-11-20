@@ -350,6 +350,213 @@ const onCancel = () => {
 
 :::
 
+### 插入前置提示标签
+
+:::demo
+
+```vue
+<template>
+  <div class="button-wrapper">
+    <d-button @click="opemTipTag" style="margin-right: 8px;">插入前置提示标签</d-button> <d-button @click="closeTipTag">关闭前置提示标签</d-button>
+  </div>
+  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const loading = ref(false);
+const editableInputRef = ref();
+
+const onInputChange = (e) => {
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  console.log('input submit---', e);
+};
+
+const opemTipTag = () => {
+  editableInputRef.value?.openTipTag('动图生成', true);
+}
+
+const closeTipTag = () => {
+  editableInputRef.value?.closeTipTag();
+}
+
+</script>
+
+<style scoped lang="scss">
+  .button-wrapper {
+    margin-bottom: 12px;
+  }
+</style>
+```
+
+:::
+
+### 插入text文本
+
+:::demo
+
+```vue
+<template>
+  <div class="button-wrapper">
+    <d-button @click="setText">插入text文本</d-button>
+  </div>
+  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const loading = ref(false);
+const editableInputRef = ref();
+
+const onInputChange = (e) => {
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  console.log('input submit---', e);
+};
+
+const setText = () => {
+  editableInputRef.value?.setText('欢迎使用MateChat！！！');
+}
+
+</script>
+
+<style scoped lang="scss">
+  .button-wrapper {
+    margin-bottom: 12px;
+  }
+</style>
+```
+
+:::
+
+### 插入输入标签
+
+:::demo
+
+```vue
+<template>
+  <div class="button-wrapper">
+    <d-button @click="setInputTag">插入输入标签</d-button>
+  </div>
+  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const loading = ref(false);
+const editableInputRef = ref();
+
+const onInputChange = (e) => {
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  console.log('input submit---', e);
+};
+
+const setInputTag = () => {
+  editableInputRef.value?.setInputTag('input1', '请输入年份', '2025');
+}
+
+</script>
+
+<style lang="scss">
+  .button-wrapper {
+    margin-bottom: 12px;
+  }
+</style>
+```
+
+:::
+
+### 混合式一次插入多种标签
+
+:::demo
+
+```vue
+<template>
+  <div class="button-wrapper">
+    <d-button @click="setMixTags">混合标签插入</d-button>
+  </div>
+  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  </McInput>
+</template>
+
+<script setup>
+import { defineComponent, ref } from 'vue';
+
+const loading = ref(false);
+const editableInputRef = ref();
+
+const onInputChange = (e) => {
+  console.log('input change---', e);
+};
+const onSubmit = (e) => {
+  loading.value = true;
+  console.log('input submit---', e);
+};
+
+
+const mixTags = [
+  {
+    key: '',
+    type: 'text',
+    content: '帮我写一篇面向',
+    placeholder: '',
+  },
+  {
+    key: 'input1',
+    type: 'input',
+    placeholder: '输入目标人群',
+    content: '职场人士',
+  },
+  {
+    key: '',
+    type: 'text',
+    content: '关于',
+    placeholder: '',
+  },
+  {
+    key: 'input2',
+    type: 'input',
+    placeholder: '输入产品',
+    content: '',
+  },
+  {
+    key: '',
+    type: 'text',
+    content: '的宣传文案，需要直击痛点，吸引用户点击。',
+    placeholder: '',
+  },
+];
+
+const setMixTags = () => {
+  editableInputRef.value?.openTipTag('文章生成', true);
+  editableInputRef.value?.setMixTags(mixTags);
+}
+
+</script>
+
+<style lang="scss">
+  .button-wrapper {
+    margin-bottom: 12px;
+  }
+</style>
+```
+
+:::
+
 ### 自定义插槽
 
 通过`head`插槽自定义输入框顶部的内容，通过`extra`自定义发送按钮左侧的内容。

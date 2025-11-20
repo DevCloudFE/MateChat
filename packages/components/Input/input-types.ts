@@ -17,6 +17,13 @@ export enum SubmitShortKey {
   ShiftEnter = "shiftEnter",
 }
 
+export interface MixTagItem {
+  key: String,
+  type: String,
+  content: String,
+  placeholder: String,
+}
+
 export type TextareaAutoSize = { minRows?: number; maxRows?: number } | boolean;
 
 export const DEFAULT_AUTOSIZE = {
