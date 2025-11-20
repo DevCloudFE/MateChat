@@ -92,8 +92,8 @@ export class CodeBlockComponent
           newElement.className = `hljs language-${language}`;
           newElement.innerHTML = highlightedCode;
           const diff = this.diffDom.diff(
-            this.codeElementRef.nativeElement,
-            newElement
+            this.codeElementRef.nativeElement.outerHTML,
+            newElement.outerHTML
           );
           this.diffDom.apply(this.codeElementRef.nativeElement, diff);
         }

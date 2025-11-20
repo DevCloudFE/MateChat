@@ -192,12 +192,7 @@ export class MarkdownCardComponent
     const container = this.markdownContainer.element.nativeElement;
     const parser = new DOMParser();
     const newContainerDiv = parser.parseFromString(`<div></div>`, 'text/html');
-    const codeBlockWrappers = vnodes.filter((node) => {
-      return (
-        node.nodeName === 'DIV' &&
-        node.className?.includes('code-block-wrapper')
-      );
-    });
+    const codeBlockWrappers =  this.parser.findCodeBlockWrappers(vnodes);
 
     vnodes.forEach((node) => {
       if (

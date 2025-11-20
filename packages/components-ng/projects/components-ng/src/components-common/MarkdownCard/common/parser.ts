@@ -203,6 +203,30 @@ export const tokensToAst = (tokens: Token[]) => {
     return rootNode.children as ASTNode[];
   };
 
+/**
+ * 递归查找所有层级中 className 包含 code-block-wrapper 的 DIV 节点
+ * @param {Array} vnodes - 待查找的 vnode 列表
+ * @returns {Array} 符合条件的节点列表
+ */
+export function findCodeBlockWrappers(vnodes: any[]): any[] {
+  const result: any[] = [];
+
+  // 遍历当前层级的 vnode
+  vnodes.forEach((node: any) => {
+    // 检查当前节点是否符合条件
+    if (node.nodeName === 'DIV' && node.className?.includes('code-block-wrapper')) {
+      result.push(node);
+    }
+
+    // 递归处理子节点（如果存在子节点且为数组）
+    if (node.childNodes?.length) {
+      result.push(...findCodeBlockWrappers(node.childNodes));
+    }
+  });
+
+  return result;
+}
+
 // 声明一个utils静态默认导出
 export default {
     isSelfClosingTag,
@@ -210,5 +234,6 @@ export default {
     tokensToAst,
     genTreeNode,
     matchHtmlToken,
-    isValidTagName
+    isValidTagName,
+    findCodeBlockWrappers,
 }
