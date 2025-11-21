@@ -42,6 +42,7 @@ iconSrc: '/inputIcon.png'
 | suffix | --     | 自定义输入框右侧的内容                                   |
 | extra  | --     | 自定义发送按钮左侧的内容，仅在`displayType='full'`时生效 |
 | button | --     | 自定义输入框的发送按钮                                   |
+| tipTagIcon | -- | 自定义前置提示标签图标                                     |
 
 ### 方法
 
@@ -49,6 +50,11 @@ iconSrc: '/inputIcon.png'
 | ---------- | -------------- | ---------------- |
 | clearInput | `() => void`   | 清空输入框的内容 |
 | getInput   | `() => string` | 获取输入框的内容 |
+| openTipTag   | `(tipTagText: string, clearInput?: boolean) => void` | 打开前置提示标签 |
+| closeTipTag   | `() => void` | 关闭前置提示标签 |
+| setInputTag   | `(key: string, placeholder: string, defaultValue?: string) => void` | 插入一个输入标签 |
+| setText   | `(text: string) => void` | 插入一段文本 |
+| setMixTags   | `(mixTagConfig: MixTagItem[]) => void` | 混合式一次性插入多种标签 |
 
 ### 类型定义
 
@@ -87,6 +93,19 @@ enum SendBtnVariant {
 enum SubmitShortKey {
   Enter = 'enter',
   ShiftEnter = 'shiftEnter',
+}
+```
+
+#### MixTagItem
+
+混合式插入标签时单个标签配置项类型。
+
+```ts
+interface MixTagItem {
+  type: 'text' | 'input'; // 标签类型，text 表示文本标签，input 表示输入标签
+  key: string; // 标签的唯一标识
+  placeholder: string; // 标签的占位内容
+  content: string; // 标签的默认展示内容，当 type 为 text 时，为普通文本；当 type 为 input 时，为输入框的默认值
 }
 ```
 
