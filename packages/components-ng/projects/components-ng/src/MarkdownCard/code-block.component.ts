@@ -154,7 +154,9 @@ export class CodeBlockComponent
   }
 
   private updateHighlightedCode(): void {
-    this.foundation.updateHighlightedCode();
+    setTimeout(() => {
+      this.foundation.updateHighlightedCode();
+    });
   }
 
   zoomIn(): void {
