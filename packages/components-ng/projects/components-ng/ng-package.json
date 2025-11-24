@@ -8,7 +8,7 @@
     "devui-theme",
     "highlight.js",
     "markdown-it",
-    "diff-dom",
+    "morphdom",
     "xss"
   ]
 }
