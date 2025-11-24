@@ -10,6 +10,7 @@ iconSrc: '/inputIcon.png'
 | 参数名         | 类型                                        | 默认值     | 说明                                           |
 | -------------- | ------------------------------------------- | ---------- | ---------------------------------------------- |
 | value          | `string`                                    | ''         | 输入框的值                                     |
+| tagsOptions    | `TagsOptions`                               | {}         | 混合式插入标签时的配置项                                     |
 | placeholder    | `string`                                    | --         | 输入框占位文字                                 |
 | disabled       | `boolean`                                   | false      | 是否禁用输入框                                 |
 | displayType    | [DisplayType](#displaytype)                 | 'full'     | 输入框的形态                                   |
@@ -42,7 +43,7 @@ iconSrc: '/inputIcon.png'
 | suffix | --     | 自定义输入框右侧的内容                                   |
 | extra  | --     | 自定义发送按钮左侧的内容，仅在`displayType='full'`时生效 |
 | button | --     | 自定义输入框的发送按钮                                   |
-| tipTagIcon | -- | 自定义前置提示标签图标                                     |
+| tipTag | --     | 自定义前置提示标签                                     |
 
 ### 方法
 
@@ -50,11 +51,6 @@ iconSrc: '/inputIcon.png'
 | ---------- | -------------- | ---------------- |
 | clearInput | `() => void`   | 清空输入框的内容 |
 | getInput   | `() => string` | 获取输入框的内容 |
-| openTipTag   | `(tipTagText: string, clearInput?: boolean) => void` | 打开前置提示标签 |
-| closeTipTag   | `() => void` | 关闭前置提示标签 |
-| setInputTag   | `(key: string, placeholder: string, defaultValue?: string) => void` | 插入一个输入标签 |
-| setText   | `(text: string) => void` | 插入一段文本 |
-| setMixTags   | `(mixTagConfig: MixTagItem[]) => void` | 混合式一次性插入多种标签 |
 
 ### 类型定义
 
@@ -96,16 +92,42 @@ enum SubmitShortKey {
 }
 ```
 
-#### MixTagItem
+#### TipTagOption
+
+
+前置提示标签的配置项类型。
+
+```ts
+interface TipTagOption {
+  tipTagKey?: string; // 前置提示标签的唯一标识
+  tipTagText: string; // 前置提示标签的文本内容
+  clearInput?: boolean; // 关闭前置标签时是否清空对应输入框内容
+  popoverContent: string; // 前置提示标签的pop弹出提示内容
+}
+```
+
+
+#### TagOption
 
 混合式插入标签时单个标签配置项类型。
 
 ```ts
-interface MixTagItem {
+interface TagOption {
   type: 'text' | 'input'; // 标签类型，text 表示文本标签，input 表示输入标签
   key: string; // 标签的唯一标识
-  placeholder: string; // 标签的占位内容
-  content: string; // 标签的默认展示内容，当 type 为 text 时，为普通文本；当 type 为 input 时，为输入框的默认值
+  placeholder?: string; // 标签的占位内容
+  content?: string; // 标签的默认展示内容，当 type 为 text 时，为普通文本；当 type 为 input 时，为输入框的默认值
+}
+```
+
+#### TagsOptions
+
+混合式插入标签时的配置项类型。
+
+```ts
+interface TagsOptions {
+  tipTag?: TipTagOption,
+  contentTagOptions?: TagOption[],
 }
 ```
 

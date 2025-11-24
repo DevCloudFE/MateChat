@@ -15,13 +15,13 @@
     @focus="onFocus"
   >
     <!-- 前置标签 -->
-    <span v-if="tipTag.onTipTag" class="ai-input-prefix-wrapper" contenteditable="false">
-      <i class="icon-code-editor-close" @click="closeTipTag"></i>
-      <slot name="tipTagIcon">
-        <span :class="['tip-tag-icon', 'icon-default']"></span>
-      </slot>
-      <span id="ai-input-prefix" class="ai-input-prefix">{{tipTag.tipTagText}}</span>
-    </span>
+    <d-popover v-if="tipTag.tipTagText " trigger="hover" :content="tipTag.popoverContent">
+      <span v-if="tipTag.tipTagText" class="ai-input-prefix-wrapper" @click="closeTipTag" contenteditable="false">
+        <slot name="tipTag" :tipTag="tipTag">
+          <span id="ai-input-prefix" class="ai-input-prefix">{{tipTag.tipTagText}}</span>
+        </slot>
+      </span>
+    </d-popover>
     <template v-for="(part, index) in localTemplateParts">
       <template v-if="part.type === 'text'">
         {{ part.content }}
@@ -36,7 +36,7 @@
 import { ref, watch,onMounted, nextTick, PropType } from "vue";
 import InputTag from "./InputTag.vue";
 import { insertText, moveCursorToTextEnd } from "./util";
-import { SubmitShortKey } from "../input-types";
+import { SubmitShortKey, TipTagOption } from "../input-types";
 
 const emits = defineEmits(['send', "input", 'blur', 'focus', 'onBlockKeyArrowUp']);
 const props = defineProps({
@@ -66,10 +66,10 @@ const props = defineProps({
   },
 });
 
-const tipTag = ref({
-  onTipTag: false,
+const tipTag = ref<TipTagOption>({
   tipTagText: '',
-  clearInput: false
+  clearInput: false,
+  popoverContent: '',
 });
 
 const editableDivRef : any= ref(null);
@@ -137,7 +137,7 @@ const handleDivInput = () => {
 const getCurrentInputValue = () => {
   let prompt = (editableDivRef.value as any)?.textContent;
   // 前置标签TipTag的文本需要去除掉
-  if(tipTag.value.onTipTag){
+  if(tipTag.value.tipTagText){
     const prefixSpan = editableDivRef.value?.querySelector('.ai-input-prefix-wrapper');
     if(prefixSpan){
       const prefixText = prefixSpan.textContent || '';
@@ -299,25 +299,25 @@ const setText = (text:string) => {
   handleDivInput();
 }
 
-const openTipTag = (tipTagText: string, clearInput?: boolean) => {
+const openTipTag = (tipTagText: string, popoverContent: string, clearInput?: boolean) => {
   if(props.disabled) {
     return;
   }
   tipTag.value = {
-    onTipTag: true,
     tipTagText,
-    clearInput: clearInput || false
+    clearInput: clearInput || false,
+    popoverContent,
   }
 }
 
 const closeTipTag = () => {
-  if(tipTag.value.onTipTag && tipTag.value.clearInput) {
+  if(tipTag.value.tipTagText && tipTag.value.clearInput) {
     clearInput();
   }else{
     tipTag.value = {
-      onTipTag: false,
       tipTagText: '',
-      clearInput: false
+      clearInput: false,
+      popoverContent: '',
     }
   }
 }
@@ -387,41 +387,10 @@ defineExpose({
     font-weight: 400;
     line-height: 24px;
     margin-right: 4px;
-    margin-left: 8px;
     z-index: 10;
     position: sticky;
     display: inline-block;
-
-    &:hover {
-      i {
-        display: inline-block;
-      }
-
-      .tip-tag-icon {
-        display: none;
-      }
-
-    }
-    i {
-      cursor: pointer;
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-      vertical-align: middle;
-      display: none;
-    }
-
-    .tip-tag-icon {
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-      display: inline-block;
-      vertical-align: text-bottom;
-      background-size: 100% 100%;
-      &.icon-default {
-        background-image: url(''); // 补一个默认图标
-      }
-    }
+    cursor: pointer;
   }
 }
 

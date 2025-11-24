@@ -18,8 +18,8 @@
           @blur="onDivBlur"
           @focus="onDivFocus"
          >
-          <template #tipTagIcon>
-            <slot name="tipTagIcon" ></slot>
+          <template #tipTag="{ tipTag }">
+            <slot name="tipTag" :tipTag="tipTag"></slot>
           </template>
          </EditableBlock>
       </div>
@@ -55,7 +55,7 @@ import {
   inputInjectionKey,
   DisplayType,
   InputVariant,
-  MixTagItem,
+  TagOption,
 } from "./input-types";
 
 const props = defineProps(inputProps);
@@ -111,7 +111,7 @@ const setText = (text: string) => {
   
 }
 
-const setMixTags = (mixTagConfig: MixTagItem[]) => {
+const setMixTags = (mixTagConfig: TagOption[]) => {
   if(props.disabled) {
     return;
   }
@@ -121,13 +121,13 @@ const setMixTags = (mixTagConfig: MixTagItem[]) => {
   }, 50);
 }
 
-const openTipTag = (tipTagText: string, clearInput?: boolean) => {
+const openTipTag = (tipTagText: string, popoverContent: string, clearInput?: boolean) => {
   if(props.disabled) {
     return;
   }
   showEditableBlock.value = true;
   setTimeout(() => {
-    editableBlockRef.value?.openTipTag(tipTagText, clearInput);
+    editableBlockRef.value?.openTipTag(tipTagText, popoverContent, clearInput);
   }, 50);
 }
 
@@ -165,6 +165,25 @@ watch(
     inputValue.value = props.value;
   },
   { immediate: true }
+);
+
+watch(
+  () => props.tagsOptions,
+  (newValue) => {
+    if(newValue?.tipTag){
+      openTipTag(newValue.tipTag.tipTagText, newValue.tipTag.popoverContent, newValue.tipTag.clearInput);
+    }
+    if(newValue?.contentTagOptions){
+      setMixTags(newValue.contentTagOptions);
+    }
+    if(showEditableBlock.value && !(newValue?.tipTag)){
+      closeTipTag();
+    }
+    if(showEditableBlock.value && !(newValue?.contentTagOptions)){
+      setMixTags([]);
+    }
+  },
+  {  deep: true }
 );
 
 defineExpose({ clearInput, getInput, setInputTag, setText, setMixTags, openTipTag, closeTipTag });

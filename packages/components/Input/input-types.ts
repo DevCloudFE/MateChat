@@ -17,11 +17,23 @@ export enum SubmitShortKey {
   ShiftEnter = "shiftEnter",
 }
 
-export interface MixTagItem {
+export interface TagOption {
   key: String,
   type: String,
-  content: String,
-  placeholder: String,
+  content?: String,
+  placeholder?: String,
+}
+
+export interface TipTagOption {
+  tipTagKey?: string; // 前置提示标签的唯一标识
+  tipTagText: string; // 前置提示标签的文本内容
+  clearInput?: boolean; // 关闭前置标签时是否清空对应输入框内容
+  popoverContent: string; // 前置提示标签的pop弹出提示内容
+}
+
+export interface TagsOptions {
+  tipTag?: TipTagOption,
+  contentTagOptions?: TagOption[],
 }
 
 export type TextareaAutoSize = { minRows?: number; maxRows?: number } | boolean;
@@ -35,6 +47,10 @@ export const inputProps = {
   value: {
     type: String,
     default: "",
+  },
+  tagsOptions: {
+    type: Object as PropType<TagsOptions>,
+    default: () => {},
   },
   placeholder: {
     type: String,

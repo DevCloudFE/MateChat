@@ -359,7 +359,7 @@ const onCancel = () => {
   <div class="button-wrapper">
     <d-button @click="opemTipTag" style="margin-right: 8px;">插入前置提示标签</d-button> <d-button @click="closeTipTag">关闭前置提示标签</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :tagsOptions="tagsOptions" @change="onInputChange" @submit="onSubmit">
   </McInput>
 </template>
 
@@ -367,8 +367,8 @@ const onCancel = () => {
 import { defineComponent, ref } from 'vue';
 
 const loading = ref(false);
-const editableInputRef = ref();
-
+const tagsOptions = ref({
+});
 const onInputChange = (e) => {
   console.log('input change---', e);
 };
@@ -378,11 +378,19 @@ const onSubmit = (e) => {
 };
 
 const opemTipTag = () => {
-  editableInputRef.value?.openTipTag('动图生成', true);
+  tagsOptions.value = {
+    tipTag: 
+      {
+        tipTagKey: '动图生成',
+        tipTagText: '动图生成',
+        clearInput: false,
+        popoverContent: '关闭前置标签',
+      },
+  };
 }
 
 const closeTipTag = () => {
-  editableInputRef.value?.closeTipTag();
+  tagsOptions.value = {};
 }
 
 </script>
@@ -405,15 +413,16 @@ const closeTipTag = () => {
   <div class="button-wrapper">
     <d-button @click="setText">插入text文本</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :tagsOptions="tagsOptions" @change="onInputChange" @submit="onSubmit">
   </McInput>
 </template>
 
 <script setup>
 import { defineComponent, ref } from 'vue';
 
+const tagsOptions = ref({
+});
 const loading = ref(false);
-const editableInputRef = ref();
 
 const onInputChange = (e) => {
   console.log('input change---', e);
@@ -424,7 +433,16 @@ const onSubmit = (e) => {
 };
 
 const setText = () => {
-  editableInputRef.value?.setText('欢迎使用MateChat！！！');
+  tagsOptions.value = {
+    contentTagOptions: [
+      {
+        key: '',
+        type: 'text',
+        content: '欢迎使用MateChat！！！',
+        placeholder: '',
+      },
+    ],
+  };
 }
 
 </script>
@@ -447,15 +465,15 @@ const setText = () => {
   <div class="button-wrapper">
     <d-button @click="setInputTag">插入输入标签</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :tagsOptions="tagsOptions" @change="onInputChange" @submit="onSubmit">
   </McInput>
 </template>
 
 <script setup>
 import { defineComponent, ref } from 'vue';
-
+const tagsOptions = ref({
+});
 const loading = ref(false);
-const editableInputRef = ref();
 
 const onInputChange = (e) => {
   console.log('input change---', e);
@@ -466,7 +484,16 @@ const onSubmit = (e) => {
 };
 
 const setInputTag = () => {
-  editableInputRef.value?.setInputTag('input1', '请输入年份', '2025');
+  tagsOptions.value = {
+    contentTagOptions: [
+      {
+        key: 'input1',
+        type: 'input',
+        placeholder: '请输入年份',
+        content: '2025',
+      },
+    ],
+  };
 }
 
 </script>
@@ -489,7 +516,14 @@ const setInputTag = () => {
   <div class="button-wrapper">
     <d-button @click="setMixTags">混合标签插入</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :tagsOptions="tagsOptions" @change="onInputChange" @submit="onSubmit">
+    <template #tipTag="{ tipTag }">
+      <span class="tip-tag-custom">
+        <i class="icon-code-editor-close"></i>
+        <span :class="['tip-tag-icon', 'icon-default']"></span>
+        <span id="ai-input-prefix" class="ai-input-prefix">{{tipTag.tipTagText}}</span>
+      </span>
+    </template>
   </McInput>
 </template>
 
@@ -497,8 +531,8 @@ const setInputTag = () => {
 import { defineComponent, ref } from 'vue';
 
 const loading = ref(false);
-const editableInputRef = ref();
-
+const tagsOptions = ref({
+});
 const onInputChange = (e) => {
   console.log('input change---', e);
 };
@@ -542,8 +576,16 @@ const mixTags = [
 ];
 
 const setMixTags = () => {
-  editableInputRef.value?.openTipTag('文章生成', true);
-  editableInputRef.value?.setMixTags(mixTags);
+  tagsOptions.value = {
+    tipTag: 
+      {
+        tipTagKey: '文章生成',
+        tipTagText: '文章生成',
+        clearInput: true,
+        popoverContent: '关闭前置标签',
+      },
+    contentTagOptions: mixTags,
+  };
 }
 
 </script>
@@ -551,6 +593,39 @@ const setMixTags = () => {
 <style lang="scss">
   .button-wrapper {
     margin-bottom: 12px;
+  }
+
+  .mc-input-mix-tags-demo .tip-tag-custom {
+    &:hover {
+      i {
+        display: inline-block;
+      }
+
+      .tip-tag-icon {
+        display: none;
+      }
+
+    }
+    i {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      vertical-align: middle;
+      display: none;
+    }
+
+    .tip-tag-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      display: inline-block;
+      vertical-align: text-bottom;
+      background-size: 100% 100%;
+      &.icon-default {
+        background-image: url('/logo.svg'); // 补一个默认图标
+      }
+    }
   }
 </style>
 ```
