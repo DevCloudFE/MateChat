@@ -15,7 +15,7 @@ import hljs from 'highlight.js';
 import { TemplateRef } from '@angular/core';
 import type { MermaidConfig } from '../components-common/MarkdownCard/common/mdCard.types';
 import BaseComponent from '../Base/base.component';
-import { DiffDOM } from 'diff-dom';
+import morphdom from 'morphdom';
 import {
   CodeBlockAdapter,
   CodeBlockFoundation,
@@ -49,7 +49,7 @@ export class CodeBlockComponent
   expanded: boolean = true;
   copied: boolean = false;
   mermaidContent: string = '';
-  private diffDom: DiffDOM;
+
   private _showMermaidDiagram: boolean = true;
   get showMermaidDiagram(): boolean {
     return this._showMermaidDiagram;
@@ -76,7 +76,6 @@ export class CodeBlockComponent
       .pipe(debounceTime(300))
       .subscribe(() => this.copyCodeInternal());
     this.foundation = new CodeBlockFoundation(this.adapter);
-    this.diffDom = new DiffDOM();
   }
 
   override get adapter(): CodeBlockAdapter {
@@ -91,11 +90,7 @@ export class CodeBlockComponent
           const newElement = document.createElement('code');
           newElement.className = `hljs language-${language}`;
           newElement.innerHTML = highlightedCode;
-          const diff = this.diffDom.diff(
-            this.codeElementRef.nativeElement.outerHTML,
-            newElement.outerHTML
-          );
-          this.diffDom.apply(this.codeElementRef.nativeElement, diff);
+          morphdom(this.codeElementRef.nativeElement, newElement);
         }
       },
     };

@@ -28,11 +28,11 @@
     "@devui-design/icons": "^1.4.0",
     "@matechat/common": "workspace:~",
     "devui-theme": "^0.0.7",
-    "diff-dom": "^5.2.1",
     "highlight.js": "^11.11.1",
     "markdown-it": "^12.2.0",
     "markdown-it-emoji": "^3.0.0",
     "mermaid": "^11.10.1",
+    "morphdom": "^2.7.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"

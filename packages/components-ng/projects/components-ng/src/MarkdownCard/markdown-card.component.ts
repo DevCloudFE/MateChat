@@ -1,4 +1,4 @@
-import { DiffDOM } from 'diff-dom';
+import morphdom from 'morphdom';
 import {
   Component,
   Input,
@@ -40,7 +40,6 @@ export class MarkdownCardComponent
   extends BaseComponent<MarkdownCardFoundation>
   implements OnInit, OnChanges, OnDestroy
 {
-  private diffDom: DiffDOM;
   @Input() content: string = '';
   @Input() typing: boolean = false;
   @Input() enableThink: boolean = false;
@@ -93,24 +92,6 @@ export class MarkdownCardComponent
     });
     this.mdCardService = new MDCardService();
     this.foundation = new MarkdownCardFoundation(this.adapter);
-
-    // 初始化 diffDom 实例
-    this.diffDom = new DiffDOM({
-      // 配置filterOuterDiff钩子，识别code-block-wrapper元素并直接替换
-      filterOuterDiff: (t1, t2, diffs) => {
-        // 检查是否是class为code-block-wrapper的div元素
-        const isTargetElement =
-          t2.nodeName === 'DIV' &&
-          t2.attributes &&
-          t2.attributes.class &&
-          t2.attributes.class.includes('code-block-wrapper');
-
-        if (isTargetElement) {
-          t1.innerDone = true;
-          t2.innerDone = true;
-        }
-      },
-    });
   }
 
   ngOnInit(): void {
@@ -212,11 +193,20 @@ export class MarkdownCardComponent
     });
     let newContainerDivHTML =
       (newContainerDiv.body?.firstChild as HTMLElement)?.outerHTML || '';
-    const patches = this.diffDom.diff(
-      container,
-      this.mdCardService.filterHtml(newContainerDivHTML)
-    );
-    this.diffDom.apply(container, patches);
+    const filteredHTML = this.mdCardService.filterHtml(newContainerDivHTML);
+    
+    // 使用morphdom进行DOM更新
+    const newElement = document.createElement('div');
+    newElement.innerHTML = filteredHTML;
+    morphdom(container,  filteredHTML, {
+      onBeforeElUpdated: (fromEl, toEl) => {
+        // 检查是否是代码块元素
+        if (fromEl.nodeName === 'DIV' && fromEl.classList.contains('code-block-wrapper')) {
+          return false;
+        }
+        return true;
+      }
+    });
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
       if (
