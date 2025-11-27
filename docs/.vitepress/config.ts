@@ -25,9 +25,9 @@ export default defineConfig({
     [
       'script',
       {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js'
-      }
-    ]
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js',
+      },
+    ],
   ],
   markdown: {
     config: (md) => {
@@ -42,6 +42,14 @@ export default defineConfig({
     },
     optimizeDeps: {
       include: ['mermaid'],
+    },
+  },
+  vue: {
+    template: {
+      compilerOptions: {
+        // 允许以'mc-ng-'开头的自定义元素（Angular WebComponent）
+        isCustomElement: (tag) => tag.startsWith('mc-ng-'),
+      },
     },
   },
   ignoreDeadLinks: true,

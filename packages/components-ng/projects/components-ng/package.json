@@ -1,0 +1,36 @@
+{
+  "name": "@matechat/ng",
+  "version": "20.1.0",
+  "license": "MIT",
+  "description": "前端智能化场景解决方案UI库，轻松构建你的AI应用。",
+  "keywords": [
+    "AI",
+    "GPT",
+    "Chat",
+    "angular-components",
+    "angular",
+    "devui"
+  ],
+  "homepage": "https://matechat.gitcode.com/",
+  "repository": {
+    "type": "git",
+    "url": "git@gitcode.com:DevCloudFE/MateChat.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "mermaid": "^11.10.1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "devui-theme": "^0.0.7",
+    "highlight.js": "^11.11.0",
+    "markdown-it": "^12.2.0",
+    "diff-dom": "^5.2.1",
+    "xss": "^1.0.15"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

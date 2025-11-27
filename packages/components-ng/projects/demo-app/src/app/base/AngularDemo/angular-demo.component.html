@@ -1,0 +1,47 @@
+<div
+  #demoBlock
+  class="demo-block blockClass"
+  [ngClass]="{ hover: hover }"
+  (mouseenter)="hover = true"
+  (mouseleave)="hover = false"
+>
+  <div class="source">
+    <ng-content></ng-content>
+  </div>
+  <div #meta class="meta">
+    <div class="highlight">
+      <div class="code-tabs">
+        <button
+          *ngFor="let codeItem of sourceCode"
+          class="code-tab"
+          [ngClass]="{ active: (activeTab | uppercase) === (codeItem.type | uppercase) }"
+          (click)="onTabChange(codeItem.type)"
+        >
+          {{ codeItem.type | uppercase }}
+        </button>
+      </div>
+      <div *ngFor="let codeItem of sourceCode" class="code-content" [ngClass]="{ active: (activeTab | uppercase) === (codeItem.type | uppercase) }">
+        <mc-code-highlight [code]="codeItem.code" [language]="codeItem.type | lowercase"></mc-code-highlight>
+      </div>
+    </div>
+  </div>
+
+  <div
+    #control
+    class="demo-block-control"
+    [ngClass]="{ 'is-fixed': fixedControl, 'demo-block-control-expanded': isExpanded }"
+    (click)="onClickControl()"
+  >
+    <i class="icon-control " [class]="{
+      'icon-caret-down': !isExpanded,
+      'icon-caret-up': isExpanded,
+      'hovering': hover
+    }"></i>
+    <span *ngIf="hover" class="control-text">{{ controlText }}</span>
+    <div class="control-button-wrap">
+      <span *ngIf="isExpanded" class="control-button copy-button" (click)="$event.stopPropagation(); onCopy()">
+        {{ copyText }}
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+@import "../../components-common/Base/angular.scss";
+@import "../../components-common/Input/common/button.scss";
+
+  .mc-button-simple {
+    ::ng-deep {
+      svg {
+        margin-right: 0 !important;
+      }
+    }
+  }

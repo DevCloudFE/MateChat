@@ -3,18 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*", "playground"],
+  "workspaces": [
+    "packages/*",
+    "playground"
+  ],
   "scripts": {
     "generate": "node ./scripts/generate-component.js",
     "generate:dts": "node ./scripts/generate-dts.js",
     "playground:dev": "pnpm generate && pnpm --filter @matechat/playground dev",
     "playground:build": "pnpm generate && pnpm --filter @matechat/playground build",
     "build:lib": "pnpm generate && node ./scripts/build-component.js && pnpm generate:dts && node ./scripts/release.js",
+    "build:ng": "pnpm --filter @matechat/components-ng build:all-versions",
+    "build:ng-demo": "pnpm --filter @matechat/components-ng build:wc && node ./scripts/copy-angular-webcomponents.js",
     "lint": "biome lint",
     "format": "biome format --write",
-    "docs:dev": "pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
-    "docs:build": "pnpm generate && vitepress build docs",
+    "docs:dev": "pnpm build:ng-demo && pnpm generate && vitepress dev docs --port 5174 --host 0.0.0.0",
+    "docs:build": "pnpm build:ng-demo && pnpm generate && vitepress build docs ",
     "docs:preview": "pnpm generate && vitepress preview docs",
+    "demo:ng": "pnpm --filter @matechat/components-ng demo:source",
     "prepare": "husky"
   },
   "dependencies": {
@@ -32,7 +38,6 @@
     "markdown-it-mermaid-plugin": "^0.1.0",
     "markdown-it-plantuml": "^1.4.1",
     "openai": "^4.77.0",
-    "sass": "^1.83.0",
     "three": "^0.171.0",
     "vue-devui": "^1.6.29",
     "vue-i18n": "^11.1.0",
@@ -41,26 +46,33 @@
   "devDependencies": {
     "@babel/parser": "^7.26.5",
     "@babel/traverse": "^7.26.5",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.2.4",
     "@intlify/unplugin-vue-i18n": "^6.0.5",
+    "@matechat/ng-demo": "workspace:~",
     "@tsconfig/node22": "^22.0.0",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.9.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/tsconfig": "^0.7.0",
     "execa": "^5.1.1",
+    "css-loader": "^7.1.2",
     "fs-extra": "^11.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "mermaid": "^11.0.0",
     "npm-run-all2": "^7.0.1",
+    "sass": "^1.86.0",
     "sass-embedded": "^1.83.4",
     "typescript": "^5.9.3",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
     "vite": "^6.0.1",
     "vitepress": "^1.5.0",
     "vitepress-plugin-mermaid": "^2.0.17",
     "vitepress-theme-demoblock": "^3.0.7",
-    "vue-tsc": "^3.1.1"
+    "vue-tsc": "^3.1.1",
+    "vue": "^3.5.13"
   },
   "husky": {
     "hooks": {
@@ -68,7 +80,9 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,mts,tsx,vue,json}": ["biome check --write"]
+    "*.{js,jsx,ts,mts,tsx,vue,json}": [
+      "biome check --write"
+    ]
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -1,0 +1,98 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.demo-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .suggestion-item {
+    border: 1px solid var(--devui-dividing-line);
+    border-radius: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--devui-global-bg);
+    }
+
+    .suggestion-text {
+      margin-left: 8px;
+    }
+
+    .icon-inform {
+      color: var(--devui-info);
+    }
+
+    .icon-mandatory {
+      color: var(--devui-success);
+    }
+
+    .icon-publish-new {
+      color: var(--devui-waiting);
+    }
+  }
+}
+
+.input-prefix-wrap {
+  height: 32px;
+  line-height: 32px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+
+
+.input-foot-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--devui-font-size-sm);
+  color: var(--devui-text);
+
+  i {
+    margin-right: 4px;
+  }
+}
+
+.appendix-wrap {
+  display: flex;
+  padding: 4px 16px;
+
+  .appendix-item {
+    padding: 4px 8px;
+    border-radius: var(--devui-border-radius);
+    background-color: var(--devui-area);
+
+    i {
+      margin-left: 4px;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .demo-btn {
+  background-color: var(--devui-primary, #5e7ce0);
+  border-color: transparent;
+  color: var(--devui-light-text, #ffffff);
+  min-width: 64px;
+  border-radius: var(--devui-border-radius, 2px);
+  cursor: pointer;
+  position: relative;
+  padding: var(--devui-btn-padding, 0 20px);
+  font-size: var(--devui-font-size-md, 12px);
+  height: 32px;
+  line-height: var(--devui-line-height-base, 1.5);
+  border-width: 1px;
+  border-color: transparent;
+
+  &:active {
+    background-color: var(--devui-primary-active, #344899);
+  }
+}

@@ -1,4 +1,6 @@
+import { McAttachment } from './Attachment';
 import { McBubble } from './Bubble';
+import { McFileList } from './FileList';
 import { McHeader } from './Header';
 import { McInput } from './Input';
 import { McIntroduction } from './Introduction';
@@ -10,7 +12,9 @@ import { McMention } from './Mention';
 import { McPrompt } from './Prompt';
 
 const installs = [
+  McAttachment,
   McBubble,
+  McFileList,
   McHeader,
   McInput,
   McIntroduction,
@@ -23,7 +27,9 @@ const installs = [
 ];
 
 export {
+  McAttachment,
   McBubble,
+  McFileList,
   McHeader,
   McInput,
   McIntroduction,

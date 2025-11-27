@@ -1,0 +1,17 @@
+.bubble-top-area {
+  margin-bottom: 4px;
+}
+
+.bubble-bottom-area {
+  margin-top: 4px;
+
+  .icon {
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--devui-icon-hover-bg, #EBEBEB);
+    }
+  }
+}

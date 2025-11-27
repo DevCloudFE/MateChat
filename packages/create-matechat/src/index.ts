@@ -4,13 +4,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { type Context, defineCommand, run, select } from 'archons';
 import chalk from 'chalk';
+import { templates } from './template';
 
 const cwd = process.cwd();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const templateMap = new Map([
-  ['Vue Starter', path.join(__dirname, '../templates/vue-starter')],
-]);
 
 function isValidProjectName(name: string) {
   return /^[a-zA-Z][a-zA-Z0-9_-]*$/.test(name);
@@ -84,7 +81,7 @@ const main = defineCommand({
       }
       break;
     }
-    if (templateMap.size === 0) {
+    if (templates.length === 0) {
       console.log(
         chalk.red(`No template found, this is mostly like a MateChat internal issue,
 create a new issue at https://gitcode.com/DevCloudFE/MateChat/issues`),
@@ -92,7 +89,7 @@ create a new issue at https://gitcode.com/DevCloudFE/MateChat/issues`),
       return;
     }
     let template = ctx.args.template;
-    if (template && !templateMap.has(template)) {
+    if (template && !templates.some((t) => t.name === template)) {
       console.log(
         chalk.red(
           `Invalid template ${chalk.redBright(template)}, please try again.`,
@@ -103,12 +100,16 @@ create a new issue at https://gitcode.com/DevCloudFE/MateChat/issues`),
     if (!template) {
       template = select(
         'Please select the template:',
-        Array.from(templateMap.keys()),
+        templates.map((t) => t.name),
       );
       template = 'Vue Starter';
     }
-    const templatePath = templateMap.get(template);
-    if (!templatePath || !existsSync(templatePath)) {
+
+    const templateSources = templates.find((t) => t.name === template)?.sources;
+    if (
+      !templateSources ||
+      !templateSources.every((src) => existsSync(src.from))
+    ) {
       console.log(
         chalk.red(
           `Invalid template ${chalk.redBright(template)}, please try again.`,
@@ -124,12 +125,15 @@ create a new issue at https://gitcode.com/DevCloudFE/MateChat/issues`),
     const targetPath = path.join(cwd, projectName);
     const spinner = ctx.createSpinner();
     spinner.setMessage('Copying template files...');
-    await fs
-      .cp(templatePath, targetPath, {
-        recursive: true,
-        force: true,
-        errorOnExist: false,
-      })
+    await Promise.all(
+      templateSources.map((src) =>
+        fs.cp(src.from, path.join(targetPath, src.to), {
+          recursive: true,
+          force: true,
+          errorOnExist: false,
+        }),
+      ),
+    )
       .then(async () => {
         spinner.finishWithMessage('Template files copied.');
         const gitignorePath = path.join(targetPath, 'gitignore');
