@@ -50,6 +50,7 @@ export class MarkdownCardComponent
   @Input() customXssRules: MarkdownCardProps['customXssRules'] = [];
   @Input() theme: 'light' | 'dark' | any = 'light';
   @Input() enableMermaid: boolean = false;
+  @Input() incrementalDom: boolean = true;
   @Input() mermaidConfig: MarkdownCardProps['mermaidConfig'] = {};
   @Input() actionsTemplate: TemplateRef<any> | null = null;
   @Input() headerTemplate: TemplateRef<any> | null = null;
@@ -76,7 +77,6 @@ export class MarkdownCardComponent
   timer: number | null = null;
   parser = MdParserUtils;
   mdCardService: MDCardService;
-  noDiff: boolean = false;
 
   constructor(private renderer: Renderer2, public cdr: ChangeDetectorRef) {
     super();
@@ -144,6 +144,9 @@ export class MarkdownCardComponent
   }
 
   contentChange(change) {
+    if (this.content.indexOf(change.previousValue) === -1) {
+      this.clearCodeBlockCache();
+    }
     if (!this.typing) {
       this.typingIndex = this.content?.length || 0;
       this.parseContent();
@@ -165,7 +168,7 @@ export class MarkdownCardComponent
       return;
     }
 
-    if (this.noDiff) {
+    if (!this.incrementalDom) {
       this.renderContentNoDiff(vnodes);
       return;
     }
@@ -496,12 +499,15 @@ export class MarkdownCardComponent
     this.foundation.typewriterStart();
   }
 
-  // 在组件销毁时清理缓存，避免内存泄漏
-  override ngOnDestroy(): void {
-    // 销毁所有缓存的组件实例
+  clearCodeBlockCache() {
     this.codeBlockComponentsCache.forEach((cachedItem) => {
       cachedItem.componentRef.destroy();
     });
     this.codeBlockComponentsCache.clear();
+  }
+
+  // 在组件销毁时清理缓存，避免内存泄漏
+  override ngOnDestroy(): void {
+    this.clearCodeBlockCache();
   }
 }
