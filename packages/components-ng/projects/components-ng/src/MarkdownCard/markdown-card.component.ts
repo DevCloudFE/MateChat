@@ -228,9 +228,11 @@ export class MarkdownCardComponent
         if (
           existingElement &&
           newCodeBlock instanceof HTMLElement &&
-          existingElement !== newCodeBlock
+          existingElement !== newCodeBlock &&
+          newCodeBlock?.firstChild
         ) {
-          existingElement.replaceWith(newCodeBlock);
+          existingElement.firstChild && existingElement.firstChild.remove();
+          existingElement.appendChild(newCodeBlock?.firstChild);
         }
       }
     });
