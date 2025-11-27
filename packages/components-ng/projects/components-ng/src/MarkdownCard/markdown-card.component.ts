@@ -176,7 +176,7 @@ export class MarkdownCardComponent
     const container = this.markdownContainer.element.nativeElement;
     const parser = new DOMParser();
     const newContainerDiv = parser.parseFromString(`<div></div>`, 'text/html');
-    const codeBlockWrappers =  this.parser.findCodeBlockWrappers(vnodes);
+    const codeBlockWrappers = this.parser.findCodeBlockWrappers(vnodes);
 
     vnodes.forEach((node) => {
       if (
@@ -197,18 +197,24 @@ export class MarkdownCardComponent
     let newContainerDivHTML =
       (newContainerDiv.body?.firstChild as HTMLElement)?.outerHTML || '';
     const filteredHTML = this.mdCardService.filterHtml(newContainerDivHTML);
-    
+
     // 使用morphdom进行DOM更新
     const newElement = document.createElement('div');
     newElement.innerHTML = filteredHTML;
-    morphdom(container,  filteredHTML, {
+    morphdom(container, filteredHTML, {
       onBeforeElUpdated: (fromEl, toEl) => {
-        // 检查是否是代码块元素
-        if (fromEl.nodeName === 'DIV' && fromEl.classList.contains('code-block-wrapper')) {
+        if (
+          fromEl.nodeName === 'DIV' &&
+          fromEl.classList.contains('code-block-wrapper') &&
+          toEl.nodeName === 'DIV' &&
+          toEl.classList.contains('code-block-wrapper') &&
+          fromEl.getAttribute('key') === toEl.getAttribute('key') &&
+          this.codeBlockComponentsCache.has(fromEl.getAttribute('key') || '')
+        ) {
           return false;
         }
         return true;
-      }
+      },
     });
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
