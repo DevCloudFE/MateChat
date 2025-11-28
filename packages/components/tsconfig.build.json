@@ -10,7 +10,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "ES2020", "DOM", "DOM.Iterable"]
   },
   "include": ["./index.ts", "./**/*.vue"]
 }
