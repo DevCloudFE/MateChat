@@ -18,8 +18,8 @@
           @blur="onDivBlur"
           @focus="onDivFocus"
          >
-          <template #tipTagIcon>
-            <slot name="tipTagIcon" ></slot>
+          <template #themeTag="{ themeTag }">
+            <slot name="themeTag" :themeTag="themeTag"></slot>
           </template>
          </EditableBlock>
       </div>
@@ -55,7 +55,7 @@ import {
   inputInjectionKey,
   DisplayType,
   InputVariant,
-  MixTagItem,
+  FormatContentItem,
 } from "./input-types";
 
 const props = defineProps(inputProps);
@@ -111,7 +111,7 @@ const setText = (text: string) => {
   
 }
 
-const setMixTags = (mixTagConfig: MixTagItem[]) => {
+const setMixTags = (mixTagConfig: FormatContentItem[]) => {
   if(props.disabled) {
     return;
   }
@@ -121,13 +121,13 @@ const setMixTags = (mixTagConfig: MixTagItem[]) => {
   }, 50);
 }
 
-const openTipTag = (tipTagText: string, clearInput?: boolean) => {
+const openTipTag = (themeTagText: string, popoverContent: string, clearInput?: boolean) => {
   if(props.disabled) {
     return;
   }
   showEditableBlock.value = true;
   setTimeout(() => {
-    editableBlockRef.value?.openTipTag(tipTagText, clearInput);
+    editableBlockRef.value?.openTipTag(themeTagText, popoverContent, clearInput);
   }, 50);
 }
 
@@ -165,6 +165,26 @@ watch(
     inputValue.value = props.value;
   },
   { immediate: true }
+);
+
+watch(
+  () => props.formatContentOptions,
+  (newValue) => {
+    const formatContent = newValue?.formatContent;
+
+    // 处理主题标签
+    const themeTagItems = formatContent.filter((item) => item.type === 'themeTag');
+    if(themeTagItems.length){
+      openTipTag(themeTagItems[0].themeTagText, themeTagItems[0].popoverContent, themeTagItems[0].clearInput);
+    }else{
+      closeTipTag();
+    }
+      
+    // 处理其他格式标签
+    const otherFormatItems = formatContent.filter((item) => item.type !== 'themeTag');
+    setMixTags(otherFormatItems);
+  },
+  {  deep: true }
 );
 
 defineExpose({ clearInput, getInput, setInputTag, setText, setMixTags, openTipTag, closeTipTag });

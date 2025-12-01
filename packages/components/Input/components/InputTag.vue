@@ -71,11 +71,10 @@ const handleInputPaste = (e: any) => {
   outline: none;
   width: auto;
   max-width: 100%;
-  border-radius: 2px;
+  border-radius: 8px;
   background-color: $devui-list-item-hover-bg;
   color: $devui-text;
-  font-family: inherit;
-  font-size: 14px;
+  font-size: var(--devui-font-size, 14px);
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0px;
@@ -86,6 +85,7 @@ const handleInputPaste = (e: any) => {
 .input-custom-placeholder:after {
   color: $devui-placeholder;
   content: attr(placeholder);
+  cursor: text;
 }
 
 .inline-text {

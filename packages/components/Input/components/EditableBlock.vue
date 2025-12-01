@@ -2,7 +2,7 @@
   <div 
     ref="editableDivRef"
     class="editable-container"
-    :class="{'mc-input-disabled': props.disabled}"
+    :class="{'mc-input-disabled': props.disabled,'mc-input-simple': rootProps.displayType === DisplayType.Simple }"
     :contenteditable="!props.disabled"
     spellcheck="false"
     :placeholder="props.placeholder"
@@ -15,13 +15,13 @@
     @focus="onFocus"
   >
     <!-- 前置标签 -->
-    <span v-if="tipTag.onTipTag" class="ai-input-prefix-wrapper" contenteditable="false">
-      <i class="icon-code-editor-close" @click="closeTipTag"></i>
-      <slot name="tipTagIcon">
-        <span :class="['tip-tag-icon', 'icon-default']"></span>
-      </slot>
-      <span id="ai-input-prefix" class="ai-input-prefix">{{tipTag.tipTagText}}</span>
-    </span>
+    <d-popover v-if="themeTag.themeTagText " trigger="hover" :content="themeTag.popoverContent">
+      <span v-if="themeTag.themeTagText" class="ai-input-prefix-wrapper" @click="closeTipTag" contenteditable="false">
+        <slot name="themeTag" :themeTag="themeTag">
+          <span id="ai-input-prefix" class="ai-input-prefix">{{themeTag.themeTagText}}</span>
+        </slot>
+      </span>
+    </d-popover>
     <template v-for="(part, index) in localTemplateParts">
       <template v-if="part.type === 'text'">
         {{ part.content }}
@@ -33,11 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch,onMounted, nextTick, PropType } from "vue";
+import { ref, watch,onMounted, nextTick, PropType, inject } from "vue";
 import InputTag from "./InputTag.vue";
 import { insertText, moveCursorToTextEnd } from "./util";
-import { SubmitShortKey } from "../input-types";
-
+import { FormatContentItem, InputContext, inputInjectionKey, SubmitShortKey, DisplayType, ThemeTagItem } from "../input-types";
+const { rootProps } = inject(inputInjectionKey) as InputContext;
 const emits = defineEmits(['send', "input", 'blur', 'focus', 'onBlockKeyArrowUp']);
 const props = defineProps({
   templateParts: {
@@ -66,10 +66,11 @@ const props = defineProps({
   },
 });
 
-const tipTag = ref({
-  onTipTag: false,
-  tipTagText: '',
-  clearInput: false
+const themeTag = ref<ThemeTagItem>({
+  themeTagText: '',
+  clearInput: false,
+  popoverContent: '',
+  type: 'themeTag',
 });
 
 const editableDivRef : any= ref(null);
@@ -137,7 +138,7 @@ const handleDivInput = () => {
 const getCurrentInputValue = () => {
   let prompt = (editableDivRef.value as any)?.textContent;
   // 前置标签TipTag的文本需要去除掉
-  if(tipTag.value.onTipTag){
+  if(themeTag.value.themeTagText){
     const prefixSpan = editableDivRef.value?.querySelector('.ai-input-prefix-wrapper');
     if(prefixSpan){
       const prefixText = prefixSpan.textContent || '';
@@ -278,7 +279,7 @@ const setInputTag = (key: string, placeholder: string, defaultValue?: string) =>
   handleDivInput();
 }
 
-const setMixTags = (mixTagConfig:any) => {
+const setMixTags = (mixTagConfig:FormatContentItem[]) => {
   if(props.disabled) {
     return;
   }
@@ -299,25 +300,27 @@ const setText = (text:string) => {
   handleDivInput();
 }
 
-const openTipTag = (tipTagText: string, clearInput?: boolean) => {
+const openTipTag = (themeTagText: string, popoverContent: string, clearInput?: boolean) => {
   if(props.disabled) {
     return;
   }
-  tipTag.value = {
-    onTipTag: true,
-    tipTagText,
-    clearInput: clearInput || false
+  themeTag.value = {
+    themeTagText,
+    clearInput: clearInput || false,
+    popoverContent,
+    type: 'themeTag',
   }
 }
 
 const closeTipTag = () => {
-  if(tipTag.value.onTipTag && tipTag.value.clearInput) {
+  if(themeTag.value.themeTagText && themeTag.value.clearInput) {
     clearInput();
   }else{
-    tipTag.value = {
-      onTipTag: false,
-      tipTagText: '',
-      clearInput: false
+    themeTag.value = {
+      themeTagText: '',
+      clearInput: false,
+      popoverContent: '',
+      type: 'themeTag',
     }
   }
 }
@@ -352,9 +355,8 @@ defineExpose({
 
 .editable-container{
   outline: unset;
-  min-height: calc(100% - 2px);
+  min-height: 64px;
   line-height: 24px;
-  margin-left: 8px;
   padding-top: 4px;
   word-break: break-all;
   white-space: pre-wrap;
@@ -362,6 +364,10 @@ defineExpose({
   caret-color: $devui-text;
   background: $devui-form-control-bg;
   color: $devui-text;
+
+  &.mc-input-simple{
+    min-height: 32px;
+  }
 
   &.mc-input-disabled{
     background-color: $devui-disabled-bg;
@@ -372,56 +378,26 @@ defineExpose({
   }
   &[placeholder]:empty:before {
     content: attr(placeholder);
-    color: #999;
+    color: $devui-placeholder;
     position: absolute;
     pointer-events: none;
     left: 8px;
   }
 
   .ai-input-prefix-wrapper {
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: $devui-list-item-hover-bg;
+    color: $devui-primary;
     height: 24px;
     padding: 0 8px;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 24px;
     margin-right: 4px;
-    margin-left: 8px;
     z-index: 10;
     position: sticky;
     display: inline-block;
-
-    &:hover {
-      i {
-        display: inline-block;
-      }
-
-      .tip-tag-icon {
-        display: none;
-      }
-
-    }
-    i {
-      cursor: pointer;
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-      vertical-align: middle;
-      display: none;
-    }
-
-    .tip-tag-icon {
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-      display: inline-block;
-      vertical-align: text-bottom;
-      background-size: 100% 100%;
-      &.icon-default {
-        background-image: url(''); // 补一个默认图标
-      }
-    }
+    cursor: pointer;
   }
 }
 

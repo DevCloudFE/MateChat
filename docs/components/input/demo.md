@@ -350,16 +350,16 @@ const onCancel = () => {
 
 :::
 
-### 插入前置提示标签
+### 插入主题标签
 
 :::demo
 
 ```vue
 <template>
   <div class="button-wrapper">
-    <d-button @click="opemTipTag" style="margin-right: 8px;">插入前置提示标签</d-button> <d-button @click="closeTipTag">关闭前置提示标签</d-button>
+    <d-button @click="openThemeTag" style="margin-right: 8px;">插入主题标签</d-button> <d-button @click="closeThemeTag">关闭主题标签</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :formatContentOptions="formatContentOptions" @change="onInputChange" @submit="onSubmit">
   </McInput>
 </template>
 
@@ -367,8 +367,8 @@ const onCancel = () => {
 import { defineComponent, ref } from 'vue';
 
 const loading = ref(false);
-const editableInputRef = ref();
-
+const formatContentOptions = ref({
+});
 const onInputChange = (e) => {
   console.log('input change---', e);
 };
@@ -377,12 +377,23 @@ const onSubmit = (e) => {
   console.log('input submit---', e);
 };
 
-const opemTipTag = () => {
-  editableInputRef.value?.openTipTag('动图生成', true);
+const openThemeTag = () => {
+  formatContentOptions.value = {
+    formatContent: [
+      {
+        type: 'themeTag',
+        themeTagKey: 'themeTag',// 主题标签的唯一标识
+        themeTagText: '动图生成', // 主题标签的文本内容
+        clearInput: false, // 关闭主题标签时是否清空对应输入框内容
+        popoverContent: '点击退出技能', // 主题标签的pop弹出提示内容
+      }]
+  };
 }
 
-const closeTipTag = () => {
-  editableInputRef.value?.closeTipTag();
+const closeThemeTag = () => {
+  formatContentOptions.value = {
+    formatContent: []
+  };
 }
 
 </script>
@@ -405,15 +416,16 @@ const closeTipTag = () => {
   <div class="button-wrapper">
     <d-button @click="setText">插入text文本</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :formatContentOptions="formatContentOptions" @change="onInputChange" @submit="onSubmit">
   </McInput>
 </template>
 
 <script setup>
 import { defineComponent, ref } from 'vue';
 
+const formatContentOptions = ref({
+});
 const loading = ref(false);
-const editableInputRef = ref();
 
 const onInputChange = (e) => {
   console.log('input change---', e);
@@ -424,7 +436,16 @@ const onSubmit = (e) => {
 };
 
 const setText = () => {
-  editableInputRef.value?.setText('欢迎使用MateChat！！！');
+  formatContentOptions.value = {
+    formatContent: [
+      {
+        key: '',
+        type: 'text',
+        content: 'MateChat：生成式人工智能 体验设计系统&前端解决方案！！！',
+        placeholder: '',
+      },
+    ],
+  };
 }
 
 </script>
@@ -438,24 +459,24 @@ const setText = () => {
 
 :::
 
-### 插入输入标签
+### 插入格式化Input标签
 
 :::demo
 
 ```vue
 <template>
   <div class="button-wrapper">
-    <d-button @click="setInputTag">插入输入标签</d-button>
+    <d-button @click="setInput">插入Input标签</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :formatContentOptions="formatContentOptions" @change="onInputChange" @submit="onSubmit">
   </McInput>
 </template>
 
 <script setup>
 import { defineComponent, ref } from 'vue';
-
+const formatContentOptions = ref({
+});
 const loading = ref(false);
-const editableInputRef = ref();
 
 const onInputChange = (e) => {
   console.log('input change---', e);
@@ -465,8 +486,17 @@ const onSubmit = (e) => {
   console.log('input submit---', e);
 };
 
-const setInputTag = () => {
-  editableInputRef.value?.setInputTag('input1', '请输入年份', '2025');
+const setInput = () => {
+  formatContentOptions.value = {
+    formatContent: [
+      {
+        key: 'input1',
+        type: 'input',
+        placeholder: '请输入年份',
+        content: '2025',
+      },
+    ],
+  };
 }
 
 </script>
@@ -480,16 +510,23 @@ const setInputTag = () => {
 
 :::
 
-### 混合式一次插入多种标签
+### 多种格式化内容自定义编排
 
 :::demo
 
 ```vue
 <template>
   <div class="button-wrapper">
-    <d-button @click="setMixTags">混合标签插入</d-button>
+    <d-button @click="setMixTags">自定义编排插入</d-button>
   </div>
-  <McInput ref="editableInputRef" @change="onInputChange" @submit="onSubmit">
+  <McInput :formatContentOptions="formatContentOptions" @change="onInputChange" @submit="onSubmit">
+    <template #themeTag="{ themeTag }">
+      <span class="tip-tag-custom">
+        <i class="icon-code-editor-close"></i>
+        <span :class="['tip-tag-icon', 'icon-default']"></span>
+        <span id="ai-input-prefix" class="ai-input-prefix">{{themeTag.themeTagText}}</span>
+      </span>
+    </template>
   </McInput>
 </template>
 
@@ -497,8 +534,8 @@ const setInputTag = () => {
 import { defineComponent, ref } from 'vue';
 
 const loading = ref(false);
-const editableInputRef = ref();
-
+const formatContentOptions = ref({
+});
 const onInputChange = (e) => {
   console.log('input change---', e);
 };
@@ -509,6 +546,13 @@ const onSubmit = (e) => {
 
 
 const mixTags = [
+  {
+    type: 'themeTag',
+    themeTagKey: 'themeTag',// 主题标签的唯一标识
+    themeTagText: '文章生成', // 主题标签的文本内容
+    clearInput: true, // 关闭主题标签时是否清空对应输入框内容
+    popoverContent: '点击关闭主题', // 主题标签的pop弹出提示内容
+  },
   {
     key: '',
     type: 'text',
@@ -542,8 +586,9 @@ const mixTags = [
 ];
 
 const setMixTags = () => {
-  editableInputRef.value?.openTipTag('文章生成', true);
-  editableInputRef.value?.setMixTags(mixTags);
+  formatContentOptions.value = {
+    formatContent: mixTags,
+  };
 }
 
 </script>
@@ -551,6 +596,39 @@ const setMixTags = () => {
 <style lang="scss">
   .button-wrapper {
     margin-bottom: 12px;
+  }
+
+  .mc-input-mix-tags-demo .tip-tag-custom {
+    &:hover {
+      i {
+        display: inline-block;
+      }
+
+      .tip-tag-icon {
+        display: none;
+      }
+
+    }
+    i {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      vertical-align: middle;
+      display: none;
+    }
+
+    .tip-tag-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      display: inline-block;
+      vertical-align: text-bottom;
+      background-size: 100% 100%;
+      &.icon-default {
+        background-image: url('/logo.svg'); // 补一个默认图标
+      }
+    }
   }
 </style>
 ```
