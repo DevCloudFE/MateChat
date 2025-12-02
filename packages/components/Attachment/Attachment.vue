@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useMcI18n } from '@matechat/core/Locale';
-import { ref, toRefs } from 'vue';
-import { AttachmentEmits, AttachmentProps } from './attachment-types';
-import type { FileItem } from './attachment-types';
-import { useUpload } from './use-upload';
+import { useMcI18n } from "@matechat/core/Locale";
+import { ref } from "vue";
+import { AttachmentEmits, AttachmentProps } from "./attachment-types";
+import type { FileItem } from "./attachment-types";
+import { useUpload } from "./use-upload";
 
 defineOptions({
-  name: 'McAttachment',
+  name: "McAttachment",
 });
 
 const props = defineProps(AttachmentProps);
@@ -22,19 +22,17 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
   props,
   emit,
   inputRef,
-  fileList,
+  fileList
 );
 </script>
 
 <template>
-  <div class="mc-attachment" @click="handleClick"
-  :class="{ 'is-disabled': isDisabled }">
-    <!-- 使用插槽允许用户自定义触发器内容，例如按钮或文本 -->
-    <slot>
-      <button class="mc-attachment-default-trigger" :disabled="isDisabled">
-        + {{ t('Attachment.attachFile') }}
-      </button>
-    </slot>
+  <div
+    class="mc-attachment"
+    @click="handleClick"
+    :class="{ 'is-disabled': isDisabled }"
+  >
+    <slot></slot>
     <input
       ref="inputRef"
       type="file"
@@ -52,15 +50,15 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
       :class="{ 'is-disabled': isDisabled }"
     >
       <template v-if="isDisabled">
-        {{ t('Attachment.disabledUpload') }}
+        {{ t("Attachment.disabledUpload") }}
       </template>
       <template v-else>
-        {{ t('Attachment.dragToUpload') }}
+        {{ t("Attachment.dragToUpload") }}
       </template>
     </div>
   </Teleport>
 </template>
 
 <style lang="scss">
-@use './attachment.scss';
+@use "./attachment.scss";
 </style>

@@ -9,8 +9,7 @@ desc: 用于上传和管理文件附件的组件，支持拖拽、自定义上�
 import { McAttachment } from '@matechat/core';
 ```
 
-`McAttachment` 组件专注于提供强大的文件上传功能。它最核心的用法是与 `McInput` 和 `McFileList` 组合，构建一个功能完备的对话输入框。
-
+`McAttachment` 组件专注于提供文件上传功能。它最核心的用法是与 `McInput` 和 `McFileList` 组合，构建一个功能完备的对话输入框。
 
 ### 基本用法
 
@@ -23,9 +22,9 @@ import { McAttachment } from '@matechat/core';
   <McInput v-model="inputValue" placeholder="点击左侧图标上传附件...">
     <!-- 1. 文件列表放置在 head 插槽 -->
     <template #head>
-      <McFileList 
+      <McFileList
         v-if="fileList.length > 0"
-        :file-items="fileList" 
+        :file-items="fileList"
         context="input"
         @remove="handleRemove"
         @retry-upload="handleRetryUpload"
@@ -34,8 +33,8 @@ import { McAttachment } from '@matechat/core';
     <!-- 2. 附件上传器放置在 extra 插槽 -->
     <template #extra>
       <div class="input-foot-left">
-        <McAttachment 
-          v-model="fileList" 
+        <McAttachment
+          v-model="fileList"
           :draggable="false"
           :upload-options="uploadOptions"
           accept="image/*"
@@ -43,6 +42,7 @@ import { McAttachment } from '@matechat/core';
           @success="handleSuccess"
           @error="handleError"
         >
+          <i class="icon-appendix"></i>
         </McAttachment>
       </div>
     </template>
@@ -71,20 +71,20 @@ const handleError = (file: File, error: any) => {
 
 // 处理文件列表的移除事件
 const handleRemove = (file: FileItem) => {
-  fileList.value = fileList.value.filter(item => item.uid !== file.uid);
+  fileList.value = fileList.value.filter((item) => item.uid !== file.uid);
 };
 
 // 处理文件列表的重试上传事件
 const handleRetryUpload = (file: FileItem) => {
-  const targetFile = fileList.value.find(item => item.uid === file.uid);
+  const targetFile = fileList.value.find((item) => item.uid === file.uid);
   if (targetFile) {
     targetFile.status = 'uploading';
     targetFile.percentage = 0;
   }
 };
 </script>
-
 ```
+
 :::
 
 ### 拖拽上传
@@ -98,24 +98,19 @@ const handleRetryUpload = (file: FileItem) => {
   <McInput v-model="inputValue" placeholder="拖拽文件到页面，或点击左侧图标上传附件...">
     <!-- 1. 文件列表放置在 head 插槽 -->
     <template #head>
-      <McFileList 
+      <McFileList
         v-if="dragFileList.length > 0"
-        :file-items="dragFileList" 
+        :file-items="dragFileList"
         context="input"
         style="margin-top: 12px;"
-        @remove="(file) => dragFileList = dragFileList.filter(f => f.uid !== file.uid)"
+        @remove="(file) => (dragFileList = dragFileList.filter((f) => f.uid !== file.uid))"
       />
     </template>
     <!-- 2. 附件上传器放置在 extra 插槽 -->
     <template #extra>
       <div class="input-foot-left">
-        <McAttachment 
-          v-model="dragFileList" 
-          :upload-options="uploadOptions"
-          accept="image/*"
-          :max-size="0.5"
-          multiple
-        >
+        <McAttachment v-model="dragFileList" :upload-options="uploadOptions" accept="image/*" :max-size="0.5" multiple>
+          <i class="icon-appendix"></i>
         </McAttachment>
       </div>
     </template>
@@ -131,8 +126,8 @@ const uploadOptions = ref<UploadOptions>({
   uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
 });
 </script>
-
 ```
+
 :::
 
 ### 自定义上传前校验
@@ -146,26 +141,29 @@ const uploadOptions = ref<UploadOptions>({
   <McInput v-model="inputValue" placeholder="点击左侧图标上传附件...">
     <!-- 1. 文件列表放置在 head 插槽 -->
     <template #head>
-      <McFileList 
+      <McFileList
         v-if="validatedList.length > 0"
-        :file-items="validatedList" 
+        :file-items="validatedList"
         context="input"
         style="margin-top: 12px;"
-        @remove="(file) => validatedList = validatedList.filter(f => f.uid !== file.uid)"
+        @remove="(file) => (validatedList = validatedList.filter((f) => f.uid !== file.uid))"
       />
     </template>
     <!-- 2. 附件上传器放置在 extra 插槽 -->
     <template #extra>
       <div class="input-foot-left">
-        <McAttachment 
+        <McAttachment
           v-model="validatedList"
           :draggable="false"
           :upload-options="uploadOptions"
           :before-upload="handleBeforeUpload"
           accept="image/*"
           :max-size="0.5"
+          :max-count="3"
           multiple
+          @valid-fail="onValidFail"
         >
+          <i class="icon-appendix"></i>
         </McAttachment>
       </div>
     </template>
@@ -188,6 +186,11 @@ const handleBeforeUpload = (file: File) => {
   }
   return true;
 };
+
+const onValidFail = (e) => {
+  console.log('valid fail', e);
+};
 </script>
 ```
+
 :::

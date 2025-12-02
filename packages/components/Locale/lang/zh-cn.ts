@@ -16,16 +16,8 @@ export default {
     downLoad: '下载',
   },
   Attachment: {
-    attachFile: '附件',
     disabledUpload: '禁止上传',
     dragToUpload: '拖拽到此处上传',
-    exceedCountTitle: '超出文件数量限制',
-    exceedCountMessage: '您最多只能上传 {maxCount} 个文件。',
-    unsupportedFileType: '不支持的文件类型：{fileName}',
-    exceedSizeLimit: '文件 {fileName} 超出大小限制 {maxSize}MB。',
-    uploadRejected: '文件 {fileName} 的上传被拒绝。',
-    beforeUploadFailed: '文件 {fileName} 的上传前检查失败：{errorMsg}',
-    uploadFailedTitle: '文件上传失败',
   },
   FileList: {
     uploadFailed: '上传失败',

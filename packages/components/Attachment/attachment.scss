@@ -8,23 +8,6 @@
   .mc-attachment-file {
     display: none;
   }
-
-  // 一个简单的默认按钮样式
-  .mc-attachment-default-trigger {
-    padding: 4px 8px;
-    color: $devui-text;
-    font-size: $devui-font-size-sm;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    border: 1px solid transparent;
-
-    &:disabled {
-      cursor: not-allowed;
-      color: $devui-disabled-text; // 使用禁用文字颜色
-    }
-  }
 }
 
 // 拖拽上传弹窗样式
