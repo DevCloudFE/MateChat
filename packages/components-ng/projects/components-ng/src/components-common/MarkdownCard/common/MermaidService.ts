@@ -139,7 +139,7 @@ export class MermaidService {
       const clonedSvg = svg.cloneNode(true) as SVGSVGElement;
 
       const svgData = new XMLSerializer().serializeToString(clonedSvg);
-      
+
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgData)}`;
 
       const img = new Image();
@@ -155,10 +155,10 @@ export class MermaidService {
 
       canvas.width = img.width * 2;
       canvas.height = img.height * 2;
-      
+
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
+
       ctx.drawImage(img, 0, 0);
 
       canvas.toBlob((blob) => {
@@ -166,14 +166,14 @@ export class MermaidService {
           console.error('Failed to create blob from canvas');
           return;
         }
-        
+
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = filename;
         document.body.appendChild(a);
         a.click();
-        
+
         setTimeout(() => {
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
@@ -216,7 +216,6 @@ export class MermaidService {
     try {
       const mermaid = await this.loadMermaid();
       if (this.config.theme !== theme) {
-        this.config.theme = theme;
           mermaid.initialize({
           startOnLoad: false,
           suppressErrorRendering: true,
