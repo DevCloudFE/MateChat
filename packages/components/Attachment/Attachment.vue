@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { useMcI18n } from "@matechat/core/Locale";
 import { ref } from "vue";
-import { AttachmentEmits, AttachmentProps } from "./attachment-types";
+import {
+  AttachmentEmits,
+  AttachmentProps,
+  AttachmentSlots,
+} from "./attachment-types";
 import type { FileItem } from "./attachment-types";
 import { useUpload } from "./use-upload";
 
@@ -11,6 +15,7 @@ defineOptions({
 
 const props = defineProps(AttachmentProps);
 const emit = defineEmits(AttachmentEmits);
+const slots = defineSlots<AttachmentSlots>();
 // 使用 defineModel 定义双向绑定(需要同步文件数量)
 const fileList = defineModel<FileItem[]>({ default: [] });
 
@@ -49,12 +54,14 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
       class="mc-attachment-drag-modal"
       :class="{ 'is-disabled': isDisabled }"
     >
-      <template v-if="isDisabled">
-        {{ t("Attachment.disabledUpload") }}
-      </template>
-      <template v-else>
-        {{ t("Attachment.dragToUpload") }}
-      </template>
+      <slot name="placeholder">
+        {{
+          props.placeholder ??
+          (isDisabled
+            ? t("Attachment.disabledUpload")
+            : t("Attachment.dragToUpload"))
+        }}
+      </slot>
     </div>
   </Teleport>
 </template>

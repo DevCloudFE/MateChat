@@ -1,4 +1,3 @@
-import { useMcI18n } from "@matechat/core/Locale";
 import type { Ref } from "vue";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import type {
@@ -17,7 +16,6 @@ export function useUpload(
   inputRef: Ref<HTMLInputElement | undefined>,
   fileList: Ref<FileItem[]> // 直接接收 defineModel 返回的 ref
 ) {
-  const { t } = useMcI18n();
   const isDragging = ref(false);
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   let dragCounter = 0;

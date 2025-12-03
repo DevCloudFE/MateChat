@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from "vue";
+import type { ExtractPropTypes, PropType, VNode } from "vue";
 
 export type FileStatus =
   | "uploading"
@@ -51,7 +51,7 @@ export interface UploadOptions {
 export const AttachmentProps = {
   uploadOptions: {
     type: Object as PropType<UploadOptions>,
-    default: {},
+    default: () => ({}),
   },
   disabled: {
     type: Boolean,
@@ -60,6 +60,9 @@ export const AttachmentProps = {
   accept: {
     type: String,
     default: "",
+  },
+  placeholder: {
+    type: String,
   },
   maxCount: {
     type: Number,
@@ -126,3 +129,8 @@ export type AttachmentEmits = {
   (e: "drop", files: File[]): void;
   (e: "validFail", failDetail: IValidFailDetail[]): void;
 };
+
+export interface AttachmentSlots {
+  default(): VNode;
+  placeholder(): VNode;
+}

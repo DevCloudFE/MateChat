@@ -109,7 +109,14 @@ const handleRetryUpload = (file: FileItem) => {
     <!-- 2. 附件上传器放置在 extra 插槽 -->
     <template #extra>
       <div class="input-foot-left">
-        <McAttachment v-model="dragFileList" :upload-options="uploadOptions" accept="image/*" :max-size="0.5" multiple>
+        <McAttachment
+          v-model="dragFileList"
+          :upload-options="uploadOptions"
+          accept="image/*"
+          :max-size="0.5"
+          multiple
+          placeholder="请放置到此处"
+        >
           <i class="icon-appendix"></i>
         </McAttachment>
       </div>
@@ -121,6 +128,7 @@ const handleRetryUpload = (file: FileItem) => {
 import { ref } from 'vue';
 import type { FileItem, UploadOptions, McInput } from '@matechat/core/Attachment';
 
+const inputValue = ref('');
 const dragFileList = ref<FileItem[]>([]);
 const uploadOptions = ref<UploadOptions>({
   uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
@@ -174,6 +182,7 @@ const uploadOptions = ref<UploadOptions>({
 import { ref } from 'vue';
 import type { FileItem, UploadOptions, McInput } from '@matechat/core/Attachment';
 
+const inputValue = ref('');
 const validatedList = ref<FileItem[]>([]);
 const uploadOptions = ref<UploadOptions>({
   uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
