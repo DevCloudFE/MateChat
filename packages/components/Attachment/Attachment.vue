@@ -54,9 +54,9 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
       class="mc-attachment-drag-modal"
       :class="{ 'is-disabled': isDisabled }"
     >
-      <slot name="placeholder">
+      <slot name="dropPlaceholder">
         {{
-          props.placeholder ??
+          props.dropPlaceholder ??
           (isDisabled
             ? t("Attachment.disabledUpload")
             : t("Attachment.dragToUpload"))

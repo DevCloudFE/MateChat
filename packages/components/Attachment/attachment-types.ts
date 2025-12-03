@@ -61,7 +61,7 @@ export const AttachmentProps = {
     type: String,
     default: "",
   },
-  placeholder: {
+  dropPlaceholder: {
     type: String,
   },
   maxCount: {
@@ -132,5 +132,5 @@ export type AttachmentEmits = {
 
 export interface AttachmentSlots {
   default(): VNode;
-  placeholder(): VNode;
+  dropPlaceholder(): VNode;
 }

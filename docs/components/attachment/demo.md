@@ -115,7 +115,7 @@ const handleRetryUpload = (file: FileItem) => {
           accept="image/*"
           :max-size="0.5"
           multiple
-          placeholder="请放置到此处"
+          drop-placeholder="请放置到此处"
         >
           <i class="icon-appendix"></i>
         </McAttachment>
