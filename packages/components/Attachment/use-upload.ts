@@ -4,7 +4,7 @@ import type {
   AttachmentEmits,
   AttachmentProps,
   FileItem,
-  IValidFailDetail,
+  IValidResult,
 } from "./attachment-types";
 import { upload } from "./uploader";
 
@@ -45,12 +45,12 @@ export function useUpload(
 
     // 检查文件数量限制
     if (fileList.value.length + files.length > props.maxCount) {
-      emit("validFail", [{ failType: "exceedCount" }]);
+      emit("validResult", [{ type: "exceedCount" }]);
       return;
     }
 
     const validFiles: File[] = [];
-    const failDetail: IValidFailDetail[] = [];
+    const validRes: IValidResult[] = [];
 
     // 2. 遍历并校验每个文件
     for (const file of files) {
@@ -71,14 +71,14 @@ export function useUpload(
         });
 
         if (!isTypeValid) {
-          failDetail.push({ failType: "unsupportedFileType", failFile: file });
+          validRes.push({ type: "unsupportedFileType", file });
           isFileValid = false;
         }
       }
 
       // 2.2 文件大小校验
       if (isFileValid && file.size / 1024 / 1024 > props.maxSize) {
-        failDetail.push({ failType: "exceedSizeLimit", failFile: file });
+        validRes.push({ type: "exceedSizeLimit", file });
         isFileValid = false;
       }
 
@@ -87,17 +87,11 @@ export function useUpload(
         try {
           const result = await Promise.resolve(props.beforeUpload(file));
           if (result === false) {
-            failDetail.push({
-              failType: "beforeUploadRejected",
-              failFile: file,
-            });
+            validRes.push({ type: "beforeUploadRejected", file });
             isFileValid = false;
           }
         } catch (e) {
-          failDetail.push({
-            failType: "beforeUploadRejected",
-            failFile: file,
-          });
+          validRes.push({ type: "beforeUploadRejected", file });
           isFileValid = false;
         }
       }
@@ -107,8 +101,8 @@ export function useUpload(
       }
     }
 
-    if (failDetail.length > 0) {
-      emit("validFail", failDetail);
+    if (validRes.length > 0) {
+      emit("validResult", validRes);
     }
 
     // 只处理通过所有校验的有效文件

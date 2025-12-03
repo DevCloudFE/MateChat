@@ -27,7 +27,7 @@ desc: 用于上传和管理文件附件的组件，支持拖拽、自定义上�
 | error      | 文件上传失败时触发。                     | `(file: File, error: any, fileList: FileItem[]) => void`    |
 | progress   | 文件上传时触发。                         | `(file: File, fileList: FileItem[]) => void`                |
 | drop       | 文件被拖拽到可拖拽区域时触发。           | `(files: File[]) => void`                                   |
-| valid-fail | 文件校验失败时触发。                     | `(e: IValidFailDetail[]) => void`                           |
+| valid-result | 有校验结论时触发。                     | `(e: IValidResult[]) => void`                           |
 
 ### 插槽
 
@@ -88,19 +88,19 @@ export interface FileItem<T = unknown, E = unknown> {
 }
 ```
 
-#### IValidFailDetail
+#### IValidResult
 
 ```ts
-interface IValidFailDetail {
-  failType: ValidFailType; // 校验失败类型
-  failFile?: File; // 校验失败的文件
+interface IValidResult {
+  type: ValidResultType; // 校验结果的类型
+  file?: File; // 对应文件
 }
 ```
 
-#### ValidFailType
+#### ValidResultType
 
-校验失败类型，分别为：超出文件数量限制、不支持的文件类型、超出文件大小限制、beforeUpload 钩子校验失败
+校验结果类型，分别为：超出文件数量限制、不支持的文件类型、超出文件大小限制、beforeUpload 钩子校验失败
 
 ```ts
-type ValidFailType = 'exceedCount' | 'unsupportedFileType' | 'exceedSizeLimit' | 'beforeUploadRejected';
+type ValidResultType = 'exceedCount' | 'unsupportedFileType' | 'exceedSizeLimit' | 'beforeUploadRejected';
 ```

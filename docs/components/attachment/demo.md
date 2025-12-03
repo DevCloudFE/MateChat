@@ -169,7 +169,7 @@ const uploadOptions = ref<UploadOptions>({
           :max-size="0.5"
           :max-count="3"
           multiple
-          @valid-fail="onValidFail"
+          @valid-result="onValidResult"
         >
           <i class="icon-appendix"></i>
         </McAttachment>
@@ -196,8 +196,8 @@ const handleBeforeUpload = (file: File) => {
   return true;
 };
 
-const onValidFail = (e) => {
-  console.log('valid fail', e);
+const onValidResult = (e) => {
+  console.log('valid result', e);
 };
 </script>
 ```

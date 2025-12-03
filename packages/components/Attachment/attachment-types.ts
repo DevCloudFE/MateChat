@@ -87,14 +87,14 @@ export const AttachmentProps = {
 } as const;
 
 export type AttachmentProps = ExtractPropTypes<typeof AttachmentProps>;
-export type ValidFailType =
+export type ValidResultType =
   | "exceedCount"
   | "unsupportedFileType"
   | "exceedSizeLimit"
   | "beforeUploadRejected";
-export interface IValidFailDetail {
-  failType: ValidFailType;
-  failFile?: File;
+export interface IValidResult {
+  type: ValidResultType;
+  file?: File;
 }
 // Attachment组件的事件定义
 // 这里进行了详细的校验机制，若不满足条件则会抛出错误
@@ -108,7 +108,7 @@ export const AttachmentEmits = {
   progress: (file: File, fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
   drop: (files: File[]) => Array.isArray(files),
-  validFail: (e: IValidFailDetail[]) => Array.isArray(e),
+  validResult: (e: IValidResult[]) => Array.isArray(e),
 };
 // 编译时类型检查
 export type AttachmentEmits = {
@@ -127,7 +127,7 @@ export type AttachmentEmits = {
   ): void;
   (e: "progress", file: File, fileList: FileItem[]): void;
   (e: "drop", files: File[]): void;
-  (e: "validFail", failDetail: IValidFailDetail[]): void;
+  (e: "validResult", validResult: IValidResult[]): void;
 };
 
 export interface AttachmentSlots {
