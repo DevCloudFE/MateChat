@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { useMcI18n } from "@matechat/core/Locale";
-import { ref } from "vue";
+import { provide, ref } from "vue";
 import {
   AttachmentEmits,
   AttachmentProps,
   AttachmentSlots,
+  AttachmentInjectKey,
 } from "./attachment-types";
 import type { FileItem } from "./attachment-types";
 import { useUpload } from "./use-upload";
+import DropArea from "./drop-area.vue";
 
 defineOptions({
   name: "McAttachment",
@@ -23,12 +25,19 @@ const { t } = useMcI18n();
 
 const inputRef = ref<HTMLInputElement>();
 // 从钩子中获取方法
-const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
+const { handleClick, handleFileChange, isDisabled, uploadFiles } = useUpload(
   props,
   emit,
   inputRef,
   fileList
 );
+
+provide(AttachmentInjectKey, {
+  rootProps: props,
+  rootEmits: emit,
+  isDisabled,
+  uploadFiles,
+});
 </script>
 
 <template>
@@ -47,23 +56,12 @@ const { handleClick, handleFileChange, isDragging, isDisabled } = useUpload(
       :disabled="isDisabled"
       @change="handleFileChange"
     />
-  </div>
-  <Teleport to="body">
-    <div
-      v-if="isDragging"
-      class="mc-attachment-drag-modal"
-      :class="{ 'is-disabled': isDisabled }"
-    >
+    <DropArea v-if="draggable">
       <slot name="dropPlaceholder">
-        {{
-          props.dropPlaceholder ??
-          (isDisabled
-            ? t("Attachment.disabledUpload")
-            : t("Attachment.dragToUpload"))
-        }}
+        {{ dropPlaceholder ?? t("Attachment.dragToUpload") }}
       </slot>
-    </div>
-  </Teleport>
+    </DropArea>
+  </div>
 </template>
 
 <style lang="scss">

@@ -95,14 +95,13 @@ const handleRetryUpload = (file: FileItem) => {
 
 ```vue
 <template>
-  <McInput v-model="inputValue" placeholder="拖拽文件到页面，或点击左侧图标上传附件...">
+  <McInput v-model="inputValue" ref="inputEl" placeholder="拖拽文件到页面，或点击左侧图标上传附件..." style="position: relative">
     <!-- 1. 文件列表放置在 head 插槽 -->
     <template #head>
       <McFileList
         v-if="dragFileList.length > 0"
         :file-items="dragFileList"
         context="input"
-        style="margin-top: 12px;"
         @remove="(file) => (dragFileList = dragFileList.filter((f) => f.uid !== file.uid))"
       />
     </template>
@@ -116,6 +115,7 @@ const handleRetryUpload = (file: FileItem) => {
           :max-size="0.5"
           multiple
           drop-placeholder="请放置到此处"
+          :get-drop-container="dropContainer"
         >
           <i class="icon-appendix"></i>
         </McAttachment>
@@ -129,10 +129,12 @@ import { ref } from 'vue';
 import type { FileItem, UploadOptions, McInput } from '@matechat/core/Attachment';
 
 const inputValue = ref('');
+const inputEl = ref();
 const dragFileList = ref<FileItem[]>([]);
 const uploadOptions = ref<UploadOptions>({
   uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
 });
+const dropContainer = () => inputEl.value.$el;
 </script>
 ```
 
@@ -153,7 +155,6 @@ const uploadOptions = ref<UploadOptions>({
         v-if="validatedList.length > 0"
         :file-items="validatedList"
         context="input"
-        style="margin-top: 12px;"
         @remove="(file) => (validatedList = validatedList.filter((f) => f.uid !== file.uid))"
       />
     </template>

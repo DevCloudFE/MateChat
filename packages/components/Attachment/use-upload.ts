@@ -16,10 +16,6 @@ export function useUpload(
   inputRef: Ref<HTMLInputElement | undefined>,
   fileList: Ref<FileItem[]> // 直接接收 defineModel 返回的 ref
 ) {
-  const isDragging = ref(false);
-  // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
-  let dragCounter = 0;
-
   // 创建一个计算属性来统一管理禁用状态
   const isDisabled = computed(() => {
     // 如果外部传入了 disabled，或者文件数量达到或超过了限制，则禁用
@@ -163,61 +159,10 @@ export function useUpload(
     inputRef.value?.click();
   };
 
-  // 拖拽相关事件处理
-  const handleDragEnter = (e: DragEvent) => {
-    e.preventDefault();
-    dragCounter++;
-    if (dragCounter === 1) {
-      isDragging.value = true;
-    }
-  };
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    dragCounter--;
-    if (dragCounter === 0) {
-      isDragging.value = false;
-    }
-  };
-
-  const handleDrop = (e: DragEvent) => {
-    e.preventDefault();
-    isDragging.value = false;
-    dragCounter = 0; // 重置计数器
-    if (isDisabled.value) return;
-
-    const files = Array.from(e.dataTransfer?.files || []);
-    if (files.length > 0) {
-      emit("drop", files);
-      uploadFiles(files);
-    }
-  };
-  // 生命周期钩子绑定拖拽监听
-  onMounted(() => {
-    if (props.draggable) {
-      document.body.addEventListener("dragenter", handleDragEnter);
-      document.body.addEventListener("dragover", handleDragOver);
-      document.body.addEventListener("dragleave", handleDragLeave);
-      document.body.addEventListener("drop", handleDrop);
-    }
-  });
-
-  onUnmounted(() => {
-    if (props.draggable) {
-      document.body.removeEventListener("dragenter", handleDragEnter);
-      document.body.removeEventListener("dragover", handleDragOver);
-      document.body.removeEventListener("dragleave", handleDragLeave);
-      document.body.removeEventListener("drop", handleDrop);
-    }
-  });
-
   return {
-    isDragging,
     isDisabled,
     handleClick,
     handleFileChange,
+    uploadFiles,
   };
 }

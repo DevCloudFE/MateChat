@@ -16,7 +16,6 @@ export default {
     downLoad: 'Download',
   },
   Attachment: {
-    disabledUpload: 'Upload disabled',
     dragToUpload: 'Drag to upload',
   },
   FileList: {

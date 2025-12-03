@@ -11,12 +11,13 @@
 }
 
 // 拖拽上传弹窗样式
-.mc-attachment-drag-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.mc-attachment-drag-area {
+  position: absolute;
+  inset: 0;
   padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $devui-base-bg;
   border: 2px dashed $devui-brand; // 使用品牌主色
   border-radius: $devui-border-radius;
@@ -24,11 +25,4 @@
   font-size: $devui-font-size;
   font-weight: bold;
   z-index: 9999;
-  pointer-events: none; // 确保不会干扰拖放事件
-
-  // 新增：禁用状态下的拖拽覆盖层样式
-  &.is-disabled {
-    border-color: $devui-danger; // 边框变为红色
-    color: $devui-danger; // 文字变为红色
-  }
 }

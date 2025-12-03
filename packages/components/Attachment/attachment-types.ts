@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, VNode } from "vue";
+import type { ExtractPropTypes, InjectionKey, PropType, Ref, VNode } from "vue";
 
 export type FileStatus =
   | "uploading"
@@ -84,6 +84,9 @@ export const AttachmentProps = {
     type: Function as PropType<(file: File) => boolean | Promise<boolean>>,
     default: null,
   },
+  getDropContainer: {
+    type: Function as PropType<() => HTMLElement>,
+  },
 } as const;
 
 export type AttachmentProps = ExtractPropTypes<typeof AttachmentProps>;
@@ -134,3 +137,13 @@ export interface AttachmentSlots {
   default(): VNode;
   dropPlaceholder(): VNode;
 }
+
+export interface IAttachmentCtx {
+  rootProps: AttachmentProps;
+  rootEmits: AttachmentEmits;
+  isDisabled: Ref<boolean>;
+  uploadFiles: (files: File[]) => Promise<void>;
+}
+
+export const AttachmentInjectKey =
+  "mc-attachment" as unknown as InjectionKey<IAttachmentCtx>;

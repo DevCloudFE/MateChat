@@ -5,36 +5,37 @@ desc: 用于上传和管理文件附件的组件，支持拖拽、自定义上�
 
 ### 参数
 
-| 参数名         | 类型                                          | 默认值     | 说明                                                                                                  |
-| -------------- | --------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------- |
-| v-model        | `FileItem[]`                                  | -          | 双向绑定的文件列表。                                                                                  |
-| upload-options | `UploadOptions`                               | `{}`       | **核心上传配置**，包含上传地址 `uri`、请求方法、请求头等。详见下文 `UploadOptions` 类型定义。         |
-| disabled       | `boolean`                                     | `false`    | 是否禁用上传功能。                                                                                    |
-| accept         | `string`                                      | `''`       | 接受上传的文件类型，与原生 `input` 标签的 `accept` 属性相同。例如：`'image/*, .pdf'`。                |
-| max-count      | `number`                                      | `Infinity` | 允许上传的最大文件数量。                                                                              |
-| max-size       | `number`                                      | `Infinity` | 允许上传的单个文件最大尺寸，单位为 **MB**。                                                           |
-| multiple       | `boolean`                                     | `true`     | 是否支持多选文件。                                                                                    |
-| draggable      | `boolean`                                     | `true`     | 是否支持拖拽上传。                                                                                    |
-| before-upload  | `(file: File) => boolean \| Promise<boolean>` | `null`     | 上传文件之前的钩子，参数为上传的文件。若返回 `false` 或返回一个被 `reject` 的 `Promise`，则停止上传。 |
-| drop-placeholder    | `string`                                      | --         | 拖拽上传时，放置位置的展示信息                                                                        |
+| 参数名             | 类型                                          | 默认值     | 说明                                                                                                  |
+| ------------------ | --------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------- |
+| v-model            | `FileItem[]`                                  | -          | 双向绑定的文件列表。                                                                                  |
+| upload-options     | `UploadOptions`                               | `{}`       | **核心上传配置**，包含上传地址 `uri`、请求方法、请求头等。详见下文 `UploadOptions` 类型定义。         |
+| disabled           | `boolean`                                     | `false`    | 是否禁用上传功能。                                                                                    |
+| accept             | `string`                                      | `''`       | 接受上传的文件类型，与原生 `input` 标签的 `accept` 属性相同。例如：`'image/*, .pdf'`。                |
+| max-count          | `number`                                      | `Infinity` | 允许上传的最大文件数量。                                                                              |
+| max-size           | `number`                                      | `Infinity` | 允许上传的单个文件最大尺寸，单位为 **MB**。                                                           |
+| multiple           | `boolean`                                     | `true`     | 是否支持多选文件。                                                                                    |
+| draggable          | `boolean`                                     | `true`     | 是否支持拖拽上传。                                                                                    |
+| before-upload      | `(file: File) => boolean \| Promise<boolean>` | `null`     | 上传文件之前的钩子，参数为上传的文件。若返回 `false` 或返回一个被 `reject` 的 `Promise`，则停止上传。 |
+| drop-placeholder   | `string`                                      | --         | 拖拽上传时，放置位置的展示信息                                                                        |
+| get-drop-container | `() => HTMLElement`                           | --         | 拖拽上传时，可以释放文件的区域                                                                        |
 
 ### 事件
 
-| 事件名     | 说明                                     | 回调参数                                                    |
-| ---------- | ---------------------------------------- | ----------------------------------------------------------- |
-| change     | 文件状态改变时触发，主要在文件被选择后。 | `(file: File, fileList: FileItem[]) => void`                |
-| success    | 文件上传成功时触发。                     | `(file: File, response: any, fileList: FileItem[]) => void` |
-| error      | 文件上传失败时触发。                     | `(file: File, error: any, fileList: FileItem[]) => void`    |
-| progress   | 文件上传时触发。                         | `(file: File, fileList: FileItem[]) => void`                |
-| drop       | 文件被拖拽到可拖拽区域时触发。           | `(files: File[]) => void`                                   |
-| valid-result | 有校验结论时触发。                     | `(e: IValidResult[]) => void`                           |
+| 事件名       | 说明                                     | 回调参数                                                    |
+| ------------ | ---------------------------------------- | ----------------------------------------------------------- |
+| change       | 文件状态改变时触发，主要在文件被选择后。 | `(file: File, fileList: FileItem[]) => void`                |
+| success      | 文件上传成功时触发。                     | `(file: File, response: any, fileList: FileItem[]) => void` |
+| error        | 文件上传失败时触发。                     | `(file: File, error: any, fileList: FileItem[]) => void`    |
+| progress     | 文件上传时触发。                         | `(file: File, fileList: FileItem[]) => void`                |
+| drop         | 文件在可放置区域释放时触发。             | `(files: File[]) => void`                                   |
+| valid-result | 有校验结论时触发。                       | `(e: IValidResult[]) => void`                               |
 
 ### 插槽
 
-| 插槽名      | 说明                                 |
-| ----------- | ------------------------------------ |
-| default     | 自定义上传附件按钮样式               |
-| dropPlaceholder | 自定义拖拽上传时，放置位置的展示信息 |
+| 插槽名          | 说明                                 |
+| --------------- | ------------------------------------ |
+| default         | 自定义上传附件按钮样式               |
+| dropPlaceholder | 拖拽上传时，自定义放置位置的展示信息 |
 
 ### 类型定义
 

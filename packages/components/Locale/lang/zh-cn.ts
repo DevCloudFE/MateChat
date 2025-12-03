@@ -16,7 +16,6 @@ export default {
     downLoad: '下载',
   },
   Attachment: {
-    disabledUpload: '禁止上传',
     dragToUpload: '拖拽到此处上传',
   },
   FileList: {
