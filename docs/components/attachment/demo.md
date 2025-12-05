@@ -95,7 +95,7 @@ const handleRetryUpload = (file: FileItem) => {
 
 ```vue
 <template>
-  <McInput v-model="inputValue" ref="inputEl" placeholder="拖拽文件到页面，或点击左侧图标上传附件..." style="position: relative">
+  <McInput v-model="inputValue" ref="inputEl" placeholder="拖拽文件到页面，或点击左侧图标上传附件...">
     <!-- 1. 文件列表放置在 head 插槽 -->
     <template #head>
       <McFileList
@@ -170,7 +170,7 @@ const dropContainer = () => inputEl.value.$el;
           :max-size="0.5"
           :max-count="3"
           multiple
-          @valid-result="onValidResult"
+          @valid-change="onValidChange"
         >
           <i class="icon-appendix"></i>
         </McAttachment>
@@ -197,7 +197,7 @@ const handleBeforeUpload = (file: File) => {
   return true;
 };
 
-const onValidResult = (e) => {
+const onValidChange = (e) => {
   console.log('valid result', e);
 };
 </script>

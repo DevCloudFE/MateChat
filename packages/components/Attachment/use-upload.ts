@@ -41,7 +41,7 @@ export function useUpload(
 
     // 检查文件数量限制
     if (fileList.value.length + files.length > props.maxCount) {
-      emit("validResult", [{ type: "exceedCount" }]);
+      emit("validChange", [{ type: "exceedCount" }]);
       return;
     }
 
@@ -98,7 +98,7 @@ export function useUpload(
     }
 
     if (validRes.length > 0) {
-      emit("validResult", validRes);
+      emit("validChange", validRes);
     }
 
     // 只处理通过所有校验的有效文件

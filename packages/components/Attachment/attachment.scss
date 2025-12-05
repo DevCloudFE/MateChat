@@ -11,18 +11,17 @@
 }
 
 // 拖拽上传弹窗样式
-.mc-attachment-drag-area {
-  position: absolute;
-  inset: 0;
+.mc-attachment-drop-area {
+  position: fixed;
   padding: 20px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $devui-base-bg;
   border: 2px dashed $devui-brand; // 使用品牌主色
   border-radius: $devui-border-radius;
   color: $devui-text;
   font-size: $devui-font-size;
   font-weight: bold;
+  backdrop-filter: blur(10px);
   z-index: 9999;
 }

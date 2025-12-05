@@ -28,7 +28,7 @@ desc: 用于上传和管理文件附件的组件，支持拖拽、自定义上�
 | error        | 文件上传失败时触发。                     | `(file: File, error: any, fileList: FileItem[]) => void`    |
 | progress     | 文件上传时触发。                         | `(file: File, fileList: FileItem[]) => void`                |
 | drop         | 文件在可放置区域释放时触发。             | `(files: File[]) => void`                                   |
-| valid-result | 有校验结论时触发。                       | `(e: IValidResult[]) => void`                               |
+| valid-change | 有校验结论时触发。                       | `(e: IValidResult[]) => void`                               |
 
 ### 插槽
 

@@ -1,6 +1,11 @@
 <template>
-  <Teleport v-if="container" :to="container">
-    <div v-show="isDragging" class="mc-attachment-drag-area" @drop="handleDrop">
+  <Teleport to="body">
+    <div
+      ref="dropAreaEl"
+      v-show="isDragging"
+      class="mc-attachment-drop-area"
+      @drop="handleDrop"
+    >
       <slot />
     </div>
   </Teleport>
@@ -15,6 +20,7 @@ const { rootProps, rootEmits, isDisabled, uploadFiles } = inject(
 ) as IAttachmentCtx;
 
 const container = ref<HTMLElement>();
+const dropAreaEl = ref<HTMLElement>();
 const isDragging = ref(false);
 // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
 let dragCounter = 0;
@@ -36,6 +42,17 @@ const handleDragEnter = (e: DragEvent) => {
   dragCounter++;
   if (dragCounter === 1) {
     isDragging.value = true;
+  }
+  if (container.value && dropAreaEl.value) {
+    if (container.value === document.body) {
+      dropAreaEl.value.style.inset = "0";
+    } else {
+      const { x, y, width, height } = container.value.getBoundingClientRect();
+      dropAreaEl.value.style.width = `${width}px`;
+      dropAreaEl.value.style.height = `${height}px`;
+      dropAreaEl.value.style.top = `${y}px`;
+      dropAreaEl.value.style.left = `${x}px`;
+    }
   }
 };
 const handleDragOver = (e: DragEvent) => {

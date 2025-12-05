@@ -111,7 +111,7 @@ export const AttachmentEmits = {
   progress: (file: File, fileList: FileItem[]) =>
     file instanceof File && Array.isArray(fileList),
   drop: (files: File[]) => Array.isArray(files),
-  validResult: (e: IValidResult[]) => Array.isArray(e),
+  validChange: (e: IValidResult[]) => Array.isArray(e),
 };
 // 编译时类型检查
 export type AttachmentEmits = {
@@ -130,7 +130,7 @@ export type AttachmentEmits = {
   ): void;
   (e: "progress", file: File, fileList: FileItem[]): void;
   (e: "drop", files: File[]): void;
-  (e: "validResult", validResult: IValidResult[]): void;
+  (e: "validChange", validResult: IValidResult[]): void;
 };
 
 export interface AttachmentSlots {
