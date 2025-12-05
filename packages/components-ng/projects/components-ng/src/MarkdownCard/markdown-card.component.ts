@@ -144,14 +144,14 @@ export class MarkdownCardComponent
   }
 
   contentChange(change) {
-    if (this.content.indexOf(change.previousValue) === -1) {
+    if (this.content?.indexOf(change.previousValue) === -1) {
       this.clearCodeBlockCache();
     }
     if (!this.typing) {
       this.typingIndex = this.content?.length || 0;
       this.parseContent();
     } else {
-      if (this.content.indexOf(change.previousValue) === -1) {
+      if (this.content?.indexOf(change.previousValue) === -1) {
         this.typingIndex = 0;
       }
       // 使用setTimeout模拟Vue的nextTick行为
@@ -231,7 +231,7 @@ export class MarkdownCardComponent
           existingElement !== newCodeBlock &&
           newCodeBlock?.firstChild
         ) {
-          existingElement.firstChild && existingElement.firstChild.remove();
+          MdParserUtils.clearElementChildren(existingElement);
           existingElement.appendChild(newCodeBlock?.firstChild);
         }
       }

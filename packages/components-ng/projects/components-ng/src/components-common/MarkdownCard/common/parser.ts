@@ -227,6 +227,21 @@ export function findCodeBlockWrappers(vnodes: any[]): any[] {
   return result;
 }
 
+/**
+ * 清空Dom节点的所有子节点
+ * @param {HTMLElement} element - 需要清空的Dom节点
+ * @returns {void}
+ */
+export function clearElementChildren(element: HTMLElement): void {
+  if (typeof element.replaceChildren === 'function') {
+    element.replaceChildren();
+  } else {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  }
+}
+
 // 声明一个utils静态默认导出
 export default {
     isSelfClosingTag,
@@ -236,4 +251,5 @@ export default {
     matchHtmlToken,
     isValidTagName,
     findCodeBlockWrappers,
+    clearElementChildren,
 }
