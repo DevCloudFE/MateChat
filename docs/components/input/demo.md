@@ -352,6 +352,10 @@ const onCancel = () => {
 
 ### 插入主题标签
 
+通过 `ThemeTagItem` 类型配置前置主题标签，支持自定义主题标签的文本内容、pop弹出提示内容等。
+当前仅支持最多设置一个ThemeTag，且必须放在 `formatContent` 数组的第一个位置。
+可通过 `themeTag` 插槽自定义主题标签的展示效果。
+
 :::demo
 
 ```vue
@@ -360,6 +364,13 @@ const onCancel = () => {
     <d-button @click="openThemeTag" style="margin-right: 8px;">插入主题标签</d-button> <d-button @click="closeThemeTag">关闭主题标签</d-button>
   </div>
   <McInput :formatContentOptions="formatContentOptions" @change="onInputChange" @submit="onSubmit">
+    <template #themeTag="{ themeTag }">
+      <span class="tip-tag-custom">
+        <i class="icon-code-editor-close"></i>
+        <span :class="['tip-tag-icon', 'icon-default']"></span>
+        <span id="ai-input-prefix" class="ai-input-prefix">{{themeTag.themeTagText}}</span>
+      </span>
+    </template>
   </McInput>
 </template>
 
@@ -402,12 +413,47 @@ const closeThemeTag = () => {
   .button-wrapper {
     margin-bottom: 12px;
   }
+
+  .tip-tag-custom {
+    &:hover {
+      i {
+        display: inline-block;
+      }
+
+      .tip-tag-icon {
+        display: none;
+      }
+
+    }
+    i {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      vertical-align: middle;
+      display: none;
+    }
+
+    .tip-tag-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      display: inline-block;
+      vertical-align: text-bottom;
+      background-size: 100% 100%;
+      &.icon-default {
+        background-image: url('/logo.svg'); // 补一个默认图标
+      }
+    }
+  }
 </style>
 ```
 
 :::
 
 ### 插入text文本
+
+通过 `FormatTextItem` 类型可插入一段文本，且支持插入多段文本。
 
 :::demo
 
@@ -444,6 +490,12 @@ const setText = () => {
         content: 'MateChat：生成式人工智能 体验设计系统&前端解决方案！！！',
         placeholder: '',
       },
+      {
+        key: '',
+        type: 'text',
+        content: '欢迎使用与共建MateChat！！！',
+        placeholder: '',
+      },
     ],
   };
 }
@@ -460,6 +512,8 @@ const setText = () => {
 :::
 
 ### 插入格式化Input标签
+
+通过 `FormatInputItem` 类型配置一个input标签，实现对输入框内某些局部文本的默认填充或占位提示；input标签可以插入多个，且插入位置不固定。
 
 :::demo
 
@@ -490,10 +544,34 @@ const setInput = () => {
   formatContentOptions.value = {
     formatContent: [
       {
+        key: '',
+        type: 'text',
+        content: '我是',
+        placeholder: '',
+      },
+      {
         key: 'input1',
         type: 'input',
-        placeholder: '请输入年份',
-        content: '2025',
+        placeholder: '请输入专业',
+        content: '计算机科学',
+      },
+      {
+        key: '',
+        type: 'text',
+        content: '专业的本科生，帮我写一篇关于',
+        placeholder: '',
+      },
+      {
+        key: 'input2',
+        type: 'input',
+        placeholder: '请输入主题',
+        content: '',
+      },
+      {
+        key: '',
+        type: 'text',
+        content: '的论文。',
+        placeholder: '',
       },
     ],
   };
@@ -511,6 +589,8 @@ const setInput = () => {
 :::
 
 ### 多种格式化内容自定义编排
+
+通过 `FormatContentOptions.formatContent` 中多种格式化标签的自定义组合编排，按需实现对输入框内文本的多种格式化展示。
 
 :::demo
 
@@ -598,7 +678,7 @@ const setMixTags = () => {
     margin-bottom: 12px;
   }
 
-  .mc-input-mix-tags-demo .tip-tag-custom {
+  .tip-tag-custom {
     &:hover {
       i {
         display: inline-block;

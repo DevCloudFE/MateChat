@@ -9,8 +9,8 @@ iconSrc: '/inputIcon.png'
 
 | 参数名         | 类型                                        | 默认值     | 说明                                           |
 | -------------- | ------------------------------------------- | ---------- | ---------------------------------------------- |
-| value          | `string`                                    | ''         | 输入框的值，与formatContentOptions互斥                                     |
-| formatContentOptions    | `FormatContentOptions`             | {}         | 输入框中需要被格式化录入的内容及其配置项                                     |
+| value          | `string`                                    | ''         | 输入框的值，为纯文本展示                                   |
+| formatContentOptions    | `FormatContentOptions`             | {}         | 输入框中需要被格式化录入的值及其配置项，其值会按照给定的配置展示为不同的格式化效果；与value互斥，两者选其一                                     |
 | placeholder    | `string`                                    | --         | 输入框占位文字                                 |
 | disabled       | `boolean`                                   | false      | 是否禁用输入框                                 |
 | displayType    | [DisplayType](#displaytype)                 | 'full'     | 输入框的形态                                   |
@@ -43,7 +43,7 @@ iconSrc: '/inputIcon.png'
 | suffix | --     | 自定义输入框右侧的内容                                   |
 | extra  | --     | 自定义发送按钮左侧的内容，仅在`displayType='full'`时生效 |
 | button | --     | 自定义输入框的发送按钮                                   |
-| themeTag | --     | 自定义前置主题标签                                     |
+| themeTag | --     | 自定义[前置主题标签](#themeTag)                                     |
 
 ### 方法
 
@@ -92,57 +92,58 @@ enum SubmitShortKey {
 }
 ```
 
-#### ThemeTagItem
+#### FormatContentOptions
 
-主题标签配置项类型。
+输入框中需要被格式化录入的值及其配置项，实现对输入文本的格式化编排展示。
+
+```ts
+interface FormatContentOptions {
+  formatContent: FormatContentItem[]; 
+}
+
+type FormatContentItem = FormatTextItem | FormatInputItem | ThemeTagItem; 
+```
+
+#### ThemeTagItem    <a id="themeTag"></a>
+
+主题标签配置项，用于对其后续文本的主题概括或提示等场景；为可选配置， 当前仅支持最多设置一个ThemeTag，且必须放在formatContent数组的第一个位置。
 
 ```ts
 interface ThemeTagItem {
-  type: 'themeTag';
-  themeTagKey?: string; // 主题标签的唯一标识
+  type: 'themeTag'; // 固定type
+  themeTagKey: string; // 主题标签的唯一标识
   themeTagText: string; // 主题标签的文本内容
-  clearInput?: boolean; // 关闭主题标签时是否清空对应输入框内容
-  popoverContent: string; // 主题标签的pop弹出提示内容
+  clearInput?: boolean; // 关闭主题标签时是否清空输入框中在其后面内容，默认为false
+  popoverContent: string; // 主题标签的pop提示文案
 }
 ```
 
 
 #### FormatTextItem
 
-需要插入的一段文本的配置类型。
+用于配置需要被格式化编排的一段文本。
 
 ```ts
 interface FormatTextItem {
-  type: 'text';
+  type: 'text'; // 固定type
   key: string; // 标签的唯一标识
-  content: string; 
+  content: string; // 文本内容
 }
 ```
 
 #### FormatInputItem
 
-格式化输入标签配置项类型。
+用于配置一个input标签，实现对输入框内局部文本的占位提示，如限定其主题、类型、范围等。
 
 ```ts
 interface FormatInputItem {
-  type: 'input';
+  type: 'input'; // 固定type
   key: string; // 标签的唯一标识
-  placeholder?: string; // input标签的占位提示内容
-  content?: string; // input标签的默认展示内容，与placeholder需保证有其一
+  placeholder: string; // input标签的占位提示内容
+  content?: string; // input标签的默认展示内容
 }
 ```
 
-#### FormatContentOptions
-
-输入框中需要被格式化录入的内容配置项类型。
-
-```ts
-interface FormatContentOptions {
-  formatContent: FormatContentItem[]; // 当前仅支持最多设置一个ThemeTag，且必须放在数组的第一个位置
-}
-
-type FormatContentItem = FormatTextItem | FormatInputItem | ThemeTagItem;
-```
 
 #### TextareaAutoSize
 

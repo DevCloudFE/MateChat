@@ -58,6 +58,8 @@ import {
   FormatContentItem,
 } from "./input-types";
 
+const TimeToViewRender = 50;
+
 const props = defineProps(inputProps);
 const emits = defineEmits(inputEmits);
 const editableBlockRef:any = ref(null);
@@ -97,7 +99,7 @@ const setInputTag = (key: string, placeholder: string, defaultValue?:string) => 
   showEditableBlock.value = true;
   setTimeout(() => {
     editableBlockRef.value?.setInputTag(key, placeholder, defaultValue);
-  }, 50);
+  }, TimeToViewRender);
 }
 
 const setText = (text: string) => {
@@ -107,7 +109,7 @@ const setText = (text: string) => {
   showEditableBlock.value = true;
   setTimeout(() => {
     editableBlockRef.value?.setText(text);
-  }, 50);
+  }, TimeToViewRender);
   
 }
 
@@ -118,7 +120,7 @@ const setMixTags = (mixTagConfig: FormatContentItem[]) => {
   showEditableBlock.value = true;
   setTimeout(() => {
     editableBlockRef.value?.setMixTags(mixTagConfig);
-  }, 50);
+  }, TimeToViewRender);
 }
 
 const openTipTag = (themeTagText: string, popoverContent: string, clearInput?: boolean) => {
@@ -128,7 +130,7 @@ const openTipTag = (themeTagText: string, popoverContent: string, clearInput?: b
   showEditableBlock.value = true;
   setTimeout(() => {
     editableBlockRef.value?.openTipTag(themeTagText, popoverContent, clearInput);
-  }, 50);
+  }, TimeToViewRender);
 }
 
 const closeTipTag = () => {
@@ -141,7 +143,7 @@ const handleDivInput = (value: string) => {
   if(!value) {
     setTimeout(() => {
       showEditableBlock.value = false;
-    }, 50);
+    }, TimeToViewRender);
   }
   inputValue.value = value;
   emits('change', value);

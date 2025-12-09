@@ -16,10 +16,13 @@
   >
     <!-- 前置标签 -->
     <d-popover v-if="themeTag.themeTagText " trigger="hover" :content="themeTag.popoverContent">
-      <span v-if="themeTag.themeTagText" class="ai-input-prefix-wrapper" @click="closeTipTag" contenteditable="false">
-        <slot name="themeTag" :themeTag="themeTag">
-          <span id="ai-input-prefix" class="ai-input-prefix">{{themeTag.themeTagText}}</span>
-        </slot>
+      <span contenteditable="false">
+        <span v-if="themeTag.themeTagText" class="ai-input-prefix-wrapper" @click="closeTipTag" contenteditable="false">
+          <slot name="themeTag" :themeTag="themeTag">
+            <span id="ai-input-prefix" class="ai-input-prefix">{{themeTag.themeTagText}}</span>
+          </slot>
+        </span>
+        <span contenteditable="false" style="display: inline-block;width: 4px;"></span>
       </span>
     </d-popover>
     <template v-for="(part, index) in localTemplateParts">
@@ -322,6 +325,7 @@ const closeTipTag = () => {
       popoverContent: '',
       type: 'themeTag',
     }
+    processInput();
   }
 }
 
@@ -393,7 +397,6 @@ defineExpose({
     font-size: 14px;
     font-weight: 600;
     line-height: 24px;
-    margin-right: 4px;
     z-index: 10;
     position: sticky;
     display: inline-block;
