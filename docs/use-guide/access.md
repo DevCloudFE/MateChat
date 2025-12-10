@@ -1,10 +1,10 @@
 # 使用MateChat的多种方式
 
-当前MateChat主要基于Vue3开发，但我们仍可以通过多种方式将MateChat与您的项目集成。
+当前MateChat已经提供了Vue3与Angular版本，我们仍可以通过多种方式将MateChat与您的项目集成。
 
 以下是一些可行方案供参考：
 
-### 一、在Vue3项目中集成MateChat（主流方式）
+### 一、在Vue3项目中集成MateChat
 
 **适用场景**：需要深度定制AI助手功能，并与现有Vue项目无缝融合的场景。
 
@@ -22,8 +22,28 @@ import '@devui-design/icons/icomoon/devui-icon.css';
 createApp(App).use(MateChat).mount('#app');
 ```
 
+### 二、在Angular项目中集成MateChat
+**适用场景**：需要深度定制AI助手功能，并与现有Angular项目无缝融合的场景。
 
-### 二、通过iframe嵌入独立页面
+**步骤**：
+参考 [MateChat Angular 版本快速开始](https://matechat.gitcode.com/use-guide-ng/introduction.html) 的使用方式
+
+```ts
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { BubbleModule } from "@matechat/ng";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [CommonModule, BubbleModule],
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
+})
+export class AppComponent {}
+```
+
+### 三、通过iframe嵌入独立页面
 
 **适用场景**：需快速为第三方平台添加AI助手，且不希望侵入宿主环境。
 
@@ -33,7 +53,7 @@ createApp(App).use(MateChat).mount('#app');
 2. `嵌入iframe`：在宿主页面中通过iframe加载matechat应用。
 
 
-### 三、与其他框架集成（如React/Angular）
+### 四、与其他框架集成（如React）
 
 **适用场景**：需与现有其他框架的宿主应用集成
 
@@ -43,7 +63,9 @@ createApp(App).use(MateChat).mount('#app');
 
 ## 未来计划（社区共建）
 
-**官方React/Angular适配库**：我们正规划推出`@matechat/react` 和 `@matechat/angular` 等适配版本，提供原生API支持。
+**官方场景库**：除当前官网 [演示](https://matechat.gitcode.com/vue-starter/) 场景外，我们计划构建更多场景使用演示，提供更多场景搭配模板。
+
+**官方React适配库**：当前我们已推出`@matechat/core`与`@matechat/ng`版本，我们也规划推出`@matechat/react`适配版本，提供原生API支持。
 
 **诚邀开发者参与**：若您熟悉React/Angular或跨框架开发，欢迎加入 [MateChat项目](https://gitcode.com/DevCloudFE/MateChat)，共同构建多框架统一生态！
 
