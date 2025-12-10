@@ -31,6 +31,22 @@ const props = defineProps(ToolbarProps);
 
 const actionItems = reactive(props.items?.map((item) => ({ ...item })));
 
+const init = () => {
+  const likeIndex = actionItems.findIndex(
+    (item) => item.icon === ToolbarAction.LIKE,
+  );
+  const dislikeIndex = actionItems.findIndex(
+    (item) => item.icon === ToolbarAction.DISLIKE,
+  );
+  const likeAction = actionItems[likeIndex];
+  const dislikeAction = actionItems[dislikeIndex];
+  if (likeAction?.isActive) {
+    dislikeAction && cutActionItems(dislikeIndex, likeAction.isActive);
+  } else if (dislikeAction?.isActive) {
+    likeAction && cutActionItems(likeIndex, dislikeAction.isActive);
+  }
+};
+
 const actionItemClick = (actionItem: ActionItem, e: MouseEvent) => {
   if (actionItem.icon === ToolbarAction.LIKE) {
     lickActionClick(actionItem.isActive);
@@ -64,6 +80,8 @@ const cutActionItems = (index: number, isActive: boolean) => {
     actionItems.splice(index, 0, props.items[index]);
   }
 };
+
+init();
 </script>
 
 <style scoped lang="scss">
