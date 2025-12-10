@@ -10,7 +10,7 @@ export enum ToolbarAction {
 }
 
 export interface ActionItem {
-  key?: string; // 唯一标识
+  key: string; // 唯一标识
   icon?: ToolbarAction | VNode | (() => VNode); // icon部分名称
   label?: string; // 操作项title
   onClick?: (actionItem: ActionItem, e: MouseEvent) => void; // 点击事件

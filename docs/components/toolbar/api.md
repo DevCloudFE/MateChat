@@ -19,6 +19,14 @@ iconSrc: '/textareaIcon.png'
 |----------|-----------------------------------------------------|--------------------------|
 | onClick  | `(actionItem: ActionItem, event: MouseEvent) => void` | 点击操作项时触发的事件   |
 
+### Toolbar 插槽
+
+| 插槽名        | 参数                           | 说明                                     |
+|------------|------------------------------|----------------------------------------|
+| [key]      | `{ actionData: ActionItem }` | 操作项插槽（使用后不渲染hover时的背景色部分）              |
+| [key]-icon | `{ actionData: ActionItem }` | 图标位置插槽（使用后外层存在hover时的背景色部分，优先级低于操作项插槽） |
+
+
 ### 图标组件参数
 内置图标组件： `McToolbar` `McCopyIcon` `McDeleteIcon` `McLikeIcon` `McDislikeIcon` `McRefreshIcon` `McShareIcon`
 
@@ -28,6 +36,13 @@ iconSrc: '/textareaIcon.png'
 | height   | `number`  | 16    | 高度             |
 | isActive | `boolean` | false | 点赞/点踩图标 是否默认激活 |
 | text     | `string`  | ''    | 复制图标组件需要复制的文本  |
+
+### 图标组件事件
+仅点赞/点踩图标组件存在该事件
+
+| 事件名          | 类型        | 说明       |
+|--------------|-----------|----------|
+| activeChange | `(isActive: boolean) => void`| 图标状态改变事件 |
 
 ### 类型定义
 

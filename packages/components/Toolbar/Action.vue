@@ -1,26 +1,21 @@
 <template>
     <div class="mc-action-item" :title="iconInfo.label">
-        <!-- 枚举类型图标（SVG） -->
-        <component
-            v-if="innerIcon"
-            :is="getSvgUrl(iconInfo.icon as ToolbarAction)"
-            :is-active="iconInfo.isActive"
-            :width="size ?? 16"
-            :height="size ?? 16"
-            :text="iconInfo.text"
-            @click="iconClick"
-        />
-        <!-- VNode 类型图标 -->
-        <component
-            v-else-if="isVNode(iconInfo.icon) || iconIsFunVNode"
-            :is="iconIsFunVNode ? (iconInfo.icon as Function)() : iconInfo.icon"
-            @click="iconClick"
-        />
+        <slot :action-data="iconInfo">
+            <component
+                v-if="innerIcon"
+                :is="getSvgUrl(iconInfo.icon as ToolbarAction)"
+                :is-active="iconInfo.isActive"
+                :width="size ?? 16"
+                :height="size ?? 16"
+                :text="iconInfo.text"
+                @click="iconClick"
+            />
+        </slot>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, isVNode, onBeforeUnmount, reactive } from 'vue';
+import { computed, defineProps, reactive } from 'vue';
 import CopyIcon from './icon/CopyIcon.vue';
 import DeleteIcon from './icon/DeleteIcon.vue';
 import DislikeIcon from './icon/DislikeIcon.vue';
@@ -48,10 +43,11 @@ const props = defineProps(ActionItemProps);
 const iconInfo = reactive({
   ...props.configData,
 });
-const copyTimer = null;
-
-onBeforeUnmount(() => {
-  clearTimeout(copyTimer);
+const sizeValue = computed(() => {
+  if (typeof props.size === 'string') {
+    return props.size;
+  }
+  return `${props.size}px`;
 });
 
 // 判断是否是内置图标
@@ -60,10 +56,6 @@ const innerIcon = computed(() => {
     typeof iconInfo.icon === 'string' &&
     Object.values(ToolbarAction).includes(iconInfo.icon)
   );
-});
-
-const iconIsFunVNode = computed(() => {
-  return typeof iconInfo.icon === 'function' && isVNode(iconInfo.icon());
 });
 
 // 获取SVG组件映射
@@ -87,7 +79,5 @@ const iconClick = (e: MouseEvent) => {
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
 
-.mc-action-item {
-  cursor: pointer;
-}
+
 </style>

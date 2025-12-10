@@ -1,24 +1,44 @@
 <template>
   <div class="mc-actions" :style="{ gap: `${gap}px` }">
     <!-- 显示的操作项 -->
-    <template v-for="(item, index) in actionItems" :key="item.key || index">
-      <component
-        v-if="isVNode(item.contentRender) || (typeof item.contentRender === 'function' && isVNode(item.contentRender()))"
-        :is="isVNode(item.contentRender) ? item.contentRender : item.contentRender()"
-      />
-      <Action
-        v-else
-        :configData="item"
-        :size="iconSize"
-        @on-click="actionItemClick"
-      />
+    <template
+      v-for="item in actionItems"
+      :key="item.key"
+    >
+      <slot :name="item.key" :action-data="item">
+        <div
+          v-if="slots[`${item.key}-icon`]"
+          class="mc-action-item"
+          :title="item.label"
+          @click="actionClick($event, item)"
+        >
+          <slot :name="`${item.key}-icon`" :action-data="item"></slot>
+        </div>
+        <component
+          v-else
+          :is="IconFileNameMap[item.icon]"
+          :is-active="item.isActive"
+          :width="iconSize ?? 16"
+          :height="iconSize ?? 16"
+          :text="item.text"
+          :title="item.label"
+          class="mc-action-item"
+          @active-change="activeChange($event, item)"
+          @click="actionClick($event, item)"
+        />
+      </slot>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { isVNode, reactive } from 'vue';
-import Action from './Action.vue';
+import { reactive, useSlots } from 'vue';
+import CopyIcon from './icon/CopyIcon.vue';
+import DeleteIcon from './icon/DeleteIcon.vue';
+import DislikeIcon from './icon/DislikeIcon.vue';
+import LikeIcon from './icon/LikeIcon.vue';
+import RefreshIconIcon from './icon/RefreshIcon.vue';
+import ShareIcon from './icon/ShareIcon.vue';
 import {
   type ActionItem,
   ToolbarAction,
@@ -28,67 +48,65 @@ import {
 
 const emit = defineEmits<ToolbarEmits>();
 const props = defineProps(ToolbarProps);
+const slots = useSlots();
 
 const actionItems = reactive(props.items?.map((item) => ({ ...item })));
+const IconFileNameMap = {
+  [ToolbarAction.COPY]: CopyIcon,
+  [ToolbarAction.LIKE]: LikeIcon,
+  [ToolbarAction.DISLIKE]: DislikeIcon,
+  [ToolbarAction.REFRESH]: RefreshIconIcon,
+  [ToolbarAction.SHARE]: ShareIcon,
+  [ToolbarAction.DELETE]: DeleteIcon,
+};
 
 const init = () => {
-  const likeIndex = actionItems.findIndex(
+  const likeAction = actionItems.find(
     (item) => item.icon === ToolbarAction.LIKE,
   );
-  const dislikeIndex = actionItems.findIndex(
+  const dislikeAction = actionItems.find(
     (item) => item.icon === ToolbarAction.DISLIKE,
   );
-  const likeAction = actionItems[likeIndex];
-  const dislikeAction = actionItems[dislikeIndex];
-  if (likeAction?.isActive) {
-    dislikeAction && cutActionItems(dislikeIndex, likeAction.isActive);
-  } else if (dislikeAction?.isActive) {
-    likeAction && cutActionItems(likeIndex, dislikeAction.isActive);
+  if (likeAction?.isActive && dislikeAction) {
+    dislikeAction.isActive = false;
   }
 };
 
-const actionItemClick = (actionItem: ActionItem, e: MouseEvent) => {
+const lickActionClick = () => {
+  const dislikeAction = actionItems.find(
+    (item) => item.icon === ToolbarAction.DISLIKE,
+  );
+  if (dislikeAction) {
+    dislikeAction.isActive = false;
+  }
+};
+
+const dislikeActionClick = () => {
+  const likeAction = actionItems.find(
+    (item) => item.icon === ToolbarAction.LIKE,
+  );
+  if (likeAction) {
+    likeAction.isActive = false;
+  }
+};
+
+const actionClick = (e: MouseEvent, actionItem: ActionItem) => {
   if (actionItem.icon === ToolbarAction.LIKE) {
     lickActionClick(actionItem.isActive);
   } else if (actionItem.icon === ToolbarAction.DISLIKE) {
     dislikeActionClick(actionItem.isActive);
   }
+  actionItem.onClick?.(actionItem, e);
   emit('onClick', actionItem, e);
 };
 
-const lickActionClick = (isActive: boolean) => {
-  const index = props.items.findIndex(
-    (item) => item.icon === ToolbarAction.DISLIKE,
-  );
-  cutActionItems(index, isActive);
-};
-
-const dislikeActionClick = (isActive: boolean) => {
-  const index = props.items.findIndex(
-    (item) => item.icon === ToolbarAction.LIKE,
-  );
-  cutActionItems(index, isActive);
-};
-
-const cutActionItems = (index: number, isActive: boolean) => {
-  if (index === -1) {
-    return;
-  }
-  if (isActive) {
-    actionItems.splice(index, 1);
-  } else {
-    actionItems.splice(index, 0, props.items[index]);
-  }
+const activeChange = (isActive: boolean, actionItem: ActionItem) => {
+  actionItem.isActive = isActive;
 };
 
 init();
 </script>
 
 <style scoped lang="scss">
-@import "devui-theme/styles-var/devui-var.scss";
-
-.mc-actions {
-  display: inline-flex;
-  align-items: center;
-}
+@import './toolbar.scss';
 </style>
