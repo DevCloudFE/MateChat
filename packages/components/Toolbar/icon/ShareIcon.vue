@@ -26,12 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { IconComponentProps } from '../toolbar.types';
 
 const props = defineProps(IconComponentProps);
-
-const copied = ref(false);
 </script>
 
 <style scoped lang="scss">

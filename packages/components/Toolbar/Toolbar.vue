@@ -92,10 +92,11 @@ const dislikeActionClick = () => {
 
 const actionClick = (e: MouseEvent, actionItem: ActionItem) => {
   if (actionItem.icon === ToolbarAction.LIKE) {
-    lickActionClick(actionItem.isActive);
+    lickActionClick();
   } else if (actionItem.icon === ToolbarAction.DISLIKE) {
-    dislikeActionClick(actionItem.isActive);
+    dislikeActionClick();
   }
+  console.log('out click');
   actionItem.onClick?.(actionItem, e);
   emit('onClick', actionItem, e);
 };

@@ -17,7 +17,7 @@
           <mask id="mask-2" fill="white">
               <use xlink:href="#path-1"></use>
           </mask>
-          <use id="Mask" fill="#3DCCA6" xlink:href="#path-1"></use>
+          <use id="Mask" fill="currentColor" xlink:href="#path-1"></use>
       </g>
     </svg>
     <svg
@@ -61,7 +61,7 @@ const handleClick = async () => {
   copied.value = true;
   setTimeout(() => {
     copied.value = false;
-  }, 3000);
+  }, 1500);
   try {
     await copyToClipboard(props.text);
   } catch (error) {}
