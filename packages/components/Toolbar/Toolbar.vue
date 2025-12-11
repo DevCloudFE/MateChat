@@ -96,7 +96,6 @@ const actionClick = (e: MouseEvent, actionItem: ActionItem) => {
   } else if (actionItem.icon === ToolbarAction.DISLIKE) {
     dislikeActionClick();
   }
-  console.log('out click');
   actionItem.onClick?.(actionItem, e);
   emit('onClick', actionItem, e);
 };

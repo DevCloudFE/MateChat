@@ -7,6 +7,8 @@ iconSrc: "/textareaIcon.png"
 
 ### 基本用法
 
+通过配置 `items` 参数实现工具栏的快速搭建。
+
 :::demo
 
 ```vue
@@ -27,7 +29,7 @@ iconSrc: "/textareaIcon.png"
 <script setup>
 import { ref } from 'vue';
 
-const content = ref('Hello MateChat');
+const content = ref('这里是Toolbar 工具栏组件的的基本用法演示，通过配置items参数快速搭建一个工具栏。');
 const basicItems = [
   {
     key: "copy",
@@ -40,6 +42,9 @@ const basicItems = [
     icon: "like",
     label: "点赞",
     isActive: false,
+    onClick: () => {
+      console.log('like 的 onClick 方法');
+    }
   },
   {
     key: "dislike",
@@ -190,31 +195,131 @@ const handleItemClick = (item, event) => {
 
 ### 直接使用内置图标组件
 
-复制等操作项可直接作为组件使用，可通过设置style的color样式改变图标颜色
+复制等操作项可直接作为组件使用，可通过设置style的color样式改变图标颜色。单独使用图标组件情况下，点赞点踩没有联动效果，需要手动控制。
 
 :::demo
 
 ```vue
 <template>
+    <McBubble :content="'Hello MateChat'" :align="'right'" :avatarConfig="{ imgSrc: '/png/demo/userAvatar.svg' }" variant="bordered">
+      操作栏组件单独使用
+      <div class="demo-toolbar-basic">
+        <McCopyIcon text="复制的内容" class="copy-class" />
+        <McLikeIcon style="color: #FFCC80;" :is-active="true" @active-change="activeChange" @click="likeClick"/>
+        <McDislikeIcon :is-active="false" />
+        <McShareIcon :width="size" :height="size" />
+        <McDeleteIcon style="color: red;" />
+      </div>
+    </McBubble>
     <McBubble
       content="Hello MateChat"
       :avatarConfig="{ imgSrc: '/logo.svg' }"
       variant="bordered"
     >
-      <div class="demo-toolbar-basic">
-        <McCopyIcon text="复制的内容" class="copy-class" />
-        <McLikeIcon :is-active="true" @active-change="activeChange" @click="likeClick"/>
-        <McDislikeIcon :is-active="false" />
-        <McRefreshIcon />
-        <McShareIcon :width="size" :height="size" />
-        <McDeleteIcon style="color: red;" />
-      </div>
+      <McBubble :variant="'bordered'">
+        <McMarkdownCard
+          :content="content1"
+          :theme="theme"
+          :typing="true"
+          :typingOptions="typingOptions4"
+          @typingEnd="typingEnd"
+        ></McMarkdownCard>
+      </McBubble>
+        <McToolbar
+          v-if="streamEnd"
+          :items="basicItems"
+          style="margin-top: 8px;"
+        />
     </McBubble>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 
+const MOCK_CONTENT = `与其他组件结合使用，在打字机结束后显示操作栏，如果你需要重新执行打字机动效，可点击操作栏刷新按钮。`;
+let themeService;
+const theme = ref('light');
+const content = ref(MOCK_CONTENT);
 const size = 16;
+const typingOptions4 = {
+  interval: 200,
+  step: 2,
+};
+
+const content1 = ref('');
+let interval;
+let contentEnd = false;
+const streamEnd = ref(false);
+
+const basicItems = [
+  {
+    key: "copy",
+    icon: "copy",
+    label: "复制",
+    text: MOCK_CONTENT,
+  },
+  {
+    key: "refresh",
+    icon: "refresh",
+    label: "刷新",
+    onClick: () => {
+      content1.value = '';
+      contentEnd = false;
+      streamEnd.value = false;
+      setTimeout(() => {
+        content.value = MOCK_CONTENT;
+        streamContent();
+      });
+    },
+  },
+  {
+    key: "like",
+    icon: "like",
+    label: "点赞",
+    isActive: false,
+    onClick: () => {
+      console.log('like 的 onClick 方法');
+    }
+  },
+  {
+    key: "dislike",
+    icon: "dislike",
+    label: "点踩",
+    isActive: false,
+  },
+  {
+    key: "share",
+    icon: "share",
+    label: "分享",
+  },
+  {
+    key: "delete",
+    icon: "delete",
+    label: "删除",
+  },
+];
+
+const streamContent = () => {
+  clearInterval(interval);
+  let currentIndex = 0;
+  interval = setInterval(() => {
+    currentIndex += Math.ceil(Math.random() * 10);
+    content1.value = MOCK_CONTENT.slice(0, currentIndex);
+    if (currentIndex > MOCK_CONTENT.length) {
+      contentEnd = true;
+      clearInterval(interval);
+    }
+  }, 100);
+}
+
+const generateAnswer = () => {
+  content.value = '';
+  content1.value = '';
+  setTimeout(() => {
+    content.value = MOCK_CONTENT;
+    streamContent();
+  });
+}
 
 function likeClick(e) {
   console.log('like点击事件', e);
@@ -223,6 +328,30 @@ function likeClick(e) {
 function activeChange(isActive) {
   console.log('activeChange', isActive);
 }
+
+const typingEnd = () => {
+  if (contentEnd) {
+    streamEnd.value = true;
+    console.log('流式与打字机效果完成');
+  }
+}
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  streamContent();
+  if(typeof window !== 'undefined'){
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
 </script>
 
 <style scoped>

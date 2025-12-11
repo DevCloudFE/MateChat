@@ -7,11 +7,11 @@ iconSrc: '/textareaIcon.png'
 
 ### Toolbar 参数
 
-| 参数名   | 类型                              | 默认值   | 说明                 |
-|----------|-----------------------------------|----------|----------------------|
-| items    | `Array<ActionItem>`               | []       | 操作项列表           |
-| iconSize | `number`                          | 16       | 图标尺寸             |
-| gap      | `number`                          | 8        | 操作项之间的间隔     |
+| 参数名   | 类型                        | 默认值 | 说明                 |
+|----------|---------------------------|-----|----------------------|
+| items    | [ActionItem[]](#actionitem) | []  | 操作项列表           |
+| iconSize | `number`                  | 16  | 图标尺寸             |
+| gap      | `number`                  | 0   | 操作项之间的间隔     |
 
 ### Toolbar 事件
 
@@ -21,10 +21,10 @@ iconSrc: '/textareaIcon.png'
 
 ### Toolbar 插槽
 
-| 插槽名        | 参数                           | 说明                                     |
-|------------|------------------------------|----------------------------------------|
-| [key]      | `{ actionData: ActionItem }` | 操作项插槽（使用后不渲染hover时的背景色部分）              |
-| [key]-icon | `{ actionData: ActionItem }` | 图标位置插槽（使用后外层存在hover时的背景色部分，优先级低于操作项插槽） |
+| 插槽名        | 参数                           | 说明                                                     |
+|------------|------------------------------|--------------------------------------------------------|
+| [key]      | `{ actionData: ActionItem }` | 操作项插槽（使用后不渲染hover时的背景色部分，key值取配置items时每个item对应的key属性值） |
+| [key]-icon | `{ actionData: ActionItem }` | 图标位置插槽（使用后外层存在hover时的背景色部分，优先级低于操作项插槽，key值同上）          |
 
 
 ### 图标组件参数
@@ -46,19 +46,6 @@ iconSrc: '/textareaIcon.png'
 
 ### 类型定义
 
-#### ToolbarAction
-
-```ts
-enum ToolbarAction {
-    COPY = 'copy',
-    LIKE = 'like',
-    DISLIKE = 'dislike',
-    REFRESH = 'refresh',
-    SHARE = 'share',
-    DELETE = 'delete',
-}
-```
-
 #### ActionItem
 
 ```ts
@@ -69,5 +56,19 @@ interface ActionItem {
   onClick?: (actionItem: ActionItem, e: MouseEvent) => void; // 点击事件
   isActive?: boolean; // 点赞/点踩图标的 激活状态
   text?: string; // 需要复制的文本
+}
+```
+
+
+#### ToolbarAction
+
+```ts
+enum ToolbarAction {
+    COPY = 'copy',
+    LIKE = 'like',
+    DISLIKE = 'dislike',
+    REFRESH = 'refresh',
+    SHARE = 'share',
+    DELETE = 'delete',
 }
 ```
