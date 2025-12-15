@@ -79,7 +79,7 @@ watch(
 .side-menu-container {
   border-right: 1px solid $devui-dividing-line;
   width: 302px;
-  height: 100vh;
+  height: calc(100vh - 48px);
   position: fixed;
   z-index: 10;
   top: 48px;
