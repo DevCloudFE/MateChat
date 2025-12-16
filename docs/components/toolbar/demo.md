@@ -203,10 +203,9 @@ const handleItemClick = (item, event) => {
       操作栏组件单独使用
       <div class="demo-toolbar-basic">
         <McCopyIcon text="复制的内容" class="copy-class" />
-        <McLikeIcon style="color: #FFCC80;" :is-active="true" @active-change="activeChange" @click="likeClick"/>
-        <McDislikeIcon :is-active="false" />
+        <McLikeIcon class="like-color" :is-active="likeActive" @active-change="activeChange" @click="likeClick"/>
+        <McDislikeIcon :is-active="dislikeActive" @active-change="dislikeActiveChange" />
         <McShareIcon :width="size" :height="size" />
-        <McDeleteIcon style="color: red;" />
       </div>
     </McBubble>
     <McBubble
@@ -241,6 +240,8 @@ const typingOptions4 = {
   interval: 200,
   step: 2,
 };
+const likeActive = ref(true);
+const dislikeActive = ref(false);
 
 const content1 = ref('');
 let interval;
@@ -321,8 +322,17 @@ function likeClick(e) {
   console.log('like点击事件', e);
 }
 
+// 单独使用like和dislike组件的情况下手动控制两个组件的互斥行为
 function activeChange(isActive) {
   console.log('activeChange', isActive);
+  likeActive.value = isActive;
+  dislikeActive.value = false;
+}
+
+function dislikeActiveChange(isActive) {
+    console.log('dislikeActiveChange', isActive);
+    dislikeActive.value = isActive;
+    likeActive.value = false;
 }
 
 const typingEnd = () => {
@@ -353,6 +363,10 @@ onMounted(() => {
 <style scoped>
 .copy-class {
   color: green;
+}
+// like 和 dislike 激活状态下组件会添加 .mc-action-item-active 属性，可单独修改激活状态下的颜色
+.like-color.mc-action-item-active {
+    color: #FFCC80;
 }
 </style>
 ```
