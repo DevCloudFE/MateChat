@@ -364,7 +364,7 @@ onMounted(() => {
 .copy-class {
   color: green;
 }
-// like 和 dislike 激活状态下组件会添加 .mc-action-item-active 属性，可单独修改激活状态下的颜色
+/* like 和 dislike 激活状态下组件会添加 .mc-action-item-active 属性，可单独修改激活状态下的颜色 */
 .like-color.mc-action-item-active {
     color: #FFCC80;
 }
