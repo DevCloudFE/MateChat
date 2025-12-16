@@ -17,7 +17,6 @@ iconSrc: "/textareaIcon.png"
     <McBubble
       :content="content"
       :avatarConfig="{ imgSrc: '/logo.svg' }"
-      variant="bordered"
     >
       <template #bottom>
           <McToolbar :items="basicItems" style="margin-top: 8px;" @onClick="handleItemClick" />
@@ -89,7 +88,6 @@ const handleItemClick = (item, event) => {
     <McBubble
       content="Hello MateChat"
       :avatarConfig="{ imgSrc: '/logo.svg' }"
-      variant="bordered"
     >
       <template #bottom>
         <McToolbar
@@ -160,9 +158,9 @@ const handleItemClick = (item, event) => {
 import { ref, computed } from "vue";
 import RecoverSvg from "./recover.svg";
 
-const switchValue = ref(true);
+const switchValue = ref(false);
 const variantValue = computed(() => {
-  return switchValue.value ? 'bordered' : 'none'
+  return switchValue.value ? 'bordered' : 'filled'
 });
 
 const basicItems = [
@@ -201,7 +199,7 @@ const handleItemClick = (item, event) => {
 
 ```vue
 <template>
-    <McBubble :content="'Hello MateChat'" :align="'right'" :avatarConfig="{ imgSrc: '/png/demo/userAvatar.svg' }" variant="bordered">
+    <McBubble :content="'Hello MateChat'" :align="'right'" :avatarConfig="{ imgSrc: '/png/demo/userAvatar.svg' }">
       操作栏组件单独使用
       <div class="demo-toolbar-basic">
         <McCopyIcon text="复制的内容" class="copy-class" />
@@ -214,9 +212,8 @@ const handleItemClick = (item, event) => {
     <McBubble
       content="Hello MateChat"
       :avatarConfig="{ imgSrc: '/logo.svg' }"
-      variant="bordered"
+      style="margin-top: 20px;"
     >
-      <McBubble :variant="'bordered'">
         <McMarkdownCard
           :content="content1"
           :theme="theme"
@@ -224,7 +221,6 @@ const handleItemClick = (item, event) => {
           :typingOptions="typingOptions4"
           @typingEnd="typingEnd"
         ></McMarkdownCard>
-      </McBubble>
         <McToolbar
           v-if="streamEnd"
           :items="basicItems"
