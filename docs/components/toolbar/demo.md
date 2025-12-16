@@ -37,6 +37,11 @@ const basicItems = [
     text: content.value,
   },
   {
+    key: "refresh",
+    icon: "refresh",
+    label: "重新回答",
+  },
+  {
     key: "like",
     icon: "like",
     label: "点赞",
@@ -52,19 +57,14 @@ const basicItems = [
     isActive: false,
   },
   {
-    key: "share",
-    icon: "share",
-    label: "分享",
-  },
-  {
     key: "delete",
     icon: "delete",
     label: "删除",
   },
   {
-    key: "refresh",
-    icon: "refresh",
-    label: "刷新",
+    key: "share",
+    icon: "share",
+    label: "分享",
   },
 ];
 
@@ -140,8 +140,8 @@ const handleItemClick = (item, event) => {
     >
       <template #bottom>
         <McToolbar :items="basicItems" style="margin-top: 8px;" @onClick="handleItemClick">
-            <template #recover-icon="{ actionData }">
-                <img :src="RecoverSvg" :title="actionData.label" />
+            <template #download-icon="{ actionData }">
+                <i class="icon icon-download-2" style="font-size: 16px;" />
             </template>
             <template #switch>
               <d-tooltip content="开启边框">
@@ -156,7 +156,6 @@ const handleItemClick = (item, event) => {
 
 <script setup>
 import { ref, computed } from "vue";
-import RecoverSvg from "./recover.svg";
 
 const switchValue = ref(false);
 const variantValue = computed(() => {
@@ -171,15 +170,14 @@ const basicItems = [
     text: "复制内容 copy value",
   },
   {
-    key: "recover",
-    label: "重试",
+    key: "download",
+    label: "下载",
     onClick: (actionData) => {
-      console.log('recover 点击事件', actionData);
+      console.log('download 点击事件', actionData);
     }
   },
   {
     key: "switch",
-    label: "重试",
   },
 ];
 
