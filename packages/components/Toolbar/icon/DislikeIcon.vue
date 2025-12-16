@@ -1,5 +1,9 @@
 <template>
-  <div class="mc-action-item" @click="handleClick">
+  <div
+    class="mc-action-item"
+    :class="{ 'mc-action-item-active': active }"
+    @click="handleClick"
+  >
     <svg
       v-if="active"
       :width="width"
