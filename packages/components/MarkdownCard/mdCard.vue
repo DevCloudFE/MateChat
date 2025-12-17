@@ -343,6 +343,7 @@ defineExpose({ mdt });
 
 :deep(.mc-table-container) {
   max-width: 100%;
+  width: fit-content;
   overflow-x: auto;
 }
 :deep(.mc-think-block) {
