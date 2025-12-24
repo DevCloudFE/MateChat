@@ -10,7 +10,7 @@ import { useMcI18n, McLocale } from './Locale';
 import { McMarkdownCard } from './MarkdownCard';
 import { McMention } from './Mention';
 import { McPrompt } from './Prompt';
-import { McToolbar, McCopyIcon, McDeleteIcon, McLikeIcon, McRefreshIcon, McShareIcon } from './Toolbar';
+import { McToolbar, McCopyIcon, McDeleteIcon, McLikeIcon, McDislikeIcon, McRefreshIcon, McShareIcon } from './Toolbar';
 
 const installs = [
   McAttachment,
@@ -50,6 +50,7 @@ export {
   McCopyIcon,
   McDeleteIcon,
   McLikeIcon,
+  McDislikeIcon,
   McRefreshIcon,
   McShareIcon
 };
