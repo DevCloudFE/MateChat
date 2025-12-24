@@ -24,6 +24,7 @@ export {
   McCopyIcon,
   McDeleteIcon,
   McLikeIcon,
+  McDislikeIcon,
   McRefreshIcon,
   McShareIcon,
 };
