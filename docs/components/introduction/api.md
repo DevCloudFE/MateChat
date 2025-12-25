@@ -9,6 +9,8 @@ bannerSrc: '/introductionBanner.png'
 | 参数名      | 类型                                              | 默认值        | 说明             |
 | ----------- | ------------------------------------------------- | ------------- | ---------------- |
 | logoImg     | `string`                                          | ''            | 介绍页 logo 链接 |
+| logoWidth   | `string \| number`                                | ''            | logo 图片宽度    |
+| logoHeight  | `string \| number`                                | ''            | logo 图片高度    |
 | title       | `string`                                          | ''            | 介绍页标题       |
 | subTitle    | `string`                                          | ''            | 介绍页副标题     |
 | description | `string[]`                                        | []            | 介绍内容         |

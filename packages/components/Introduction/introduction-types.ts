@@ -9,6 +9,14 @@ export const props = {
     type: String,
     default: '',
   },
+  logoWidth: {
+    type: [String, Number],
+    default: '',
+  },
+  logoHeight: {
+    type: [String, Number],
+    default: '',
+  },
   title: {
     type: String,
     default: '',

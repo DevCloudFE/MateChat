@@ -79,6 +79,7 @@ const description = [
 }
 </style>
 ```
+
 :::
 
 ### 设置不同的文字对齐方式
@@ -115,4 +116,3 @@ const description = [
 ```
 
 :::
-

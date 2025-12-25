@@ -1,7 +1,7 @@
 <template>
   <div class="mc-introduction" :class="[align, background]">
     <div class="mc-introduction-logo-container">
-      <img v-if="logoImg" :src="logoImg" :alt="title" />
+      <img v-if="logoImg" :src="logoImg" :alt="title" :style="{ width: typeof logoWidth === 'number' ? `${logoWidth}px` : logoWidth, height: typeof logoHeight === 'number' ? `${logoHeight}px` : logoHeight }" />
       <div class="mc-introduction-title">{{ title }}</div>
     </div>
     <div v-if="subTitle" class="mc-introduction-sub-title">{{ subTitle }}</div>

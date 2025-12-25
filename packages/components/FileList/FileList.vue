@@ -325,26 +325,26 @@ const handleDownload = (file: FileItem, event: Event) => {
       </div>
       </div>
     </div>
-  </div>
-  <teleport to="body">
-    <transition name="mc-file-preview-fade">
-      <div v-if="isPreviewVisible && previewFile" class="mc-file-preview__overlay" @click.self="isPreviewVisible = false">
-        <!-- 图片预览 -->
-        <img v-if="getPreviewType(previewFile) === 'image'" :src="previewFile.thumbUrl || previewFile.url" :alt="previewFile.name" class="mc-file-preview__content" />
-        <!-- 视频预览 -->
-        <video v-else-if="getPreviewType(previewFile) === 'video'" :src="previewFile.url" controls class="mc-file-preview__content"></video>
-        <!-- PDF 和 文本文件预览 (使用 iframe) -->
-        <iframe v-else-if="getPreviewType(previewFile) === 'iframe'" :src="previewFile.url" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
-        <!-- 其他文件类型的占位符 -->
-        <div v-else class="mc-file-preview__unsupported">
-          <span>{{ t('FileList.unsupportedPreview', { fileName: previewFile.name }) }}</span>
-          <span class="mc-file-preview__unsupported-tip">{{ t('FileList.tryDownload') }}</span>
+    <teleport to="body">
+      <transition name="mc-file-preview-fade">
+        <div v-if="isPreviewVisible && previewFile" class="mc-file-preview__overlay" @click.self="isPreviewVisible = false">
+          <!-- 图片预览 -->
+          <img v-if="getPreviewType(previewFile) === 'image'" :src="previewFile.thumbUrl || previewFile.url" :alt="previewFile.name" class="mc-file-preview__content" />
+          <!-- 视频预览 -->
+          <video v-else-if="getPreviewType(previewFile) === 'video'" :src="previewFile.url" controls class="mc-file-preview__content"></video>
+          <!-- PDF 和 文本文件预览 (使用 iframe) -->
+          <iframe v-else-if="getPreviewType(previewFile) === 'iframe'" :src="previewFile.url" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
+          <!-- 其他文件类型的占位符 -->
+          <div v-else class="mc-file-preview__unsupported">
+            <span>{{ t('FileList.unsupportedPreview', { fileName: previewFile.name }) }}</span>
+            <span class="mc-file-preview__unsupported-tip">{{ t('FileList.tryDownload') }}</span>
+          </div>
+          <!-- 关闭按钮 -->
+          <button class="mc-file-preview__close-btn" @click="isPreviewVisible = false" :title="t('FileList.close')">✕</button>
         </div>
-        <!-- 关闭按钮 -->
-        <button class="mc-file-preview__close-btn" @click="isPreviewVisible = false" :title="t('FileList.close')">✕</button>
-      </div>
-    </transition>
-  </teleport>
+      </transition>
+    </teleport>
+  </div>
 </template>
 
 <style lang="scss">
