@@ -1,0 +1,19 @@
+name: Npm build
+on:
+  push:
+    branches: [ "feat-workflow-zjl" ]
+  pull_request:
+    branches: [ "feat-workflow-zjl" ]
+
+jobs:
+  build:
+    runs-on: euleros-2.10.1
+    steps:
+      - uses: checkout-action@0.0.1
+      - name: Use Node.js
+        uses: setup-node@0.0.1
+        with:
+          node-version: '20.10.0'
+      - run: cd repo_workspace && npm ci
+      - run: cd repo_workspace && npm run build --if-present
+      - run: cd repo_workspace && npm test
