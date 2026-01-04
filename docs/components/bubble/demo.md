@@ -169,7 +169,7 @@ const userAvatarTop = {
     <McBubble content="Hello MateChat" align="right" avatarPosition="top">
       <template #avatar>
         <div class="demo-container" style="gap: 0; align-items: center;">
-          <img src="/png/demo/userAvatar.svg" style="{ width: 40px; height: 40px; }" />
+          <img src="/png/demo/userAvatar.svg" style="width: 40px; height: 40px;" />
           <span>User</span>
         </div>
       </template>
@@ -177,7 +177,7 @@ const userAvatarTop = {
     <McBubble :content="'Hello, what can I do for you?'" :avatarConfig="modelAvatar">
       <template #avatar>
         <div class="demo-container" style="gap: 0;">
-          <img src="/logo.svg" style="{ width: 40px; height: 40px; }" />
+          <img src="/logo.svg" style="width: 40px; height: 40px;" />
           <span>MateChat</span>
         </div>
       </template>
