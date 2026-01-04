@@ -1,9 +1,9 @@
 name: Npm build
 on:
   push:
-    branches: [ "feat-workflow-zjl" ]
+    branches: [ "MateChat-patch-1" ]
   pull_request:
-    branches: [ "feat-workflow-zjl" ]
+    branches: [ "MateChat-patch-1" ]
 
 jobs:
   build:
