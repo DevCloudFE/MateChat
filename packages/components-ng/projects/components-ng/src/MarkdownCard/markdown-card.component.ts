@@ -1,4 +1,4 @@
-import { DiffDOM } from 'diff-dom';
+import morphdom from 'morphdom';
 import {
   Component,
   Input,
@@ -40,7 +40,6 @@ export class MarkdownCardComponent
   extends BaseComponent<MarkdownCardFoundation>
   implements OnInit, OnChanges, OnDestroy
 {
-  private diffDom: DiffDOM;
   @Input() content: string = '';
   @Input() typing: boolean = false;
   @Input() enableThink: boolean = false;
@@ -51,6 +50,7 @@ export class MarkdownCardComponent
   @Input() customXssRules: MarkdownCardProps['customXssRules'] = [];
   @Input() theme: 'light' | 'dark' | any = 'light';
   @Input() enableMermaid: boolean = false;
+  @Input() incrementalDom: boolean = true;
   @Input() mermaidConfig: MarkdownCardProps['mermaidConfig'] = {};
   @Input() actionsTemplate: TemplateRef<any> | null = null;
   @Input() headerTemplate: TemplateRef<any> | null = null;
@@ -63,6 +63,7 @@ export class MarkdownCardComponent
   > = new Map();
 
   @Output() afterMdtInit = new EventEmitter<markdownit>();
+  @Output() mdRenderChange = new EventEmitter<string>();
   @Output() typingStart = new EventEmitter<void>();
   @Output() typingEvent = new EventEmitter<void>();
   @Output() typingEnd = new EventEmitter<void>();
@@ -76,7 +77,6 @@ export class MarkdownCardComponent
   timer: number | null = null;
   parser = MdParserUtils;
   mdCardService: MDCardService;
-  noDiff: boolean = false;
 
   constructor(private renderer: Renderer2, public cdr: ChangeDetectorRef) {
     super();
@@ -92,24 +92,6 @@ export class MarkdownCardComponent
     });
     this.mdCardService = new MDCardService();
     this.foundation = new MarkdownCardFoundation(this.adapter);
-
-    // 初始化 diffDom 实例
-    this.diffDom = new DiffDOM({
-      // 配置filterOuterDiff钩子，识别code-block-wrapper元素并直接替换
-      filterOuterDiff: (t1, t2, diffs) => {
-        // 检查是否是class为code-block-wrapper的div元素
-        const isTargetElement =
-          t2.nodeName === 'DIV' &&
-          t2.attributes &&
-          t2.attributes.class &&
-          t2.attributes.class.includes('code-block-wrapper');
-
-        if (isTargetElement) {
-          t1.innerDone = true;
-          t2.innerDone = true;
-        }
-      },
-    });
   }
 
   ngOnInit(): void {
@@ -139,29 +121,41 @@ export class MarkdownCardComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['content']) {
-      if (!this.typing) {
-        this.typingIndex = this.content?.length || 0;
-        this.parseContent();
-      }
-      if (this.content.indexOf(changes['content']?.previousValue) === -1) {
-        this.typingIndex = 0;
-      }
-      // 使用setTimeout模拟Vue的nextTick行为
-      setTimeout(() => this.typewriterStart());
+      this.contentChange(changes['content']);
     }
 
-    if (changes['customXssRules']) {
+    if (changes['customXssRules'] && !changes['customXssRules'].firstChange) {
       this.mdCardService.setCustomXssRules(this.customXssRules || []);
       this.parseContent();
     }
 
-    if (changes['enableThink'] || changes['thinkOptions'] || changes['theme']) {
+    if (
+      (changes['enableThink'] && !changes['enableThink'].firstChange) ||
+      (changes['thinkOptions'] && !changes['thinkOptions'].firstChange) ||
+      (changes['theme'] && !changes['theme'].firstChange)
+    ) {
       this.parseContent();
     }
 
-    if (changes['mdPlugins']) {
+    if (changes['mdPlugins'] && !changes['mdPlugins'].firstChange) {
       this.mdCardService.setMdPlugins(this.mdPlugins || [], this.mdt);
       this.parseContent();
+    }
+  }
+
+  contentChange(change) {
+    if (this.content?.indexOf(change.previousValue) === -1) {
+      this.clearCodeBlockCache();
+    }
+    if (!this.typing) {
+      this.typingIndex = this.content?.length || 0;
+      this.parseContent();
+    } else {
+      if (this.content?.indexOf(change.previousValue) === -1) {
+        this.typingIndex = 0;
+      }
+      // 使用setTimeout模拟Vue的nextTick行为
+      setTimeout(() => this.typewriterStart());
     }
   }
 
@@ -174,7 +168,7 @@ export class MarkdownCardComponent
       return;
     }
 
-    if (this.noDiff) {
+    if (!this.incrementalDom) {
       this.renderContentNoDiff(vnodes);
       return;
     }
@@ -182,12 +176,7 @@ export class MarkdownCardComponent
     const container = this.markdownContainer.element.nativeElement;
     const parser = new DOMParser();
     const newContainerDiv = parser.parseFromString(`<div></div>`, 'text/html');
-    const codeBlockWrappers = vnodes.filter((node) => {
-      return (
-        node.nodeName === 'DIV' &&
-        node.className?.includes('code-block-wrapper')
-      );
-    });
+    const codeBlockWrappers = this.parser.findCodeBlockWrappers(vnodes);
 
     vnodes.forEach((node) => {
       if (
@@ -197,7 +186,9 @@ export class MarkdownCardComponent
           node instanceof HTMLElement)
       ) {
         if (codeBlockWrappers.includes(node)) {
-          newContainerDiv.body.firstChild?.appendChild(this.getEmptyCodeBlock(node));
+          newContainerDiv.body.firstChild?.appendChild(
+            this.getEmptyCodeBlock(node)
+          );
         } else {
           newContainerDiv.body.firstChild?.appendChild(node);
         }
@@ -205,8 +196,26 @@ export class MarkdownCardComponent
     });
     let newContainerDivHTML =
       (newContainerDiv.body?.firstChild as HTMLElement)?.outerHTML || '';
-    const patches = this.diffDom.diff(container, this.mdCardService.filterHtml(newContainerDivHTML));
-    this.diffDom.apply(container, patches);
+    const filteredHTML = this.mdCardService.filterHtml(newContainerDivHTML);
+
+    // 使用morphdom进行DOM更新
+    const newElement = document.createElement('div');
+    newElement.innerHTML = filteredHTML;
+    morphdom(container, filteredHTML, {
+      onBeforeElUpdated: (fromEl, toEl) => {
+        if (
+          fromEl.nodeName === 'DIV' &&
+          fromEl.classList.contains('code-block-wrapper') &&
+          toEl.nodeName === 'DIV' &&
+          toEl.classList.contains('code-block-wrapper') &&
+          fromEl.getAttribute('key') === toEl.getAttribute('key') &&
+          this.codeBlockComponentsCache.has(fromEl.getAttribute('key') || '')
+        ) {
+          return false;
+        }
+        return true;
+      },
+    });
     // 将codeBlockWrappers中的每个div元素替换container中的对应key属性的元素
     codeBlockWrappers.forEach((newCodeBlock) => {
       if (
@@ -219,12 +228,15 @@ export class MarkdownCardComponent
         if (
           existingElement &&
           newCodeBlock instanceof HTMLElement &&
-          existingElement !== newCodeBlock
+          existingElement !== newCodeBlock &&
+          newCodeBlock?.firstChild
         ) {
-          existingElement.replaceWith(newCodeBlock);
+          MdParserUtils.clearElementChildren(existingElement);
+          existingElement.appendChild(newCodeBlock?.firstChild);
         }
       }
     });
+    this.mdRenderChange.emit(newContainerDivHTML);
   }
 
   private getEmptyCodeBlock(node) {
@@ -495,12 +507,15 @@ export class MarkdownCardComponent
     this.foundation.typewriterStart();
   }
 
-  // 在组件销毁时清理缓存，避免内存泄漏
-  override ngOnDestroy(): void {
-    // 销毁所有缓存的组件实例
+  clearCodeBlockCache() {
     this.codeBlockComponentsCache.forEach((cachedItem) => {
       cachedItem.componentRef.destroy();
     });
     this.codeBlockComponentsCache.clear();
+  }
+
+  // 在组件销毁时清理缓存，避免内存泄漏
+  override ngOnDestroy(): void {
+    this.clearCodeBlockCache();
   }
 }
