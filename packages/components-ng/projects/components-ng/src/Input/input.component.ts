@@ -90,7 +90,7 @@ export class InputComponent extends BaseComponent<InputFoundation> implements On
   ngOnInit() {
     this.foundation = new InputFoundation(this.adapter);
     this.foundation.init();
-    this.inputValue = this.value;
+    this.inputValue = this.value || '';
   }
 
   override get adapter(): InputAdapter {
