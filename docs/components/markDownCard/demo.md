@@ -586,13 +586,11 @@ onMounted(() => {
 $ npm install mermaid
 ```
 
-2. 通过配置md-plugins Mermaid插件，进行Mermaid图渲染。
-
 :::demo
 
 ```vue
 <template>
-  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme"></McMarkdownCard>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -1204,6 +1202,50 @@ body[ui-theme='infinity-theme'] {
   }
 }
 </style>
+```
+
+:::
+### 表格展示
+
+:::demo
+
+```vue
+<template>
+  <McMarkdownCard :content="content" :theme="theme" />
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+let themeService;
+const theme = ref('light');
+const content = ref(`**以下是正常显示的表格：**
+
+| 标题1 | 标题2 | 标题3 |
+|:-------|:--------|:-------|
+| 表格数据内容1  | 表格数据内容2    | 表格数据内容3  |
+
+**以下是内容超长的表格：**
+
+| 标题1 | 标题2 | 标题3 |
+|:-------|:--------|:-------|
+| 这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长  | 表格数据内容2    | 这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长这段内容很长   |
+`);
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  if(typeof window !== 'undefined'){
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
+</script>
 ```
 
 :::

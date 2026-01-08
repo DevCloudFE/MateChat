@@ -13,7 +13,10 @@ export default {
     },
     {
       text: '会话',
-      items: [{ text: 'Bubble 气泡', link: '/components/bubble/demo' }],
+      items: [
+        { text: 'Bubble 气泡', link: '/components/bubble/demo' },
+        { text: 'Toolbar 工具栏', link: '/components/toolbar/demo' },
+      ],
     },
     {
       text: '输入',
@@ -29,6 +32,7 @@ export default {
         { text: 'Layout 布局', link: '/components/layout/demo' },
         { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
         { text: 'FileList 文件列表', link: '/components/fileList/demo' },
+        { text: 'Attachment 附件', link: '/components/attachment/demo' },
       ],
     },
   ],
@@ -74,7 +78,8 @@ export default {
           ],
         },
       ],
-    },   {
+    },
+    {
       text: '演进中',
       items: [
         {
@@ -92,7 +97,7 @@ export default {
           ],
         },
       ],
-    }
+    },
   ],
   '/design/': [
     { text: '介绍', link: '/design/intro' },
@@ -104,9 +109,7 @@ export default {
       ],
     },
   ],
-    '/use-guide-ng/': [
-      { text: '快速开始', link: '/use-guide-ng/introduction' }
-    ],
+  '/use-guide-ng/': [{ text: '快速开始', link: '/use-guide-ng/introduction' }],
   '/use-guide/': [
     // { text: '更新日志', link: '/use-guide/changelog' },
     { text: '快速开始', link: '/use-guide/introduction' },

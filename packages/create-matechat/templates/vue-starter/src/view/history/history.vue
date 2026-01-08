@@ -86,6 +86,7 @@ const onHistoryClick = (e: IHistoryItem) => {
   chatHistoryStore.setActiveHistoryId(e.chatId);
   chatStatusStore.currentChatId = e.chatId;
   chatMessageStore.messages = e.messages;
+  chatStatusStore.startChat = true;
 };
 const onHistoryDelete = (e: IHistoryItem) => {
   chatHistoryStore.deleteHistory(e.chatId);
