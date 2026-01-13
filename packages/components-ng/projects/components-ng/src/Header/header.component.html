@@ -1,0 +1,9 @@
+<div class="mc-header">
+  <div class="mc-header-logo-container" [class]="{ clickable: logoClickable }" (click)="onLogoClicked()">
+    <img *ngIf="logoImg" class="mc-header-logo" [src]="logoImg" [alt]="logoImg" />
+    <div class="mc-header-title">{{ title }}</div>
+  </div>
+  <div class="mc-header-operation">
+    <ng-content select="[operationArea]"></ng-content>
+  </div>
+</div>

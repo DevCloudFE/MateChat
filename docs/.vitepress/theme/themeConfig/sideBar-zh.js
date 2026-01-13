@@ -38,6 +38,29 @@ export default {
   ],
   '/components-ng/': [
     {
+      text: '布局',
+      items: [
+        {
+          text: 'Header 头部',
+          link: '/components-ng/header/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/components-ng/header/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/components-ng/header/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/header/api.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
       text: '会话',
       items: [
         {
