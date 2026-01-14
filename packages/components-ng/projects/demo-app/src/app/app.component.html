@@ -1,6 +1,32 @@
 <div style="padding: 20px">
   <h1>组件演示</h1>
   <p>这是我们的Angular组件库演示应用</p>
+  <div *ngIf="false" #input>
+    <mc-input [value]="inputValue" placeholder="点击左侧图标上传附件...">
+      <!-- 2. 附件上传器放置在 extra 插槽 -->
+      <ng-template #extra>
+        <div class="input-foot-left">
+          <mc-attachment
+            [draggable]="true"
+            [uploadOptions]="uploadOptions"
+            accept="image/*"
+            :max-size="0.5"
+            (success)="handleSuccess($event)"
+            (error)="handleError($event)"
+            [multiple]="true"
+            dropPlaceholder="请放置到此处"
+            [getDropContainer]="dropContainer"
+            [beforeUpload]="handleBeforeUpload"
+            (validChange)="onValidChange($event)"
+          >
+            <div class="input-prefix-wrap">
+              <i class="icon-appendix"></i>
+            </div>
+          </mc-attachment>
+        </div>
+      </ng-template>
+    </mc-input>
+  </div>
   <div *ngIf="false">
     <div class="demo-container">
       <mc-bubble [content]="'Hello MateChat'"></mc-bubble>

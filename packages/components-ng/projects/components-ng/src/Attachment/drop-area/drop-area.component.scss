@@ -1,16 +1,5 @@
 @import "devui-theme/styles-var/devui-var.scss";
-.mc-attachment {
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
 
-  // 隐藏原生的 input 元素
-  .mc-attachment-file {
-    display: none;
-  }
-}
-
-// 拖拽上传弹窗样式
 .mc-attachment-drop-area {
   position: fixed;
   padding: 20px 40px;
@@ -25,4 +14,8 @@
   backdrop-filter: blur(10px);
   z-index: 9999;
   box-sizing: border-box;
+
+  &.hide-drop-area {
+    display: none;
+  }
 }
