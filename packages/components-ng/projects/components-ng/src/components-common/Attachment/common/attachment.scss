@@ -1,0 +1,11 @@
+@import "devui-theme/styles-var/devui-var.scss";
+.mc-attachment {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+
+  // 隐藏原生的 input 元素
+  .mc-attachment-file {
+    display: none;
+  }
+}

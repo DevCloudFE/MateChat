@@ -2,8 +2,7 @@
   <Teleport to="body">
     <div
       ref="dropAreaEl"
-      v-show="isDragging"
-      class="mc-attachment-drop-area"
+      :class="['mc-attachment-drop-area', !isDragging && 'hide-drop-area']"
       @drop="handleDrop"
     >
       <slot />
@@ -103,3 +102,7 @@ onBeforeUnmount(() => {
   document.body.removeEventListener("drop", onBodyDrop);
 });
 </script>
+
+<style lang="scss">
+@use "@matechat/common/Attachment/common/drop-area.scss";
+</style>
