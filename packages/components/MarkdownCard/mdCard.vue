@@ -20,6 +20,7 @@ import { mdCardProps } from './mdCard.types';
 import { type CodeBlockSlot, defaultTypingConfig, type ASTNode } from '@matechat/common/MarkdownCard/common/mdCard.types';
 import { htmlToVNode } from './MDCardParser';
 import { tokensToAst, isValidTagName } from '@matechat/common/MarkdownCard/common/parser';
+import { useMarkdownCardFoundation } from './useMarkdownCardFoundation';
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -42,6 +43,11 @@ const mdt: MarkdownIt = markdownit({
   ...props.mdOptions,
 });
 
+const { foundation } = useMarkdownCardFoundation({
+  props,
+  emit,
+});
+
 const typingIndex = ref(0)
 const isTyping = ref(false)
 
@@ -61,10 +67,7 @@ const parseContent = () => {
   }
 
   if (props.enableThink) {
-    const thinkClass = props.thinkOptions?.customClass || 'mc-think-block';
-    content = content
-        ?.replace('<think>', `<div class="${thinkClass}">`)
-        .replace('</think>', '</div>') || '';
+    content = foundation.getThinkContent(content, props.thinkOptions);
   }
   const tokens = mdt.parse(content, {});
   const ast = tokensToAst(tokens);
