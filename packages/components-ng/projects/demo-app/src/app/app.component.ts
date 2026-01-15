@@ -18,6 +18,9 @@ import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-
 import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
 import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
 import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
+import { MentionComponent } from '../../../components-ng/src/Mention';
+import { BasicDemoComponent } from './demo/MentionDemo/basic-demo/basic-demo.component';
+import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/custom-style-demo.component';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +42,9 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
     MarkdownMathDemoComponent,
     MarkdownHeaderDemoComponent,
     MarkdownPlantumlDemoComponent,
+    MentionComponent,
+    BasicDemoComponent,
+    CustomStyleDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

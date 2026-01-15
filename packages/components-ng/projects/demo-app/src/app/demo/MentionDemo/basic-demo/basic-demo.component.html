@@ -1,0 +1,34 @@
+<div class="basic-demo-container">
+  <h3>基本用法</h3>
+  <p>通过`modelValue`控制组件的展开收起。</p>
+  <p>通过`prefix`传入触发组件显示的前缀符。</p>
+  <p>监听`searchChange`事件，获取触发组件显示的前缀符、前缀符的位置、光标位置等数据。</p>
+
+  <div class="demo-content">
+    <mc-mention
+      [modelValue]="isVisible"
+      (updateModelValue)="isVisible = $event"
+      [prefix]="prefix"
+      (searchChange)="onSearchChange($event)"
+      (toggleChange)="onToggleChange($event)"
+    >
+      <mc-input 
+        #inputRef 
+        [value]="inputValue" 
+        (change)="onInputChange($event)"
+        placeholder="输入/@ 触发提及功能"
+      ></mc-input>
+      <div slot="menu" class="mention-menu">
+        <ul class="mention-list">
+          <li 
+            *ngFor="let item of listData" 
+            class="mention-item"
+            (click)="onListSelect(item)"
+          >
+            {{ item.label }}
+          </li>
+        </ul>
+      </div>
+    </mc-mention>
+  </div>
+</div>

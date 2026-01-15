@@ -1,0 +1,33 @@
+<div class="custom-style-demo-container">
+  <h3>自定义样式</h3>
+  <p>组件宽度默认和宿主宽度保持一致，将`fitHostWidth`参数设置为`false`，组件根据`menu`插槽的内容自适应宽度；通过`menuClass`可自定义组件的样式。</p>
+
+  <div class="demo-content">
+    <mc-mention 
+      [modelValue]="isVisible" 
+      (updateModelValue)="isVisible = $event" 
+      [prefix]="prefix" 
+      [fitHostWidth]="false" 
+      menuClass="custom-mention-menu" 
+      (searchChange)="onSearchChange($event)"
+    >
+      <mc-input 
+        #inputRef 
+        [value]="inputValue" 
+        (change)="onInputChange($event)"
+        placeholder="输入/ 触发提及功能"
+      ></mc-input>
+      <div slot="menu" class="mention-menu">
+        <ul class="mention-list">
+          <li 
+            *ngFor="let item of listData" 
+            class="mention-item"
+            (click)="onListSelect(item)"
+          >
+            {{ item.label }}
+          </li>
+        </ul>
+      </div>
+    </mc-mention>
+  </div>
+</div>

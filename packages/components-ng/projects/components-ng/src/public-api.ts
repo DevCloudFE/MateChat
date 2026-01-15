@@ -6,3 +6,4 @@ export * from './Bubble/index';
 export * from './Input/index';
 export * from './Locale/index';
 export * from './MarkdownCard/index';
+export * from './Mention/index';

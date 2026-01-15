@@ -1,9 +1,7 @@
 import type { ExtractPropTypes, PropType } from 'vue';
+import type { Trigger, SearchChangeEvent } from '@matechat/common/Mention/common/mention-types';
 
-export interface Trigger {
-  key: string;
-  onlyInputStart?: boolean;
-}
+export type { Trigger, SearchChangeEvent };
 
 export const mentionProps = {
   modelValue: {
@@ -20,6 +18,10 @@ export const mentionProps = {
   },
   menuClass: {
     type: String,
+  },
+  optionsCount: {
+    type: Number,
+    default: 0,
   },
 };
 export type MentionProps = ExtractPropTypes<typeof mentionProps>;

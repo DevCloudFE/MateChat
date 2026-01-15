@@ -1,0 +1,53 @@
+.custom-style-demo-container {
+  padding: 20px;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.demo-content {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+/* 自定义菜单样式 */
+.custom-mention-menu {
+  width: 200px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mention-menu {
+  background: white;
+  border-radius: 4px;
+}
+
+.mention-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mention-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e8e8e8;
+  }
+}

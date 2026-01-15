@@ -1,8 +1,6 @@
-import { onMounted, ref, reactive, watch, nextTick, onBeforeUnmount } from 'vue';
-import { computePosition, offset } from '@floating-ui/dom';
-import { debounce, isObject } from 'lodash-es';
+import { onMounted, ref, reactive, watch, nextTick, onUnmounted } from 'vue';
 import type { MentionProps } from './mention-types';
-import { MentionSeparator, ArrowLeft, ArrowRight, Escape } from './const';
+import { MentionFoundation } from '@matechat/common/Mention/foundation';
 
 export function useMention(props: MentionProps, emits: (event: string, ...args: any[]) => void) {
   const popperTriggerEl = ref();
@@ -10,169 +8,113 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
   const overlayEl = ref<HTMLElement>();
   const overlayStyle = reactive({ top: '0px', left: '0px', width: '' });
   let inputEl: HTMLInputElement | HTMLTextAreaElement | null;
-  let currentTrigger: string | null; // 当前匹配到的trigger
-  let currentTriggerPos: number; // 当前匹配到的trigger的位置
-  let cursorPos: number; // 光标的位置
-  let inputValue: string = ''; // trigger到光标位置的字符串
-  let leftRightTimer: ReturnType<typeof setTimeout> | undefined = undefined;
-  let originObserver: ResizeObserver;
+  let mentionFoundation: MentionFoundation;
 
-  const updatePosition = async () => {
-    if (!originEl.value || !overlayEl.value) {
-      return;
-    }
-    const { x, y } = await computePosition(originEl.value, overlayEl.value, {
-      strategy: 'fixed',
-      placement: 'top-start',
-      middleware: [offset(4)],
-    });
-    overlayStyle.top = `${y}px`;
-    overlayStyle.left = `${x}px`;
-  };
-
-  const updateOverlayWidth = () => {
-    const { width } = originEl.value.getBoundingClientRect();
-    overlayStyle.width = `${width}px`;
-    updatePosition();
-  };
-
-  const observeOrigin = () => {
-    if (props.fitHostWidth && typeof window !== 'undefined') {
-      if (originEl.value) {
-        originObserver = new window.ResizeObserver(updateOverlayWidth);
-        originObserver.observe(originEl.value);
-      }
-    }
-  };
-
-  const unobserveOrigin = () => {
-    if (originEl.value) {
-      originObserver?.unobserve(originEl.value);
-    }
-  };
+  // 创建foundation实例
+  mentionFoundation = new MentionFoundation({
+    getProp: () => {},
+    getProps: () => ({
+      modelValue: props.modelValue,
+      prefix: props.prefix,
+      fitHostWidth: props.fitHostWidth,
+      optionsCount: props.optionsCount
+    }),
+    getState: () => {},
+    getStates: () => {},
+    setState: () => {},
+    getCache: () => {},
+    getCaches: () => {},
+    setCache: () => {},
+    nextTick: (cb) => cb(),
+    updateModelValue: (val) => emits('update:modelValue', val),
+    searchChange: (event) => emits('searchChange', event),
+    activeIndexChange: () => {}, // Vue版本暂时不支持activeIndex
+    toggleChange: (val) => emits('toggleChange', val)
+  });
 
   watch(
     () => props.modelValue,
     (val: boolean, oldVal) => {
-      if (val) {
-        nextTick(updatePosition);
-        observeOrigin();
-        typeof window !== 'undefined' && window.addEventListener('scroll', scrollCallback, true);
-      } else {
-        unobserveOrigin();
-        typeof window !== 'undefined' && window.removeEventListener('scroll', scrollCallback, true);
-      }
+      // 更新foundation的modelValue
+      mentionFoundation.updateOptions({ modelValue: val });
       if (oldVal !== undefined) {
         emits('toggleChange', val);
+      }
+      // 当弹窗显示时，更新位置
+      if (val) {
+        nextTick(() => {
+          // 确保overlayEl已被设置到foundation中
+          if (overlayEl.value) {
+            mentionFoundation.setOverlayEl(overlayEl.value);
+          }
+          updatePosition();
+        });
       }
     },
     { immediate: true },
   );
 
-  const resetTriggerData = () => {
-    currentTrigger = null;
-    currentTriggerPos = -1;
-    cursorPos = -1;
-    inputValue = '';
-  };
+  // 监听prefix变化
+  watch(
+    () => props.prefix,
+    (newPrefix) => {
+      mentionFoundation.updateOptions({ prefix: newPrefix });
+    },
+    { deep: true }
+  );
 
-  const emitModelValue = (val: boolean) => {
-    emits('update:modelValue', val);
-  };
+  // 监听fitHostWidth变化
+  watch(
+    () => props.fitHostWidth,
+    (newVal) => {
+      mentionFoundation.updateOptions({ fitHostWidth: newVal });
+    }
+  );
 
-  const checkMention = () => {
-    if (!inputEl) {
-      return;
+  // 监听optionsCount变化
+  watch(
+    () => props.optionsCount,
+    (newVal) => {
+      mentionFoundation.updateOptions({ optionsCount: newVal });
     }
-    const value = inputEl.value.replace(/[\r\n]/g, MentionSeparator) || '';
-    const selectionStart = inputEl.selectionStart; // 光标位置
-    if (!value.trim() || !selectionStart) {
-      resetTriggerData();
-      return;
-    }
-    for (let i = 0; i < props.prefix.length; i++) {
-      const itemTrigger = props.prefix[i];
-      let triggerStr = '';
-      let isOnlyInputStart = false;
-      if (typeof itemTrigger === 'string') {
-        triggerStr = itemTrigger;
-      } else if (isObject(itemTrigger)) {
-        triggerStr = itemTrigger.key;
-        isOnlyInputStart = Boolean(itemTrigger.onlyInputStart);
-      } else {
-        continue;
-      }
-
-      const startPos = value.lastIndexOf(triggerStr, selectionStart); // trigger位置
-      const separatorPos = value.lastIndexOf(MentionSeparator, selectionStart); // 分隔符的位置
-      const mentionStr = value.substring(startPos, selectionStart); // trigger到光标的字符串，eg：@abc
-      const lastMentionStr = mentionStr.charAt(mentionStr.length - 1);
-      if (startPos < 0 || (startPos > 0 && isOnlyInputStart) || startPos < separatorPos || lastMentionStr === MentionSeparator) {
-        resetTriggerData();
-      } else {
-        currentTrigger = triggerStr;
-        currentTriggerPos = startPos;
-        cursorPos = selectionStart;
-        inputValue = mentionStr.slice(triggerStr.length);
-        return;
-      }
-    }
-  };
-
-  const resetMention = () => {
-    checkMention();
-    if (!currentTrigger) {
-      emitModelValue(false);
-      return;
-    }
-    emits('searchChange', { value: inputValue, trigger: currentTrigger, triggerIndex: currentTriggerPos, cursorIndex: cursorPos });
-    emitModelValue(true);
-  };
-
-  const onInput = debounce(resetMention, 300);
-
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.code === ArrowLeft || e.code === ArrowRight) {
-      leftRightTimer = setTimeout(() => {
-        resetMention();
-        if (leftRightTimer) {
-          leftRightTimer = undefined;
-          clearTimeout(leftRightTimer);
-        }
-      });
-    }
-    if (e.code === Escape) {
-      emitModelValue(false);
-    }
-  };
-
-  const onDocumentClick = (e: Event) => {
-    if (props.modelValue) {
-      if (!originEl.value?.contains(e.target as HTMLElement)) {
-        emitModelValue(false);
-      }
-    } else if (originEl.value?.contains(e.target as HTMLElement)) {
-      resetMention();
-    }
-  };
-
-  function scrollCallback(e: Event) {
-    const scrollElement = e.target as HTMLElement;
-    if (scrollElement?.contains(originEl.value)) {
-      updatePosition();
-    }
-  }
+  );
 
   const initEvent = () => {
     if (originEl.value) {
       inputEl = originEl.value.querySelector('textarea') || originEl.value.querySelector('input');
 
       if (inputEl) {
-        inputEl.addEventListener('input', onInput);
-        inputEl.addEventListener('keydown', onKeyDown);
+        // 设置foundation的元素
+        mentionFoundation.setInputEl(inputEl);
+        mentionFoundation.setOriginEl(originEl.value);
+        if (overlayEl.value) {
+          mentionFoundation.setOverlayEl(overlayEl.value);
+        }
+        
+        // 初始化事件
+        mentionFoundation.initEvents();
       }
     }
-    document.addEventListener('click', onDocumentClick);
+  };
+
+  // 更新弹窗位置
+  const updatePosition = () => {
+    if (originEl.value && overlayEl.value) {
+      // 获取foundation计算的位置信息
+      const positionInfo = mentionFoundation.updateOverlayPosition();
+      // 处理Promise返回值
+      if (positionInfo instanceof Promise) {
+        positionInfo.then(pos => {
+          if (pos) {
+            // 更新Vue组件的响应式样式
+            Object.assign(overlayStyle, pos);
+          }
+        });
+      } else if (positionInfo) {
+        // 处理非Promise返回值（兼容旧版本）
+        Object.assign(overlayStyle, positionInfo);
+      }
+    }
   };
 
   onMounted(() => {
@@ -181,14 +123,19 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
     initEvent();
   });
 
-  onBeforeUnmount(() => {
-    emitModelValue(false);
-    inputEl?.removeEventListener('input', onInput);
-    inputEl?.removeEventListener('keydown', onKeyDown);
-    document.removeEventListener('click', onDocumentClick);
-    typeof window !== 'undefined' && window.removeEventListener('scroll', scrollCallback, true);
-    unobserveOrigin();
+  onUnmounted(() => {
+    // 清理foundation资源
+    mentionFoundation.destroy();
   });
 
-  return { popperTriggerEl, overlayEl, overlayStyle };
+  return {
+    popperTriggerEl,
+    originEl,
+    overlayEl,
+    overlayStyle,
+    initEvent,
+    resetMention: () => mentionFoundation.resetMention(),
+    updateOptions: (options: Partial<MentionProps>) => mentionFoundation.updateOptions(options),
+    updatePosition,
+  };
 }
