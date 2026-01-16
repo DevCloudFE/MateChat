@@ -176,6 +176,20 @@ export default {
       text: '演进中',
       items: [
         {
+          text: 'Layout 布局',
+          link: '/components-ng/layout/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/layout/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/layout/api.md',
+            },
+          ],
+        },
+        {
           text: 'MarkDown 卡片',
           link: '/components-ng/markDownCard/demo',
           children: [
