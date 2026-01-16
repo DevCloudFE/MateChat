@@ -71,29 +71,7 @@ export class MentionComponent extends BaseComponent<MentionFoundation> implement
 
   override get adapter(): any {
     return {
-      getProp: (key: string) => {
-        return this[key];
-      },
-      getProps: () => ({
-        modelValue: this.modelValue,
-        prefix: this.prefix,
-        fitHostWidth: this.fitHostWidth,
-        optionsCount: this.optionsCount
-      }),
-      setState: (states: any, cb?: () => void) => {
-        for (const key in states) {
-          if (states.hasOwnProperty(key)) {
-            this[key] = states[key];
-          }
-        }
-        cb && cb();
-      },
-      getState: (key: string) => this[key],
-      getStates: () => this,
-      getCache: (key: string) => key && this.cache[key],
-      getCaches: () => this.cache,
-      setCache: (key: string, value: any) => key && (this.cache[key] = value),
-      nextTick: (cb: () => void) => setTimeout(cb, 0),
+      ...super.adapter,
       updateModelValue: (val: boolean) => this.updateModelValue.emit(val),
       searchChange: (event: SearchChangeEvent) => this.searchChange.emit(event),
       activeIndexChange: (index: number) => {
