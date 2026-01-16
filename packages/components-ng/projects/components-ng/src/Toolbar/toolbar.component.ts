@@ -2,10 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   type AfterContentInit,
   Component,
-  type ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
-  type Injector,
   Input,
   type OnInit,
   Output,
@@ -30,6 +28,7 @@ import { ShareIconComponent } from './share-icon/share-icon.component';
 @Component({
   selector: 'mc-toolbar',
   templateUrl: './toolbar.component.html',
+  standalone: true,
   imports: [
     CommonModule,
     CopyIconComponent,
@@ -64,10 +63,7 @@ export class ToolbarComponent implements OnInit, AfterContentInit {
 
   ToolbarAction = ToolbarAction;
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector,
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     // 深拷贝输入的items
