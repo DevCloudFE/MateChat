@@ -2,6 +2,22 @@
   <h1>组件演示</h1>
   <p>这是我们的Angular组件库演示应用</p>
 
+  <div class="demo-container">
+    <div>Toolbar 测试</div>
+    <mc-toolbar [items]="toolbarBasicItems">
+      <ng-template #test>
+        <div>自定义内容</div>
+      </ng-template>
+      <ng-template #test2Icon>
+        <i class="icon icon-download-2" style="font-size: 16px;"></i>
+      </ng-template>
+    </mc-toolbar>
+    <app-toolbar-basic-demo></app-toolbar-basic-demo>
+    <app-toolbar-size-demo></app-toolbar-size-demo>
+    <app-toolbar-slot-demo></app-toolbar-slot-demo>
+    <app-toolbar-use-icon-demo></app-toolbar-use-icon-demo>
+  </div>
+
   <div *ngIf="false" class="demo-container">
     <div>Header 测试</div>
     <mc-header [logoImg]="logoImgSrc" [title]="'MateChat'" [logoClickable]="true" (logoClicked)="headerLogoClicked()"></mc-header>
@@ -183,3 +199,4 @@
   <div class="demo-container">
     <markdown-xss-demo></markdown-xss-demo>
   </div>
+</div>

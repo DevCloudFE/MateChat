@@ -5,6 +5,12 @@ bannerSrc: "/textareaBanner.png"
 iconSrc: "/textareaIcon.png"
 ---
 
+按需引入路径：
+
+```ts
+import { McToolbar } from '@matechat/core';
+```
+
 ### 基本用法
 
 通过配置 `items` 参数实现工具栏的快速搭建。
@@ -92,8 +98,8 @@ const handleItemClick = (item, event) => {
       <template #bottom>
         <McToolbar
           :items="basicItems"
-          :icon-size="18"
-          :gap="0"
+          :icon-size="20"
+          :gap="4"
           style="margin-top: 8px;"
           @onClick="handleItemClick"
         />

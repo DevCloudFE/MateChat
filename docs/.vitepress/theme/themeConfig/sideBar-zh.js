@@ -81,6 +81,24 @@ export default {
             },
           ],
         },
+        {
+          text: 'Toolbar 工具栏',
+          link: '/components-ng/toolbar/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/components-ng/toolbar/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/components-ng/toolbar/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/toolbar/api.md',
+            },
+          ],
+        },
       ],
     },
     {

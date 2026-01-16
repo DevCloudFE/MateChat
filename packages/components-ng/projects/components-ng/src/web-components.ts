@@ -37,6 +37,12 @@ import { MarkdownThinkingShowComponent } from '../../demo-app/src/app/show/Markd
 import { MarkdownTypingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-typing-show.component';
 import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-xss-show.component';
 
+// 导入toolbar相关show组件
+import { ToolbarBasicShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-basic-show.component';
+import { ToolbarSizeShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-size-show.component';
+import { ToolbarSlotShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-slot-show.component';
+import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-use-icon-show.component';
+
 // 正确定义WebComponentsModule模块
 @NgModule({
   imports: [
@@ -71,6 +77,11 @@ import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCa
     HeaderBasicShowComponent,
     HeaderLogoClickShowComponent,
     HeaderCustomOperationShowComponent,
+    // 添加 toolbar 相关show组件
+    ToolbarBasicShowComponent,
+    ToolbarSizeShowComponent,
+    ToolbarSlotShowComponent,
+    ToolbarUseIconShowComponent,
   ],
   providers: [],
 })
@@ -285,7 +296,6 @@ platformBrowserDynamic()
           injector: injector,
         },
       );
-
       // 将 header 组件转换为 web component
       const HeaderBasicWebComponent = createCustomElement(
         HeaderBasicShowComponent,
@@ -301,6 +311,31 @@ platformBrowserDynamic()
       );
       const HeaderCustomOperationWebComponent = createCustomElement(
         HeaderCustomOperationShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      // 将Toolbar组件转换为 web component
+      const ToolbarBasicWebComponent = createCustomElement(
+        ToolbarBasicShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const ToolbarSizeWebComponent = createCustomElement(
+        ToolbarSizeShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const ToolbarSlotWebComponent = createCustomElement(
+        ToolbarSlotShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const ToolbarUseIconWebComponent = createCustomElement(
+        ToolbarUseIconShowComponent,
         {
           injector: injector,
         },
@@ -356,7 +391,6 @@ platformBrowserDynamic()
         'mc-ng-markdown-thinking',
         MarkdownThinkingWebComponent,
       );
-
       // 注册Header相关webComponent
       customElements.define('mc-ng-header-basic', HeaderBasicWebComponent);
       customElements.define(
@@ -366,6 +400,15 @@ platformBrowserDynamic()
       customElements.define(
         'mc-ng-header-custom-operation',
         HeaderCustomOperationWebComponent,
+      );
+
+      // 注册 Toolbar相关webComponent
+      customElements.define('mc-ng-toolbar-basic', ToolbarBasicWebComponent);
+      customElements.define('mc-ng-toolbar-size', ToolbarSizeWebComponent);
+      customElements.define('mc-ng-toolbar-slot', ToolbarSlotWebComponent);
+      customElements.define(
+        'mc-ng-toolbar-use-icon',
+        ToolbarUseIconWebComponent,
       );
     } catch (error) {
       console.error('创建WebComponent时出错:', error);

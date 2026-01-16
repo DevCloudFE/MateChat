@@ -1,0 +1,27 @@
+<div class="bubble-box">
+  <mc-bubble [align]="'right'" [avatarConfig]="{ imgSrc: userImgSrc }">
+    操作栏组件单独使用
+    <div class="demo-toolbar-basic">
+      <mc-copy-icon text="复制的内容" class="copy-class"></mc-copy-icon>
+      <mc-like-icon class="like-color" [isActive]="likeActive" (activeChange)="activeChange($event)" (click)="likeClick($event)"/>
+      <mc-dislike-icon [isActive]="dislikeActive" (activeChange)="dislikeActiveChange($event)"></mc-dislike-icon>
+      <mc-share-icon [width]="size" [height]="size"></mc-share-icon>
+    </div>
+  </mc-bubble>
+  <mc-bubble
+    [avatarConfig]="{ imgSrc: logoImgSrc }"
+  >
+    <mc-markdown-card
+      [content]="content1"
+      [theme]="theme"
+      [typing]="true"
+      [typingOptions]="typingOptions4"
+      (typingEnd)="typingEnd()"
+    ></mc-markdown-card>
+    <mc-toolbar
+      *ngIf="streamEnd"
+      [items]="basicItems"
+      style="margin-top: 8px;"
+    ></mc-toolbar>
+  </mc-bubble>
+</div>
