@@ -20,7 +20,7 @@ import type {
   IValidResult,
   FileItem,
 } from './attachment-types';
-import { upload } from './uploader';
+import { upload } from '../components-common/Attachment/common/uploader';
 import { DropAreaComponent } from './drop-area/drop-area.component';
 
 @Component({
