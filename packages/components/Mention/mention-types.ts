@@ -16,12 +16,12 @@ export const mentionProps = {
     type: Boolean,
     default: true,
   },
-  menuClass: {
-    type: String,
-  },
   optionsCount: {
     type: Number,
     default: 0,
+  },
+  menuClass: {
+    type: String,
   },
 };
 export type MentionProps = ExtractPropTypes<typeof mentionProps>;

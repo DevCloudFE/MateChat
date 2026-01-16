@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { PopperTrigger } from '../PopperTrigger';
+import { PopperTrigger } from '@matechat/core/PopperTrigger';
 import { mentionProps, mentionEmits } from './mention-types';
 import { useMention } from './use-mention';
 
@@ -21,5 +21,29 @@ const { popperTriggerEl, overlayEl, overlayStyle } = useMention(props, emits);
 <style scoped lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
 @import '@matechat/common/Mention/common/mention.scss';
+.mc-mention-fade {
+  &-enter-from,
+  &-leave-to {
+    opacity: 0.8;
+    transform: scaleY(0.8) translateY(4px);
+  }
 
+  &-enter-to,
+  &-leave-from {
+    opacity: 1;
+    transform: scaleY(0.9999) translateY(0);
+  }
+
+  &-enter-active {
+    transition:
+      transform 0.2s cubic-bezier(0.16, 0.75, 0.5, 1),
+      opacity 0.2s cubic-bezier(0.16, 0.75, 0.5, 1);
+  }
+
+  &-leave-active {
+    transition:
+      transform 0.2s cubic-bezier(0.5, 0, 0.84, 0.25),
+      opacity 0.2s cubic-bezier(0.5, 0, 0.84, 0.25);
+  }
+}
 </style>

@@ -155,6 +155,12 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
         event.preventDefault();
         this.resetMention();
         break;
+      case MentionSeparator:
+        this.resetMention();
+        break;
+      default:
+        // 其他按键不做处理
+        break;
     }
   };
 

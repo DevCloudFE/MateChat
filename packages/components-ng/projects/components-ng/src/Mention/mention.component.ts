@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 import { SearchChangeEvent, Trigger } from '../components-common/Mention/common/mention-types';
 import { MentionFoundation } from '../components-common/Mention/foundation';
@@ -11,6 +12,18 @@ import BaseComponent from '../Base/base.component';
   imports: [CommonModule],
   templateUrl: './mention.component.html',
   styleUrls: ['./mention.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+        style({ opacity: 0.8, transform: 'scaleY(0.8) translateY(4px)' }),
+        animate('0.2s cubic-bezier(0.16, 0.75, 0.5, 1)', style({ opacity: 1, transform: 'scaleY(0.9999) translateY(0)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'scaleY(0.9999) translateY(0)' }),
+        animate('0.2s cubic-bezier(0.5, 0, 0.84, 0.25)', style({ opacity: 0.8, transform: 'scaleY(0.8) translateY(4px)' }))
+      ])
+    ])
+  ]
 })
 export class MentionComponent extends BaseComponent<MentionFoundation> implements OnInit, AfterViewInit, OnDestroy {
   @Input() prefix: Array<string | Trigger> = ['@'];

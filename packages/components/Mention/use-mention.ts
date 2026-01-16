@@ -17,7 +17,7 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
       modelValue: props.modelValue,
       prefix: props.prefix,
       fitHostWidth: props.fitHostWidth,
-      optionsCount: props.optionsCount
+      optionsCount: props.optionsCount 
     }),
     getState: () => {},
     getStates: () => {},
@@ -25,10 +25,10 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
     getCache: () => {},
     getCaches: () => {},
     setCache: () => {},
-    nextTick: (cb) => cb(),
+    nextTick: (cb) => nextTick(cb), // 使用Vue的nextTick函数确保DOM更新完成后执行回调
     updateModelValue: (val) => emits('update:modelValue', val),
     searchChange: (event) => emits('searchChange', event),
-    activeIndexChange: () => {}, // Vue版本暂时不支持activeIndex
+    activeIndexChange: () => {},
     toggleChange: (val) => emits('toggleChange', val)
   });
 
@@ -68,14 +68,6 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
     () => props.fitHostWidth,
     (newVal) => {
       mentionFoundation.updateOptions({ fitHostWidth: newVal });
-    }
-  );
-
-  // 监听optionsCount变化
-  watch(
-    () => props.optionsCount,
-    (newVal) => {
-      mentionFoundation.updateOptions({ optionsCount: newVal });
     }
   );
 
@@ -134,6 +126,7 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
     overlayEl,
     overlayStyle,
     initEvent,
+    mentionFoundation,
     resetMention: () => mentionFoundation.resetMention(),
     updateOptions: (options: Partial<MentionProps>) => mentionFoundation.updateOptions(options),
     updatePosition,
