@@ -1,6 +1,7 @@
 import { NgModule, enableProdMode } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AlignBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/align-demo-show.component';
 import { LoadingBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/loading-demo-show.component';
@@ -34,10 +35,15 @@ import { MarkdownThemeShowComponent } from '../../demo-app/src/app/show/Markdown
 import { MarkdownHeaderShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-header-show.component';
 import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-xss-show.component';
 
+// 导入Mention相关的show组件
+import { BasicMentionComponent } from '../../demo-app/src/app/show/Mention/basic-show.component';
+import { CustomStyleMentionComponent } from '../../demo-app/src/app/show/Mention/custom-style-show.component';
+
 // 正确定义WebComponentsModule模块
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     BasicBubbleShowComponent,
     AlignBubbleShowComponent,
     LoadingBubbleShowComponent,
@@ -64,6 +70,9 @@ import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCa
     MarkdownThemeShowComponent,
     MarkdownHeaderShowComponent,
     MarkdownXssShowComponent,
+    // 添加Mention相关的show组件
+    BasicMentionComponent,
+    CustomStyleMentionComponent,
   ],
   providers: []
 })
@@ -217,6 +226,18 @@ platformBrowserDynamic()
       customElements.define('mc-ng-markdown-mermaid', MarkdownMermaidWebComponent);
       customElements.define('mc-ng-markdown-typing', MarkdownTypingWebComponent);
       customElements.define('mc-ng-markdown-thinking', MarkdownThinkingWebComponent);
+      
+      // 将Mention组件转换为webcomponent
+      const BasicMentionWebComponent = createCustomElement(BasicMentionComponent, {
+        injector: injector
+      });
+      const CustomStyleMentionWebComponent = createCustomElement(CustomStyleMentionComponent, {
+        injector: injector
+      });
+      
+      // 注册Mention相关webcomponent
+      customElements.define('mc-ng-mention-basic', BasicMentionWebComponent);
+      customElements.define('mc-ng-mention-custom-style', CustomStyleMentionWebComponent);
     } catch (error) {
       console.error('创建WebComponent时出错:', error);
     }
