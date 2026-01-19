@@ -1,6 +1,7 @@
 import { onMounted, ref, reactive, watch, nextTick, onUnmounted } from 'vue';
 import type { MentionProps } from './mention-types';
 import { MentionFoundation } from '@matechat/common/Mention/foundation';
+import BaseFoundation from '@matechat/common/Base/foundation';
 
 export function useMention(props: MentionProps, emits: (event: string, ...args: any[]) => void) {
   const popperTriggerEl = ref();
@@ -12,19 +13,13 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
 
   // 创建foundation实例
   mentionFoundation = new MentionFoundation({
-    getProp: () => {},
+    ...BaseFoundation.defaultAdapter,
     getProps: () => ({
       modelValue: props.modelValue,
       prefix: props.prefix,
       fitHostWidth: props.fitHostWidth,
       optionsCount: props.optionsCount 
     }),
-    getState: () => {},
-    getStates: () => {},
-    setState: () => {},
-    getCache: () => {},
-    getCaches: () => {},
-    setCache: () => {},
     nextTick: (cb) => nextTick(cb), // 使用Vue的nextTick函数确保DOM更新完成后执行回调
     updateModelValue: (val) => emits('update:modelValue', val),
     searchChange: (event) => emits('searchChange', event),
