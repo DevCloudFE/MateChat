@@ -8,12 +8,12 @@ iconSrc: '/mentionIcon.png'
 按需引入路径：
 
 ```ts
-import { McMention } from '@matechat/core';
+import { MentionModule } from '@matechat/ng';
 ```
 
 ### 基本用法
 
-通过`v-model`控制组件的展开收起。
+通过`ngModel`控制组件的展开收起。
 
 通过`prefix`传入触发组件显示的前缀符。
 
