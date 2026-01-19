@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MentionComponent } from '@matechat/ng';
 import { SearchChangeEvent, Trigger } from '@matechat/common/Mention/common/mention-types';
 import { InputComponent } from '@matechat/ng';
@@ -12,7 +13,7 @@ interface ListItem {
 @Component({
   selector: 'app-basic-demo',
   standalone: true,
-  imports: [CommonModule, MentionComponent, InputComponent],
+  imports: [CommonModule, FormsModule, MentionComponent, InputComponent],
   templateUrl: './basic-demo.component.html',
   styleUrls: ['./basic-demo.component.scss'],
 })

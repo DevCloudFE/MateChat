@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { SearchChangeEvent, Trigger } from '../components-common/Mention/common/mention-types';
 import { MentionFoundation } from '../components-common/Mention/foundation';
@@ -9,7 +10,7 @@ import BaseComponent from '../Base/base.component';
 @Component({
   selector: 'mc-mention',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './mention.component.html',
   styleUrls: ['./mention.component.scss'],
   animations: [
@@ -23,9 +24,16 @@ import BaseComponent from '../Base/base.component';
         animate('0.2s cubic-bezier(0.5, 0, 0.84, 0.25)', style({ opacity: 0.8, transform: 'scaleY(0.8) translateY(4px)' }))
       ])
     ])
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MentionComponent),
+      multi: true
+    }
   ]
 })
-export class MentionComponent extends BaseComponent<MentionFoundation> implements OnInit, AfterViewInit, OnDestroy {
+export class MentionComponent extends BaseComponent<MentionFoundation> implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
   @Input() prefix: Array<string | Trigger> = ['@'];
   @Input() fitHostWidth: boolean = true;
   @Input() menuClass?: string;
@@ -72,7 +80,10 @@ export class MentionComponent extends BaseComponent<MentionFoundation> implement
   override get adapter(): any {
     return {
       ...super.adapter,
-      updateModelValue: (val: boolean) => this.updateModelValue.emit(val),
+      updateModelValue: (val: boolean) => {
+        // 调用modelValue的setter方法，确保位置更新逻辑被执行
+        this.modelValue = val;
+      },
       searchChange: (event: SearchChangeEvent) => this.searchChange.emit(event),
       activeIndexChange: (index: number) => {
         this.activeIndex = index;
@@ -157,6 +168,10 @@ export class MentionComponent extends BaseComponent<MentionFoundation> implement
           }
         }, 0);
       }
+      // 调用onChange回调，支持ngModel双向绑定
+      this.onChange(val);
+      // 仍然触发updateModelValue事件，保持向后兼容
+      this.updateModelValue.emit(val);
     }
   }
 
@@ -166,6 +181,26 @@ export class MentionComponent extends BaseComponent<MentionFoundation> implement
 
   // 私有属性存储实际的modelValue
   private _modelValue: boolean = false;
+
+  // ControlValueAccessor 接口实现
+  private onChange: (value: boolean) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  writeValue(value: boolean): void {
+    this.modelValue = value;
+  }
+
+  registerOnChange(fn: (value: boolean) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    // 如果需要禁用功能，可以在这里实现
+  }
 
   // 初始化文档点击事件（已在ngAfterViewInit中处理，无需重复）
   ngAfterContentInit() {

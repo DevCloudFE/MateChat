@@ -1,7 +1,6 @@
-  <div class="demo-content">
+<div class="demo-content">
     <mc-mention 
-      [modelValue]="isVisible" 
-      (updateModelValue)="isVisible = $event" 
+      [(ngModel)]="isVisible" 
       [prefix]="prefix" 
       [fitHostWidth]="false" 
       menuClass="custom-mention-menu" 

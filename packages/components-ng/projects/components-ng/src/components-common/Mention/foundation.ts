@@ -191,7 +191,7 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
         if (triggerIndex === 0) {
           // 当光标在触发词后面（包括紧跟触发词和触发词后有内容的情况），认为是提及触发
           // 这样可以在删除触发词后的内容时仍然显示弹窗
-          if (cursorPosition >= triggerIndex + trigger.length) {
+          if (cursorPosition >= triggerIndex + trigger.length || cursorPosition === triggerIndex + trigger.length) {
             const searchValue = beforeCursor.substring(trigger.length);
             return { trigger, triggerIndex, searchValue };
           }

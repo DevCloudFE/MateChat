@@ -1,5 +1,5 @@
 <div class="demo-content">
-    <mc-mention [modelValue]="isVisible" (updateModelValue)="isVisible = $event" [prefix]="prefix"
+    <mc-mention [(ngModel)]="isVisible" [prefix]="prefix"
       (searchChange)="onSearchChange($event)" (toggleChange)="onToggleChange($event)">
       <mc-input #inputRef [value]="inputValue" (change)="onInputChange($event)" placeholder="输入/@ 触发提及功能"></mc-input>
       <div slot="menu" class="mention-menu">
