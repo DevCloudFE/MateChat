@@ -66,6 +66,8 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
       this.inputEl.addEventListener('keydown', this.handleKeyDown as EventListener);
       this.inputEl.addEventListener('click', this.handleClick);
     }
+    // 监听文档点击事件，用于处理点击外部关闭下拉菜单
+    document.addEventListener('click', this.handleDocumentClick);
   }
 
   // 销毁事件
@@ -75,6 +77,8 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
       this.inputEl.removeEventListener('keydown', this.handleKeyDown as EventListener);
       this.inputEl.removeEventListener('click', this.handleClick);
     }
+    // 移除文档点击事件监听
+    document.removeEventListener('click', this.handleDocumentClick);
     // 清理autoUpdate
     if (this.autoUpdateCleanup) {
       this.autoUpdateCleanup();
@@ -140,24 +144,37 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
 
   // 处理键盘事件
   handleKeyDown = (event: KeyboardEvent) => {
-    if (!this.props.modelValue || !this.inputEl) return;
+    if (!this.inputEl) return;
 
     switch (event.key) {
       case ArrowUp:
-        event.preventDefault();
-        this.handleArrowKey(-1);
+        if (this.props.modelValue) {
+          event.preventDefault();
+          this.handleArrowKey(-1);
+        }
         break;
       case ArrowDown:
-        event.preventDefault();
-        this.handleArrowKey(1);
+        if (this.props.modelValue) {
+          event.preventDefault();
+          this.handleArrowKey(1);
+        }
+        break;
+      case ArrowLeft:
+      case ArrowRight:
+        // 左右箭头键：延迟检查是否需要触发提及
+        setTimeout(() => {
+          this.handleInput();
+        });
         break;
       case Escape:
         event.preventDefault();
         this.resetMention();
         break;
       case MentionSeparator:
-        event.preventDefault();
-        this.resetMention();
+        // 只有在面板打开时才阻止空格的默认行为
+        if (this.props.modelValue) {
+          this.resetMention();
+        }
         break;
       default:
         // 其他按键不做处理
@@ -169,44 +186,70 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
   private handleClick = () => {
     if (!this.inputEl) return;
 
-    // 点击事件只需要重置提及状态，不需要触发新的提及
-    // 提及功能应该只在用户输入触发词时才触发
-    this.resetMention();
+    // 点击事件触发提及检查
+    this.handleInput();
+  };
+
+  // 处理文档点击事件
+  private handleDocumentClick = (e: Event) => {
+    if (this.originEl) {
+      if (this.props.modelValue) {
+        // 如果下拉菜单是打开的，检查点击是否发生在originEl外部
+        if (!this.originEl.contains(e.target as HTMLElement)) {
+          this.resetMention();
+        }
+      } else {
+        // 如果下拉菜单是关闭的，检查点击是否发生在originEl内部
+        if (this.originEl.contains(e.target as HTMLElement)) {
+          this.handleInput();
+        }
+      }
+    }
   };
 
   // 检查前缀匹配
   private checkPrefixMatch(value: string, cursorPosition: number): { trigger: string; triggerIndex: number; searchValue: string } | null {
     if (!this.props.prefix || this.props.prefix.length === 0) return null;
 
-    const beforeCursor = value.substring(0, cursorPosition);
+    const text = value.replace(/[\r\n]/g, MentionSeparator);
+    const beforeCursor = text.substring(0, cursorPosition);
 
     // 检查所有前缀
     for (const prefixItem of this.props.prefix) {
-      const trigger = typeof prefixItem === 'string' ? prefixItem : prefixItem.key;
-      const onlyInputStart = isObject(prefixItem) && (prefixItem as Trigger).onlyInputStart;
+      let trigger = '';
+      let onlyInputStart = false;
 
-      // 检查是否在输入开始处（如果设置了onlyInputStart）
-      if (onlyInputStart) {
-        const triggerIndex = beforeCursor.lastIndexOf(trigger);
-        if (triggerIndex === 0) {
-          // 当光标在触发词后面（包括紧跟触发词和触发词后有内容的情况），认为是提及触发
-          // 这样可以在删除触发词后的内容时仍然显示弹窗
-          if (cursorPosition >= triggerIndex + trigger.length || cursorPosition === triggerIndex + trigger.length) {
-            const searchValue = beforeCursor.substring(trigger.length);
-            return { trigger, triggerIndex, searchValue };
-          }
-        }
+      if (typeof prefixItem === 'string') {
+        trigger = prefixItem;
+      } else if (isObject(prefixItem)) {
+        trigger = prefixItem.key;
+        onlyInputStart = Boolean(prefixItem.onlyInputStart);
       } else {
-        // 检查是否存在触发词
-        const triggerIndex = beforeCursor.lastIndexOf(trigger);
-        if (triggerIndex !== -1) {
-          // 当光标在触发词后面（包括紧跟触发词和触发词后有内容的情况），认为是提及触发
-          // 这样可以在删除触发词后的内容时仍然显示弹窗，无论触发词前面是什么字符
-          if (cursorPosition >= triggerIndex + trigger.length) {
-            const searchValue = beforeCursor.substring(triggerIndex + trigger.length);
-            return { trigger, triggerIndex, searchValue };
-          }
-        }
+        continue;
+      }
+
+      // 查找最后一个触发词的位置
+      const triggerIndex = beforeCursor.lastIndexOf(trigger);
+      // 查找最后一个分隔符的位置
+      const separatorPos = beforeCursor.lastIndexOf(MentionSeparator);
+      // 触发词到光标的字符串
+      const mentionStr = beforeCursor.substring(triggerIndex, cursorPosition);
+      // 提及字符串的最后一个字符
+      const lastMentionChar = mentionStr.charAt(mentionStr.length - 1);
+
+      // 条件判断：
+      // 1. 触发词位置有效
+      // 2. 如果设置了onlyInputStart，触发词必须在输入开始处
+      // 3. 触发词位置必须在最后一个分隔符之后
+      // 4. 提及字符串的最后一个字符不能是分隔符
+      if (triggerIndex < 0 || 
+          (triggerIndex > 0 && onlyInputStart) || 
+          triggerIndex < separatorPos || 
+          lastMentionChar === MentionSeparator) {
+        continue;
+      } else {
+        const searchValue = mentionStr.slice(trigger.length);
+        return { trigger, triggerIndex, searchValue };
       }
     }
 
@@ -273,11 +316,11 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
         this.autoUpdateCleanup = null;
       }
 
-      // 设置位置：使用@floating-ui/dom计算位置，与Angular版本保持一致
+      // 设置位置：使用@floating-ui/dom计算位置，与Vue版本保持一致
       computePosition(this.originEl, this.overlayEl, {
         strategy: 'fixed',
-        placement: 'top-start', // 将位置改为顶部开始
-        middleware: [offset(10)],
+        placement: 'top-start',
+        middleware: [offset(4)],
       }).then(({ x, y }) => {
         this.overlayEl!.style.top = `${y}px`;
         this.overlayEl!.style.left = `${x}px`;
@@ -305,7 +348,7 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
               computePosition(this.originEl, this.overlayEl, {
                 strategy: 'fixed',
                 placement: 'top-start',
-                middleware: [offset(10)],
+                middleware: [offset(4)],
               }).then(({ x, y }) => {
                 this.overlayEl!.style.top = `${y}px`;
                 this.overlayEl!.style.left = `${x}px`;
