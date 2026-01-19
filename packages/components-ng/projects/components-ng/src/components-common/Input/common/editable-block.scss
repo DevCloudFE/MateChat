@@ -1,0 +1,55 @@
+@import "devui-theme/styles-var/devui-var.scss";
+.editable-container{
+  outline: unset;
+  min-height: 64px;
+  line-height: 24px;
+  padding-top: 4px;
+  word-break: break-all;
+  white-space: pre-wrap;
+  font-size: 14px;
+  caret-color: $devui-text;
+  background: $devui-form-control-bg;
+  color: $devui-text;
+
+  &.mc-input-simple{
+    min-height: 32px;
+  }
+
+  &.mc-input-disabled{
+    background-color: $devui-disabled-bg;
+    cursor: not-allowed;
+  }
+  & > * {
+    text-indent: 0;
+  }
+  &[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: $devui-placeholder;
+    position: absolute;
+    pointer-events: none;
+    left: 8px;
+  }
+
+  .ai-input-prefix-wrapper {
+    border-radius: 8px;
+    background-color: $devui-list-item-hover-bg;
+    color: $devui-primary;
+    height: 24px;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    z-index: 10;
+    position: sticky;
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.en-editable-container{
+  text-indent: 140px;
+}
+
+.editable-container:focus{
+  border-color: #409eff;
+}

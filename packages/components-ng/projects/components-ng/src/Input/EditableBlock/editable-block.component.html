@@ -1,0 +1,32 @@
+  <div 
+    #editableDivRef
+    class="editable-container"
+    [ngClass]="{'mc-input-disabled': disabled,'mc-input-simple': displayType === 'simple' }"
+    [attr.contenteditable]="!disabled"
+    spellcheck="false"
+    [attr.placeholder]="placeholder"
+    (input)="handleDivInput()"
+    (keydown)="handleDivKeydown($event)"
+    (paste)="handleDivPaste($event)"
+    (compositionstart)="handleCompositionStart($event)"
+    (compositionend)="handleCompositionEnd($event)"
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"
+  >
+    <!-- 前置标签 -->
+    <!-- popover最后再实现打通 -->
+    <!-- <span contenteditable="false" dPopover [content]="themeTag.popoverContent" trigger="hover" controlled = "true"> -->
+    <span *ngIf="themeTag.themeTagText" contenteditable="false" >
+      <span *ngIf="themeTag.themeTagText" [title]="themeTag.popoverContent" class="ai-input-prefix-wrapper" (click)="closeTipTag()" contenteditable="false">
+        <ng-container *ngIf="themeTagTemplate">
+          <ng-container *ngTemplateOutlet="themeTagTemplate; context: {$implicit: themeTag, themeTagText: themeTag.themeTagText}"></ng-container>
+        </ng-container>
+      </span>
+      <span contenteditable="false" style="display: inline-block;width: 4px;"></span>
+    </span>
+
+    <ng-container *ngFor="let part of localTemplateParts" [ngSwitch]="part.type">
+      <ng-container *ngSwitchCase="'text'">{{part.content}}</ng-container>
+      <mc-input-tag *ngSwitchCase="'input'"  [content]="part.content" [placeholder]="part.placeholder" [disabled]="disabled" (change)="handleDivInput()"></mc-input-tag>
+    </ng-container>
+  </div>

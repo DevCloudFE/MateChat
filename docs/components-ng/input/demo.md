@@ -60,6 +60,15 @@ import { InputModule } from '@matechat/ng';
 
 <mc-ng-input-auto-size></mc-ng-input-auto-size>
 
+
+
+### 多种格式化内容自定义编排
+
+通过 `FormatContentOptions.formatContent` 中多种格式化标签的自定义组合编排，按需实现对输入框内文本的多种格式化展示。
+
+<mc-ng-input-format-content></mc-ng-input-format-content>
+
+
 ### 自定义插槽
 
 通过`head`插槽自定义输入框顶部的内容，通过`extra`自定义发送按钮左侧的内容。
