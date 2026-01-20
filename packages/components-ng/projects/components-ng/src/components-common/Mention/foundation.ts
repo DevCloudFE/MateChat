@@ -333,7 +333,7 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
           width: this.props.fitHostWidth ? `${this.originEl!.getBoundingClientRect().width}px` : ''
         });
         
-        // 设置autoUpdate，自动处理滚动和调整大小事件
+        // 设置autoUpdate，自动处理滚动、调整大小和视口变化事件
         this.autoUpdateCleanup = autoUpdate(
           this.originEl!,
           this.overlayEl!,
@@ -354,8 +354,16 @@ export class MentionFoundation extends BaseFoundation<MentionAdapter> {
                 this.overlayEl!.style.left = `${x}px`;
               });
             }
+          },
+          {
+            // 添加对视口变化的更全面监听，确保浏览器F12打开/关闭时位置能正确更新
+            animationFrame: true,
+            elementResize: true,
+            ancestorScroll: true,
+            ancestorResize: true,
+            layoutShift: true
           }
-        );
+        ); 
       }).catch(() => {
         // 处理计算位置失败的情况
         resolve(undefined);
