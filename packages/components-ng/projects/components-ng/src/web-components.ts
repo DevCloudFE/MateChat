@@ -27,6 +27,9 @@ import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
 import { DescriptionDemoShowComponent } from '../../demo-app/src/app/show/Introduction/description-demo-show.component';
 import { SlotDemoShowComponent } from '../../demo-app/src/app/show/Introduction/slot-demo-show.component';
+// 添加List相关的show组件
+import { BasicListShowComponent } from '../../demo-app/src/app/show/List/list-basic-show.component';
+import { DisplayListShowComponent } from '../../demo-app/src/app/show/List/list-display-show.component';
 import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
 // 导入MarkdownCard相关的show组件
 import { MarkdownCodeOperatorShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-code-operator-show.component';
@@ -76,6 +79,9 @@ import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCa
     DescriptionDemoShowComponent,
     SlotDemoShowComponent,
     AlignDemoShowComponent,
+    // 添加List相关的show组件
+    BasicListShowComponent,
+    DisplayListShowComponent,
   ],
   providers: [],
 })
@@ -327,6 +333,20 @@ platformBrowserDynamic()
           injector: injector,
         },
       );
+      
+      // 将List组件转换为webcomponent
+      const BasicListWebComponent = createCustomElement(
+        BasicListShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const DisplayListWebComponent = createCustomElement(
+        DisplayListShowComponent,
+        {
+          injector: injector,
+        },
+      );
 
       // 注册Bubble相关webcomponent
       customElements.define('mc-ng-bubble-basic', BubbleWebComponent);
@@ -396,6 +416,9 @@ platformBrowserDynamic()
         'mc-ng-introduction-align',
         AlignIntroductionWebComponent,
       );
+      // 注册List相关webcomponent
+      customElements.define('mc-ng-list-basic', BasicListWebComponent);
+      customElements.define('mc-ng-list-display', DisplayListWebComponent);
     } catch (error) {
       console.error('创建WebComponent时出错:', error);
     }

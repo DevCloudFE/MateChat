@@ -3,5 +3,8 @@
   "version": "0.0.1",
   "type": "module",
   "main": "index.js",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "dependencies": {
+    "ng-devui": "^18.0.0"
+  }
 }

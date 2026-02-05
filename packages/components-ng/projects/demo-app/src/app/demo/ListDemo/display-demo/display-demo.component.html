@@ -1,0 +1,18 @@
+<div class="demo-container">
+  <div style="display: flex; margin-bottom: 10px; align-items: center;">
+    <div style="margin-right: 10px;">展示形态</div>
+    <d-radio-group
+      [(ngModel)]="selectedVariant"
+      [direction]="'row'"
+      (change)="handleVariantChange($event)"
+    >
+    <d-radio [name]="'customized-object'" *ngFor="let variant of variantList" [value]="variant.value"> {{ variant.label }} </d-radio>
+    </d-radio-group>
+  </div>
+  <div style="display: flex; margin-bottom: 10px; align-items: center;">
+    <div style="margin-right: 10px;">自动换行</div>
+    <d-toggle [(ngModel)]="autoWrap" (change)="handleAutoWrapChange($event)"></d-toggle>
+  </div>
+  <mc-list [data]="options" [selectable]="false" [autoWrap]="autoWrap" [direction]="direction" [variant]="selectedVariant"></mc-list>
+</div>
+

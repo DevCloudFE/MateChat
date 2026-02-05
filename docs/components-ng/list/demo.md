@@ -15,73 +15,14 @@ import { ListModule } from '@matechat/ng';
 
 一般用于选中类场景。选项数据中通过`disabled`字段设置选项禁用，通过`active`字段设置选中。默认悬浮高亮，点击时选中高亮。
 
-:::demo
-
-```vue
-<template>
-  <McList :data="options" @select="onSelect" class="my-list"></McList>
-</template>
-
-<script setup>
-import { defineComponent, ref } from 'vue';
-
-const options = ref(
-  new Array(6).fill(0).map((item, i) => ({
-    label: `Option ${i + 1}`,
-    value: i + 1,
-    disabled: i === 3,
-    active: i === 1,
-  })),
-);
-
-const onSelect = (e) => {
-  console.log('list selected', e);
-};
-</script>
-<style scoped lang="scss">
-  .my-list {
-    width: 280px;
-  }
-</style>
-```
-
-:::
+<mc-ng-list-basic></mc-ng-list-basic>
 
 ### 水平排列
 
 一般用于展示类场景。`direction`参数可设置列表的排列方式，`variant`参数可设置选项的展示形态，`autoWrap`参数可在列表水平排列时设置是否自动换行，`selectable`设置为`false`可禁用点击选项时的选中高亮。
 
-:::demo
+<mc-ng-list-display></mc-ng-list-display>
 
-```vue
-<template>
-  <div style="display: flex; margin-bottom: 10px; align-items: center;">
-    <div style="margin-right: 10px;">展示形态</div>
-    <d-radio-group v-model="selectedVariant" direction="row">
-      <d-radio v-for="item in variantList" :key="item.value" :value="item.value">{{ item.label }}</d-radio>
-    </d-radio-group>
-  </div>
-  <div style="display: flex; margin-bottom: 10px; align-items: center;">
-    <div style="margin-right: 10px;">自动换行</div>
-    <d-switch v-model="autoWrap" size="sm"></d-switch>
-  </div>
-  <McList :data="options" :selectable="false" :autoWrap="autoWrap" direction="horizontal" :variant="selectedVariant"></McList>
-</template>
-
-<script setup>
-import { defineComponent, ref } from 'vue';
-
-const selectedVariant = ref('bordered');
-const autoWrap = ref(true);
-const variantList = ref([
-  { label: '填充', value: 'filled' },
-  { label: '边框', value: 'bordered' },
-]);
-const options = ref(new Array(10).fill(0).map((item, i) => ({ label: `Option ${i + 1}`, value: i + 1 })));
-</script>
-```
-
-:::
 
 ### 自定义
 
