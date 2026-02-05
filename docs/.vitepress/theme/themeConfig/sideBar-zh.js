@@ -38,6 +38,12 @@ export default {
   ],
   '/components-ng/': [
     {
+      text: '通用',
+      items: [
+        { text: 'Introduction 介绍', link: '/components-ng/introduction/demo' },
+      ],
+    },
+    {
       text: '会话',
       items: [
         {
