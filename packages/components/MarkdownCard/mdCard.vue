@@ -81,10 +81,11 @@ const astToVnodes = (nodes: ASTNode[]): VNode[] => {
 
 const processASTNode = (node: ASTNode | Token): VNode => {
   if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
-    const vNodes = htmlToVNode(node.openNode?.content || '');
+    const filteredContent = mdCardService.filterHtml(node.openNode?.content || '');
+    const vNodes = htmlToVNode(filteredContent);
 
     if (!vNodes || vNodes.length === 0) {
-      return h('span', node.openNode?.content || '');
+      return h('span', filteredContent);
     }
 
     const processedVNodes = vNodes.map(vNode => {
@@ -106,19 +107,16 @@ const processASTNode = (node: ASTNode | Token): VNode => {
 
   if (node.nodeType === 'inline') {
     const html = mdt.renderer.render([node.openNode], mdt.options, {});
-    const vNodes = htmlToVNode(html);
+    const filteredHtml = mdCardService.filterHtml(html);
+    const vNodes = htmlToVNode(filteredHtml);
     return h(Fragment, vNodes);
   }
 
-  if (isToken(node)) {
+  if (foundation.isToken(node)) {
     return processToken(node);
   }
 
   return processASTNodeInternal(node);
-}
-
-const isToken = (node: ASTNode | Token): node is Token => {
-  return 'type' in node && 'content' in node;
 }
 
 const processToken = (token: Token): VNode => {
@@ -139,12 +137,14 @@ const processToken = (token: Token): VNode => {
   }
 
   if (token.type === 'html_block' || token.type === 'html_inline') {
-    return token.type === 'html_block' ? h('div', { innerHTML: token.content }) : h('span', { innerHTML: token.content });
+    const filteredContent = mdCardService.filterHtml(token.content);
+    return token.type === 'html_block' ? h('div', { innerHTML: filteredContent }) : h('span', { innerHTML: filteredContent });
   }
 
   if (token.type === 'math_block' && token.markup === '$$') {
     const html = mdt.renderer.render([token], mdt.options, {});
-    const vNode = htmlToVNode(html);
+    const filteredHtml = mdCardService.filterHtml(html);
+    const vNode = htmlToVNode(filteredHtml);
     return h(Fragment, vNode)
   }
 
@@ -160,7 +160,8 @@ const processToken = (token: Token): VNode => {
 
 const processInlineToken = (token: Token): VNode => {
   const html = mdt.renderer.render([token], mdt.options, {});
-  const vNodes = htmlToVNode(html);
+  const filteredHtml = mdCardService.filterHtml(html);
+  const vNodes = htmlToVNode(filteredHtml);
   return h(Fragment, vNodes);
 }
 
@@ -305,7 +306,7 @@ watch(
     mdCardService.setCustomXssRules(rules);
     parseContent();
   },
-  { deep: false },
+  { deep: false, immediate: true },
 );
 
 watch(

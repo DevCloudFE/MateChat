@@ -1249,3 +1249,60 @@ onMounted(() => {
 ```
 
 :::
+
+### 自定义XSS过滤规则
+
+通过配置`customXssRules`属性，你可以自定义XSS过滤规则。
+
+:::demo
+
+```vue
+<template>
+  <McMarkdownCard :customXssRules="customXssRules" :content="content" :theme="theme" />
+</template>
+<script setup>
+import { ref, onMounted } from 'vue';
+let themeService;
+const theme = ref('light');
+  // 配置自定义XSS规则
+const  customXssRules = [
+    // 将其设置为null表示禁用该标签的所有属性
+    { key: 'svg', value: null },
+    { key: 'path', value: null },
+    // 允许p标签保留custom-attr属性, 与默认允许的属性合并
+    { key: 'p', value: ['custom-attr'] },
+  ];
+const content = ref(`
+  1. 属性过滤：
+  <p custom-attr="123">这是一段标签属性custom-attr测试文本</p>
+  <p custom-attr2="123">这是一段标签属性custom-attr2测试文本</p>
+
+  <svg style="width: 100px; height: 100px;" viewBox="0 0 100 100">
+    <path d="M50,10 L90,90 L10,90 Z" fill="red" />
+  </svg>
+
+  2. 事件处理器注入：
+  <div onmouseover="alert('XSS')">悬停触发</div>
+  事件触发：
+  <img src="http://localhost:5174/xxx.png" onerror="alert('XSS')"/>
+
+  3. javascript: 伪协议：
+  <a href="javascript:alert('XSS')">点击触发</a>
+`);
+
+const themeChange = () => {
+  if (themeService) {
+    theme.value = themeService.currentTheme.id === 'infinity-theme' ? 'light' : 'dark';
+  }
+};
+
+onMounted(() => {
+  if(typeof window !== 'undefined'){
+    themeService = window['devuiThemeService'];
+  }
+  themeChange();
+  if (themeService && themeService.eventBus) {
+    themeService.eventBus.add('themeChanged', themeChange);
+  }
+});
+</script>
