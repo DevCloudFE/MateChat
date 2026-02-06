@@ -75,7 +75,7 @@
 import { ref, computed, type RendererElement, onMounted, nextTick, watch, type PropType } from 'vue';
 import hljs from "highlight.js";
 import { debounce } from "lodash-es";
-import { MDCardService } from "./MDCardService";
+import { MDCardService } from "@matechat/common/MarkdownCard/common/MDCardService";
 import { useMcI18n } from "@matechat/core/Locale";
 
 type MermaidConfig = {
@@ -173,7 +173,7 @@ const renderMermaid = async () => {
   }
   if (!mermaidService) {
     try {
-      const { MermaidService } = await import('./MermaidService');
+      const { MermaidService } = await import('@matechat/common/MarkdownCard/common/MermaidService');
       const config: MermaidConfig = {
         theme: props.theme === 'dark' ? 'dark' : 'default',
         ...props.mermaidConfig
@@ -368,7 +368,7 @@ onMounted(() => {
     transition: all 0.3s ease;
     overflow: hidden;
     height: 24px;
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -382,7 +382,7 @@ onMounted(() => {
       box-shadow: 0 1px 2px var(--devui-hover-shadow);
       z-index: 1;
     }
-    
+
     &.mc-show-code::before {
       transform: translateX(100%);
     }
@@ -390,7 +390,7 @@ onMounted(() => {
     .mc-diagram-switch-active {
       text-shadow: 0 0 .4px var(--devui-text);
     }
-    
+
     li {
       position: relative;
       padding: 0 8px;
