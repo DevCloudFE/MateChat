@@ -103,10 +103,18 @@ export class ListComponent extends BaseComponent<ListFoundation> {
     }
   }
   initListener() {
-    this.listenDom.addEventListener('keydown', this.onKeyDown as any);
+    if (this.enableShortKey) {
+      this.listenDom.addEventListener(
+        'keydown',
+        this.onKeyDown.bind(this) as any,
+      );
+    }
   }
   removeListener() {
-    this.listenDom.removeEventListener('keydown', this.onKeyDown as any);
+    this.listenDom.removeEventListener(
+      'keydown',
+      this.onKeyDown.bind(this) as any,
+    );
   }
   onListScroll(e: Event): void {
     if (!this.enableLazyLoad || this.direction !== ListDirection.Vertical) {
@@ -121,16 +129,16 @@ export class ListComponent extends BaseComponent<ListFoundation> {
       this.loadMore.emit(e);
     }
   }
-  onItemClick(item: ListItemData): void {
-    if (item.disabled) {
+  onItemClick(clickedItem: ListItemData): void {
+    if (clickedItem.disabled) {
       return;
     }
     if (this.selectable) {
       for (let i = 0; i < this.data.length; i++) {
-        this.data[i].active = this.data[i].value === item.value;
+        this.data[i].active = this.data[i].value === clickedItem.value;
       }
     }
-    this.select.emit({ ...item });
+    this.select.emit({ ...clickedItem });
   }
   onKeyDown(e: KeyboardEvent) {
     if (e.code === ArrowUp) {

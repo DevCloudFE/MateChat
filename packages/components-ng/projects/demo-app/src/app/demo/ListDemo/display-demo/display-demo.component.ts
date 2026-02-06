@@ -23,8 +23,6 @@ export class DisplayListComponent {
     return new Array(10).fill(0).map((_item, i) => ({
       label: `Option ${i + 1}`,
       value: i + 1,
-      disabled: i === 3,
-      active: i === 1,
     }));
   }
 

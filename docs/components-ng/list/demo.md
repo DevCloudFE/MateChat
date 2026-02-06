@@ -26,88 +26,13 @@ import { ListModule } from '@matechat/ng';
 
 ### 自定义
 
-:::demo
-
-```vue
-<template>
-  <h4>部分自定义</h4>
-  <p>通过item插槽自定义选项的内容，悬浮高亮和圆角等样式仍由组件控制。</p>
-  <McList :data="options">
-    <template #item="{ item }"><i :class="item.icon" style="margin-right:4px;"></i>{{ item.label }}</template>
-  </McList>
-
-  <h4>完全自定义</h4>
-  <p>通过item插槽自定义选项的内容，variant参数设置为none，悬浮高亮和圆角等样式也由用户自行控制。</p>
-  <McList :data="options" variant="none">
-    <template #item="{ item }">
-      <div class="custom-list-item"><i :class="item.icon" style="margin-right:4px;"></i>{{ item.label }}</div>
-    </template>
-  </McList>
-</template>
-
-<script setup>
-import { defineComponent, ref } from 'vue';
-
-const options = ref([
-  { label: `Option 1`, value: 1, icon: 'icon-information' },
-  { label: `Option 2`, value: 2, icon: 'icon-inform' },
-  { label: `Option 3`, value: 3, icon: 'icon-infrastructure' },
-]);
-</script>
-
-<style scoped lang="scss">
-.custom-list-item {
-  line-height: 20px;
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--devui-list-item-active-bg);
-  }
-}
-</style>
-```
-
-:::
+<mc-ng-list-custom></mc-ng-list-custom>
 
 ### 快捷键
 
 一般用于下拉列表场景的连贯性操作。`enableShortKey`可设置是否启用快捷键，启用后可通过键盘的上下按键预选中选项，按回车健完成选择。启用快捷键后，可通过`inputEl`参数设置需要监听按键的元素，默认在`document`上监听按键事件。
 
-:::demo
-
-```vue
-<template>
-  <d-dropdown :visible="isOpen" trigger="manually" :position="['top-start']" @toggle="(e) => (isOpen = e)">
-    <d-input
-      ref="inputEl"
-      v-model="inputValue"
-      placeholder="点击后，可通过快捷键选中选项，并将选中项回显到这里"
-      clearable
-      @click="() => (isOpen = true)"
-    ></d-input>
-    <template #menu>
-      <McList :data="options" enableShortKey :inputEl="inputEl" style="width:300px" @select="onSelect"></McList>
-    </template>
-  </d-dropdown>
-</template>
-
-<script setup>
-import { defineComponent, ref } from 'vue';
-
-const inputValue = ref('');
-const inputEl = ref();
-const isOpen = ref(false);
-const options = ref(new Array(4).fill(0).map((item, i) => ({ label: `Option ${i + 1}`, value: i + 1 })));
-
-const onSelect = (e) => {
-  inputValue.value = e.label;
-  isOpen.value = false;
-};
-</script>
-```
-
-:::
+<mc-ng-list-shortcut></mc-ng-list-shortcut>
 
 
 ### 懒加载
@@ -116,36 +41,4 @@ const onSelect = (e) => {
 
 组件默认设置列表最大高度为`300px`，用户可直接在组件标签上通过`style`或`class`的方式设置自定义样式。
 
-:::demo
-
-```vue
-<template>
-  <div v-loading="loading" :backdrop="true" position-type="relative" :view="{ top: '50%', left: '50%' }" :z-index="100">
-    <McList :data="options" enableLazyLoad @loadMore="onLoadMore" style="height:400px"></McList>
-  </div>
-</template>
-
-<script setup>
-import { defineComponent, ref } from 'vue';
-
-const options = ref(new Array(10).fill(0).map((item, i) => ({ label: `Option ${i + 1}`, value: i + 1 })));
-const loading = ref(false);
-const total = 30;
-const onLoadMore = () => {
-  if (loading.value || options.value.length >= total) {
-    return;
-  }
-  loading.value = true;
-  setTimeout(() => {
-    const newData = new Array(10).fill(0).map((item, i) => ({
-      label: `Option ${options.value.length + i}`,
-      value: options.value.length + i,
-    }));
-    options.value.push(...newData);
-    loading.value = false;
-  }, 1500);
-};
-</script>
-```
-
-:::
+<mc-ng-list-lazyload></mc-ng-list-lazyload>
