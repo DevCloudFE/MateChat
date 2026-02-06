@@ -1,12 +1,13 @@
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { BubbleModule, InputModule } from '@matechat/ng';
+import { BubbleModule, InputModule, AttachmentModule } from '@matechat/ng';
 import {
   DisplayType,
   InputVariant,
   SendBtnVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
+import { AttachmentBasicDemoComponent } from './demo/AttachmentDemo/basic-demo/basic-demo.component';
 import { AlignDemoComponent } from './demo/IntroductionDemo/align-demo/align-demo.component';
 import { BasicDemoComponent as BasicIntroDemoComponent } from './demo/IntroductionDemo/basic-demo/basic-demo.component';
 import { DescriptionDemoComponent } from './demo/IntroductionDemo/description-demo/description-demo.component';
@@ -30,6 +31,8 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
     CommonModule,
     BubbleModule,
     InputModule,
+    AttachmentModule,
+    AttachmentBasicDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCardModule,
     MarkdownMermaidDemoComponent,
@@ -51,7 +54,8 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('input') inputEl!: ElementRef<HTMLInputElement>;
   title = 'demo-app';
 
   avatarConfig = {
@@ -72,11 +76,38 @@ export class AppComponent {
     displayName: 'User',
   };
 
+  fileList = [];
+  uploadOptions = {
+    uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
+  };
   loading = false;
   inputValue = '';
   SendBtnVariant = SendBtnVariant;
   DisplayType = DisplayType;
   InputVariant = InputVariant;
+  dropContainer = () => document.body;
+  handleBeforeUpload = (file: File) => {
+    // 除了组件内置的 accept 和 size 校验，你还可以添加自定义的校验逻辑
+    if (file.name.includes('test')) {
+      return false;
+    }
+    return true;
+  };
+
+  onValidChange = (e) => {
+    console.log('valid result', e);
+  };
+  ngAfterViewInit(): void {
+    this.dropContainer = () => {
+      return this.inputEl.nativeElement;
+    };
+  }
+  handleSuccess = ({ file, response }) => {
+    console.log(`文件 ${file.name} 上传成功，响应:`, response);
+  };
+  handleError = ({ file, error }) => {
+    console.error(`文件 ${file.name} 上传失败，错误:`, error);
+  };
   onInputChange = (e) => {
     console.log('input change---', e);
   };

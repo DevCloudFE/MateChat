@@ -2,6 +2,9 @@ import { enableProdMode, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AttachmentBasicShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-basic-show.component';
+import { AttachmentDragShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-drag-show.component';
+import { AttachmentValidShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-valid-show.component';
 import { AlignBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/align-demo-show.component';
 import { AvatarConfigBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/avatar-config-demo-show.component';
 import { AvatarPlusBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/avatar-plus-demo-show.component';
@@ -97,6 +100,18 @@ platformBrowserDynamic()
     console.log('Angular WebComponentsModule 引导成功');
 
     try {
+      const AttachmentBasicWebComponent = createCustomElement(AttachmentBasicShowComponent, {
+        injector: injector
+      });
+      const AttachmentDragWebComponent = createCustomElement(AttachmentDragShowComponent, {
+        injector: injector
+      });
+      const AttachmentValidWebComponent = createCustomElement(AttachmentValidShowComponent, {
+        injector: injector
+      });
+      customElements.define('mc-ng-attachment-basic', AttachmentBasicWebComponent);
+      customElements.define('mc-ng-attachment-drag', AttachmentDragWebComponent);
+      customElements.define('mc-ng-attachment-valid', AttachmentValidWebComponent);
       // 将Bubble组件转换为webcomponent
       const BubbleWebComponent = createCustomElement(BasicBubbleShowComponent, {
         injector: injector,

@@ -1,0 +1,21 @@
+<div #input>
+  <mc-input
+    [value]="inputValue"
+    placeholder="拖拽文件到页面，或点击左侧图标上传附件..."
+  >
+    <ng-template #extra>
+      <div class="input-foot-left">
+        <mc-attachment
+          [uploadOptions]="uploadOptions"
+          accept="image/*"
+          [maxSize]="0.5"
+          [multiple]="true"
+          dropPlaceholder="请放置到此处"
+          [getDropContainer]="dropContainer"
+        >
+          <i class="icon-appendix"></i>
+        </mc-attachment>
+      </div>
+    </ng-template>
+  </mc-input>
+</div>

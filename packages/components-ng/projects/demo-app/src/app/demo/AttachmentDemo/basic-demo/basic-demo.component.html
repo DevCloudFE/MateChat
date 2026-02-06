@@ -1,0 +1,16 @@
+<mc-input [value]="inputValue" placeholder="点击左侧图标上传附件...">
+  <ng-template #extra>
+    <div class="input-foot-left">
+      <mc-attachment
+        [draggable]="false"
+        [uploadOptions]="uploadOptions"
+        accept="image/*"
+        [maxSize]="0.5"
+        (success)="handleSuccess($event)"
+        (error)="handleError($event)"
+      >
+        <i class="icon-appendix"></i>
+      </mc-attachment>
+    </div>
+  </ng-template>
+</mc-input>
