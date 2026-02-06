@@ -1,46 +1,8 @@
 import type {
   Options,
-  PluginSimple,
-  PluginWithOptions,
-  PluginWithParams,
 } from 'markdown-it';
 import type { PropType } from 'vue';
-export interface MermaidConfig {
-  theme?: string;
-}
-
-export interface CustomXssRule {
-  key: string;
-  value: string[] | null;
-}
-
-export interface CodBlockData {
-  code: string;
-  language: string;
-}
-
-export type CodeBlockSlot = {
-  actions?: () => void;
-  header?: () => void;
-  content?: () => void;
-};
-
-export type Theme = 'light' | 'dark';
-
-export type TypingStyle = 'normal' | 'cursor' | 'color' | 'gradient';
-
-export type IntervalType = number | [number, number];
-
-export const defaultTypingConfig = {
-  step: 2,
-  interval: 50,
-  style: 'normal',
-};
-
-export interface MdPlugin {
-  plugin: PluginSimple | PluginWithOptions | PluginWithParams;
-  opts?: unknown;
-}
+import { TypingStyle , CustomXssRule, MdPlugin, Theme, MermaidConfig} from '@matechat/common/MarkdownCard/common/mdCard.types';
 
 export const mdCardProps = {
   content: {

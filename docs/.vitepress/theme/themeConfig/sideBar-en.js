@@ -34,6 +34,12 @@ export default {
   ],
   '/components-ng/': [
     {
+      text: '通用',
+      items: [
+        { text: 'Introduction 介绍', link: '/components-ng/introduction/demo' },
+      ],
+    },
+    {
       text: '会话',
       items: [
         {
@@ -74,7 +80,8 @@ export default {
           ],
         },
       ],
-    },  {
+    },
+    {
       text: '演进中',
       items: [
         {
@@ -113,8 +120,8 @@ export default {
     },
   ],
   '/en/use-guide-ng/': [
-      { text: '快速开始', link: '/use-guide-ng/introduction' }
-    ],
+    { text: '快速开始', link: '/use-guide-ng/introduction' },
+  ],
   '/en/use-guide/': [
     { text: 'Start', link: '/en/use-guide/introduction' },
     { text: 'On-demand Import', link: '/use-guide/require' },

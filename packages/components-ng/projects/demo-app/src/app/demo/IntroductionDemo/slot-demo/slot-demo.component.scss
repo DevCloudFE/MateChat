@@ -1,0 +1,11 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+.quick-start {
+  padding: 8px 12px;
+  border: 1px solid var(--devui-line);
+  border-radius: 8px;
+  cursor: pointer;
+
+  i {
+    margin-right: 8px;
+  }
+}
