@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { BubbleModule, InputModule } from '@matechat/ng';
 import {
-  SendBtnVariant,
   DisplayType,
   InputVariant,
+  SendBtnVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
-import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
-import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
-import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
-import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { AlignDemoComponent } from './demo/IntroductionDemo/align-demo/align-demo.component';
+import { BasicDemoComponent as BasicIntroDemoComponent } from './demo/IntroductionDemo/basic-demo/basic-demo.component';
+import { DescriptionDemoComponent } from './demo/IntroductionDemo/description-demo/description-demo.component';
+import { SlotDemoComponent } from './demo/IntroductionDemo/slot-demo/slot-demo.component';
 import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markdown-code-operator/markdown-operator.component';
-import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
-import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
-import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
-import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
 import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
+import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
+import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
+import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
+import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
+import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
+import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
+import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
 import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
 
 @Component({
@@ -39,6 +43,10 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
     MarkdownMathDemoComponent,
     MarkdownHeaderDemoComponent,
     MarkdownPlantumlDemoComponent,
+    AlignDemoComponent,
+    BasicIntroDemoComponent,
+    DescriptionDemoComponent,
+    SlotDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
