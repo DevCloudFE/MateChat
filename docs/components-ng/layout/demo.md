@@ -13,3 +13,5 @@ import { LayoutAsideModule, LayoutContentModule, LayoutHeaderModule, LayoutModul
 
 ### 基本用法
 可使用 `McLayoutAside`, `McLayoutContent`, `McLayoutHeader`, `McLayout`, `McLayoutSender` 布局容器，进行语义化结构定义，各容器将持续演进其通用能力。
+
+<mc-ng-layout-demo></mc-ng-layout-demo>

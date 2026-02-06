@@ -1,14 +1,10 @@
 <div class="demo-container">
   <mc-layout>
     <mc-layout-header>
-      <div class="demo-layout-header">
-        <div class="demo-layout-header-title">
-          Layout Demo
-        </div>
-      </div>
+      <mc-header [logoImg]="'/logo.svg'" [title]="'MateChat'"></mc-header>
     </mc-layout-header>
     <mc-layout-content style="margin: 16px 0;">
-      <mc-bubble content="Hello MateChat" align="right"></mc-bubble>
+      <mc-bubble content="Hello MateChat" [align]="'right'"></mc-bubble>
       <mc-bubble content="Hello, what can I do for you?"></mc-bubble>
     </mc-layout-content>
     <mc-layout-sender>

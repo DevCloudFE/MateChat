@@ -1,30 +1,31 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
+  BubbleModule,
+  HeaderModule,
+  InputModule,
   LayoutAsideModule,
   LayoutContentModule,
   LayoutHeaderModule,
   LayoutModule,
   LayoutSenderModule,
-  BubbleModule,
-  InputModule,
 } from '@matechat/ng';
 
 @Component({
-    selector: 'mc-layout-demo',
-    standalone: true,
-    imports: [
-      CommonModule,
-      LayoutAsideModule,
-      LayoutContentModule,
-      LayoutHeaderModule,
-      LayoutModule,
-      LayoutSenderModule,
-      BubbleModule,
-      InputModule,
-    ],
-    styleUrls: ['./layout.component.scss'],
-    templateUrl: './layout.component.html'
+  selector: 'app-layout-demo',
+  standalone: true,
+  imports: [
+    CommonModule,
+    LayoutAsideModule,
+    LayoutContentModule,
+    LayoutHeaderModule,
+    LayoutModule,
+    LayoutSenderModule,
+    BubbleModule,
+    InputModule,
+    HeaderModule,
+  ],
+  templateUrl: './layout.component.html',
 })
 export class LayoutDemoComponent {
   inputValue = '';
