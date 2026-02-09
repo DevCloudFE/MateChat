@@ -7,23 +7,23 @@ import {
   Output,
   type TemplateRef,
 } from '@angular/core';
-import BaseComponent from '../Base/base.component';
 import {
   ArrowDown,
   ArrowUp,
   Enter,
   InputTagNames,
   LazyLoadThreshold,
-} from '../components-common/List/common/list-const';
+} from '@matechat/common/List/common/list-const';
 import {
   ListDirection,
   type ListItemData,
   ListVariant,
-} from '../components-common/List/common/list-types';
+} from '@matechat/common/List/common/list-types';
 import {
   type ListAdapter,
   ListFoundation,
-} from '../components-common/List/foundation';
+} from '@matechat/common/List/foundation';
+import BaseComponent from '../Base/base.component';
 
 @Component({
   selector: 'mc-list',
