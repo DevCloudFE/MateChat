@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BubbleModule, InputModule } from '@matechat/ng';
+import { BubbleModule, InputModule, AttachmentModule } from '@matechat/ng';
 import {
-  SendBtnVariant,
   DisplayType,
   InputVariant,
+  SendBtnVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
-import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
-import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
-import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
-import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { AttachmentBasicDemoComponent } from './demo/AttachmentDemo/basic-demo/basic-demo.component';
+import { AlignDemoComponent } from './demo/IntroductionDemo/align-demo/align-demo.component';
+import { BasicDemoComponent as BasicIntroDemoComponent } from './demo/IntroductionDemo/basic-demo/basic-demo.component';
+import { DescriptionDemoComponent } from './demo/IntroductionDemo/description-demo/description-demo.component';
+import { SlotDemoComponent } from './demo/IntroductionDemo/slot-demo/slot-demo.component';
 import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markdown-code-operator/markdown-operator.component';
-import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
-import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
-import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
-import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
 import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
+import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
+import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
+import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
+import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
+import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
+import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
+import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
 import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
 import { MentionComponent } from '../../../components-ng/src/Mention';
 import { BasicDemoComponent } from './demo/MentionDemo/basic-demo/basic-demo.component';
@@ -29,6 +34,8 @@ import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/c
     CommonModule,
     BubbleModule,
     InputModule,
+    AttachmentModule,
+    AttachmentBasicDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCardModule,
     MarkdownMermaidDemoComponent,
@@ -45,11 +52,16 @@ import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/c
     MentionComponent,
     BasicDemoComponent,
     CustomStyleDemoComponent,
+    AlignDemoComponent,
+    BasicIntroDemoComponent,
+    DescriptionDemoComponent,
+    SlotDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('input') inputEl!: ElementRef<HTMLInputElement>;
   title = 'demo-app';
 
   avatarConfig = {
@@ -70,11 +82,38 @@ export class AppComponent {
     displayName: 'User',
   };
 
+  fileList = [];
+  uploadOptions = {
+    uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
+  };
   loading = false;
   inputValue = '';
   SendBtnVariant = SendBtnVariant;
   DisplayType = DisplayType;
   InputVariant = InputVariant;
+  dropContainer = () => document.body;
+  handleBeforeUpload = (file: File) => {
+    // 除了组件内置的 accept 和 size 校验，你还可以添加自定义的校验逻辑
+    if (file.name.includes('test')) {
+      return false;
+    }
+    return true;
+  };
+
+  onValidChange = (e) => {
+    console.log('valid result', e);
+  };
+  ngAfterViewInit(): void {
+    this.dropContainer = () => {
+      return this.inputEl.nativeElement;
+    };
+  }
+  handleSuccess = ({ file, response }) => {
+    console.log(`文件 ${file.name} 上传成功，响应:`, response);
+  };
+  handleError = ({ file, error }) => {
+    console.error(`文件 ${file.name} 上传失败，错误:`, error);
+  };
   onInputChange = (e) => {
     console.log('input change---', e);
   };

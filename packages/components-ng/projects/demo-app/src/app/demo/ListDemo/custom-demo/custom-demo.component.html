@@ -1,0 +1,21 @@
+<div class="demo-container">
+  <h4>部分自定义</h4>
+  <p>通过item插槽自定义选项的内容，悬浮高亮和圆角等样式仍由组件控制。</p>
+  <mc-list [data]="options">
+    <ng-template #item let-item>
+      <i [class]="item.icon" style="margin-right:4px;"></i>{{ item.label }}
+    </ng-template>
+  </mc-list>
+
+  <h4>完全自定义</h4>
+  <p>通过item插槽自定义选项的内容，variant参数设置为none，悬浮高亮和圆角等样式也由用户自行控制。</p>
+  
+  <mc-list [data]="options" [variant]="variantNone">
+    <ng-template #item let-item>
+      <div class="custom-list-item">
+        <i [class]="item.icon" style="margin-right:4px;"></i>{{ item.label }}
+      </div>
+    </ng-template>
+  </mc-list>
+</div>
+

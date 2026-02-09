@@ -1,0 +1,78 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.mc-list {
+  width: 100%;
+  max-height: 300px;
+  box-sizing: border-box;
+  overflow: auto;
+
+  &.mc-list-horizontal {
+    .mc-list-item {
+      width: unset;
+    }
+  }
+
+  &:not(.mc-list-horizontal) {
+    .mc-list-item {
+      &:not(:first-child) {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .mc-list-item {
+    width: 100%;
+    line-height: 20px;
+    padding: 8px;
+    color: $devui-text;
+    font-size: var(--devui-font-size, 14px);
+    border-radius: $devui-border-radius;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      color $devui-animation-duration-fast $devui-animation-ease-in-out-smooth,
+      background-color $devui-animation-duration-fast $devui-animation-ease-in-out-smooth;
+
+    &.filled {
+      background-color: $devui-gray-form-control-bg;
+    }
+
+    &.bordered {
+      border: 1px solid $devui-dividing-line;
+    }
+
+    &:hover,
+    &.mc-list-item-pre-selection {
+      color: $devui-list-item-hover-text;
+      background-color: $devui-list-item-hover-bg;
+    }
+
+    &.mc-list-item-active {
+      color: $devui-list-item-active-text;
+      background-color: $devui-list-item-active-bg;
+    }
+
+    &.mc-list-item-disabled {
+      color: $devui-disabled-text;
+      background-color: $devui-disabled-bg;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.mc-list-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  &.mc-list-nowrap {
+    flex-wrap: nowrap;
+
+    .mc-list-item {
+      flex: none;
+    }
+  }
+}

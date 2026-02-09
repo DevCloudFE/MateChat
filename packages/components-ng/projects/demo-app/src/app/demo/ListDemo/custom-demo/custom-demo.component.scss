@@ -1,0 +1,9 @@
+.custom-list-item {
+  line-height: 20px;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--devui-list-item-active-bg);
+  }
+}

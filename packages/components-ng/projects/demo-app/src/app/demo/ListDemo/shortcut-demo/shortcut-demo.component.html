@@ -1,0 +1,4 @@
+<div class="demo-container">
+  <input type="text" id="list-shortcut-demo-input" [(ngModel)]="inputValue" placeholder="点击后，可通过快捷键选中选项，并将选中项回显到这里" class="mc-list-demo-input">
+  <mc-list [data]="options" [enableShortKey]="true" [inputEl]="inputEl" (select)="handleSelect($event)"></mc-list>
+</div>

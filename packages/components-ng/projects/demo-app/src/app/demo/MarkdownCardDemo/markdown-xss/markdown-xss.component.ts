@@ -20,16 +20,25 @@ export class MarkdownXssDemoComponent {
     // 允许p标签保留custom-attr属性, 与默认允许的属性合并
     { key: 'p', value: ['custom-attr'] },
   ];
-  
+
   // 测试XSS过滤的内容，包含各种XSS攻击尝试
   content = `
-  
+
+  1. 属性过滤：
   <p custom-attr="123">这是一段标签属性custom-attr测试文本</p>
   <p custom-attr2="123">这是一段标签属性custom-attr2测试文本</p>
- 
+
   <svg style="width: 100px; height: 100px;" viewBox="0 0 100 100">
     <path d="M50,10 L90,90 L10,90 Z" fill="red" />
   </svg>
+
+  2. 事件处理器注入：
+  <div onmouseover="alert('XSS')">悬停触发</div>
+  事件触发：
+  <img src="http://localhost:5174/xxx.png" onerror="alert('XSS')"/>
+
+  3. javascript: 伪协议：
+  <a href="javascript:alert('XSS')">点击触发</a>
 
   `;
   changeTheme = () => {
