@@ -156,6 +156,20 @@ export default {
             },
           ],
         },
+        {
+          text: 'Prompt 提示',
+          link: '/components-ng/prompt/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/prompt/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/prompt/api.md',
+            },
+          ],
+        },
       ],
     },
     {

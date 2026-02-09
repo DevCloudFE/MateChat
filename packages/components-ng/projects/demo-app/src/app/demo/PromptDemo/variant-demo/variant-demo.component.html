@@ -1,0 +1,10 @@
+<div class="demo-container">
+  <p style="margin: 0 0 8px;">带背景色的 prompt 列表</p>
+  <mc-prompt [list]="promptData" [direction]="horizontal"></mc-prompt>
+  <p style="margin-bottom: 8px;">带边框的 prompt 列表</p>
+  <mc-prompt [list]="promptData" [direction]="horizontal" [variant]="Variant.Bordered"></mc-prompt>
+  <p style="margin-bottom: 8px;">透明背景色的 prompt 列表</p>
+  <mc-prompt [list]="promptData" [direction]="horizontal" [variant]="Variant.Transparent"></mc-prompt>
+  <p style="margin-bottom: 8px;">无任何样式的 prompt 列表，方便你覆盖样式</p>
+  <mc-prompt [list]="promptData" [direction]="horizontal" [variant]="Variant.None"></mc-prompt>
+</div>
