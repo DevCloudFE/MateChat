@@ -1,9 +1,16 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  type AfterViewInit,
+  Component,
+  type ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MentionComponent } from '@matechat/ng';
-import { SearchChangeEvent, Trigger } from '@matechat/common/Mention/common/mention-types';
-import { InputComponent } from '@matechat/ng';
+import type {
+  SearchChangeEvent,
+  Trigger,
+} from '@matechat/common/Mention/common/mention-types';
+import { InputComponent, MentionComponent } from '@matechat/ng';
 
 interface ListItem {
   label: string;
@@ -40,9 +47,6 @@ export class BasicDemoComponent implements AfterViewInit {
     this.currentTrigger = e.trigger;
 
     if (this.currentListLabel && e.value.includes(this.currentListLabel)) {
-      setTimeout(() => {
-        this.isVisible = false;
-      }, 0);
       return;
     }
 
@@ -71,10 +75,10 @@ export class BasicDemoComponent implements AfterViewInit {
   onListSelect(item: ListItem) {
     this.isVisible = false;
     this.currentListLabel = item.label;
-    this.inputValue = 
-      this.inputValue.slice(0, this.triggerIndex) + 
-      this.currentTrigger + 
-      item.label + 
+    this.inputValue =
+      this.inputValue.slice(0, this.triggerIndex) +
+      this.currentTrigger +
+      item.label +
       this.inputValue.slice(this.cursorIndex);
   }
 }
