@@ -1,0 +1,5 @@
+<div class="demo-container">
+  <div dLoading [showLoading]="loading">
+    <mc-list [data]="options" [enableLazyLoad]="true" (loadMore)="onLoadMore($event)" style="height:400px"></mc-list>
+  </div>
+</div>

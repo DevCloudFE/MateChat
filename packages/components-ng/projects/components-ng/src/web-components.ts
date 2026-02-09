@@ -27,8 +27,15 @@ import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
 import { DescriptionDemoShowComponent } from '../../demo-app/src/app/show/Introduction/description-demo-show.component';
 import { SlotDemoShowComponent } from '../../demo-app/src/app/show/Introduction/slot-demo-show.component';
-import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
+// 添加List相关的show组件
+import { BasicListShowComponent } from '../../demo-app/src/app/show/List/list-basic-show.component';
+import { CustomListShowComponent } from '../../demo-app/src/app/show/List/list-custom-show.component';
+import { DisplayListShowComponent } from '../../demo-app/src/app/show/List/list-display-show.component';
+import { LazyloadListShowComponent } from '../../demo-app/src/app/show/List/list-lazyload-show.component';
+import { ShortcutListShowComponent } from '../../demo-app/src/app/show/List/list-shortcut-show.component';
+
 // 导入MarkdownCard相关的show组件
+import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
 import { MarkdownCodeOperatorShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-code-operator-show.component';
 import { MarkdownContentShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-content-show.component';
 import { MarkdownEmojeShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-emoje-show.component';
@@ -76,6 +83,12 @@ import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCa
     DescriptionDemoShowComponent,
     SlotDemoShowComponent,
     AlignDemoShowComponent,
+    // 添加List相关的show组件
+    BasicListShowComponent,
+    DisplayListShowComponent,
+    CustomListShowComponent,
+    ShortcutListShowComponent,
+    LazyloadListShowComponent,
   ],
   providers: [],
 })
@@ -100,18 +113,36 @@ platformBrowserDynamic()
     console.log('Angular WebComponentsModule 引导成功');
 
     try {
-      const AttachmentBasicWebComponent = createCustomElement(AttachmentBasicShowComponent, {
-        injector: injector
-      });
-      const AttachmentDragWebComponent = createCustomElement(AttachmentDragShowComponent, {
-        injector: injector
-      });
-      const AttachmentValidWebComponent = createCustomElement(AttachmentValidShowComponent, {
-        injector: injector
-      });
-      customElements.define('mc-ng-attachment-basic', AttachmentBasicWebComponent);
-      customElements.define('mc-ng-attachment-drag', AttachmentDragWebComponent);
-      customElements.define('mc-ng-attachment-valid', AttachmentValidWebComponent);
+      const AttachmentBasicWebComponent = createCustomElement(
+        AttachmentBasicShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const AttachmentDragWebComponent = createCustomElement(
+        AttachmentDragShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const AttachmentValidWebComponent = createCustomElement(
+        AttachmentValidShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      customElements.define(
+        'mc-ng-attachment-basic',
+        AttachmentBasicWebComponent,
+      );
+      customElements.define(
+        'mc-ng-attachment-drag',
+        AttachmentDragWebComponent,
+      );
+      customElements.define(
+        'mc-ng-attachment-valid',
+        AttachmentValidWebComponent,
+      );
       // 将Bubble组件转换为webcomponent
       const BubbleWebComponent = createCustomElement(BasicBubbleShowComponent, {
         injector: injector,
@@ -328,6 +359,38 @@ platformBrowserDynamic()
         },
       );
 
+      // 将List组件转换为webcomponent
+      const BasicListWebComponent = createCustomElement(
+        BasicListShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const DisplayListWebComponent = createCustomElement(
+        DisplayListShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const CustomListWebComponent = createCustomElement(
+        CustomListShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const ShortcutListWebComponent = createCustomElement(
+        ShortcutListShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const LazyloadListWebComponent = createCustomElement(
+        LazyloadListShowComponent,
+        {
+          injector: injector,
+        },
+      );
+
       // 注册Bubble相关webcomponent
       customElements.define('mc-ng-bubble-basic', BubbleWebComponent);
       customElements.define('mc-ng-bubble-loading', LoadingBubbleWebComponent);
@@ -396,6 +459,12 @@ platformBrowserDynamic()
         'mc-ng-introduction-align',
         AlignIntroductionWebComponent,
       );
+      // 注册List相关webcomponent
+      customElements.define('mc-ng-list-basic', BasicListWebComponent);
+      customElements.define('mc-ng-list-display', DisplayListWebComponent);
+      customElements.define('mc-ng-list-custom', CustomListWebComponent);
+      customElements.define('mc-ng-list-shortcut', ShortcutListWebComponent);
+      customElements.define('mc-ng-list-lazyload', LazyloadListWebComponent);
     } catch (error) {
       console.error('创建WebComponent时出错:', error);
     }

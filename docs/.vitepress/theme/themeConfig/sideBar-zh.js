@@ -41,6 +41,24 @@ export default {
       text: '通用',
       items: [
         { text: 'Introduction 介绍', link: '/components-ng/introduction/demo' },
+        {
+          text: 'List 列表',
+          link: '/components-ng/list/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/components-ng/list/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/components-ng/list/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/list/api.md',
+            },
+          ],
+        },
       ],
     },
     {
