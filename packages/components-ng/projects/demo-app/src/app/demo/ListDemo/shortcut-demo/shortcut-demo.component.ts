@@ -26,6 +26,6 @@ export class ShortcutListComponent {
     ) as HTMLInputElement;
   }
   handleSelect(evt: any) {
-    this.inputValue = evt.value;
+    this.inputValue = evt.label;
   }
 }

@@ -30,6 +30,10 @@ export class ShortcutListShowComponent extends BaseShowComponent {
       type: 'TS',
       path: '/demo/ListDemo/shortcut-demo/shortcut-demo.component.ts',
     },
+    {
+      type: 'SCSS',
+      path: '/demo/ListDemo/shortcut-demo/shortcut-demo.component.scss',
+    },
   ];
 
   constructor() {

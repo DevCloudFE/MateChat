@@ -27,6 +27,10 @@ export class CustomListShowComponent extends BaseShowComponent {
       path: '/demo/ListDemo/custom-demo/custom-demo.component.html',
     },
     { type: 'TS', path: '/demo/ListDemo/custom-demo/custom-demo.component.ts' },
+    {
+      type: 'SCSS',
+      path: '/demo/ListDemo/custom-demo/custom-demo.component.scss',
+    },
   ];
 
   constructor() {
