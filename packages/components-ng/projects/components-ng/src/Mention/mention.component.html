@@ -1,0 +1,18 @@
+<!-- Mention组件的模板 -->
+
+<!-- 触发器元素 -->
+<div #popperTrigger #origin class="mc-mention-trigger">
+  <ng-content></ng-content>
+</div>
+
+<!-- 提及菜单的弹出层 -->
+<div 
+  #overlayEl 
+  *ngIf="modelValue" 
+  [@fade]
+  class="mc-mention mc-mention-fade" 
+  [ngClass]="menuClass" 
+  [ngStyle]="overlayStyle"
+>
+  <ng-content select="[slot=menu]"></ng-content>
+</div>

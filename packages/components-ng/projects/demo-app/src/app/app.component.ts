@@ -23,6 +23,9 @@ import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-the
 import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
 import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
 import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
+import { MentionComponent } from '../../../components-ng/src/Mention';
+import { BasicDemoComponent } from './demo/MentionDemo/basic-demo/basic-demo.component';
+import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/custom-style-demo.component';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +49,9 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
     MarkdownMathDemoComponent,
     MarkdownHeaderDemoComponent,
     MarkdownPlantumlDemoComponent,
+    MentionComponent,
+    BasicDemoComponent,
+    CustomStyleDemoComponent,
     AlignDemoComponent,
     BasicIntroDemoComponent,
     DescriptionDemoComponent,
