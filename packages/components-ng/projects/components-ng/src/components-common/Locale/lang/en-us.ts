@@ -23,4 +23,7 @@ export default {
     content: "Message content",
     avatar: "User avatar: {name}"
   },
+  Attachment: {
+    dragToUpload: 'Drag to upload',
+  },
 };

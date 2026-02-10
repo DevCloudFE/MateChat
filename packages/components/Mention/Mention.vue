@@ -20,17 +20,7 @@ const { popperTriggerEl, overlayEl, overlayStyle } = useMention(props, emits);
 
 <style scoped lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
-
-.mc-mention {
-  position: fixed;
-  max-height: 300px;
-  border-radius: $devui-border-radius;
-  background-color: $devui-connected-overlay-bg;
-  box-shadow: $devui-shadow-length-connected-overlay $devui-shadow;
-  transform-origin: 0% 100%;
-  z-index: 1000;
-}
-
+@import '@matechat/common/Mention/common/mention.scss';
 .mc-mention-fade {
   &-enter-from,
   &-leave-to {

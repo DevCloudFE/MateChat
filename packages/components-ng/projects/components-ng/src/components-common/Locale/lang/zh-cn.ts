@@ -23,4 +23,7 @@ export default {
     content: "消息内容",
     avatar: "用户头像: {name}"
   },
+  Attachment: {
+    dragToUpload: "拖拽到此处上传",
+  },
 };

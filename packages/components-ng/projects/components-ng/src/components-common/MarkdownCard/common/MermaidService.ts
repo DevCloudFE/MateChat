@@ -97,8 +97,8 @@ export class MermaidService {
   private applyTransform(container: HTMLElement, svg: SVGSVGElement) {
     const state = this.viewStateMap.get(container);
     if (!state) return;
-    svg.style.maxWidth = '100%';
-    svg.style.maxHeight = '100%';
+    svg.style.maxWidth = '90%';
+    svg.style.maxHeight = '90%';
     svg.style.position = 'absolute';
     svg.style.left = '50%';
     svg.style.top = '50%';

@@ -4,6 +4,7 @@
 .mc-markdown-render {
   font-size: var(--devui-font-size, 14px);
   overflow-x: auto;
+  position: relative;
   &.mc-markdown-render-dark {
     color: #ced1db;
   }
@@ -13,11 +14,19 @@
 }
 
 @include deep() {
+
+  .mc-table-container {
+    max-width: 100%;
+    width: fit-content;
+    overflow-x: auto;
+  }
+
   .mc-think-block {
     color: $devui-aide-text;
     border-left: 1px solid $devui-line;
     padding-left: 8px;
     margin-bottom: 1rem;
+    line-height: 24px;
   }
 
   .mc-typewriter-color {

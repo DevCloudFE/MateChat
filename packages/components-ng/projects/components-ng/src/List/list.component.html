@@ -1,0 +1,32 @@
+<div [ngClass]="listClasses" (scroll)="onListScroll($event)">
+  <ng-container *ngFor="let item of data; let index = index">
+    <ng-container *ngIf="variant === ListVariant.None">
+      <ng-container
+        *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="variant !== ListVariant.None">
+      <div
+        class="mc-list-item"
+        [class]="variant"
+        [ngClass]="{
+          'mc-list-item-disabled': item.disabled,
+          'mc-list-item-active': item.active,
+          'mc-list-item-pre-selection': index === preSelectIndex
+        }"
+        (click)="onItemClick(item)"
+      >
+        <ng-container *ngIf="itemTemplate; else defaultLabel">
+          <ng-container
+            *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
+          </ng-container>
+        </ng-container>
+
+        <ng-template #defaultLabel>
+          {{ item['label'] }}
+        </ng-template>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

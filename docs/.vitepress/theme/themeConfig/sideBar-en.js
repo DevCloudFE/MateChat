@@ -34,6 +34,30 @@ export default {
   ],
   '/components-ng/': [
     {
+      text: '通用',
+      items: [
+        { text: 'Introduction 介绍', link: '/components-ng/introduction/demo' },
+        {
+          text: 'List 列表',
+          link: '/components-ng/list/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/components-ng/list/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/components-ng/list/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/list/api.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
       text: '会话',
       items: [
         {
@@ -73,8 +97,23 @@ export default {
             },
           ],
         },
+                {
+          text: 'Mention 快捷操作',
+          link: '/components-ng/mention/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/mention/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/mention/api.md',
+            },
+          ],
+        },
       ],
-    },  {
+    },
+    {
       text: '演进中',
       items: [
         {
@@ -91,6 +130,14 @@ export default {
             },
           ],
         },
+        { 
+          text: 'Attachment 附件', 
+          link: '/components-ng/attachment/demo',
+          children: [
+            { text: 'Demos', link: '/components-ng/attachment/demo.md' },
+            { text: 'API Reference', link: '/components-ng/attachment/api.md' },
+          ]
+        },
       ],
     },
   ],
@@ -105,8 +152,8 @@ export default {
     },
   ],
   '/en/use-guide-ng/': [
-      { text: '快速开始', link: '/use-guide-ng/introduction' }
-    ],
+    { text: '快速开始', link: '/use-guide-ng/introduction' },
+  ],
   '/en/use-guide/': [
     { text: 'Start', link: '/en/use-guide/introduction' },
     { text: 'On-demand Import', link: '/use-guide/require' },

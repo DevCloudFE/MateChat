@@ -15,9 +15,12 @@ import markdownit from 'markdown-it';
 import type { MarkdownIt, Token } from 'markdown-it';
 import { Fragment, type VNode, computed, h, nextTick, onMounted, ref, useSlots, watch } from 'vue';
 import CodeBlock from './CodeBlock.vue';
-import { MDCardService } from './MDCardService';
-import { type CodeBlockSlot, defaultTypingConfig, mdCardProps } from './mdCard.types';
-import { tokensToAst, htmlToVNode, type ASTNode, isValidTagName } from './MDCardParser';
+import { MDCardService } from '@matechat/common/MarkdownCard/common/MDCardService';
+import { mdCardProps } from './mdCard.types';
+import { type CodeBlockSlot, defaultTypingConfig, type ASTNode } from '@matechat/common/MarkdownCard/common/mdCard.types';
+import { htmlToVNode } from './MDCardParser';
+import { tokensToAst, isValidTagName } from '@matechat/common/MarkdownCard/common/parser';
+import { useMarkdownCardFoundation } from './useMarkdownCardFoundation';
 
 const mdCardService = new MDCardService();
 const props = defineProps(mdCardProps);
@@ -40,6 +43,11 @@ const mdt: MarkdownIt = markdownit({
   ...props.mdOptions,
 });
 
+const { foundation } = useMarkdownCardFoundation({
+  props,
+  emit,
+});
+
 const typingIndex = ref(0)
 const isTyping = ref(false)
 
@@ -59,10 +67,7 @@ const parseContent = () => {
   }
 
   if (props.enableThink) {
-    const thinkClass = props.thinkOptions?.customClass || 'mc-think-block';
-    content = content
-        ?.replace('<think>', `<div class="${thinkClass}">`)
-        .replace('</think>', '</div>') || '';
+    content = foundation.getThinkContent(content, props.thinkOptions);
   }
   const tokens = mdt.parse(content, {});
   const ast = tokensToAst(tokens);
@@ -76,17 +81,18 @@ const astToVnodes = (nodes: ASTNode[]): VNode[] => {
 
 const processASTNode = (node: ASTNode | Token): VNode => {
   if (node.nodeType === 'html_inline' || node.nodeType === 'html_block') {
-    const vNodes = htmlToVNode(node.openNode?.content || '');
-    
+    const filteredContent = mdCardService.filterHtml(node.openNode?.content || '');
+    const vNodes = htmlToVNode(filteredContent);
+
     if (!vNodes || vNodes.length === 0) {
-      return h('span', node.openNode?.content || '');
+      return h('span', filteredContent);
     }
-    
+
     const processedVNodes = vNodes.map(vNode => {
       if (typeof vNode === 'string') {
         return h('span', vNode);
       }
-      
+
       const children = node.children.map(child => processASTNode(child));
       if (Array.isArray(vNode.children)) {
         vNode.children = [...vNode.children, ...children];
@@ -95,32 +101,29 @@ const processASTNode = (node: ASTNode | Token): VNode => {
       }
       return vNode;
     });
-    
+
     return h(Fragment, processedVNodes);
   }
 
   if (node.nodeType === 'inline') {
     const html = mdt.renderer.render([node.openNode], mdt.options, {});
-    const vNodes = htmlToVNode(html);
+    const filteredHtml = mdCardService.filterHtml(html);
+    const vNodes = htmlToVNode(filteredHtml);
     return h(Fragment, vNodes);
   }
-  
-  if (isToken(node)) {
+
+  if (foundation.isToken(node)) {
     return processToken(node);
   }
-  
-  return processASTNodeInternal(node);
-}
 
-const isToken = (node: ASTNode | Token): node is Token => {
-  return 'type' in node && 'content' in node;
+  return processASTNodeInternal(node);
 }
 
 const processToken = (token: Token): VNode => {
   if (token.type === 'text') {
     return token.content;
   }
-  
+
   if (token.type === 'inline') {
     return processInlineToken(token);
   }
@@ -134,28 +137,31 @@ const processToken = (token: Token): VNode => {
   }
 
   if (token.type === 'html_block' || token.type === 'html_inline') {
-    return token.type === 'html_block' ? h('div', { innerHTML: token.content }) : h('span', { innerHTML: token.content });
+    const filteredContent = mdCardService.filterHtml(token.content);
+    return token.type === 'html_block' ? h('div', { innerHTML: filteredContent }) : h('span', { innerHTML: filteredContent });
   }
 
   if (token.type === 'math_block' && token.markup === '$$') {
     const html = mdt.renderer.render([token], mdt.options, {});
-    const vNode = htmlToVNode(html);
+    const filteredHtml = mdCardService.filterHtml(html);
+    const vNode = htmlToVNode(filteredHtml);
     return h(Fragment, vNode)
   }
-  
+
   // 优先使用token的tag属性
   if (token.tag) {
     const tagName = isValidTagName(token.tag) ? token.tag : 'div'
     const attrs = convertAttrsToProps(token.attrs || []);
     return h(tagName, { ...attrs, key: token.vNodeKey }, token.content);
   }
-  
+
   return token.content;
 }
 
 const processInlineToken = (token: Token): VNode => {
   const html = mdt.renderer.render([token], mdt.options, {});
-  const vNodes = htmlToVNode(html);
+  const filteredHtml = mdCardService.filterHtml(html);
+  const vNodes = htmlToVNode(filteredHtml);
   return h(Fragment, vNodes);
 }
 
@@ -172,7 +178,7 @@ const processASTNodeInternal = (node: ASTNode): VNode => {
   if (node.openNode?.type === 'fence') {
     return processFenceToken(node.openNode);
   }
-  
+
   // 处理所有带tag的AST节点
   if (node.openNode?.tag) {
     let tagName = isValidTagName(node.openNode?.tag) ? node.openNode?.tag : 'div'
@@ -185,9 +191,9 @@ const processASTNodeInternal = (node: ASTNode): VNode => {
     }
     return vNode;
   }
-  
+
   const children = node.children.map(child => processASTNode(child));
-  
+
   return h(tagName, { ...attrs, key: node.vNodeKey}, children);
 }
 
@@ -300,7 +306,7 @@ watch(
     mdCardService.setCustomXssRules(rules);
     parseContent();
   },
-  { deep: false },
+  { deep: false, immediate: true },
 );
 
 watch(
@@ -327,62 +333,7 @@ defineExpose({ mdt });
 
 <style scoped lang="scss">
 @import "devui-theme/styles-var/devui-var.scss";
-@import "./markdown.scss";
-
-.mc-markdown-render {
-  font-size: var(--devui-font-size, 14px);
-  overflow-x: auto;
-  position: relative;
-  &.mc-markdown-render-dark {
-    color: #CED1DB;
-  }
-  &.mc-markdown-render-light {
-    color: #252b3a;
-  }
-}
-
-:deep(.mc-table-container) {
-  max-width: 100%;
-  width: fit-content;
-  overflow-x: auto;
-}
-:deep(.mc-think-block) {
-  color: $devui-aide-text;
-  border-left: 1px solid $devui-line;
-  padding-left: 8px;
-  margin-bottom: 1rem;
-  line-height: 24px;
-}
-
-:deep(.mc-typewriter-color) {
-  background-image: -webkit-linear-gradient(left, #191919, #5588f0, #e171ee, #f2c55c);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-:deep(.mc-typewriter-gradient) {
-  background: linear-gradient(to right, $devui-text, $devui-base-bg);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-:deep(.mc-typewriter-cursor) {
-  font-weight: 900;
-  animation: typewriter 800ms linear 0s infinite;
-}
-
-@keyframes typewriter {
-  0% {
-    opacity: 1;
-  }
-  50% {
-      opacity: 0;
-  }
-  100% {
-      opacity: 1;
-  }
-}
-
+@import "@matechat/common/Base/vue.scss";
+@import "@matechat/common/MarkdownCard/common/markdown.scss";
+@import "@matechat/common/MarkdownCard/common/mdCard.scss";
 </style>

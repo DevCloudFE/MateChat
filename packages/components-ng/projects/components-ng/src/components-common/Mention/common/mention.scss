@@ -1,0 +1,9 @@
+.mc-mention {
+  position: fixed;
+  max-height: 300px;
+  border-radius: $devui-border-radius;
+  background-color: $devui-connected-overlay-bg;
+  box-shadow: $devui-shadow-length-connected-overlay $devui-shadow;
+  transform-origin: 0% 100%;
+  z-index: 1000;
+}

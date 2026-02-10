@@ -33,6 +33,7 @@
     "markdown-it-emoji": "^3.0.0",
     "mermaid": "^11.10.1",
     "morphdom": "^2.7.4",
+    "ng-devui": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"

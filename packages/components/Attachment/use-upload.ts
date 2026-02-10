@@ -1,12 +1,12 @@
 import type { Ref } from "vue";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed } from "vue";
 import type {
   AttachmentEmits,
   AttachmentProps,
   FileItem,
   IValidResult,
 } from "./attachment-types";
-import { upload } from "./uploader";
+import { upload } from "@matechat/common/Attachment/common/uploader.ts";
 
 let uid = Date.now();
 

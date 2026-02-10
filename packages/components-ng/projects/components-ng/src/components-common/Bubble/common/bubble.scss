@@ -7,6 +7,7 @@
 
   .mc-bubble-content {
     word-wrap: break-word;
+    word-break: break-all;
 
     &.filled,
     &.bordered {
@@ -49,7 +50,7 @@
 
   &.mc-bubble-avatar-top {
     flex-direction: column;
-    
+
     .mc-bubble-content-container {
       align-items: flex-start;
       flex-direction: column;
