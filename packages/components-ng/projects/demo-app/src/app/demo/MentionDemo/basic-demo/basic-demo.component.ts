@@ -10,7 +10,7 @@ import type {
   SearchChangeEvent,
   Trigger,
 } from '@matechat/common/Mention/common/mention-types';
-import { InputComponent, MentionComponent } from '@matechat/ng';
+import { InputComponent, MentionComponent, ListComponent } from '@matechat/ng';
 
 interface ListItem {
   label: string;
@@ -20,7 +20,7 @@ interface ListItem {
 @Component({
   selector: 'app-basic-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, MentionComponent, InputComponent],
+  imports: [CommonModule, FormsModule, MentionComponent, InputComponent, ListComponent],
   templateUrl: './basic-demo.component.html',
   styleUrls: ['./basic-demo.component.scss'],
 })
@@ -72,7 +72,7 @@ export class BasicDemoComponent implements AfterViewInit {
     this.inputValue = e;
   }
 
-  onListSelect(item: ListItem) {
+  onListSelect(item) {
     this.isVisible = false;
     this.currentListLabel = item.label;
     this.inputValue =

@@ -13,15 +13,7 @@
         placeholder="输入/ 触发提及功能"
       ></mc-input>
       <div slot="menu" class="mention-menu">
-        <ul class="mention-list">
-          <li 
-            *ngFor="let item of listData" 
-            class="mention-item"
-            (click)="onListSelect(item)"
-          >
-            {{ item.label }}
-          </li>
-        </ul>
+         <mc-list [data]="listData" (select)="onListSelect($event)"></mc-list>
       </div>
     </mc-mention>
   </div>

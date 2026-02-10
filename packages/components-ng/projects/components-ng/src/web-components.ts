@@ -453,19 +453,6 @@ platformBrowserDynamic()
       // 注册Mention相关webcomponent
       customElements.define('mc-ng-mention-basic', BasicMentionWebComponent);
       customElements.define('mc-ng-mention-custom-style', CustomStyleMentionWebComponent);
-      customElements.define(
-        'mc-ng-markdown-mermaid',
-        MarkdownMermaidWebComponent,
-      );
-      customElements.define(
-        'mc-ng-markdown-typing',
-        MarkdownTypingWebComponent,
-      );
-      customElements.define(
-        'mc-ng-markdown-thinking',
-        MarkdownThinkingWebComponent,
-      );
-
       // 注册Introduction相关webcomponent
       customElements.define(
         'mc-ng-introduction-basic',

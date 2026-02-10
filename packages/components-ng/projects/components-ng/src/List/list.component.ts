@@ -13,16 +13,16 @@ import {
   Enter,
   InputTagNames,
   LazyLoadThreshold,
-} from '@matechat/common/List/common/list-const';
+} from '../components-common/List/common/list-const';
 import {
   ListDirection,
   type ListItemData,
   ListVariant,
-} from '@matechat/common/List/common/list-types';
+} from '../components-common/List/common/list-types';
 import {
   type ListAdapter,
   ListFoundation,
-} from '@matechat/common/List/foundation';
+} from '../components-common/List/foundation';
 import BaseComponent from '../Base/base.component';
 
 @Component({

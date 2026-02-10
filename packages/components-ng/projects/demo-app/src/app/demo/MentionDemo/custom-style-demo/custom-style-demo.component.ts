@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MentionComponent } from '@matechat/ng';
 import { SearchChangeEvent, Trigger } from '@matechat/common/Mention/common/mention-types';
-import { InputComponent } from '@matechat/ng';
+import { InputComponent, ListComponent } from '@matechat/ng';
 
 interface ListItem {
   label: string;
@@ -13,7 +13,7 @@ interface ListItem {
 @Component({
   selector: 'app-custom-style-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, MentionComponent, InputComponent],
+  imports: [CommonModule, FormsModule, MentionComponent, InputComponent, ListComponent],
   templateUrl: './custom-style-demo.component.html',
   styleUrls: ['./custom-style-demo.component.scss'],
 })
@@ -51,7 +51,7 @@ export class CustomStyleDemoComponent implements AfterViewInit {
     this.inputValue = e;
   }
 
-  onListSelect(item: ListItem) {
+  onListSelect(item) {
     this.isVisible = false;
     this.inputValue = 
       this.inputValue.slice(0, this.triggerIndex) + 
