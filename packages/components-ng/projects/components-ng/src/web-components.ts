@@ -1,6 +1,7 @@
 import { enableProdMode, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AttachmentBasicShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-basic-show.component';
 import { AttachmentDragShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-drag-show.component';
@@ -48,10 +49,15 @@ import { MarkdownThinkingShowComponent } from '../../demo-app/src/app/show/Markd
 import { MarkdownTypingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-typing-show.component';
 import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-xss-show.component';
 
+// 导入Mention相关的show组件
+import { BasicMentionComponent } from '../../demo-app/src/app/show/Mention/basic-show.component';
+import { CustomStyleMentionComponent } from '../../demo-app/src/app/show/Mention/custom-style-show.component';
+
 // 正确定义WebComponentsModule模块
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     BasicBubbleShowComponent,
     AlignBubbleShowComponent,
     LoadingBubbleShowComponent,
@@ -78,6 +84,9 @@ import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCa
     MarkdownThemeShowComponent,
     MarkdownHeaderShowComponent,
     MarkdownXssShowComponent,
+    // 添加Mention相关的show组件
+    BasicMentionComponent,
+    CustomStyleMentionComponent,
     // 添加Introduction相关的show组件
     BasicDemoShowComponent,
     DescriptionDemoShowComponent,
@@ -429,19 +438,21 @@ platformBrowserDynamic()
         MarkdownCodeOperatorWebComponent,
       );
       customElements.define('mc-ng-markdown-emoje', MarkdownEmojeWebComponent);
-      customElements.define(
-        'mc-ng-markdown-mermaid',
-        MarkdownMermaidWebComponent,
-      );
-      customElements.define(
-        'mc-ng-markdown-typing',
-        MarkdownTypingWebComponent,
-      );
-      customElements.define(
-        'mc-ng-markdown-thinking',
-        MarkdownThinkingWebComponent,
-      );
-
+      customElements.define('mc-ng-markdown-mermaid', MarkdownMermaidWebComponent);
+      customElements.define('mc-ng-markdown-typing', MarkdownTypingWebComponent);
+      customElements.define('mc-ng-markdown-thinking', MarkdownThinkingWebComponent);
+      
+      // 将Mention组件转换为webcomponent
+      const BasicMentionWebComponent = createCustomElement(BasicMentionComponent, {
+        injector: injector
+      });
+      const CustomStyleMentionWebComponent = createCustomElement(CustomStyleMentionComponent, {
+        injector: injector
+      });
+      
+      // 注册Mention相关webcomponent
+      customElements.define('mc-ng-mention-basic', BasicMentionWebComponent);
+      customElements.define('mc-ng-mention-custom-style', CustomStyleMentionWebComponent);
       // 注册Introduction相关webcomponent
       customElements.define(
         'mc-ng-introduction-basic',

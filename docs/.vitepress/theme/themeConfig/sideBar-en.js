@@ -97,6 +97,20 @@ export default {
             },
           ],
         },
+                {
+          text: 'Mention 快捷操作',
+          link: '/components-ng/mention/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/mention/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/mention/api.md',
+            },
+          ],
+        },
       ],
     },
     {

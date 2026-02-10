@@ -9,3 +9,4 @@ export * from './Introduction/index';
 export * from './List/index';
 export * from './Locale/index';
 export * from './MarkdownCard/index';
+export * from './Mention/index';
