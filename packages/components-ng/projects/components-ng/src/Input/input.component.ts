@@ -2,20 +2,20 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   ContentChild,
-  type ElementRef,
+  ElementRef,
   EventEmitter,
   Input,
-  type OnInit,
+  OnInit,
   Output,
-  type SimpleChanges,
-  type TemplateRef,
+  SimpleChanges,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   DisplayType,
-  type FormatContentItem,
-  type FormatContentOptions,
+  FormatContentItem,
+  FormatContentOptions,
   InputVariant,
   SendBtnVariant,
   SubmitShortKey,
@@ -34,10 +34,10 @@ const DEFAULT_AUTOSIZE = {
 
 import BaseComponent from '../Base/base.component';
 import {
-  type InputAdapter,
+  InputAdapter,
   InputFoundation,
 } from '../components-common/Input/foundation';
-import type { LocaleService } from '../Locale/locale.service';
+import { LocaleService } from '../Locale/locale.service';
 import { TranslatePipe } from '../Locale/translate.pipe';
 import { EditableBlockComponent } from './EditableBlock/editable-block.component';
 
