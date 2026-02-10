@@ -17,13 +17,11 @@
         (blur)="onDivBlur($event)"
         (focus)="onDivFocus($event)"
       >
-        <ng-template #themeTag let-themeTagText="themeTagText">
-          <!-- 需要解决ng模板值的传递 -->
-           <ng-container *ngIf="themeTagTemplate">
+        <ng-container *ngIf="themeTagTemplate">
+          <ng-template #themeTag let-themeTagText="themeTagText">
             <ng-container *ngTemplateOutlet="themeTagTemplate; context: {$implicit: themeTagText, themeTagText: themeTagText}"></ng-container>
-           </ng-container>
-          
-        </ng-template>
+          </ng-template>
+        </ng-container>
       </mc-editable-block>
     </div>
     <textarea

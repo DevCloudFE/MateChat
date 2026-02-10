@@ -130,402 +130,78 @@ platformBrowserDynamic()
     console.log('Angular WebComponentsModule 引导成功');
 
     try {
-      const AttachmentBasicWebComponent = createCustomElement(
-        AttachmentBasicShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const AttachmentDragWebComponent = createCustomElement(
-        AttachmentDragShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const AttachmentValidWebComponent = createCustomElement(
-        AttachmentValidShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      customElements.define(
-        'mc-ng-attachment-basic',
-        AttachmentBasicWebComponent,
-      );
-      customElements.define(
-        'mc-ng-attachment-drag',
-        AttachmentDragWebComponent,
-      );
-      customElements.define(
-        'mc-ng-attachment-valid',
-        AttachmentValidWebComponent,
-      );
-      // 将Bubble组件转换为webcomponent
-      const BubbleWebComponent = createCustomElement(BasicBubbleShowComponent, {
-        injector: injector,
+      // 定义需要注册的WebComponent映射，使用Map避免重复注册
+      const webComponentsMap = new Map<string, any>([
+        // Attachment组件
+        ['mc-ng-attachment-basic', AttachmentBasicShowComponent],
+        ['mc-ng-attachment-drag', AttachmentDragShowComponent],
+        ['mc-ng-attachment-valid', AttachmentValidShowComponent],
+
+        // Bubble组件
+        ['mc-ng-bubble-basic', BasicBubbleShowComponent],
+        ['mc-ng-bubble-loading', LoadingBubbleShowComponent],
+        ['mc-ng-bubble-align', AlignBubbleShowComponent],
+        ['mc-ng-bubble-variant', VariantBubbleShowComponent],
+        ['mc-ng-bubble-avatar-config', AvatarConfigBubbleShowComponent],
+        ['mc-ng-bubble-variant-avatar', VariantAvatarBubbleShowComponent],
+        ['mc-ng-bubble-avatar-plus', AvatarPlusBubbleShowComponent],
+        ['mc-ng-bubble-custom', CustomBubbleShowComponent],
+        ['mc-ng-bubble-custom-action', CustomActionDemoShowComponent],
+
+        // Input组件
+        ['mc-ng-input-button', ButtonInputShowComponent],
+        ['mc-ng-input-basic', BasicInputShowComponent],
+        ['mc-ng-input-auto-size', AutoSizeInputShowComponent],
+        ['mc-ng-input-auto', AutoInputShowComponent],
+        ['mc-ng-input-suffix', SuffixInputShowComponent],
+        ['mc-ng-input-slot', SlotInputShowComponent],
+        ['mc-ng-input-submit', SubmitInputShowComponent],
+        ['mc-ng-input-format-content', FormatContentInputShowComponent],
+        ['mc-ng-input-format-input', FormatInputShowComponent],
+        ['mc-ng-input-theme-tag', ThemeTagShowComponent],
+
+        // MarkdownCard组件
+        ['mc-ng-markdown-basic', MarkdownBasicShowComponent],
+        ['mc-ng-markdown-code-operator', MarkdownCodeOperatorShowComponent],
+        ['mc-ng-markdown-emoje', MarkdownEmojeShowComponent],
+        ['mc-ng-markdown-mermaid', MarkdownMermaidShowComponent],
+        ['mc-ng-markdown-typing', MarkdownTypingShowComponent],
+        ['mc-ng-markdown-thinking', MarkdownThinkingShowComponent],
+        ['mc-ng-markdown-content', MarkdownContentShowComponent],
+        ['mc-ng-markdown-math', MarkdownMathShowComponent],
+        ['mc-ng-markdown-plantuml', MarkdownPlantumlShowComponent],
+        ['mc-ng-markdown-theme', MarkdownThemeShowComponent],
+        ['mc-ng-markdown-header', MarkdownHeaderShowComponent],
+        ['mc-ng-markdown-xss', MarkdownXssShowComponent],
+
+        // Mention组件
+        ['mc-ng-mention-basic', BasicMentionComponent],
+        ['mc-ng-mention-custom-style', CustomStyleMentionComponent],
+
+        // Introduction组件
+        ['mc-ng-introduction-basic', BasicDemoShowComponent],
+        ['mc-ng-introduction-description', DescriptionDemoShowComponent],
+        ['mc-ng-introduction-slot', SlotDemoShowComponent],
+        ['mc-ng-introduction-align', AlignDemoShowComponent],
+
+        // List组件
+        ['mc-ng-list-basic', BasicListShowComponent],
+        ['mc-ng-list-display', DisplayListShowComponent],
+        ['mc-ng-list-custom', CustomListShowComponent],
+        ['mc-ng-list-shortcut', ShortcutListShowComponent],
+        ['mc-ng-list-lazyload', LazyloadListShowComponent],
+      ]);
+
+      // 遍历Map并注册所有WebComponent
+      webComponentsMap.forEach((component, tagName) => {
+        // 检查是否已经注册过该组件
+        if (!customElements.get(tagName)) {
+          const customElement = createCustomElement(component, {
+            injector: injector,
+          });
+          customElements.define(tagName, customElement);
+        }
       });
-      const LoadingBubbleWebComponent = createCustomElement(
-        LoadingBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const VariantBubbleWebComponent = createCustomElement(
-        VariantBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const ConfigBubbleWebComponent = createCustomElement(
-        AvatarConfigBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const AlignBubbleWebComponent = createCustomElement(
-        AlignBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const VariantAvatarWebComponent = createCustomElement(
-        VariantAvatarBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      // 将新创建的Bubble组件转换为webcomponent
-      const AvatarPlusBubbleWebComponent = createCustomElement(
-        AvatarPlusBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      // 将MarkdownCard相关组件转换为webcomponent
-      const MarkdownContentWebComponent = createCustomElement(
-        MarkdownContentShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownMathWebComponent = createCustomElement(
-        MarkdownMathShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownPlantumlWebComponent = createCustomElement(
-        MarkdownPlantumlShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownThemeWebComponent = createCustomElement(
-        MarkdownThemeShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownHeaderWebComponent = createCustomElement(
-        MarkdownHeaderShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownXssWebComponent = createCustomElement(
-        MarkdownXssShowComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      customElements.define(
-        'mc-ng-markdown-content',
-        MarkdownContentWebComponent,
-      );
-      customElements.define('mc-ng-markdown-math', MarkdownMathWebComponent);
-      customElements.define(
-        'mc-ng-markdown-plantuml',
-        MarkdownPlantumlWebComponent,
-      );
-      customElements.define('mc-ng-markdown-theme', MarkdownThemeWebComponent);
-      customElements.define(
-        'mc-ng-markdown-header',
-        MarkdownHeaderWebComponent,
-      );
-      customElements.define('mc-ng-markdown-xss', MarkdownXssWebComponent);
-      const CustomBubbleWebComponent = createCustomElement(
-        CustomBubbleShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const CustomActionBubbleWebComponent = createCustomElement(
-        CustomActionDemoShowComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      // 将Input组件转换为webcomponent
-      const BasicInputWebComponent = createCustomElement(
-        BasicInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const AutoInputWebComponent = createCustomElement(
-        AutoInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const SuffixInputWebComponent = createCustomElement(
-        SuffixInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const SlotInputWebComponent = createCustomElement(
-        SlotInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const SubmitInputWebComponent = createCustomElement(
-        SubmitInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const ButtonInputWebComponent = createCustomElement(
-        ButtonInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const AutoSizeInputWebComponent = createCustomElement(
-        AutoSizeInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const FormatContentWebComponent = createCustomElement(
-        FormatContentInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const FormatInputWebComponent = createCustomElement(
-        FormatInputShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const ThemeTagWebComponent = createCustomElement(ThemeTagShowComponent, {
-        injector: injector,
-      });
-
-      // 将MarkdownCard组件转换为webcomponent
-      const MarkdownCodeOperatorWebComponent = createCustomElement(
-        MarkdownCodeOperatorShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownEmojeWebComponent = createCustomElement(
-        MarkdownEmojeShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownMermaidWebComponent = createCustomElement(
-        MarkdownMermaidShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownTypingWebComponent = createCustomElement(
-        MarkdownTypingShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownBasicWebComponent = createCustomElement(
-        MarkdownBasicShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const MarkdownThinkingWebComponent = createCustomElement(
-        MarkdownThinkingShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      // 将Introduction组件转换为webcomponent
-      const BasicIntroductionWebComponent = createCustomElement(
-        BasicDemoShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const DescriptionIntroductionWebComponent = createCustomElement(
-        DescriptionDemoShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const SlotIntroductionWebComponent = createCustomElement(
-        SlotDemoShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const AlignIntroductionWebComponent = createCustomElement(
-        AlignDemoShowComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      // 将List组件转换为webcomponent
-      const BasicListWebComponent = createCustomElement(
-        BasicListShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const DisplayListWebComponent = createCustomElement(
-        DisplayListShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const CustomListWebComponent = createCustomElement(
-        CustomListShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const ShortcutListWebComponent = createCustomElement(
-        ShortcutListShowComponent,
-        {
-          injector: injector,
-        },
-      );
-      const LazyloadListWebComponent = createCustomElement(
-        LazyloadListShowComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      // 注册Bubble相关webcomponent
-      customElements.define('mc-ng-bubble-basic', BubbleWebComponent);
-      customElements.define('mc-ng-bubble-loading', LoadingBubbleWebComponent);
-      customElements.define('mc-ng-bubble-align', AlignBubbleWebComponent);
-      customElements.define('mc-ng-bubble-variant', VariantBubbleWebComponent);
-      customElements.define(
-        'mc-ng-bubble-avatar-config',
-        ConfigBubbleWebComponent,
-      );
-      customElements.define(
-        'mc-ng-bubble-variant-avatar',
-        VariantAvatarWebComponent,
-      );
-      customElements.define(
-        'mc-ng-bubble-avatar-plus',
-        AvatarPlusBubbleWebComponent,
-      );
-      customElements.define('mc-ng-bubble-custom', CustomBubbleWebComponent);
-      customElements.define(
-        'mc-ng-bubble-custom-action',
-        CustomActionBubbleWebComponent,
-      );
-
-      // 注册Input相关webcomponent
-      customElements.define('mc-ng-input-button', ButtonInputWebComponent);
-      customElements.define('mc-ng-input-basic', BasicInputWebComponent);
-      customElements.define('mc-ng-input-auto-size', AutoSizeInputWebComponent);
-      customElements.define('mc-ng-input-auto', AutoInputWebComponent);
-      customElements.define('mc-ng-input-suffix', SuffixInputWebComponent);
-      customElements.define('mc-ng-input-slot', SlotInputWebComponent);
-      customElements.define('mc-ng-input-submit', SubmitInputWebComponent);
-      customElements.define(
-        'mc-ng-input-format-content',
-        FormatContentWebComponent,
-      );
-      customElements.define(
-        'mc-ng-input-format-input',
-        FormatInputWebComponent,
-      );
-      customElements.define('mc-ng-input-theme-tag', ThemeTagWebComponent);
-
-      customElements.define('mc-ng-markdown-basic', MarkdownBasicWebComponent);
-      customElements.define(
-        'mc-ng-markdown-code-operator',
-        MarkdownCodeOperatorWebComponent,
-      );
-      customElements.define('mc-ng-markdown-emoje', MarkdownEmojeWebComponent);
-      customElements.define(
-        'mc-ng-markdown-mermaid',
-        MarkdownMermaidWebComponent,
-      );
-      customElements.define(
-        'mc-ng-markdown-typing',
-        MarkdownTypingWebComponent,
-      );
-      customElements.define(
-        'mc-ng-markdown-thinking',
-        MarkdownThinkingWebComponent,
-      );
-
-      // 将Mention组件转换为webcomponent
-      const BasicMentionWebComponent = createCustomElement(
-        BasicMentionComponent,
-        {
-          injector: injector,
-        },
-      );
-      const CustomStyleMentionWebComponent = createCustomElement(
-        CustomStyleMentionComponent,
-        {
-          injector: injector,
-        },
-      );
-
-      // 注册Mention相关webcomponent
-      customElements.define('mc-ng-mention-basic', BasicMentionWebComponent);
-      customElements.define(
-        'mc-ng-mention-custom-style',
-        CustomStyleMentionWebComponent,
-      );
-      // 注册Introduction相关webcomponent
-      customElements.define(
-        'mc-ng-introduction-basic',
-        BasicIntroductionWebComponent,
-      );
-      customElements.define(
-        'mc-ng-introduction-description',
-        DescriptionIntroductionWebComponent,
-      );
-      customElements.define(
-        'mc-ng-introduction-slot',
-        SlotIntroductionWebComponent,
-      );
-      customElements.define(
-        'mc-ng-introduction-align',
-        AlignIntroductionWebComponent,
-      );
-      // 注册List相关webcomponent
-      customElements.define('mc-ng-list-basic', BasicListWebComponent);
-      customElements.define('mc-ng-list-display', DisplayListWebComponent);
-      customElements.define('mc-ng-list-custom', CustomListWebComponent);
-      customElements.define('mc-ng-list-shortcut', ShortcutListWebComponent);
-      customElements.define('mc-ng-list-lazyload', LazyloadListWebComponent);
     } catch (error) {
       console.error('创建WebComponent时出错:', error);
     }
