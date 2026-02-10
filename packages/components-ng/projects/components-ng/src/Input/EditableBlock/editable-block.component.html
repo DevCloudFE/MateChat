@@ -13,9 +13,7 @@
     (blur)="onBlur($event)"
     (focus)="onFocus($event)"
   >
-    <!-- 前置标签 -->
-    <!-- popover最后再实现打通 -->
-    <!-- <span contenteditable="false" dPopover [content]="themeTag.popoverContent" trigger="hover" controlled = "true"> -->
+    <!-- 前置标签 -->   
     <span *ngIf="themeTag.themeTagText" contenteditable="false" >
       <span *ngIf="themeTag.themeTagText" [title]="themeTag.popoverContent" class="ai-input-prefix-wrapper" (click)="closeTipTag()" contenteditable="false">
         <ng-container *ngIf="themeTagTemplate">

@@ -20,16 +20,18 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, inject, computed, ref, watch, onMounted } from 'vue';
-import { inputInjectionKey, SubmitShortKey, DisplayType } from '../input-types';
-import type { InputContext } from '../input-types';
 import { useMcI18n } from '@matechat/core/Locale';
+import { computed, inject, nextTick, onMounted, ref, watch } from 'vue';
+import type { InputContext } from '../input-types';
+import { DisplayType, inputInjectionKey, SubmitShortKey } from '../input-types';
 import { useMcTextareaAutosize } from './use-textarea-autosize';
 
 const { t } = useMcI18n();
 
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
-const { inputValue, rootProps, rootEmits, clearInputAfterSubmit } = inject(inputInjectionKey) as InputContext;
+const { inputValue, rootProps, rootEmits, clearInputAfterSubmit } = inject(
+  inputInjectionKey,
+) as InputContext;
 
 const placeholder = computed(() => {
   let enterKey = '';
@@ -44,20 +46,25 @@ const placeholder = computed(() => {
   }
   return (
     rootProps.placeholder ??
-    (enterKey ? t(`Input.pleaseEnterPlaceholder`, { enterKey: enterKey, shiftEnterKey: shiftEnterKey }) : t('Input.pleaseEnter'))
+    (enterKey
+      ? t(`Input.pleaseEnterPlaceholder`, {
+          enterKey: enterKey,
+          shiftEnterKey: shiftEnterKey,
+        })
+      : t('Input.pleaseEnter'))
   );
 });
 
 const { textareaStyle, updateTextareaStyle } = useMcTextareaAutosize({
   textareaRef,
-  autosize: rootProps.autosize
+  autosize: rootProps.autosize,
 });
 
 watch(
   () => inputValue.value,
   () => {
     updateTextareaStyle();
-  }
+  },
 );
 
 onMounted(() => {
@@ -80,10 +87,10 @@ const onCompositionStart = () => {
   lock = true;
 };
 const onCompositionEnd = () => {
-  setTimeout(()=>{
+  setTimeout(() => {
     lock = false;
     emitChange();
-  },10);
+  }, 10);
 };
 
 const onKeydown = (e: KeyboardEvent) => {
@@ -94,8 +101,8 @@ const onKeydown = (e: KeyboardEvent) => {
     rootProps.submitShortKey === SubmitShortKey.Enter
       ? !e.shiftKey
       : rootProps.submitShortKey === SubmitShortKey.ShiftEnter
-      ? e.shiftKey
-      : false;
+        ? e.shiftKey
+        : false;
   if (shiftKey && e.key === 'Enter' && !lock) {
     e.preventDefault();
     rootEmits('submit', inputValue.value);
@@ -106,11 +113,11 @@ const onKeydown = (e: KeyboardEvent) => {
 
 const onFocus = (e: FocusEvent) => {
   rootEmits('focus', e);
-}
+};
 
 const onBlur = (e: FocusEvent) => {
   rootEmits('blur', e);
-}
+};
 
 onMounted(() => {
   if (rootProps.autofocus && textareaRef.value && !rootProps.disabled) {
@@ -121,32 +128,6 @@ onMounted(() => {
 
 <style lang="scss">
 @import 'devui-theme/styles-var/devui-var.scss';
+@import "@matechat/common/Input/common/textarea.scss";
 
-.mc-textarea {
-  width: 100%;
-  height: 64px;
-  padding: 4px 0;
-  color: $devui-text;
-  font-size: var(--devui-font-size, 14px);
-  background-color: $devui-form-control-bg;
-  vertical-align: middle;
-  outline: none;
-  box-sizing: border-box;
-  resize: none;
-  border: none;
-
-  &.mc-textarea-simple {
-    height: 32px;
-  }
-
-  &.mc-textarea-disabled {
-    color: $devui-disabled-text;
-    background-color: $devui-disabled-bg;
-    cursor: not-allowed;
-  }
-
-  &::placeholder {
-    color: $devui-placeholder;
-  }
-}
 </style>

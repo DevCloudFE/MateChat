@@ -60,6 +60,21 @@ import { InputModule } from '@matechat/ng';
 
 <mc-ng-input-auto-size></mc-ng-input-auto-size>
 
+### 插入主题标签
+
+通过 `ThemeTagItem` 类型配置前置主题标签，支持自定义主题标签的文本内容、pop弹出提示内容等。
+当前仅支持最多设置一个ThemeTag，且必须放在 `formatContent` 数组的第一个位置。
+可通过 `themeTag` 插槽自定义主题标签的展示效果。
+
+<mc-ng-input-theme-tag></mc-ng-input-theme-tag>
+
+
+### 插入格式化Input标签
+
+通过 `FormatInputItem` 类型配置一个input标签，实现对输入框内某些局部文本的默认填充或占位提示；input标签可以插入多个，且插入位置不固定。
+
+<mc-ng-input-format-input></mc-ng-input-format-input>
+
 
 
 ### 多种格式化内容自定义编排

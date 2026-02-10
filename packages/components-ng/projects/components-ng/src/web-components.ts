@@ -1,8 +1,12 @@
 import { enableProdMode, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { Theme } from '@matechat/common/MarkdownCard/common/mdCard.types';
 import { AttachmentBasicShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-basic-show.component';
 import { AttachmentDragShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-drag-show.component';
 import { AttachmentValidShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-valid-show.component';
@@ -20,11 +24,13 @@ import { AutoSizeInputShowComponent } from '../../demo-app/src/app/show/Input/au
 // 导入Input相关的show组件
 import { BasicInputShowComponent } from '../../demo-app/src/app/show/Input/basic-demo-show.component';
 import { ButtonInputShowComponent } from '../../demo-app/src/app/show/Input/button-demo-show.component';
+import { FormatContentInputShowComponent } from '../../demo-app/src/app/show/Input/format-content-demo-show.component';
+import { FormatInputShowComponent } from '../../demo-app/src/app/show/Input/format-input-demo-show.component';
 import { SlotInputShowComponent } from '../../demo-app/src/app/show/Input/slot-demo-show.component';
 import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/submit-demo-show.component';
 import { SuffixInputShowComponent } from '../../demo-app/src/app/show/Input/suffix-demo-show.component';
+import { ThemeTagShowComponent } from '../../demo-app/src/app/show/Input/theme-tag-demo-show.component';
 import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction/align-demo-show.component';
-import { FormatContentInputShowComponent } from '../../demo-app/src/app/show/Input/format-content-demo-show.component';
 
 // 导入Introduction相关的show组件
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
@@ -312,6 +318,15 @@ platformBrowserDynamic()
           injector: injector,
         },
       );
+      const FormatInputWebComponent = createCustomElement(
+        FormatInputShowComponent,
+        {
+          injector: injector,
+        },
+      );
+      const ThemeTagWebComponent = createCustomElement(ThemeTagShowComponent, {
+        injector: injector,
+      });
 
       // 将MarkdownCard组件转换为webcomponent
       const MarkdownCodeOperatorWebComponent = createCustomElement(
@@ -443,6 +458,11 @@ platformBrowserDynamic()
         'mc-ng-input-format-content',
         FormatContentWebComponent,
       );
+      customElements.define(
+        'mc-ng-input-format-input',
+        FormatInputWebComponent,
+      );
+      customElements.define('mc-ng-input-theme-tag', ThemeTagWebComponent);
 
       customElements.define('mc-ng-markdown-basic', MarkdownBasicWebComponent);
       customElements.define(
@@ -450,21 +470,39 @@ platformBrowserDynamic()
         MarkdownCodeOperatorWebComponent,
       );
       customElements.define('mc-ng-markdown-emoje', MarkdownEmojeWebComponent);
-      customElements.define('mc-ng-markdown-mermaid', MarkdownMermaidWebComponent);
-      customElements.define('mc-ng-markdown-typing', MarkdownTypingWebComponent);
-      customElements.define('mc-ng-markdown-thinking', MarkdownThinkingWebComponent);
-      
+      customElements.define(
+        'mc-ng-markdown-mermaid',
+        MarkdownMermaidWebComponent,
+      );
+      customElements.define(
+        'mc-ng-markdown-typing',
+        MarkdownTypingWebComponent,
+      );
+      customElements.define(
+        'mc-ng-markdown-thinking',
+        MarkdownThinkingWebComponent,
+      );
+
       // 将Mention组件转换为webcomponent
-      const BasicMentionWebComponent = createCustomElement(BasicMentionComponent, {
-        injector: injector
-      });
-      const CustomStyleMentionWebComponent = createCustomElement(CustomStyleMentionComponent, {
-        injector: injector
-      });
-      
+      const BasicMentionWebComponent = createCustomElement(
+        BasicMentionComponent,
+        {
+          injector: injector,
+        },
+      );
+      const CustomStyleMentionWebComponent = createCustomElement(
+        CustomStyleMentionComponent,
+        {
+          injector: injector,
+        },
+      );
+
       // 注册Mention相关webcomponent
       customElements.define('mc-ng-mention-basic', BasicMentionWebComponent);
-      customElements.define('mc-ng-mention-custom-style', CustomStyleMentionWebComponent);
+      customElements.define(
+        'mc-ng-mention-custom-style',
+        CustomStyleMentionWebComponent,
+      );
       // 注册Introduction相关webcomponent
       customElements.define(
         'mc-ng-introduction-basic',
