@@ -1,0 +1,18 @@
+<div>
+  <div class="demo-toolbar-basic">
+    <mc-bubble
+      content="Hello MateChat"
+      [avatarConfig]="{ imgSrc: logoImgSrc }"
+    >
+      <ng-template #bottom>
+        <mc-toolbar
+          [items]="basicItems"
+          [iconSize]="20"
+          [gap]="4"
+          style="margin-top: 8px;"
+          (onClick)="handleItemClick($event)"
+        />
+      </ng-template>
+    </mc-bubble>
+  </div>
+</div>

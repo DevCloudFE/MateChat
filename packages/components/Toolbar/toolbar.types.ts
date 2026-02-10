@@ -1,22 +1,14 @@
-import type { PropType, VNode } from 'vue';
+import {
+  type ActionItem,
+  ToolbarAction,
+} from '@matechat/common/Toolbar/common/toolbar.types';
+import {
+  TOOLBAR_GAP_DEFAULT_VALUE,
+  TOOLBAR_ICON_SIZE_DEFAULT_VALUE,
+} from '@matechat/common/Toolbar/common/toolbar-constants';
+import type { PropType } from 'vue';
 
-export enum ToolbarAction {
-  COPY = 'copy',
-  LIKE = 'like',
-  DISLIKE = 'dislike',
-  REFRESH = 'refresh',
-  SHARE = 'share',
-  DELETE = 'delete',
-}
-
-export interface ActionItem {
-  key: string; // 唯一标识
-  icon?: ToolbarAction; // icon部分名称
-  label?: string; // 操作项title
-  onClick?: (actionItem: ActionItem, e: MouseEvent) => void; // 点击事件
-  isActive?: boolean; // 是否激活状态，点赞点踩用
-  text?: string; // 需要复制的文本
-}
+export { ToolbarAction, type ActionItem };
 
 export const ToolbarProps = {
   // 操作项列表
@@ -26,12 +18,12 @@ export const ToolbarProps = {
   },
   iconSize: {
     type: Number,
-    default: 16,
+    default: TOOLBAR_ICON_SIZE_DEFAULT_VALUE,
   },
   // 操作项之间的间隔
   gap: {
     type: Number,
-    default: 0,
+    default: TOOLBAR_GAP_DEFAULT_VALUE,
   },
 };
 
@@ -41,25 +33,14 @@ export type ToolbarEmits = (
   event: MouseEvent,
 ) => void;
 
-export const ActionItemProps = {
-  size: {
-    type: Number,
-    default: 16,
-  },
-  configData: {
-    type: Object as PropType<ActionItem>,
-    required: true,
-  },
-};
-
 export const IconComponentProps = {
   width: {
     type: Number,
-    default: 16,
+    default: TOOLBAR_ICON_SIZE_DEFAULT_VALUE,
   },
   height: {
     type: Number,
-    default: 16,
+    default: TOOLBAR_ICON_SIZE_DEFAULT_VALUE,
   },
   // 点赞/点踩 是否默认激活
   isActive: {

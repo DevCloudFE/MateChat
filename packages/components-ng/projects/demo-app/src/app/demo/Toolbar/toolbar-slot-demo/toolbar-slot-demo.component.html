@@ -1,0 +1,25 @@
+<div class="demo-toolbar-basic">
+  <mc-bubble
+    content="Hello MateChat"
+    [avatarConfig]="{ imgSrc: logoImgSrc }"
+    [variant]="variantValue"
+  >
+    <ng-template #bottom>
+      <mc-toolbar [items]="basicItems" style="margin-top: 8px;" (onClick)="handleItemClick($event)">
+        <ng-template #downloadIcon let-actionData="actionData">
+          <i class="icon icon-download-2" style="font-size: 16px;"></i>
+        </ng-template>
+        <ng-template #switch>
+          <div style="display: flex; padding: 0 4px;">
+            <input
+              type="checkbox"
+              id="singleCheckbox"
+              [(ngModel)]="switchValue"
+            >
+            <div>切换气泡样式</div>
+          </div>
+        </ng-template>
+      </mc-toolbar>
+    </ng-template>
+  </mc-bubble>
+</div>

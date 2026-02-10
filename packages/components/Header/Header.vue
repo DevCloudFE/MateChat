@@ -24,27 +24,6 @@ const onLogoClicked = () => {
 </script>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
+@use '@matechat/common/Header/common/header.scss';
 
-.mc-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .mc-header-logo-container {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    &.clickable {
-      cursor: pointer;
-    }
-
-    .mc-header-title {
-      letter-spacing: 1px;
-      font-weight: 500;
-      font-size: 20px;
-    }
-  }
-}
 </style>

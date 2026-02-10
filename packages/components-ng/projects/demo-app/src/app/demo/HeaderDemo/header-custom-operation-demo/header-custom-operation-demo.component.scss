@@ -1,0 +1,10 @@
+.icon {
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--devui-icon-hover-bg); // #EBEBEB
+  }
+}

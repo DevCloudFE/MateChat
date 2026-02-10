@@ -4,6 +4,30 @@
   <div class="demo-container">
     <attachment-basic-demo></attachment-basic-demo>
   </div>
+
+  <div *ngIf="false" class="demo-container">
+    <div>Toolbar 测试</div>
+    <mc-toolbar [items]="toolbarBasicItems">
+      <ng-template #test>
+        <div>自定义内容</div>
+      </ng-template>
+      <ng-template #test2Icon>
+        <i class="icon icon-download-2" style="font-size: 16px;"></i>
+      </ng-template>
+    </mc-toolbar>
+    <app-toolbar-basic-demo></app-toolbar-basic-demo>
+    <app-toolbar-size-demo></app-toolbar-size-demo>
+    <app-toolbar-slot-demo></app-toolbar-slot-demo>
+    <app-toolbar-use-icon-demo></app-toolbar-use-icon-demo>
+  </div>
+
+  <div *ngIf="false" class="demo-container">
+    <div>Header 测试</div>
+    <mc-header [logoImg]="logoImgSrc" [title]="'MateChat'" [logoClickable]="true" (logoClicked)="headerLogoClicked()"></mc-header>
+    <app-header-basic></app-header-basic>
+    <app-header-logo-click></app-header-logo-click>
+    <app-header-custom-operation-demo></app-header-custom-operation-demo>
+  </div>
   <div *ngIf="false">
     <div class="demo-container">
       <mc-bubble [content]="'Hello MateChat'"></mc-bubble>
@@ -98,7 +122,7 @@
           (cancel)="onCancel()"
         ></mc-input>
       </div>
-    </div> 
+    </div>
 
     <!-- input组件 -->
     <div class="demo-container">

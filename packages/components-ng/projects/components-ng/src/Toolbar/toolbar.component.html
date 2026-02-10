@@ -1,0 +1,68 @@
+<div class="mc-actions" [style.gap.px]="gap">
+    <!-- 遍历操作项 -->
+    <ng-container *ngFor="let item of actionItems; trackBy: trackByKey">
+        <!-- 整个操作项自定义 -->
+        <ng-container *ngTemplateOutlet="CustomSlotComponent[item.key]"></ng-container>
+
+        <ng-container *ngIf="!CustomSlotComponent[item.key]">
+            <!-- 只自定义Icon部分 -->
+            <div
+              *ngIf="CustomSlotComponent[item.key + 'Icon']"
+              class="mc-action-item"
+              [title]="item.label"
+              (click)="actionClick($event, item)"
+            >
+                <ng-container *ngTemplateOutlet="CustomSlotComponent[item.key + 'Icon']; context: { actionData: item }"></ng-container>
+            </div>
+
+            <!-- 完全使用内置组件情况 -->
+            <mc-copy-icon
+                *ngIf="item.icon === ToolbarAction.COPY"
+                [width]="iconSize"
+                [height]="iconSize"
+                [text]="item.text ?? ''"
+                [title]="item.label ?? ''"
+                (click)="actionClick($event, item)"
+            ></mc-copy-icon>
+            <mc-delete-icon
+                *ngIf="item.icon === ToolbarAction.DELETE"
+                [width]="iconSize"
+                [height]="iconSize"
+                [title]="item.label ?? ''"
+                (click)="actionClick($event, item)"
+            ></mc-delete-icon>
+            <mc-refresh-icon
+                *ngIf="item.icon === ToolbarAction.REFRESH"
+                [width]="iconSize"
+                [height]="iconSize"
+                [title]="item.label ?? ''"
+                (click)="actionClick($event, item)"
+            ></mc-refresh-icon>
+            <mc-share-icon
+                *ngIf="item.icon === ToolbarAction.SHARE"
+                [width]="iconSize"
+                [height]="iconSize"
+                [title]="item.label ?? ''"
+                (click)="actionClick($event, item)"
+            ></mc-share-icon>
+            <mc-like-icon
+                *ngIf="item.icon === ToolbarAction.LIKE"
+                [isActive]="item.isActive ?? false"
+                [width]="iconSize"
+                [height]="iconSize"
+                [title]="item.label ?? ''"
+                (activeChange)="activeChange($event, item)"
+                (click)="actionClick($event, item)"
+            ></mc-like-icon>
+            <mc-dislike-icon
+                *ngIf="item.icon === ToolbarAction.DISLIKE"
+                [isActive]="item.isActive ?? false"
+                [width]="iconSize"
+                [height]="iconSize"
+                [title]="item.label ?? ''"
+                (activeChange)="activeChange($event, item)"
+                (click)="actionClick($event, item)"
+            ></mc-dislike-icon>
+        </ng-container>
+    </ng-container>
+</div>
