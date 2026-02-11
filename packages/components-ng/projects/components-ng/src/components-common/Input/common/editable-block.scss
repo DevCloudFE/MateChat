@@ -25,9 +25,7 @@
   &[placeholder]:empty:before {
     content: attr(placeholder);
     color: $devui-placeholder;
-    position: absolute;
     pointer-events: none;
-    left: 8px;
   }
 
   .ai-input-prefix-wrapper {
