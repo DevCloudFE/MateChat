@@ -5,7 +5,7 @@ import {
   type ElementRef,
   ViewChild,
 } from '@angular/core';
-import { AttachmentModule, BubbleModule, InputModule } from '@matechat/ng';
+import { AttachmentModule, BubbleModule, InputModule, LayoutModule } from '@matechat/ng';
 import {
   DisplayType,
   InputVariant,
@@ -41,6 +41,7 @@ import { ToolbarBasicDemoComponent } from './demo/Toolbar/basic-demo/basic-demo.
 import { ToolbarSizeDemoComponent } from './demo/Toolbar/toolbar-size/toolbar-size-demo.component';
 import { ToolbarSlotDemoComponent } from './demo/Toolbar/toolbar-slot-demo/toolbar-slot-demo.component';
 import { ToolbarUseIconDemoComponent } from './demo/Toolbar/toolbar-use-icon/toolbar-use-icon-demo.component';
+import { LayoutDemoComponent } from './demo/LayoutDemo/layout.component';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,7 @@ import { ToolbarUseIconDemoComponent } from './demo/Toolbar/toolbar-use-icon/too
     BubbleModule,
     InputModule,
     AttachmentModule,
+    LayoutModule,
     AttachmentBasicDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCardModule,
@@ -80,6 +82,7 @@ import { ToolbarUseIconDemoComponent } from './demo/Toolbar/toolbar-use-icon/too
     ToolbarSizeDemoComponent,
     ToolbarSlotDemoComponent,
     ToolbarUseIconDemoComponent,
+    LayoutDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

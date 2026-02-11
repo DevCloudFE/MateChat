@@ -40,6 +40,8 @@ import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
 import { DescriptionDemoShowComponent } from '../../demo-app/src/app/show/Introduction/description-demo-show.component';
 import { SlotDemoShowComponent } from '../../demo-app/src/app/show/Introduction/slot-demo-show.component';
+// 导入Layout相关的show组件
+import { LayoutDemoShowComponent } from '../../demo-app/src/app/show/Layout/layout-demo-show.component';
 // 添加List相关的show组件
 import { BasicListShowComponent } from '../../demo-app/src/app/show/List/list-basic-show.component';
 import { CustomListShowComponent } from '../../demo-app/src/app/show/List/list-custom-show.component';
@@ -62,18 +64,17 @@ import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCa
 // 导入Mention相关的show组件
 import { BasicMentionComponent } from '../../demo-app/src/app/show/Mention/basic-show.component';
 import { CustomStyleMentionComponent } from '../../demo-app/src/app/show/Mention/custom-style-show.component';
-
-// 导入toolbar相关show组件
-import { ToolbarBasicShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-basic-show.component';
-import { ToolbarSizeShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-size-show.component';
-import { ToolbarSlotShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-slot-show.component';
-import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-use-icon-show.component';
 // 添加Prompt相关的show组件
 import { BasicPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-basic-show.component';
 import { DataPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-data-show.component';
 import { DirectionPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-direction-show.component';
 import { IconPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-icon-show.component';
 import { VariantPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-variant-show.component';
+// 导入toolbar相关show组件
+import { ToolbarBasicShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-basic-show.component';
+import { ToolbarSizeShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-size-show.component';
+import { ToolbarSlotShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-slot-show.component';
+import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-use-icon-show.component';
 
 // 正确定义WebComponentsModule模块
 @NgModule({
@@ -135,6 +136,8 @@ import { VariantPromptShowComponent } from '../../demo-app/src/app/show/Prompt/p
     DataPromptShowComponent,
     VariantPromptShowComponent,
     IconPromptShowComponent,
+    // 添加Layout相关的show组件
+    LayoutDemoShowComponent,
   ],
   providers: [],
 })
@@ -189,6 +192,8 @@ platformBrowserDynamic()
         ['mc-ng-input-format-input', FormatInputShowComponent],
         ['mc-ng-input-theme-tag', ThemeTagShowComponent],
 
+        // Layout组件
+        ['mc-ng-layout-demo', LayoutDemoShowComponent],
         // MarkdownCard组件
         ['mc-ng-markdown-basic', MarkdownBasicShowComponent],
         ['mc-ng-markdown-code-operator', MarkdownCodeOperatorShowComponent],
