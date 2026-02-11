@@ -68,6 +68,12 @@ import { ToolbarBasicShowComponent } from '../../demo-app/src/app/show/Toolbar/t
 import { ToolbarSizeShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-size-show.component';
 import { ToolbarSlotShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-slot-show.component';
 import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-use-icon-show.component';
+// 添加Prompt相关的show组件
+import { BasicPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-basic-show.component';
+import { DataPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-data-show.component';
+import { DirectionPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-direction-show.component';
+import { IconPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-icon-show.component';
+import { VariantPromptShowComponent } from '../../demo-app/src/app/show/Prompt/prompt-variant-show.component';
 
 // 正确定义WebComponentsModule模块
 @NgModule({
@@ -123,6 +129,12 @@ import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar
     ToolbarSizeShowComponent,
     ToolbarSlotShowComponent,
     ToolbarUseIconShowComponent,
+    // 添加Prompt相关的show组件
+    BasicPromptShowComponent,
+    DirectionPromptShowComponent,
+    DataPromptShowComponent,
+    VariantPromptShowComponent,
+    IconPromptShowComponent,
   ],
   providers: [],
 })
@@ -207,6 +219,12 @@ platformBrowserDynamic()
         ['mc-ng-list-custom', CustomListShowComponent],
         ['mc-ng-list-shortcut', ShortcutListShowComponent],
         ['mc-ng-list-lazyload', LazyloadListShowComponent],
+        // Prompt组件
+        ['mc-ng-prompt-basic', BasicPromptShowComponent],
+        ['mc-ng-prompt-direction', DirectionPromptShowComponent],
+        ['mc-ng-prompt-data', DataPromptShowComponent],
+        ['mc-ng-prompt-variant', VariantPromptShowComponent],
+        ['mc-ng-prompt-icon', IconPromptShowComponent],
 
         // header组件
         ['mc-ng-header-basic', HeaderBasicShowComponent],

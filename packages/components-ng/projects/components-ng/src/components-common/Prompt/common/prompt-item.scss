@@ -1,0 +1,24 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.mc-prompt-item {
+  display: flex;
+  gap: 8px;
+
+  .mc-prompt-item-icon.no-description {
+    display: flex;
+    align-items: center;
+  }
+
+  .mc-prompt-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .mc-prompt-item-label {
+      font-weight: bold;
+    }
+    .mc-prompt-item-description {
+      color: $devui-aide-text;
+    }
+  }
+}

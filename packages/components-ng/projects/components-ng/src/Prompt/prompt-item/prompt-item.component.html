@@ -1,0 +1,15 @@
+<div *ngIf="prompt" class="mc-prompt-item">
+  <div class="mc-prompt-item-icon" [ngClass]="{ 'no-description': !prompt.desc }">
+    <mc-prompt-icon
+      *ngIf="prompt.iconConfig"
+      [name]="prompt.iconConfig.name"
+      [color]="prompt.iconConfig.color"
+      [size]="prompt.iconConfig.size"
+      [component]="prompt.iconConfig.component"
+    />
+  </div>
+  <div *ngIf="prompt.label || prompt.desc" class="mc-prompt-item-content">
+    <div *ngIf="prompt.label" class="mc-prompt-item-label">{{ prompt.label }}</div>
+    <div *ngIf="prompt.desc" class="mc-prompt-item-description">{{ prompt.desc }}</div>
+  </div>
+</div>
