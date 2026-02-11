@@ -162,7 +162,13 @@ export class InputComponent
       const otherFormatItems = formatContent.filter(
         (item) => item.type !== 'themeTag',
       );
-      this.setMixTags(otherFormatItems);
+      if (otherFormatItems.length) {
+        this.setMixTags(otherFormatItems);
+      } else {
+        if (this.showEditableBlock) {
+          this.setMixTags(otherFormatItems);
+        }
+      }
     }
   }
 

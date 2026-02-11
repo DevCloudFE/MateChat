@@ -25,7 +25,7 @@ import { DisplayType, FormatContentItem, SubmitShortKey, ThemeTagItem, TimeToVie
   };
   
   @Input() disabled: boolean = false;
-  @Input() displayType: DisplayType = DisplayType.Simple;
+  @Input() displayType: DisplayType = DisplayType.Full;
   @Input() placeholder: string = '';
 
   @Input() templateParts: any[] = [];
