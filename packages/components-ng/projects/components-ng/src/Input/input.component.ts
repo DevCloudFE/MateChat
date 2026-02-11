@@ -90,7 +90,6 @@ export class InputComponent
 
   @ViewChild('textarea') textareaElement!: ElementRef<HTMLTextAreaElement>;
   @ViewChild('editableBlock') editableBlockRef!: EditableBlockComponent;
-
   @ContentChild('head') headTemplate: TemplateRef<any> | null = null;
   @ContentChild('prefix') prefixTemplate: TemplateRef<any> | null = null;
   @ContentChild('suffix') suffixTemplate: TemplateRef<any> | null = null;
