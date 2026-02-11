@@ -27,7 +27,7 @@ description: 自动为 MateChat 的 Angular 组件生成 demo 展示组件，并
 ## 工作原理
 
 1. **扫描 ng 组件**：递归扫描指定的 Angular 组件目录下的所有 `.component.ts` 文件，获取组件元数据
-2. **扫描 demo 组件**：递归扫描 demo 目录下的所有 `.component.ts` 文件，识别组件结构和依赖
+2. **生成 demo 组件**：递归扫描 demo 目录下的所有 `.component.ts` 文件，识别组件结构和依赖。根据用户需求，生成对应的 demo 组件。
 3. **生成 show 组件**：为每个 demo 组件生成对应的 show 组件，包含：
    - 从 demo 组件中提取的所有必要导入语句
    - 标准的组件封装结构，集成 AngularDemoComponent
@@ -38,7 +38,10 @@ description: 自动为 MateChat 的 Angular 组件生成 demo 展示组件，并
 
 ### 输入输出示例
 
-#### 输入：demo 组件
+#### 输入
+帮我生成一个 MarkdownCard 组件的 demo，用于展示 MarkdownCard 组件的基本用法
+
+#### 输出：demo 组件
 
 **路径**：`demo/MarkdownCardDemo/markdown-basic/markdown-basic.component.ts`
 
