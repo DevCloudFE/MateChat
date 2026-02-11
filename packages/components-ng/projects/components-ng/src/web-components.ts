@@ -18,6 +18,10 @@ import { CustomBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/cu
 import { LoadingBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/loading-demo-show.component';
 import { VariantAvatarBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-avatar-demo-show.component';
 import { VariantBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-demo-show.component';
+// 导入Header相关show组件
+import { HeaderBasicShowComponent } from '../../demo-app/src/app/show/Header/header-baisc-show.component';
+import { HeaderCustomOperationShowComponent } from '../../demo-app/src/app/show/Header/header-custom-operation-show.component';
+import { HeaderLogoClickShowComponent } from '../../demo-app/src/app/show/Header/header-logo-click-show.component';
 import { AutoInputShowComponent } from '../../demo-app/src/app/show/Input/auto-demo-show.component';
 import { AutoSizeInputShowComponent } from '../../demo-app/src/app/show/Input/auto-size-demo-show.component';
 // 导入Input相关的show组件
@@ -37,7 +41,6 @@ import { CustomListShowComponent } from '../../demo-app/src/app/show/List/list-c
 import { DisplayListShowComponent } from '../../demo-app/src/app/show/List/list-display-show.component';
 import { LazyloadListShowComponent } from '../../demo-app/src/app/show/List/list-lazyload-show.component';
 import { ShortcutListShowComponent } from '../../demo-app/src/app/show/List/list-shortcut-show.component';
-
 // 导入MarkdownCard相关的show组件
 import { MarkdownBasicShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-basic-show.component';
 import { MarkdownCodeOperatorShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-code-operator-show.component';
@@ -51,10 +54,15 @@ import { MarkdownThemeShowComponent } from '../../demo-app/src/app/show/Markdown
 import { MarkdownThinkingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-thinking-show.component';
 import { MarkdownTypingShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-typing-show.component';
 import { MarkdownXssShowComponent } from '../../demo-app/src/app/show/MarkdownCard/markdown-xss-show.component';
-
 // 导入Mention相关的show组件
 import { BasicMentionComponent } from '../../demo-app/src/app/show/Mention/basic-show.component';
 import { CustomStyleMentionComponent } from '../../demo-app/src/app/show/Mention/custom-style-show.component';
+
+// 导入toolbar相关show组件
+import { ToolbarBasicShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-basic-show.component';
+import { ToolbarSizeShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-size-show.component';
+import { ToolbarSlotShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-slot-show.component';
+import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar/toolbar-use-icon-show.component';
 
 // 正确定义WebComponentsModule模块
 @NgModule({
@@ -101,6 +109,15 @@ import { CustomStyleMentionComponent } from '../../demo-app/src/app/show/Mention
     CustomListShowComponent,
     ShortcutListShowComponent,
     LazyloadListShowComponent,
+    // 添加 header 相关show组件
+    HeaderBasicShowComponent,
+    HeaderLogoClickShowComponent,
+    HeaderCustomOperationShowComponent,
+    // 添加 toolbar 相关show组件
+    ToolbarBasicShowComponent,
+    ToolbarSizeShowComponent,
+    ToolbarSlotShowComponent,
+    ToolbarUseIconShowComponent,
   ],
   providers: [],
 })
@@ -182,6 +199,17 @@ platformBrowserDynamic()
         ['mc-ng-list-custom', CustomListShowComponent],
         ['mc-ng-list-shortcut', ShortcutListShowComponent],
         ['mc-ng-list-lazyload', LazyloadListShowComponent],
+
+        // header组件
+        ['mc-ng-header-basic', HeaderBasicShowComponent],
+        ['mc-ng-header-logo-click', HeaderLogoClickShowComponent],
+        ['mc-ng-header-custom-operation', HeaderCustomOperationShowComponent],
+
+        // 注册 Toolbar相关webComponent
+        ['mc-ng-toolbar-basic', ToolbarBasicShowComponent],
+        ['mc-ng-toolbar-size', ToolbarSizeShowComponent],
+        ['mc-ng-toolbar-slot', ToolbarSlotShowComponent],
+        ['mc-ng-toolbar-use-icon', ToolbarUseIconShowComponent],
       ]);
 
       // 遍历Map并注册所有WebComponent

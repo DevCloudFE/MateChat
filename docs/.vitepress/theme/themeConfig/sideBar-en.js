@@ -58,6 +58,29 @@ export default {
       ],
     },
     {
+      text: '布局',
+      items: [
+        {
+          text: 'Header 头部',
+          link: '/components-ng/header/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/components-ng/header/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/components-ng/header/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/header/api.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
       text: '会话',
       items: [
         {
@@ -75,6 +98,24 @@ export default {
             {
               text: 'API Reference',
               link: '/components-ng/bubble/api.md',
+            },
+          ],
+        },
+        {
+          text: 'Toolbar 工具栏',
+          link: '/components-ng/toolbar/demo',
+          children: [
+            {
+              text: 'Introduction',
+              link: '/components-ng/toolbar/demo.md',
+            },
+            {
+              text: 'Demos',
+              link: '/components-ng/toolbar/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/toolbar/api.md',
             },
           ],
         },
@@ -97,7 +138,7 @@ export default {
             },
           ],
         },
-                {
+        {
           text: 'Mention 快捷操作',
           link: '/components-ng/mention/demo',
           children: [
@@ -130,13 +171,13 @@ export default {
             },
           ],
         },
-        { 
-          text: 'Attachment 附件', 
+        {
+          text: 'Attachment 附件',
           link: '/components-ng/attachment/demo',
           children: [
             { text: 'Demos', link: '/components-ng/attachment/demo.md' },
             { text: 'API Reference', link: '/components-ng/attachment/api.md' },
-          ]
+          ],
         },
       ],
     },

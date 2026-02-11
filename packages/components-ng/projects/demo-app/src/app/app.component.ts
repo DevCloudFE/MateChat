@@ -1,13 +1,25 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BubbleModule, InputModule, AttachmentModule } from '@matechat/ng';
+import {
+  type AfterViewInit,
+  Component,
+  type ElementRef,
+  ViewChild,
+} from '@angular/core';
+import { AttachmentModule, BubbleModule, InputModule } from '@matechat/ng';
 import {
   DisplayType,
   InputVariant,
   SendBtnVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
+import { ToolbarAction } from '../../../components-ng/src/components-common/Toolbar/common/toolbar.types';
+import { HeaderModule } from '../../../components-ng/src/Header';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
+import { MentionComponent } from '../../../components-ng/src/Mention';
+import { ToolbarModule } from '../../../components-ng/src/Toolbar';
 import { AttachmentBasicDemoComponent } from './demo/AttachmentDemo/basic-demo/basic-demo.component';
+import { HeaderBasicComponent } from './demo/HeaderDemo/basic-demo/basic-demo.component';
+import { HeaderCustomOperationDemoComponent } from './demo/HeaderDemo/header-custom-operation-demo/header-custom-operation-demo.component';
+import { HeaderLogoClickDemoComponent } from './demo/HeaderDemo/header-logo-click-demo/header-logo-click-demo.component';
 import { AlignDemoComponent } from './demo/IntroductionDemo/align-demo/align-demo.component';
 import { BasicDemoComponent as BasicIntroDemoComponent } from './demo/IntroductionDemo/basic-demo/basic-demo.component';
 import { DescriptionDemoComponent } from './demo/IntroductionDemo/description-demo/description-demo.component';
@@ -23,9 +35,12 @@ import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-the
 import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
 import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
 import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
-import { MentionComponent } from '../../../components-ng/src/Mention';
 import { BasicDemoComponent } from './demo/MentionDemo/basic-demo/basic-demo.component';
 import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/custom-style-demo.component';
+import { ToolbarBasicDemoComponent } from './demo/Toolbar/basic-demo/basic-demo.component';
+import { ToolbarSizeDemoComponent } from './demo/Toolbar/toolbar-size/toolbar-size-demo.component';
+import { ToolbarSlotDemoComponent } from './demo/Toolbar/toolbar-slot-demo/toolbar-slot-demo.component';
+import { ToolbarUseIconDemoComponent } from './demo/Toolbar/toolbar-use-icon/toolbar-use-icon-demo.component';
 
 @Component({
   selector: 'app-root',
@@ -56,6 +71,15 @@ import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/c
     BasicIntroDemoComponent,
     DescriptionDemoComponent,
     SlotDemoComponent,
+    HeaderModule,
+    HeaderBasicComponent,
+    HeaderLogoClickDemoComponent,
+    HeaderCustomOperationDemoComponent,
+    ToolbarModule,
+    ToolbarBasicDemoComponent,
+    ToolbarSizeDemoComponent,
+    ToolbarSlotDemoComponent,
+    ToolbarUseIconDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -81,6 +105,53 @@ export class AppComponent implements AfterViewInit {
     ...this.userAvatar,
     displayName: 'User',
   };
+  logoImgSrc = 'https://matechat.gitcode.com/logo.svg';
+  toolbarBasicItems = [
+    {
+      key: 'copy',
+      icon: ToolbarAction.COPY,
+      label: '复制',
+      text: '复制文本',
+    },
+    {
+      key: 'test',
+      label: '测试',
+    },
+    {
+      key: 'test2',
+      label: '测试',
+    },
+    {
+      key: 'refresh',
+      icon: ToolbarAction.REFRESH,
+      label: '重新回答',
+    },
+    {
+      key: 'like',
+      icon: ToolbarAction.LIKE,
+      label: '点赞',
+      isActive: false,
+      onClick: () => {
+        console.log('like 的 onClick 方法');
+      },
+    },
+    {
+      key: 'dislike',
+      icon: ToolbarAction.DISLIKE,
+      label: '点踩',
+      isActive: false,
+    },
+    {
+      key: 'delete',
+      icon: ToolbarAction.DELETE,
+      label: '删除',
+    },
+    {
+      key: 'share',
+      icon: ToolbarAction.SHARE,
+      label: '分享',
+    },
+  ];
 
   fileList = [];
   uploadOptions = {
@@ -238,5 +309,9 @@ function quickSort(arr) {
         clearInterval(streamInterval);
       }
     }, charDelay);
+  }
+
+  headerLogoClicked() {
+    console.log('headerLogoClicked');
   }
 }

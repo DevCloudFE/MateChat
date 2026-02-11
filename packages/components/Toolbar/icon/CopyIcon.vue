@@ -50,6 +50,7 @@
 </template>
 
 <script setup lang="ts">
+import { copyToClipboard } from '@matechat/common/Toolbar/common/toolbar-common-fun';
 import { ref } from 'vue';
 import { IconComponentProps } from '../toolbar.types';
 
@@ -58,85 +59,16 @@ const props = defineProps(IconComponentProps);
 const copied = ref(false);
 
 const handleClick = async () => {
-  copied.value = true;
   setTimeout(() => {
     copied.value = false;
   }, 1500);
   try {
     await copyToClipboard(props.text);
+    copied.value = true;
   } catch (error) {}
 };
-
-/**
- * 复制文本到剪贴板（兼容多浏览器）
- * @param {string} text - 要复制的文本内容
- * @returns {Promise<string>} - 成功返回"success"，失败返回错误信息
- */
-function copyToClipboard(text) {
-  // 校验输入
-  if (typeof text !== 'string') {
-    return Promise.reject();
-  }
-
-  // 现代浏览器优先使用 Clipboard API
-  if (navigator.clipboard && window.isSecureContext) {
-    return navigator.clipboard
-      .writeText(text)
-      .then(() => {})
-      .catch((err) => {
-        return fallbackCopyTextToClipboard(text); // 降级处理
-      });
-  }
-
-  // 低版本浏览器直接使用降级方案
-  return fallbackCopyTextToClipboard(text);
-}
-
-/**
- * 降级复制方案（基于 execCommand）
- * @param {string} text - 要复制的文本
- * @returns {Promise<string>}
- */
-function fallbackCopyTextToClipboard(text: string) {
-  return new Promise((resolve, reject) => {
-    // 创建隐藏的 textarea 元素
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-
-    // 样式：隐藏且不影响布局
-    textarea.style.position = 'fixed';
-    textarea.style.top = '-9999px';
-    textarea.style.left = '-9999px';
-    textarea.style.opacity = '0';
-    textarea.style.zIndex = '-1000';
-
-    // 解决 iOS 下无法选中的问题
-    textarea.setAttribute('readonly', '');
-
-    document.body.appendChild(textarea);
-
-    try {
-      // 选中内容（兼容 iOS）
-      textarea.select();
-      textarea.setSelectionRange(0, textarea.value.length); // 移动端必须
-
-      // 执行复制
-      const success = document.execCommand('copy');
-      if (success) {
-        resolve(null);
-      } else {
-        reject();
-      }
-    } catch (err) {
-      reject();
-    } finally {
-      // 移除临时元素
-      document.body.removeChild(textarea);
-    }
-  });
-}
 </script>
 
 <style scoped lang="scss">
-@import '../toolbar.scss';
+@use '../toolbar.scss';
 </style>

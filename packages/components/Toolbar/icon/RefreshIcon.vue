@@ -26,5 +26,5 @@ const props = defineProps(IconComponentProps);
 </script>
 
 <style scoped lang="scss">
-@import '../toolbar.scss';
+@use '../toolbar.scss';
 </style>
