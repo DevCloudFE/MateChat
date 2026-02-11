@@ -1,0 +1,14 @@
+<span class="editable-span" contenteditable="false">
+  <span 
+    #editableSpanRef
+    [attr.contenteditable]="isEditable"
+    [attr.placeholder]="placeholder"
+    tabindex="0"
+    class="input-custom-item"
+    [ngClass]="{'input-custom-placeholder': !localValue?.length, 'inline-text': localValue?.length}"
+    (input)="handleInput($event)"
+    (focus)="handleFocus()"
+    (blur)="handleBlur()"
+    (paste)="handleInputPaste($event)"
+  >{{content}}</span>
+</span>

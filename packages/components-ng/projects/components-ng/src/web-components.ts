@@ -6,6 +6,7 @@ import {
   provideAnimations,
 } from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { Theme } from '@matechat/common/MarkdownCard/common/mdCard.types';
 import { AttachmentBasicShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-basic-show.component';
 import { AttachmentDragShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-drag-show.component';
 import { AttachmentValidShowComponent } from '../../demo-app/src/app/show/Attachment/attachment-valid-show.component';
@@ -27,10 +28,14 @@ import { AutoSizeInputShowComponent } from '../../demo-app/src/app/show/Input/au
 // 导入Input相关的show组件
 import { BasicInputShowComponent } from '../../demo-app/src/app/show/Input/basic-demo-show.component';
 import { ButtonInputShowComponent } from '../../demo-app/src/app/show/Input/button-demo-show.component';
+import { FormatContentInputShowComponent } from '../../demo-app/src/app/show/Input/format-content-demo-show.component';
+import { FormatInputShowComponent } from '../../demo-app/src/app/show/Input/format-input-demo-show.component';
 import { SlotInputShowComponent } from '../../demo-app/src/app/show/Input/slot-demo-show.component';
 import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/submit-demo-show.component';
 import { SuffixInputShowComponent } from '../../demo-app/src/app/show/Input/suffix-demo-show.component';
+import { ThemeTagShowComponent } from '../../demo-app/src/app/show/Input/theme-tag-demo-show.component';
 import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction/align-demo-show.component';
+
 // 导入Introduction相关的show组件
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
 import { DescriptionDemoShowComponent } from '../../demo-app/src/app/show/Introduction/description-demo-show.component';
@@ -168,6 +173,9 @@ platformBrowserDynamic()
         ['mc-ng-input-suffix', SuffixInputShowComponent],
         ['mc-ng-input-slot', SlotInputShowComponent],
         ['mc-ng-input-submit', SubmitInputShowComponent],
+        ['mc-ng-input-format-content', FormatContentInputShowComponent],
+        ['mc-ng-input-format-input', FormatInputShowComponent],
+        ['mc-ng-input-theme-tag', ThemeTagShowComponent],
 
         // MarkdownCard组件
         ['mc-ng-markdown-basic', MarkdownBasicShowComponent],

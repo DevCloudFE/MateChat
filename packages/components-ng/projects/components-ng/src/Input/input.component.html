@@ -3,8 +3,29 @@
 
   <div class="mc-input-content">
     <ng-container *ngIf="prefixTemplate; then prefixTemplate"></ng-container>
-
+    <!-- 替换Textarea -->
+    <div *ngIf="showEditableBlock" class="editable-block-container">
+      <mc-editable-block *ngIf="showEditableBlock"
+        #editableBlock
+        [placeholder]="placeholder"
+        [maxLength]="maxLength"
+        [disabled]="disabled"
+        [submitShortKey]="submitShortKey"
+        [autofocus]="autofocus"
+        (input)="handleDivInput($event)"
+        (send)="handleDivSubmit($event)"
+        (blur)="onDivBlur($event)"
+        (focus)="onDivFocus($event)"
+      >
+        <ng-container *ngIf="themeTagTemplate">
+          <ng-template #themeTag let-themeTagText="themeTagText">
+            <ng-container *ngTemplateOutlet="themeTagTemplate; context: {$implicit: themeTagText, themeTagText: themeTagText}"></ng-container>
+          </ng-template>
+        </ng-container>
+      </mc-editable-block>
+    </div>
     <textarea
+      *ngIf="!showEditableBlock"
       #textarea
       [(ngModel)]="inputValue"
       [placeholder]="placeholderText"
