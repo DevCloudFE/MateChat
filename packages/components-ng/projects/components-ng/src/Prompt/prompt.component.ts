@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import type { Prompt } from '@matechat/common/Prompt/common/prompt-types';
+import BaseComponent from '../Base/base.component';
+import type { Prompt } from '../components-common/Prompt/common/prompt-types';
 import {
   type PromptAdapter,
   PromptFoundation,
-} from '@matechat/common/Prompt/foundation';
-import BaseComponent from '../Base/base.component';
+} from '../components-common/Prompt/foundation';
 import { ListDirection, ListModule, ListVariant } from '../List/index';
 import { PromptItemComponent } from './prompt-item/prompt-item.component';
 
