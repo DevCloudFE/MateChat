@@ -9,6 +9,8 @@ import {
   Output,
   EventEmitter,
   SimpleChanges,
+  Renderer2,
+  ChangeDetectorRef,
 } from '@angular/core';
 
 @Component({
@@ -25,10 +27,16 @@ export class DropAreaComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('dropArea') dropAreaEl!: ElementRef<HTMLDivElement>;
 
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef){}
+
   container: HTMLElement;
   isDragging = false;
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   dragCounter = 0;
+  dragEnterListener: () => void;
+  dragOverListener: () => void;
+  dragLeaveListener: () => void;
+  dropListener: () => void;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['getDropContainer'] && this.getDropContainer) {
@@ -44,6 +52,7 @@ export class DropAreaComponent implements AfterViewInit, OnDestroy {
     this.dragCounter++;
     if (this.dragCounter === 1) {
       this.isDragging = true;
+      this.cdr.detectChanges();
     }
     if (this.container && this.dropAreaEl.nativeElement) {
       if (this.container === document.body) {
@@ -66,11 +75,13 @@ export class DropAreaComponent implements AfterViewInit, OnDestroy {
     this.dragCounter--;
     if (this.dragCounter === 0) {
       this.isDragging = false;
+      this.cdr.detectChanges();
     }
   };
   handleDrop = (e: DragEvent) => {
     e.preventDefault();
     this.isDragging = false;
+    this.cdr.detectChanges();
     this.dragCounter = 0; // 重置计数器
     if (this.isDisabled) return;
 
@@ -82,24 +93,25 @@ export class DropAreaComponent implements AfterViewInit, OnDestroy {
   onBodyDrop = (e: DragEvent) => {
     e.preventDefault();
     this.isDragging = false;
+    this.cdr.detectChanges();
     this.dragCounter = 0;
   };
 
   ngAfterViewInit(): void {
-    document.body.appendChild(this.dropAreaEl.nativeElement);
+    this.renderer.appendChild(document.body, this.dropAreaEl.nativeElement);
     if (this.getDropContainer) {
       this.container = this.getDropContainer();
     }
-    document.body.addEventListener('dragenter', this.handleDragEnter);
-    document.body.addEventListener('dragover', this.handleDragOver);
-    document.body.addEventListener('dragleave', this.handleDragLeave);
-    document.body.addEventListener('drop', this.onBodyDrop);
+    this.dragEnterListener = this.renderer.listen(document.body, 'dragenter', this.handleDragEnter);
+    this.dragOverListener = this.renderer.listen(document.body, 'dragover', this.handleDragOver);
+    this.dragLeaveListener = this.renderer.listen(document.body, 'dragleave', this.handleDragLeave);
+    this.dropListener = this.renderer.listen(document.body, 'drop', this.onBodyDrop);
   }
 
   ngOnDestroy(): void {
-    document.body.removeEventListener('dragenter', this.handleDragEnter);
-    document.body.removeEventListener('dragover', this.handleDragOver);
-    document.body.removeEventListener('dragleave', this.handleDragLeave);
-    document.body.removeEventListener('drop', this.onBodyDrop);
+    this.dragEnterListener?.();
+    this.dragOverListener?.();
+    this.dragLeaveListener?.();
+    this.dropListener?.();
   }
 }
