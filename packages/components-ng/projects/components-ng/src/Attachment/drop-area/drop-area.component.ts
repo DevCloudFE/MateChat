@@ -30,13 +30,6 @@ export class DropAreaComponent implements AfterViewInit, OnDestroy {
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   dragCounter = 0;
 
-  get dropAreaClasses() {
-    return {
-      'mc-attachment-drop-area': true,
-      'hide-drop-area': !this.isDragging,
-    };
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['getDropContainer'] && this.getDropContainer) {
       const newContainer = this.getDropContainer();
