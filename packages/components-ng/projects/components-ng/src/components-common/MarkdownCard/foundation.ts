@@ -30,7 +30,7 @@ export class MarkdownCardFoundation extends BaseFoundation<MarkdownCardAdapter> 
     return (
       content
         ?.replace('<think>', `<div class="${thinkClass}">`)
-        ?.replace('</think>', '\n</div>') || ''
+        ?.replace('</think>', '\n\n</div>\n\n') || ''
     );
   };
 
