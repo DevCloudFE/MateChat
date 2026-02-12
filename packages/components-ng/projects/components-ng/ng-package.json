@@ -9,6 +9,7 @@
     "highlight.js",
     "markdown-it",
     "morphdom",
-    "xss"
+    "xss",
+    "@floating-ui/dom"
   ]
 }
