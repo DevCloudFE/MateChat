@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
-  type AfterViewInit,
   Component,
-  type ElementRef,
-  EventEmitter,
-  Input,
-  type OnDestroy,
-  Output,
-  type SimpleChanges,
   ViewChild,
+  ElementRef,
+  AfterViewInit,
+  Input,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  SimpleChanges,
 } from '@angular/core';
 
 @Component({
