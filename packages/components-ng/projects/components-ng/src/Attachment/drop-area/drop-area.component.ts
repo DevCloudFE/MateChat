@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
+  type AfterViewInit,
   Component,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  Input,
-  OnDestroy,
-  Output,
+  type ElementRef,
   EventEmitter,
-  SimpleChanges,
+  Input,
+  type OnDestroy,
+  Output,
+  type SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -29,13 +29,6 @@ export class DropAreaComponent implements AfterViewInit, OnDestroy {
   isDragging = false;
   // 使用计数器来跟踪 dragenter 和 dragleave 事件，防止进入子元素导致的状态变化
   dragCounter = 0;
-
-  get dropAreaClasses() {
-    return {
-      'mc-attachment-drop-area': true,
-      'hide-drop-area': !this.isDragging,
-    };
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['getDropContainer'] && this.getDropContainer) {
