@@ -344,8 +344,8 @@ const generateAnswer = () => {
     let totalTime = 0;
     interval = setInterval(() => {
       if (currentIndex < mockAnswer.length) {
-        messages.value[messages.value.length - 1].content = mockAnswer.slice(0, currentIndex);
         currentIndex += 10;
+        messages.value[messages.value.length - 1].content = mockAnswer.slice(0, currentIndex);
         totalTime += 100;
         if (messages.value[messages.value.length - 1].content.indexOf('</think>') > -1 && thinkBtnText.value === '思考中...') {
           thinkBtnText.value = `已深度思考 (用时${totalTime / 1000}秒)`;
