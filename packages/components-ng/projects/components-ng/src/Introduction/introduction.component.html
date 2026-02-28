@@ -1,0 +1,11 @@
+<div class="mc-introduction" [ngClass]="foundation.getIntroductionClasses()">
+  <div class="mc-introduction-logo-container">
+    <img *ngIf="logoImg" [src]="logoImg" [alt]="title" [ngStyle]="foundation.getLogoStyle()" />
+    <div class="mc-introduction-title">{{ title }}</div>
+  </div>
+  <div *ngIf="subTitle" class="mc-introduction-sub-title">{{ subTitle }}</div>
+  <div *ngIf="description && description.length" class="mc-introduction-description">
+    <div *ngFor="let item of description; let i = index">{{ item }}</div>
+  </div>
+  <ng-content></ng-content>
+</div>

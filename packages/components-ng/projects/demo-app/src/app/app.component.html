@@ -1,6 +1,33 @@
 <div style="padding: 20px">
   <h1>组件演示</h1>
   <p>这是我们的Angular组件库演示应用</p>
+  <div class="demo-container">
+    <attachment-basic-demo></attachment-basic-demo>
+  </div>
+
+  <div *ngIf="false" class="demo-container">
+    <div>Toolbar 测试</div>
+    <mc-toolbar [items]="toolbarBasicItems">
+      <ng-template #test>
+        <div>自定义内容</div>
+      </ng-template>
+      <ng-template #test2Icon>
+        <i class="icon icon-download-2" style="font-size: 16px;"></i>
+      </ng-template>
+    </mc-toolbar>
+    <app-toolbar-basic-demo></app-toolbar-basic-demo>
+    <app-toolbar-size-demo></app-toolbar-size-demo>
+    <app-toolbar-slot-demo></app-toolbar-slot-demo>
+    <app-toolbar-use-icon-demo></app-toolbar-use-icon-demo>
+  </div>
+
+  <div *ngIf="false" class="demo-container">
+    <div>Header 测试</div>
+    <mc-header [logoImg]="logoImgSrc" [title]="'MateChat'" [logoClickable]="true" (logoClicked)="headerLogoClicked()"></mc-header>
+    <app-header-basic></app-header-basic>
+    <app-header-logo-click></app-header-logo-click>
+    <app-header-custom-operation-demo></app-header-custom-operation-demo>
+  </div>
   <div *ngIf="false">
     <div class="demo-container">
       <mc-bubble [content]="'Hello MateChat'"></mc-bubble>
@@ -125,6 +152,10 @@
       </mc-input>
     </div>
   </div>
+  
+  <div>
+    <mc-layout-demo></mc-layout-demo>
+  </div>
 
   <!-- markdown组件 -->
   <div class="demo-container">
@@ -132,18 +163,19 @@
   </div>
 
 
+  <div *ngIf="false">
   <div class="demo-container">
     <markdown-typing-demo></markdown-typing-demo>
-  </div> 
-  
+  </div>
+
   <div class="demo-container">
     <markdown-mermaid-demo></markdown-mermaid-demo>
   </div>
-  
+
   <div class="demo-container">
     <markdown-emoje-demo></markdown-emoje-demo>
   </div>
-  
+
   <div class="demo-container">
     <markdown-operator-demo></markdown-operator-demo>
   </div>
@@ -155,15 +187,15 @@
   <div class="demo-container">
     <markdown-theme-demo></markdown-theme-demo>
   </div>
-  
+
   <div class="demo-container">
     <markdown-math-demo></markdown-math-demo>
   </div>
-  
+
   <div class="demo-container">
     <markdown-plantuml-demo></markdown-plantuml-demo>
   </div>
-  
+
   <div class="demo-container">
     <markdown-header-demo></markdown-header-demo>
   </div>
@@ -171,7 +203,34 @@
   <div class="demo-container">
     <markdown-content-demo></markdown-content-demo>
   </div>
-  
+
   <div class="demo-container">
     <markdown-xss-demo></markdown-xss-demo>
   </div>
+
+  <!-- mention组件 -->
+  <div class="demo-container">
+    <app-basic-demo></app-basic-demo>
+  </div>
+
+  <div class="demo-container">
+    <app-custom-style-demo></app-custom-style-demo>
+  </div>
+  <!-- introduction组件 -->
+   <div class="demo-container">
+    <app-intro-basic-demo></app-intro-basic-demo>
+  </div>
+
+    <div class="demo-container">
+    <app-intro-description-demo></app-intro-description-demo>
+  </div>
+
+    <div class="demo-container">
+    <app-intro-align-demo></app-intro-align-demo>
+  </div>
+
+    <div class="demo-container">
+    <app-intro-slot-demo></app-intro-slot-demo>
+  </div>
+
+</div>

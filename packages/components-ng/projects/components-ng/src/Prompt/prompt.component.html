@@ -1,0 +1,10 @@
+<div class="mc-prompt">
+  <mc-list [data]="list" [direction]="direction" [variant]="variant" [selectable]="false">
+    <ng-template #item let-item>
+      <mc-prompt-item
+        [prompt]="item"
+        (click)="handleItemClick(item)"
+      ></mc-prompt-item>
+    </ng-template>
+  </mc-list>
+</div>

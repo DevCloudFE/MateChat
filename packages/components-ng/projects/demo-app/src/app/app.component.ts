@@ -1,23 +1,47 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BubbleModule, InputModule } from '@matechat/ng';
 import {
-  SendBtnVariant,
+  type AfterViewInit,
+  Component,
+  type ElementRef,
+  ViewChild,
+} from '@angular/core';
+import { AttachmentModule, BubbleModule, InputModule, LayoutModule } from '@matechat/ng';
+import {
   DisplayType,
   InputVariant,
+  SendBtnVariant,
 } from '../../../components-ng/src/components-common/Input/common/types';
+import { ToolbarAction } from '../../../components-ng/src/components-common/Toolbar/common/toolbar.types';
+import { HeaderModule } from '../../../components-ng/src/Header';
 import { MarkdownCardModule } from '../../../components-ng/src/MarkdownCard';
-import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
-import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
-import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
-import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { MentionComponent } from '../../../components-ng/src/Mention';
+import { ToolbarModule } from '../../../components-ng/src/Toolbar';
+import { AttachmentBasicDemoComponent } from './demo/AttachmentDemo/basic-demo/basic-demo.component';
+import { HeaderBasicComponent } from './demo/HeaderDemo/basic-demo/basic-demo.component';
+import { HeaderCustomOperationDemoComponent } from './demo/HeaderDemo/header-custom-operation-demo/header-custom-operation-demo.component';
+import { HeaderLogoClickDemoComponent } from './demo/HeaderDemo/header-logo-click-demo/header-logo-click-demo.component';
+import { AlignDemoComponent } from './demo/IntroductionDemo/align-demo/align-demo.component';
+import { BasicDemoComponent as BasicIntroDemoComponent } from './demo/IntroductionDemo/basic-demo/basic-demo.component';
+import { DescriptionDemoComponent } from './demo/IntroductionDemo/description-demo/description-demo.component';
+import { SlotDemoComponent } from './demo/IntroductionDemo/slot-demo/slot-demo.component';
 import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markdown-code-operator/markdown-operator.component';
-import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
-import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
-import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
-import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
 import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
+import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
+import { MarkdownHeaderDemoComponent } from './demo/MarkdownCardDemo/markdown-header/markdown-header.component';
+import { MarkdownMathDemoComponent } from './demo/MarkdownCardDemo/markdown-math/markdown-math.component';
+import { MarkdownMermaidDemoComponent } from './demo/MarkdownCardDemo/markdown-mermaid/markdown-mermaid.component';
+import { MarkdownPlantumlDemoComponent } from './demo/MarkdownCardDemo/markdown-plantuml/markdown-plantuml.component';
+import { MarkdownThemeDemoComponent } from './demo/MarkdownCardDemo/markdown-theme/markdown-theme.component';
+import { MarkdownThinkDemoComponent } from './demo/MarkdownCardDemo/markdown-think/markdown-think.component';
+import { MarkdownTypingDemoComponent } from './demo/MarkdownCardDemo/markdown-typing/markdown-typing.component';
 import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/markdown-xss.component';
+import { BasicDemoComponent } from './demo/MentionDemo/basic-demo/basic-demo.component';
+import { CustomStyleDemoComponent } from './demo/MentionDemo/custom-style-demo/custom-style-demo.component';
+import { ToolbarBasicDemoComponent } from './demo/Toolbar/basic-demo/basic-demo.component';
+import { ToolbarSizeDemoComponent } from './demo/Toolbar/toolbar-size/toolbar-size-demo.component';
+import { ToolbarSlotDemoComponent } from './demo/Toolbar/toolbar-slot-demo/toolbar-slot-demo.component';
+import { ToolbarUseIconDemoComponent } from './demo/Toolbar/toolbar-use-icon/toolbar-use-icon-demo.component';
+import { LayoutDemoComponent } from './demo/LayoutDemo/layout.component';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +50,9 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
     CommonModule,
     BubbleModule,
     InputModule,
+    AttachmentModule,
+    LayoutModule,
+    AttachmentBasicDemoComponent,
     MarkdownEmojeDemoComponent,
     MarkdownCardModule,
     MarkdownMermaidDemoComponent,
@@ -39,11 +66,29 @@ import { MarkdownXssDemoComponent } from './demo/MarkdownCardDemo/markdown-xss/m
     MarkdownMathDemoComponent,
     MarkdownHeaderDemoComponent,
     MarkdownPlantumlDemoComponent,
+    MentionComponent,
+    BasicDemoComponent,
+    CustomStyleDemoComponent,
+    AlignDemoComponent,
+    BasicIntroDemoComponent,
+    DescriptionDemoComponent,
+    SlotDemoComponent,
+    HeaderModule,
+    HeaderBasicComponent,
+    HeaderLogoClickDemoComponent,
+    HeaderCustomOperationDemoComponent,
+    ToolbarModule,
+    ToolbarBasicDemoComponent,
+    ToolbarSizeDemoComponent,
+    ToolbarSlotDemoComponent,
+    ToolbarUseIconDemoComponent,
+    LayoutDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('input') inputEl!: ElementRef<HTMLInputElement>;
   title = 'demo-app';
 
   avatarConfig = {
@@ -63,12 +108,86 @@ export class AppComponent {
     ...this.userAvatar,
     displayName: 'User',
   };
+  logoImgSrc = 'https://matechat.gitcode.com/logo.svg';
+  toolbarBasicItems = [
+    {
+      key: 'copy',
+      icon: ToolbarAction.COPY,
+      label: '复制',
+      text: '复制文本',
+    },
+    {
+      key: 'test',
+      label: '测试',
+    },
+    {
+      key: 'test2',
+      label: '测试',
+    },
+    {
+      key: 'refresh',
+      icon: ToolbarAction.REFRESH,
+      label: '重新回答',
+    },
+    {
+      key: 'like',
+      icon: ToolbarAction.LIKE,
+      label: '点赞',
+      isActive: false,
+      onClick: () => {
+        console.log('like 的 onClick 方法');
+      },
+    },
+    {
+      key: 'dislike',
+      icon: ToolbarAction.DISLIKE,
+      label: '点踩',
+      isActive: false,
+    },
+    {
+      key: 'delete',
+      icon: ToolbarAction.DELETE,
+      label: '删除',
+    },
+    {
+      key: 'share',
+      icon: ToolbarAction.SHARE,
+      label: '分享',
+    },
+  ];
 
+  fileList = [];
+  uploadOptions = {
+    uri: 'https://run.mocky.io/v3/132b3ea3-23ea-436b-aed4-c43ef9d116f0',
+  };
   loading = false;
   inputValue = '';
   SendBtnVariant = SendBtnVariant;
   DisplayType = DisplayType;
   InputVariant = InputVariant;
+  dropContainer = () => document.body;
+  handleBeforeUpload = (file: File) => {
+    // 除了组件内置的 accept 和 size 校验，你还可以添加自定义的校验逻辑
+    if (file.name.includes('test')) {
+      return false;
+    }
+    return true;
+  };
+
+  onValidChange = (e) => {
+    console.log('valid result', e);
+  };
+  ngAfterViewInit(): void {
+    this.dropContainer = () => {
+      return this.inputEl.nativeElement;
+    };
+  }
+  handleSuccess = ({ file, response }) => {
+    console.log(`文件 ${file.name} 上传成功，响应:`, response);
+  };
+  handleError = ({ file, error }) => {
+    console.error(`文件 ${file.name} 上传失败，错误:`, error);
+  };
   onInputChange = (e) => {
     console.log('input change---', e);
   };
@@ -193,5 +312,9 @@ function quickSort(arr) {
         clearInterval(streamInterval);
       }
     }, charDelay);
+  }
+
+  headerLogoClicked() {
+    console.log('headerLogoClicked');
   }
 }

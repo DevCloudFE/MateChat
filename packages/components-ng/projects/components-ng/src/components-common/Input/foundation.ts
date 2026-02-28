@@ -1,4 +1,4 @@
-import BaseFoundation, { DefaultAdapter } from '../Base/foundation';
+import BaseFoundation, { type DefaultAdapter } from '../Base/foundation';
 import {
   DisplayType,
   InputVariant,
@@ -78,8 +78,8 @@ export class InputFoundation extends BaseFoundation<InputAdapter> {
       submitShortKey === SubmitShortKey.Enter
         ? !event.shiftKey
         : submitShortKey === SubmitShortKey.ShiftEnter
-        ? event.shiftKey
-        : false;
+          ? event.shiftKey
+          : false;
 
     if (shiftKey && event.key === 'Enter' && !lock) {
       event.preventDefault();

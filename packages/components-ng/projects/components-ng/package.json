@@ -19,7 +19,8 @@
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0",
-    "mermaid": "^11.10.1"
+    "mermaid": "^11.10.1",
+    "@angular/animations": "^20.3.0"
   },
   "dependencies": {
     "tslib": "^2.3.0",
@@ -27,7 +28,8 @@
     "highlight.js": "^11.11.0",
     "markdown-it": "^12.2.0",
     "morphdom": "^2.7.4",
-    "xss": "^1.0.15"
+    "xss": "^1.0.15",
+    "@floating-ui/dom": "^1.6.12"
   },
   "publishConfig": {
     "access": "public"

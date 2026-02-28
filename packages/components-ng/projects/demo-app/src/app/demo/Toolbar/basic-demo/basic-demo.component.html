@@ -1,0 +1,14 @@
+<div>
+  <mc-bubble
+    [content]="content"
+    [avatarConfig]="{ imgSrc: logoImgSrc }"
+  >
+    <ng-template #bottom>
+      <mc-toolbar
+        [items]="basicItems"
+        style="margin-top: 8px;"
+        (onClick)="handleItemClick($event)"
+      ></mc-toolbar>
+    </ng-template>
+  </mc-bubble>
+</div>

@@ -1,0 +1,2 @@
+export const TOOLBAR_GAP_DEFAULT_VALUE = 0;
+export const TOOLBAR_ICON_SIZE_DEFAULT_VALUE = 16;

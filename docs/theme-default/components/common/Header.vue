@@ -91,7 +91,7 @@
             <template #menu>
               <ul class="list-menu">
                 <li class="menu-item">
-                  <div class="cli-icon" @click="go(isNg ? '/components/introduction/demo.html' : '/components-ng/bubble/demo.html')">
+                  <div class="cli-icon" @click="go(isNg ? '/components/introduction/demo.html' : '/components-ng/introduction/demo.html')">
                     <img :src="isNg ? '/vue-logo.svg' : '/angular.svg'" />
                     <span>{{ isNg ? 'Vue 3' : 'Angular' }}</span>
                   </div>

@@ -120,23 +120,5 @@ watch([() => props.name, () => props.width, () => props.height, () => props.gend
 </script>
 
 <style lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
-
-.mc-bubble-avatar-wrapper {
-  display: inline-block;
-
-  .mc-bubble-avatar-style {
-    display: inline-block;
-    text-align: center;
-    color: $devui-light-text;
-  }
-
-  .mc-bubble-avatar-background-0 {
-    background-color: #ff8b87;
-  }
-
-  .mc-bubble-avatar-background-1 {
-    background-color: #7693f5;
-  }
-}
+@use '@matechat/common/Bubble/common/avatar.scss';
 </style>

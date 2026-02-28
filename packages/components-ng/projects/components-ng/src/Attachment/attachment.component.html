@@ -1,0 +1,31 @@
+<div
+  class="mc-attachment"
+  (click)="handleClick()"
+  [ngClass]="{ 'is-disabled': isDisabled }"
+>
+  <ng-content></ng-content>
+  <input
+    #input
+    type="file"
+    class="mc-attachment-file"
+    [accept]="accept"
+    [multiple]="multiple"
+    [disabled]="isDisabled"
+    (change)="handleFileChange($event)"
+  />
+  <mc-drop-area
+    *ngIf="draggable"
+    [getDropContainer]="getDropContainer"
+    [isDisabled]="isDisabled"
+    (drop)="onDrop($event)"
+  >
+    <ng-container *ngIf="dropPlaceholderTemplate; else defaultFooterButton">
+      <ng-container
+        *ngIf="dropPlaceholderTemplate; then dropPlaceholderTemplate"
+      ></ng-container>
+    </ng-container>
+    <ng-template #defaultFooterButton>
+      {{ dropPlaceholder ?? ("Attachment.dragToUpload" | translate) }}
+    </ng-template>
+  </mc-drop-area>
+</div>

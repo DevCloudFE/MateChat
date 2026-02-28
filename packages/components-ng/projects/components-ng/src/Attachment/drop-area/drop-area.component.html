@@ -1,0 +1,10 @@
+<div
+  #dropArea
+  [ngClass]="{
+    'mc-attachment-drop-area': true,
+    'hide-drop-area': !isDragging,
+  }"
+  (drop)="handleDrop($event)"
+>
+  <ng-content />
+</div>

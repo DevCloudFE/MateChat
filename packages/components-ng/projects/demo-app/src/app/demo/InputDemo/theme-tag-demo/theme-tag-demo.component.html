@@ -1,0 +1,20 @@
+<div class="format-input-demo">
+  <div class="button-wrapper">
+    <button style="margin-right: 8px;" class="demo-btn" variant="solid" (click)="openThemeTag()">插入主题标签</button>
+    <button class="demo-btn" variant="solid" (click)="closeThemeTag()">关闭主题标签</button>
+  </div>
+  <mc-input
+    [formatContentOptions]="formatContentOptions"
+    placeholder="请输入您的问题，并按Enter发送，按Shift + Enter换行"
+    (change)="onInputChange($event)"
+    (submit)="onSubmit($event)"
+  >
+    <ng-template #themeTag let-themeTagText="themeTagText">
+      <span class="tip-tag-custom">
+        <i class="icon-code-editor-close"></i>
+        <span class="tip-tag-icon icon-default"></span>
+        <span class="ai-input-prefix">{{themeTagText}}</span>
+      </span>
+    </ng-template>
+  </mc-input>
+</div>

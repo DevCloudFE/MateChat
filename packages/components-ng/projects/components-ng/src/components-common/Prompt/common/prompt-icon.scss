@@ -1,0 +1,15 @@
+@import 'devui-theme/styles-var/devui-var.scss';
+
+.mc-prompt-icon {
+  display: inline-block;
+  color: $devui-icon-fill;
+
+  i {
+    display: block;
+    transition: all $devui-animation-duration-slow $devui-animation-ease-in-out-smooth;
+  }
+
+  img {
+    display: block;
+  }
+}

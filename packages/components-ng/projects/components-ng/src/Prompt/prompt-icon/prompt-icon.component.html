@@ -1,0 +1,18 @@
+<div class="mc-prompt-icon">
+  <ng-container *ngIf="isComponent" #dynamicIconComponent>
+  </ng-container>
+  
+  <img
+    *ngIf="!isComponent && isUrl"
+    [src]="name"
+    [alt]="imageAlt"
+    [style]="{ width: iconSize || '', verticalAlign: 'middle' }"
+  />
+  
+  <i
+    *ngIf="!isComponent && !isUrl"
+    [class]="fontIconClass"
+    [style.fontSize]="iconSize"
+    [style.color]="color"
+  ></i>
+</div>

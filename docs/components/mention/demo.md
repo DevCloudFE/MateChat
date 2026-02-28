@@ -51,9 +51,6 @@ export default defineComponent({
       cursorIndex = e.cursorIndex;
       currentTrigger = e.trigger;
       if (e.value.includes(currentListLabel)) {
-        nextTick(() => {
-          isVisible.value = false;
-        });
         return;
       }
       if (currentTrigger === '/') {

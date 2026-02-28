@@ -108,5 +108,5 @@ init();
 </script>
 
 <style scoped lang="scss">
-@import './toolbar.scss';
+@use './toolbar.scss';
 </style>

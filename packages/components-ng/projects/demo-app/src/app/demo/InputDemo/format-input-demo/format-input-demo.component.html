@@ -1,0 +1,12 @@
+<div class="format-input-demo">
+  <div class="button-wrapper">
+    <button class="demo-btn" variant="solid" (click)="setInput()">插入Input标签</button>
+  </div>
+  <mc-input
+    [formatContentOptions]="formatContentOptions"
+    placeholder="请输入您的问题，并按Enter发送，按Shift + Enter换行"
+    (change)="onInputChange($event)"
+    (submit)="onSubmit($event)"
+  >
+  </mc-input>
+</div>
