@@ -18,8 +18,34 @@ import { McMarkdownCard } from '@matechat/core';
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme"></McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme"></McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
@@ -98,32 +124,58 @@ onMounted(() => {
 
 ```vue
 <template>
-  <div class="btn-container">
-    <d-button variant="solid" @click="generateAnswer">重新执行</d-button>
-  </div>
-  <div>
-    <span class="demo-title">默认效果</span>
-    <McBubble :variant="'bordered'">
-      <McMarkdownCard :content="content" :theme="theme" :typing="true"></McMarkdownCard>
-    </McBubble>
-    <span class="demo-title">打字机并配置打字速度</span>
-    <McBubble :variant="'bordered'">
-      <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions1"></McMarkdownCard>
-    </McBubble>
-    <span class="demo-title">渐变打字</span>
-    <McBubble :variant="'bordered'">
-      <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions2"></McMarkdownCard>
-    </McBubble>
-    <span class="demo-title">彩色打字</span>
-    <McBubble :variant="'bordered'">
-      <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions3"></McMarkdownCard>
-    </McBubble>
-    <span class="demo-title">流式返回</span>
-    <McBubble :variant="'bordered'">
-      <McMarkdownCard :content="content1" :theme="theme" :typing="true" :typingOptions="typingOptions4" @typingEnd="typingEnd"></McMarkdownCard>
-    </McBubble>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="5"></textarea>
+    </div>
+    <div class="btn-container">
+      <d-button variant="solid" @click="generateAnswer">重新执行</d-button>
+    </div>
+    <div>
+      <span class="demo-title">默认效果</span>
+      <McBubble :variant="'bordered'">
+        <McMarkdownCard :content="content" :theme="theme" :typing="true"></McMarkdownCard>
+      </McBubble>
+      <span class="demo-title">打字机并配置打字速度</span>
+      <McBubble :variant="'bordered'">
+        <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions1"></McMarkdownCard>
+      </McBubble>
+      <span class="demo-title">渐变打字</span>
+      <McBubble :variant="'bordered'">
+        <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions2"></McMarkdownCard>
+      </McBubble>
+      <span class="demo-title">彩色打字</span>
+      <McBubble :variant="'bordered'">
+        <McMarkdownCard :content="content" :theme="theme" :typing="true" :typingOptions="typingOptions3"></McMarkdownCard>
+      </McBubble>
+      <span class="demo-title">流式返回</span>
+      <McBubble :variant="'bordered'">
+        <McMarkdownCard :content="content1" :theme="theme" :typing="true" :typingOptions="typingOptions4" @typingEnd="typingEnd"></McMarkdownCard>
+      </McBubble>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 const MOCK_CONTENT = `**我了解到了你的需求**，*会进行<span style="color:red">打字机效果输出</span>，如果你需要重新执行打字机动效*，可点击重新执行按钮。`;
@@ -224,24 +276,50 @@ onMounted(() => {
 
 ```vue
 <template>
-  <div class="btn-container">
-    <d-button variant="solid" @click="generateAnswer">{{ isLoading ? '停止' : '重新生成'}}</d-button>
-  </div>
-  <div id="think-demo-content">
-    <template v-for="(msg, idx) in messages" :key="idx">
-      <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'" :avatarConfig="msg.avatarConfig"></McBubble>
-      <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'" :class="msg.isThinkShrink ? 'think-block-shrink' : 'think-block-expand'">
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="mockAnswer" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <div class="btn-container">
+      <d-button variant="solid" @click="generateAnswer">{{ isLoading ? '停止' : '重新生成'}}</d-button>
+    </div>
+    <div id="think-demo-content">
+      <template v-for="(msg, idx) in messages" :key="idx">
+        <McBubble v-if="msg.from === 'user'" :content="msg.content" :align="'right'" :avatarConfig="msg.avatarConfig"></McBubble>
+        <McBubble v-else :loading="msg.loading ?? false" :avatarConfig="msg.avatarConfig" :variant="'bordered'" :class="msg.isThinkShrink ? 'think-block-shrink' : 'think-block-expand'">
 
-        <div class="think-toggle-btn" @click="toggleThink(msg)">
-          <i class="icon-point"></i>
-          <span>{{ thinkBtnText }}</span>
-          <i :class="btnIcon"></i>
-        </div>
-        <McMarkdownCard :enableThink="true" :content="msg.content" :theme="theme"></McMarkdownCard>
-      </McBubble>
-    </template>
+          <div class="think-toggle-btn" @click="toggleThink(msg)">
+            <i class="icon-point"></i>
+            <span>{{ thinkBtnText }}</span>
+            <i :class="btnIcon"></i>
+          </div>
+          <McMarkdownCard :enableThink="true" :content="msg.content" :theme="theme"></McMarkdownCard>
+        </McBubble>
+      </template>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
@@ -256,7 +334,7 @@ const isLoading = ref(false);
 let interval = null;
 const thinkBtnText = ref('已深度思考 (用时16秒)');
 const btnIcon = ref('icon-chevron-up-2');
-const mockAnswer = `
+const mockAnswer = ref(`
 <think>
 嗯，用户让我帮他写一个快速排序。我得先回想一下快速排序的原理。快速排序是分治算法的一种，基本步骤是选一个基准元素，然后把数组分成两部分，一部分比基准小，另一部分比基准大，然后递归地对这两部分排序。
 
@@ -308,7 +386,7 @@ if __name__ == "__main__":
     print("原数组：", example_arr)
     print("排序后：", sorted_arr)
 \`\`\`
-`
+`)
 const changeTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light';
   themeClass.value = themeClass.value === 'light-background' ? 'dark-background' : 'light-background';
@@ -421,13 +499,39 @@ onMounted(() => {
 
 ```vue
 <template>
-  <div class="btn-container">
-    <d-button variant="solid" @click="changeTheme">切换主题</d-button>
-  </div>
-  <div class="theme-container" :class="themeClass">
-    <McMarkdownCard :content="content" :theme="theme"></McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <div class="btn-container">
+      <d-button variant="solid" @click="changeTheme">切换主题</d-button>
+    </div>
+    <div class="theme-container" :class="themeClass">
+      <McMarkdownCard :content="content" :theme="theme"></McMarkdownCard>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, computed, onMounted, onBeforeMount } from 'vue';
 const theme = ref('light');
@@ -525,8 +629,34 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="5"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 //import { katex } from '@mdit/plugin-katex'; // 请首先安装@mdit/plugin-katex依赖
@@ -590,8 +720,34 @@ $ npm install mermaid
 
 ```vue
 <template>
-  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme"></McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme"></McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
@@ -674,8 +830,34 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="5"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 import PlantUml from 'markdown-it-plantuml'; // 请首先安装markdown-it-plantuml依赖
@@ -732,8 +914,34 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="3"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme" :mdPlugins="mdPlugins"></McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 import { full as emoji } from 'markdown-it-emoji' // 请首先安装markdown-it-emoji依赖
@@ -784,14 +992,40 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme">
-    <template #actions="{ codeBlockData }">
-      <div class="btn-group">
-        <d-button variant="solid" @click="handleAction(codeBlockData)">自定义按钮</d-button>
-      </div>
-    </template>
-  </McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="5"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme">
+      <template #actions="{ codeBlockData }">
+        <div class="btn-group">
+          <d-button variant="solid" @click="handleAction(codeBlockData)">自定义按钮</d-button>
+        </div>
+      </template>
+    </McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
@@ -842,20 +1076,46 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme">
-    <template #header="{ codeBlockData }">
-      <div class="header-container">
-        <div class="header-left">
-          <img src="https://matechat.gitcode.com/logo.svg" alt="logo" />
-          <span>MateChat</span>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="5"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme">
+      <template #header="{ codeBlockData }">
+        <div class="header-container">
+          <div class="header-left">
+            <img src="https://matechat.gitcode.com/logo.svg" alt="logo" />
+            <span>MateChat</span>
+          </div>
+          <div class="header-right">
+            <i class="icon-publish-new"></i>
+          </div>
         </div>
-        <div class="header-right">
-          <i class="icon-publish-new"></i>
-        </div>
-      </div>
-    </template>
-  </McMarkdownCard>
+      </template>
+    </McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
@@ -935,15 +1195,41 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme">
-    <template #content="{ codeBlockData }">
-      <div v-if="codeBlockData.language === 'echart'" ref="chart" style="width: 100%; height: 500px;">
-        {{ handleCodeBlockData(codeBlockData) }}
-      </div>
-      <div v-else class="content-container" v-html="transfer(codeBlockData)"></div>
-    </template>
-  </McMarkdownCard>
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme">
+      <template #content="{ codeBlockData }">
+        <div v-if="codeBlockData.language === 'echart'" ref="chart" style="width: 100%; height: 500px;">
+          {{ handleCodeBlockData(codeBlockData) }}
+        </div>
+        <div v-else class="content-container" v-html="transfer(codeBlockData)"></div>
+      </template>
+    </McMarkdownCard>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 import markdownIt from 'markdown-it';
@@ -1211,8 +1497,34 @@ body[ui-theme='infinity-theme'] {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme" />
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <McMarkdownCard :content="content" :theme="theme" />
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
@@ -1258,8 +1570,34 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :customXssRules="customXssRules" :content="content" :theme="theme" />
+  <div class="demo-container">
+    <div class="textarea-container">
+      <textarea v-model="content" placeholder="请输入 Markdown 内容" rows="10"></textarea>
+    </div>
+    <McMarkdownCard :customXssRules="customXssRules" :content="content" :theme="theme" />
+  </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea-container {
+  width: 100%;
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: vertical;
+  }
+}
+</style>
 <script setup>
 import { ref, onMounted } from 'vue';
 let themeService;
