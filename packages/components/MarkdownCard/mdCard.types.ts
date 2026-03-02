@@ -1,8 +1,12 @@
 import type {
-  Options,
-} from 'markdown-it';
+  CustomXssRule,
+  MdPlugin,
+  MermaidConfig,
+  Theme,
+  TypingStyle,
+} from '@matechat/common/MarkdownCard/common/mdCard.types';
+import type { Options } from 'markdown-it';
 import type { PropType } from 'vue';
-import { TypingStyle , CustomXssRule, MdPlugin, Theme, MermaidConfig} from '@matechat/common/MarkdownCard/common/mdCard.types';
 
 export const mdCardProps = {
   content: {

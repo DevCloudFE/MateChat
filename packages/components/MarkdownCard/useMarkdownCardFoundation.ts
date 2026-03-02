@@ -1,12 +1,12 @@
 import {
-  useFoundation,
   useDefaultAdapter,
-} from "@matechat/common/Base/useFoundation";
+  useFoundation,
+} from '@matechat/common/Base/useFoundation';
 import {
+  type MarkdownCardAdapter,
   MarkdownCardFoundation,
-  MarkdownCardAdapter,
-} from "@matechat/common/MarkdownCard/foundation";
-import { useMcI18n } from "@matechat/core/Locale";
+} from '@matechat/common/MarkdownCard/foundation';
+import { useMcI18n } from '@matechat/core/Locale';
 
 export interface UseMarkdownCardFoundationOptions {
   props: any;
