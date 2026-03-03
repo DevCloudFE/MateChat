@@ -1,7 +1,12 @@
+import {
+  useDefaultAdapter,
+  useFoundation,
+} from '@matechat/common/Base/useFoundation';
+import {
+  type BubbleAdapter,
+  BubbleFoundation,
+} from '@matechat/common/Bubble/foundation';
 import { computed } from 'vue';
-import { useFoundation, useDefaultAdapter } from '@matechat/common/Base/useFoundation';
-import { BubbleFoundation, BubbleAdapter } from '@matechat/common/Bubble/foundation';
-import { BubbleAvatar } from './bubble-types';
 
 export interface UseBubbleFoundationOptions {
   props: any;
