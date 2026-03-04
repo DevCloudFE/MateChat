@@ -22,13 +22,7 @@ export class MDCardService {
     this.xssWhiteList['path'] = ['style', 'class', 'd', 'id', 'fill', 'stroke'];
     this.xssWhiteList['th'] = ['style'];
     this.xssWhiteList['td'] = ['style'];
-  }
 
-  private onIgnoreTagAttr(tag: string, name: string, value: string, isWhiteAttr: boolean) {
-    if (!isWhiteAttr && (name === 'id' || (tag === 'span' && name === 'style'))) {
-      return name + '=' + value;
-    }
-    return undefined;
   }
 
   getXssWhiteList() {
@@ -64,7 +58,6 @@ export class MDCardService {
   filterHtml(html: string) {
     return filterXSS(html, {
       whiteList: this.xssWhiteList,
-      onIgnoreTagAttr: this.onIgnoreTagAttr,
       css: {
         whiteList: Object.assign({}, this.cssWhiteList, {
           top: true,
