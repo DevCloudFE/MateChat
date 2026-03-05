@@ -24,9 +24,12 @@
 $ npm create vite@latest
 ```
 
+安装 `@matechat/core` 依赖：
+
 ```bash
-$ npm i vue-devui @matechat/core @devui-design/icons
+$ npm i @matechat/core vue-devui @devui-design/icons
 ```
+说明：vue-devui 和 @devui-design/icons 仅在本示例中使用，实际项目中可根据需求按需引入。
 
 ### 2. 引入
 
