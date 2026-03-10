@@ -63,9 +63,9 @@
       @afterLeave="afterLeave"
     >
       <div v-show="expanded">
-          <div v-if="isMermaid && showMermaidDiagram && !$slots.content" class="mc-mermaid-content"></div>
-          <pre v-else-if="!$slots.content"><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
-          <slot v-else name="content"></slot>
+          <div v-if="isMermaid && showMermaidDiagram" class="mc-mermaid-content"></div>
+          <slot v-else-if="$slots.content" name="content"></slot>
+          <pre v-else><code :class="`hljs language-${language}`" v-html="highlightedCode"></code></pre>
       </div>
     </Transition>
   </div>
