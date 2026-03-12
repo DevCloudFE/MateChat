@@ -19,7 +19,6 @@ export function openOnStackBlitz(sourceData) {
 
 export function getFiles(sourceData, ide = 'StackBlitz') {
   return {
-    // 根目录文件
     'package.json': JSON.stringify(
       {
         name: 'vue-matechat-demo',
@@ -39,6 +38,7 @@ export function getFiles(sourceData, ide = 'StackBlitz') {
           'markdown-it-emoji': '^3.0.0',
           'markdown-it-mermaid-plugin': '^0.1.0',
           'markdown-it-plantuml': '^1.4.1',
+          mermaid: '^11.0.0',
           '@mdit/plugin-katex': 'latest',
           'vue-devui': '^1.6.29',
           '@matechat/core': 'latest', // 始终使用最新包
