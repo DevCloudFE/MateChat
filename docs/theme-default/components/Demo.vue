@@ -31,16 +31,46 @@
             {{ copyText }}
           </span>
         </transition>
+        <d-popover :position="['right']" trigger="hover" content="在 StackBlitz 上打开">
+          <span
+            class="code-link"
+            style="left: calc(15px + 80px)"
+            @click="onlineIDEClick('StackBlitz')"
+          >
+            <svg
+              width="16px"
+              height="16px"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                d="M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7z"
+              ></path>
+            </svg>
+          </span>
+        </d-popover>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useRoute, useData } from 'vitepress';
-import { throttle } from 'lodash-es';
 import copy from 'clipboard-copy';
-import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick, defineAsyncComponent } from 'vue';
+import { throttle } from 'lodash-es';
+import { useData, useRoute } from 'vitepress';
+import {
+  computed,
+  defineAsyncComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
+import { openOnStackBlitz } from '../composables/online-ide.js';
+
 export default {
   name: 'Demo',
   props: {
@@ -62,9 +92,14 @@ export default {
     const route = useRoute();
 
     const pathArr = ref(route.path.split('/'));
-    const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0]);
+    const component = computed(
+      () => pathArr.value[pathArr.value.length - 1].split('.')[0],
+    );
     const DemoComponent =
-      props.demoList?.[props.targetFilePath]?.default ?? defineAsyncComponent(() => import(/* vite-ignore */ props.targetFilePath));
+      props.demoList?.[props.targetFilePath]?.default ??
+      defineAsyncComponent(
+        () => import(/* vite-ignore */ props.targetFilePath),
+      );
     watch(
       () => route.path,
       (path) => {
@@ -96,11 +131,15 @@ export default {
     });
 
     const copyText = computed(() => {
-      return isShowTip.value ? locale.value['copy-success-text'] : locale.value['copy-button-text'];
+      return isShowTip.value
+        ? locale.value['copy-success-text']
+        : locale.value['copy-button-text'];
     });
 
     const controlText = computed(() => {
-      return isExpanded.value ? locale.value['hide-text'] : locale.value['show-text'];
+      return isExpanded.value
+        ? locale.value['hide-text']
+        : locale.value['show-text'];
     });
 
     // template refs
@@ -112,7 +151,9 @@ export default {
 
     const codeAreaHeight = computed(() => {
       if (description.value) {
-        return description.value.clientHeight + highlight.value.clientHeight + 20;
+        return (
+          description.value.clientHeight + highlight.value.clientHeight + 20
+        );
       }
       return highlight.value.clientHeight;
     });
@@ -166,6 +207,9 @@ export default {
     onBeforeUnmount(() => {
       removeScrollHandler();
     });
+    const onlineIDEClick = () => {
+      openOnStackBlitz(props.sourceCode);
+    };
 
     return {
       blockClass,
@@ -186,6 +230,7 @@ export default {
       demoBlock,
       decoded,
       DemoComponent,
+      onlineIDEClick,
     };
   },
 };
@@ -335,11 +380,14 @@ export default {
 
 .demo-block-control .control-button-wrap {
   line-height: 43px;
+  height: 43px;
   position: absolute;
   top: 0;
   right: 0;
   padding-left: 5px;
   padding-right: 25px;
+  display: flex;
+  align-items: center;
 }
 </style>
 <style>
