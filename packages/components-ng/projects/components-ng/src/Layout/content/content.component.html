@@ -1,4 +1,19 @@
-<div class="mc-layout-content">
-  <ng-content></ng-content>
+<div class="mc-layout-content-container">
+  <div class="mc-layout-content-scroller" #scrollerRef>
+    <div class="mc-layout-content" #contentRef>
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <ng-container *ngIf="showScrollArrow">
+    <div *ngIf="showUpArrow" class="mc-layout-content-arrow up" (click)="scrollToTop()">
+      <div>
+        <i class="icon icon-arrow-up-l"></i>
+      </div>
+    </div>
+    <div *ngIf="showDownArrow" class="mc-layout-content-arrow down" (click)="scrollToBottom()">
+      <div>
+        <i class="icon icon-arrow-down-l "></i>
+      </div>
+    </div>
+  </ng-container>
 </div>
-

@@ -116,57 +116,5 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-@import 'devui-theme/styles-var/devui-var.scss';
-
-.mc-layout-content-container {
-  position: relative;
-  flex: auto;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-
-  .mc-layout-content-scroller {
-    flex: 1;
-    overflow: auto;
-  }
-  .mc-layout-content-arrow {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-
-    &.up {
-      top: 20px;
-    }
-    &.down {
-      bottom: 20px;
-    }
-    &:hover {
-      & > div {
-        transform: scale(1.3);
-        box-shadow: $devui-shadow-length-connected-overlay $devui-shadow;
-      }
-    }
-
-    div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 24px;
-      height: 24px;
-      background-color: $devui-base-bg;
-      border-radius: var(--devui-border-radius-full, 100px);
-      box-shadow: var(--devui-box-shadow-length-base, 0 1px 6px 0) var(--devui-shadow, rgba(0, 0, 0, 0.16));
-      transition:
-        transform 0.3s var(--devui-animation-ease-in-out-smooth, cubic-bezier(0.645, 0.045, 0.355, 1)),
-        box-shadow 0.3s var(--devui-animation-duration-base, 0.3s) var(--devui-animation-ease-in-out-smooth, cubic-bezier(0.645, 0.045, 0.355, 1));
-    }
-  }
-}
+@import '@matechat/common/Layout/common/layout-content.scss';
 </style>

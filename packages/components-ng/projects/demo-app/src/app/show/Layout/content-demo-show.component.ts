@@ -3,30 +3,33 @@ import { Component } from '@angular/core';
 import { ListModule } from '@matechat/ng';
 import { AngularDemoComponent } from '../../base/AngularDemo';
 import { BaseShowComponent } from '../../base/BaseShow/base-show.component';
-import { LayoutDemoComponent } from '../../demo/LayoutDemo/basic-demo/layout.component';
+import { LayoutContentDemoComponent } from '../../demo/LayoutDemo/content-demo/content-demo.component';
 
 @Component({
-  selector: 'app-layout-demo-show',
+  selector: 'app-layout-content-demo-show',
   standalone: true,
   imports: [
     CommonModule,
     ListModule,
     AngularDemoComponent,
-    LayoutDemoComponent,
+    LayoutContentDemoComponent,
   ],
   template: `
     <mc-angular-demo [sourceCode]="sourceCode">
-      <app-layout-demo></app-layout-demo>
+      <app-layout-content-demo></app-layout-content-demo>
     </mc-angular-demo>
     `,
 })
-export class LayoutDemoShowComponent extends BaseShowComponent {
+export class LayoutContentDemoShowComponent extends BaseShowComponent {
   override urls: { type: string; path: string }[] = [
     {
       type: 'HTML',
-      path: '/demo/LayoutDemo/layout.component.html',
+      path: '/demo/LayoutDemo/content-demo/content-demo.component.html',
     },
-    { type: 'TS', path: '/demo/LayoutDemo/layout.component.ts' },
+    {
+      type: 'TS',
+      path: '/demo/LayoutDemo/content-demo/content-demo.component.ts',
+    },
   ];
 
   constructor() {

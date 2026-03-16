@@ -1,0 +1,17 @@
+<div class="demo-container">
+  <button style="margin-bottom: 16px;" class="demo-btn" (click)="pushMessage()">点击添加消息</button>
+  <mc-layout>
+    <mc-layout-header>
+      <mc-header [logoImg]="'/logo.svg'" [title]="'MateChat'"></mc-header>
+    </mc-layout-header>
+    <mc-layout-content style="display: flex; flex-direction: column; margin: 16px 0; max-height: 400px;">
+      <ng-container *ngFor="let item of messages; let index = index">
+        <mc-bubble *ngIf="item.from === 'user'" [content]="item.content" [align]="'right'"></mc-bubble>
+        <mc-bubble *ngIf="item.from === 'ai'" [content]="item.content"></mc-bubble>
+      </ng-container>
+    </mc-layout-content>
+    <mc-layout-sender>
+      <mc-input [value]="inputValue" [maxLength]="2000" [showCount]="true"></mc-input>
+    </mc-layout-sender>
+  </mc-layout>
+</div>
