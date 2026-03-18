@@ -14,9 +14,6 @@ export default `<!DOCTYPE html>
         padding: 1rem 2.2rem;
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(4px);    /* 轻微毛玻璃，提升现代感（不影响动画简洁度） */
-        border-radius: 80px;           /* 超大圆角，胶囊风格 */
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 30, 60, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.5);
         transition: box-shadow 0.2s, transform 0.2s;
       }
 
@@ -52,29 +49,6 @@ export default `<!DOCTYPE html>
         letter-spacing: 1px;
         white-space: nowrap;              /* 默认不换行，保持胶囊美感 */
         line-height: 1.4;
-      }
-
-      /* 如果屏幕宽度较窄，自动变为两行布局（文字折行，图标在上方或左侧？这里保留flex特性，文字折行后高度自适应） */
-      @media (max-width: 420px) {
-        .loading-card {
-          flex-wrap: wrap;
-          justify-content: center;
-          padding: 1.2rem 1.8rem;
-          gap: 0.7rem;
-          border-radius: 60px;
-        }
-
-        .loading-card .loading-text {
-          white-space: normal;            /* 允许换行 */
-          text-align: center;
-          font-size: 1.2rem;
-        }
-
-        .loading-card .spinner {
-          width: 28px;
-          height: 28px;
-          border-width: 3px;
-        }
       }
 
       /* 可选：给文字增加极淡的脉冲，让“加载感”更细腻（但依然非常简约） */
