@@ -18,11 +18,11 @@ import { McLayoutAside, McLayoutContent, McLayoutHeader, McLayout, McLayoutSende
 
 ```vue
 <template>
-  <McLayout>
+  <McLayout style="gap: 16px;">
     <McLayoutHeader>
       <McHeader :logoImg="'/logo.svg'" :title="'MateChat'"></McHeader>
     </McLayoutHeader>
-    <McLayoutContent style="margin: 16px 0;">
+    <McLayoutContent>
       <McBubble content="Hello MateChat" align="right"></McBubble>
       <McBubble content="Hello, what can I do for you?"></McBubble>
     </McLayoutContent>
@@ -51,11 +51,11 @@ const inputValue = ref('');
 ```vue
 <template>
   <button class="demo-btn" @click="pushMessage">点击添加消息</button>
-  <McLayout>
+  <McLayout style="gap: 16px; padding: 0 20px;">
     <McLayoutHeader>
       <McHeader :logoImg="'/logo.svg'" :title="'MateChat'"></McHeader>
     </McLayoutHeader>
-    <McLayoutContent style="margin: 16px 0; max-height: 400px;">
+    <McLayoutContent style="max-height: 400px;">
       <template v-for="(item, index) in messages" :key="index">
         <McBubble v-if="item.from === 'user'" :content="item.content" :align="'right'"></McBubble>
         <McBubble v-else :content="item.content"></McBubble>

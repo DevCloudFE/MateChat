@@ -6,10 +6,14 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  margin-right: -20px;
 
   .mc-layout-content-scroller {
     flex: 1;
     overflow: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
   }
   .mc-layout-content-arrow {
     position: absolute;
