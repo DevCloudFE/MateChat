@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { debounce } from 'lodash-es';
 import { onMounted, onUnmounted, ref } from 'vue';
 import type { ILayoutContentProps } from './layout-types';
 
@@ -76,7 +77,7 @@ const wheelHandler = (event: WheelEvent) => {
   }
   emits('onScrollerWheel', event);
 };
-const scrollHandler = (event: Event) => {
+const scrollHandler = debounce((event: Event) => {
   const target = event.target as HTMLDivElement;
   if (!target) {
     return;
@@ -85,7 +86,7 @@ const scrollHandler = (event: Event) => {
   showDownArrow.value =
     target.scrollTop + target.clientHeight + 32 < target.scrollHeight;
   emits('onScrollerScroll', event);
-};
+}, 100);
 
 const addScrollerEventListener = () => {
   scrollerRef.value?.addEventListener('scroll', scrollHandler);

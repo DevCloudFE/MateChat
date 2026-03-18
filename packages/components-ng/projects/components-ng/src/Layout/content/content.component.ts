@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { debounce } from 'lodash-es';
 import BaseComponent from '../../Base/base.component';
 import {
   type LayoutContentAdapter,
@@ -79,7 +80,7 @@ export class LayoutContentComponent extends BaseComponent<LayoutContentFoundatio
     }
     this.onScrollerWheel.emit(event);
   };
-  private scrollHandler = (event: Event) => {
+  private scrollHandler = debounce((event: Event) => {
     const target = event.target as HTMLDivElement;
     if (!target) {
       return;
@@ -88,7 +89,7 @@ export class LayoutContentComponent extends BaseComponent<LayoutContentFoundatio
     this.showDownArrow =
       target.scrollTop + target.clientHeight + 32 < target.scrollHeight;
     this.onScrollerScroll.emit(event);
-  };
+  }, 100);
   private initListener() {
     this.scrollerRef.nativeElement?.addEventListener(
       'scroll',
