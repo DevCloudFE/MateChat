@@ -34,7 +34,7 @@ export function getFiles(sourceData, ide = 'StackBlitz') {
           vue: '^3.5.13',
           'devui-theme': '^0.1.0',
           '@devui-design/icons': '^1.4.0',
-          'markdown-it': '12.2.0',
+          'markdown-it': '14.1.0',
           'markdown-it-emoji': '^3.0.0',
           'markdown-it-mermaid-plugin': '^0.1.0',
           'markdown-it-plantuml': '^1.4.1',
