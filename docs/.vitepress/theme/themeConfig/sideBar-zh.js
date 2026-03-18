@@ -191,15 +191,15 @@ export default {
         },
         {
           text: 'MarkDown 卡片',
-          link: '/components-ng/markDownCard/demo',
+          link: '/components-ng/markdownCard/demo',
           children: [
             {
               text: 'Demos',
-              link: '/components-ng/markDownCard/demo.md',
+              link: '/components-ng/markdownCard/demo.md',
             },
             {
               text: 'API Reference',
-              link: '/components-ng/markDownCard/api.md',
+              link: '/components-ng/markdownCard/api.md',
             },
           ],
         },
