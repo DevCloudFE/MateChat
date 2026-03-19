@@ -5,7 +5,12 @@ import {
   type ElementRef,
   ViewChild,
 } from '@angular/core';
-import { AttachmentModule, BubbleModule, InputModule, LayoutModule } from '@matechat/ng';
+import {
+  AttachmentModule,
+  BubbleModule,
+  InputModule,
+  LayoutModule,
+} from '@matechat/ng';
 import {
   DisplayType,
   InputVariant,
@@ -24,6 +29,8 @@ import { AlignDemoComponent } from './demo/IntroductionDemo/align-demo/align-dem
 import { BasicDemoComponent as BasicIntroDemoComponent } from './demo/IntroductionDemo/basic-demo/basic-demo.component';
 import { DescriptionDemoComponent } from './demo/IntroductionDemo/description-demo/description-demo.component';
 import { SlotDemoComponent } from './demo/IntroductionDemo/slot-demo/slot-demo.component';
+import { LayoutDemoComponent } from './demo/LayoutDemo/basic-demo/layout.component';
+import { LayoutContentDemoComponent } from './demo/LayoutDemo/content-demo/content-demo.component';
 import { MarkdownCodeOperatorDemoComponent } from './demo/MarkdownCardDemo/markdown-code-operator/markdown-operator.component';
 import { MarkdownContentDemoComponent } from './demo/MarkdownCardDemo/markdown-content/markdown-content.component';
 import { MarkdownEmojeDemoComponent } from './demo/MarkdownCardDemo/markdown-emoje/markdown-emoje.component';
@@ -41,7 +48,6 @@ import { ToolbarBasicDemoComponent } from './demo/Toolbar/basic-demo/basic-demo.
 import { ToolbarSizeDemoComponent } from './demo/Toolbar/toolbar-size/toolbar-size-demo.component';
 import { ToolbarSlotDemoComponent } from './demo/Toolbar/toolbar-slot-demo/toolbar-slot-demo.component';
 import { ToolbarUseIconDemoComponent } from './demo/Toolbar/toolbar-use-icon/toolbar-use-icon-demo.component';
-import { LayoutDemoComponent } from './demo/LayoutDemo/layout.component';
 
 @Component({
   selector: 'app-root',
@@ -83,6 +89,7 @@ import { LayoutDemoComponent } from './demo/LayoutDemo/layout.component';
     ToolbarSlotDemoComponent,
     ToolbarUseIconDemoComponent,
     LayoutDemoComponent,
+    LayoutContentDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
