@@ -13,11 +13,13 @@ import {
   type LayoutContentAdapter,
   LayoutContentFoundation,
 } from '../../components-common/Layout/content-foundation';
+import { ArrowDownIconComponent } from './arrow-down/arrow-down.component';
+import { ArrowUpIconComponent } from './arrow-up/arrow-up.component';
 
 @Component({
   selector: 'mc-layout-content',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ArrowUpIconComponent, ArrowDownIconComponent],
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
 })
