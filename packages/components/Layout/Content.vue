@@ -7,13 +7,13 @@
     </div>
     <template v-if="showScrollArrow">
       <div v-if="showUpArrow" class="mc-layout-content-arrow up" @click="scrollToTop">
-        <div>
-          <i class="icon icon-arrow-up-l"></i>
+        <div> 
+          <ArrowUpIcon />
         </div>
       </div>
       <div v-if="showDownArrow" class="mc-layout-content-arrow down" @click="scrollToBottom">
-        <div>
-          <i class="icon icon-arrow-down-l "></i>
+        <div> 
+          <ArrowDownIcon />
         </div>
       </div>
     </template>
@@ -23,6 +23,8 @@
 <script setup lang="ts">
 import { debounce } from 'lodash-es';
 import { onMounted, onUnmounted, ref } from 'vue';
+import ArrowDownIcon from './icon/arrow-down.vue';
+import ArrowUpIcon from './icon/arrow-up.vue';
 import type { ILayoutContentProps } from './layout-types';
 
 const props = withDefaults(defineProps<ILayoutContentProps>(), {

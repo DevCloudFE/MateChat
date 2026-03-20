@@ -7,12 +7,12 @@
   <ng-container *ngIf="showScrollArrow">
     <div *ngIf="showUpArrow" class="mc-layout-content-arrow up" (click)="scrollToTop()">
       <div>
-        <i class="icon icon-arrow-up-l"></i>
+        <mc-arrow-up-icon />
       </div>
     </div>
     <div *ngIf="showDownArrow" class="mc-layout-content-arrow down" (click)="scrollToBottom()">
       <div>
-        <i class="icon icon-arrow-down-l "></i>
+        <mc-arrow-down-icon />
       </div>
     </div>
   </ng-container>
