@@ -520,7 +520,7 @@ onMounted(() => {
 :::
 
 ### 数学公式
-通过配置md-plugins katex插件，进行数学公式渲染（DEMO未实际渲染，实际使用时解开代码中注释即可按预期渲染）。
+通过配置md-plugins katex插件，进行数学公式渲染（DEMO未实际渲染，实际使用时解开代码中注释即可按预期渲染, 注意：需要在项目中引入katex.min.css样式文件）。
 :::demo
 
 ```vue
@@ -935,7 +935,7 @@ onMounted(() => {
 
 ```vue
 <template>
-  <McMarkdownCard :content="content" :theme="theme">
+  <McMarkdownCard :enableMermaid="true" :content="content" :theme="theme">
     <template #content="{ codeBlockData }">
       <div v-if="codeBlockData.language === 'echart'" ref="chart" style="width: 100%; height: 500px;">
         {{ handleCodeBlockData(codeBlockData) }}
@@ -1017,6 +1017,18 @@ const content = ref(`
     ]
   }]
 }
+\`\`\`
+
+
+**Mermaid渲染**
+
+当然如果您也想自定义Mermaid图表,可以不添加\`enableMermaid\`属性或设置为\`false\`。
+\`\`\`mermaid
+flowchart LR
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
 \`\`\`
 
 

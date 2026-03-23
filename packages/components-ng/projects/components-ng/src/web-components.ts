@@ -40,6 +40,7 @@ import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
 import { DescriptionDemoShowComponent } from '../../demo-app/src/app/show/Introduction/description-demo-show.component';
 import { SlotDemoShowComponent } from '../../demo-app/src/app/show/Introduction/slot-demo-show.component';
+import { LayoutContentDemoShowComponent } from '../../demo-app/src/app/show/Layout/content-demo-show.component';
 // 导入Layout相关的show组件
 import { LayoutDemoShowComponent } from '../../demo-app/src/app/show/Layout/layout-demo-show.component';
 // 添加List相关的show组件
@@ -138,6 +139,7 @@ import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar
     IconPromptShowComponent,
     // 添加Layout相关的show组件
     LayoutDemoShowComponent,
+    LayoutContentDemoShowComponent,
   ],
   providers: [],
 })
@@ -194,6 +196,7 @@ platformBrowserDynamic()
 
         // Layout组件
         ['mc-ng-layout-demo', LayoutDemoShowComponent],
+        ['mc-ng-layout-content-demo', LayoutContentDemoShowComponent],
         // MarkdownCard组件
         ['mc-ng-markdown-basic', MarkdownBasicShowComponent],
         ['mc-ng-markdown-code-operator', MarkdownCodeOperatorShowComponent],
