@@ -1,0 +1,11 @@
+<div class="interactive-demo">
+  <mc-file-list 
+    [fileItems]="interactiveList" 
+    [context]="'input'"
+    (remove)="handleRemove($event)"
+    (preview)="handlePreview($event)"
+    (download)="handleDownload($event)"
+    (retryUpload)="handleRetryUpload($event)"
+    (retryDownload)="handleRetryDownload($event)"
+  ></mc-file-list>
+</div>

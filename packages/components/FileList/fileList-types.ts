@@ -1,5 +1,8 @@
+import type {
+  FileItem,
+  FileListContext,
+} from '@matechat/common/FileList/common/fileList-types';
 import type { ExtractPropTypes, PropType } from 'vue';
-import type { FileItem } from '../Attachment/attachment-types';
 // 这里应该是按照FileList组件的需求来定义props, 不用限制Attachment组件的props
 export const fileListProps = {
   // 文件列表数据
@@ -9,7 +12,7 @@ export const fileListProps = {
   },
   // 组件上下文，决定其外观和行为
   context: {
-    type: String as PropType<'input' | 'dialog'>,
+    type: String as PropType<FileListContext>,
     validator: (value: string) => ['input', 'dialog'].includes(value),
   },
 } as const;
