@@ -16,13 +16,13 @@ description: Provides comprehensive guidance for MateChat Vue 3 component librar
 
 ## How to use this skill
 
-This skill is organized to provide comprehensive guidance for MateChat Vue 3 components, with automatic documentation updates.
+This skill is organized to provide comprehensive guidance for MateChat Vue 3 components, document source: https://matechat.gitcode.com/use-guide/introduction.html.
 
 ### 1. Identify the User's Need
 
 - **Component Usage** → See Component Categories below
-- **API Reference** → `references/components/<component>/api.md`
-- **Demo Examples** → `references/components/<component>/demo.md`
+- **API Reference** → `references/components/<componentName>/api.md`
+- **Demo Examples** → `references/components/<componentName>/demo.md`
 - **Use Guide** → `references/use-guide/` (installation, configuration, on-demand import, themes, i18n, CLI, etc.)
 
 ### 2. Component Categories
@@ -108,7 +108,7 @@ The `references/use-guide/` directory contains comprehensive guides for using Ma
 
 **To use guide documentation:**
 1. Identify the topic from the user's request
-2. Load the corresponding guide file from `references/use-guide/`
+2. Load the corresponding guide file from `reference/components/` or `references/use-guide/`
 3. Follow the instructions and best practices in that guide
 
 ### 4. Installation
@@ -177,7 +177,7 @@ const handleSend = () => {
 
 ## API Reference
 
-All component API documentation is available in the `references/` directory, organized by component name:
+All component API documentation is available in the `references/components/` directory, organized by component name:
 
 - Each component has two files:
   - `api.md` - API documentation (props, events, slots, types)
@@ -185,8 +185,8 @@ All component API documentation is available in the `references/` directory, org
 
 **To use API reference:**
 1. Identify the component you need help with
-2. Load the corresponding API file: `references/<component>/api.md`
-3. Load the demo file for examples: `references/<component>/demo.md`
+2. Load the corresponding API file: `references/components/<componentName>/api.md`
+3. Load the demo file for examples: `references/components/<componentName>/demo.md`
 4. Follow the examples and adapt to your use case
 
 ## Automatic Documentation Updates
@@ -201,6 +201,7 @@ This skill includes an automatic documentation update mechanism to keep componen
 4. **Customize themes**: Use theme variables for customization
 5. **Follow design specs**: Follow MateChat design specifications
 6. **Use TypeScript**: Leverage TypeScript for better type safety
+7. When designing components for use, it is necessary to read the corresponding component API documentation from `references/components/<componentName>/api.md`
 
 ## Component Selection Guide
 

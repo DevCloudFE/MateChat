@@ -200,7 +200,7 @@ bootstrapApplication(AppComponent, appConfig);
 
 ## API Reference
 
-All component API documentation is available in the `references/` directory, organized by component name:
+All component API documentation is available in the `references/components/` directory, organized by component name:
 
 - Each component has two files:
   - `api.md` - API documentation (props, events, slots, types)
@@ -208,8 +208,8 @@ All component API documentation is available in the `references/` directory, org
 
 **To use API reference:**
 1. Identify the component you need help with
-2. Load the corresponding API file: `references/<component>/api.md`
-3. Load the demo file for examples: `references/<component>/demo.md`
+2. Load the corresponding API file: `references/components/<componentName>/api.md`
+3. Load the demo file for examples: `references/components/<componentName>/demo.md`
 4. Follow the examples and adapt to your use case
 
 ## Automatic Documentation Updates
@@ -224,6 +224,7 @@ This skill includes an automatic documentation update mechanism to keep componen
 4. **Customize themes**: Use devui-theme for theme customization
 5. **Use TypeScript**: Leverage TypeScript for better type safety
 6. **Follow Angular style guide**: Follow Angular official style guide
+7. When designing components for use, it is necessary to read the corresponding component API documentation from `references/components/<componentName>/api.md`
 
 ## Component Selection Guide
 
