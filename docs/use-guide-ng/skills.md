@@ -1,6 +1,6 @@
 # Skill: matechat-ng
 
-`matechat-ng` 是 MateChat Angular 组件库的 Agent Skill，帮助开发者快速构建 AI 聊天界面。通过自然语言描述，Agent skill 将自动获取 MateChat Angular 相关使用文档，完成开发任务。
+`matechat-ng` 是 MateChat Angular 组件库的 Agent Skill，帮助开发者快速构建 AI 智能应用界面。通过自然语言描述，Agent skill 将自动获取 MateChat Angular 相关使用文档，完成开发任务。
 
 ## 安装方式
 

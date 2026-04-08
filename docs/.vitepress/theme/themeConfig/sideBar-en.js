@@ -222,14 +222,14 @@ export default {
   ],
   '/en/use-guide-ng/': [
     { text: '快速开始', link: '/use-guide-ng/introduction' },
-    { text: 'MateChat Skill', link: '/use-guide-ng/skills/usage-guide' },
+    { text: 'MateChat Skill', link: '/use-guide-ng/skills' },
   ],
   '/en/use-guide/': [
     { text: 'Start', link: '/en/use-guide/introduction' },
     { text: 'On-demand Import', link: '/use-guide/require' },
     { text: 'i18n', link: '/use-guide/i18n' },
     { text: 'Theming', link: '/use-guide/theme' },
-    { text: 'MateChat Skill', link: '/use-guide/skills/usage-guide' },
+    { text: 'MateChat Skill', link: '/use-guide/skills' },
     {
       text: 'Create an application using Cli',
       items: [

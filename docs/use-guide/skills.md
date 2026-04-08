@@ -1,6 +1,6 @@
 # Skill: matechat-vue
 
-`matechat-vue` 是 MateChat Vue 3 组件库的 Agent Skill，帮助开发者快速构建 AI 聊天界面。通过自然语言描述，Agent skill 将自动获取MateChat相关使用文档，完成开发任务。
+`matechat-vue` 是 MateChat Vue 3 组件库的 Agent Skill，帮助开发者快速构建 AI 智能应用界面。通过自然语言描述，Agent Skill 将自动获取MateChat相关使用文档，完成开发任务。
 
 ## 安装方式
 
@@ -12,7 +12,7 @@ npx skills add DevCloudFE/MateChat
 
 ## 安装和使用 MateChat
 
-提示词: 
+提示词:
 
 ```
 帮我在项目中安装和使用MateChat
@@ -20,7 +20,7 @@ npx skills add DevCloudFE/MateChat
 
 ## 使用 MateChat 组件
 
-提示词: 
+提示词:
 
 ```
 如何使用 MateChat 的 Input 组件？
@@ -31,11 +31,11 @@ npx skills add DevCloudFE/MateChat
 ```
 
 ## 一句话创建AI智能助手
-提示词: 
+
+提示词:
 
 ```
 参考MateChat快速开始指南，使用MateChat创建一个AI智能助手应用
 ```
 
-推荐使用MateChat Cli创建模板应用。
-
+优先推荐使用 [MateChat Cli](https://matechat.gitcode.com/use-guide/solution.html) 创建模板应用。
