@@ -21,6 +21,7 @@
     "docs:build": "pnpm build:ng-demo && pnpm generate && vitepress build docs ",
     "docs:preview": "pnpm generate && vitepress preview docs",
     "demo:ng": "pnpm --filter @matechat/components-ng demo:source",
+    "update-skill-docs": "node scripts/update-matechat-skill-docs.js",
     "prepare": "husky"
   },
   "dependencies": {
