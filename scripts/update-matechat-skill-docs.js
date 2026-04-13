@@ -12,17 +12,17 @@ const PROJECT_ROOT = path.join(__dirname, '..');
 
 const SKILLS = {
   vue: {
-    skillDir: path.join(PROJECT_ROOT, '.trae/skills/matechat-vue'),
-    referencesDir: path.join(PROJECT_ROOT, '.trae/skills/matechat-vue/references'),
-    componentsDir: path.join(PROJECT_ROOT, '.trae/skills/matechat-vue/references/components'),
+    skillDir: path.join(PROJECT_ROOT, '.agent/skills/matechat-vue'),
+    referencesDir: path.join(PROJECT_ROOT, '.agent/skills/matechat-vue/references'),
+    componentsDir: path.join(PROJECT_ROOT, '.agent/skills/matechat-vue/references/components'),
     docsComponentsDir: path.join(PROJECT_ROOT, 'docs/components'),
     docsUseGuideDir: path.join(PROJECT_ROOT, 'docs/use-guide'),
     name: 'MateChat Vue'
   },
   ng: {
-    skillDir: path.join(PROJECT_ROOT, '.trae/skills/matechat-ng'),
-    referencesDir: path.join(PROJECT_ROOT, '.trae/skills/matechat-ng/references'),
-    componentsDir: path.join(PROJECT_ROOT, '.trae/skills/matechat-ng/references/components'),
+    skillDir: path.join(PROJECT_ROOT, '.agent/skills/matechat-ng'),
+    referencesDir: path.join(PROJECT_ROOT, '.agent/skills/matechat-ng/references'),
+    componentsDir: path.join(PROJECT_ROOT, '.agent/skills/matechat-ng/references/components'),
     docsComponentsDir: path.join(PROJECT_ROOT, 'docs/components-ng'),
     docsUseGuideDir: path.join(PROJECT_ROOT, 'docs/use-guide-ng'),
     name: 'MateChat Angular'
@@ -45,7 +45,7 @@ function ensureDir(dir) {
 
 function copyComponentDocs(skillConfig) {
   console.log(`📁 Copying component documentation from ${skillConfig.docsComponentsDir}...`);
-  
+
   if (!fs.existsSync(skillConfig.docsComponentsDir)) {
     console.error(`❌ Error: ${skillConfig.docsComponentsDir} directory not found`);
     console.log('💡 Make sure you are running this script from the MateChat repository root');
@@ -64,16 +64,16 @@ function copyComponentDocs(skillConfig) {
   components.forEach(component => {
     const sourceDir = path.join(skillConfig.docsComponentsDir, component);
     const targetDir = path.join(skillConfig.componentsDir, component);
-    
+
     ensureDir(targetDir);
 
     const files = fs.readdirSync(sourceDir);
-    
+
     files.forEach(file => {
       if (file.endsWith('.md')) {
         const sourceFile = path.join(sourceDir, file);
         const targetFile = path.join(targetDir, file);
-        
+
         fs.copyFileSync(sourceFile, targetFile);
         console.log(`  ✓ components/${component}/${file}`);
       }
@@ -87,7 +87,7 @@ function copyComponentDocs(skillConfig) {
 
 function copyUseGuideDocs(skillConfig) {
   console.log(`\n📖 Copying use-guide documentation from ${skillConfig.docsUseGuideDir}...`);
-  
+
   if (!fs.existsSync(skillConfig.docsUseGuideDir)) {
     console.error(`❌ Error: ${skillConfig.docsUseGuideDir} directory not found`);
     return 0;
@@ -97,13 +97,13 @@ function copyUseGuideDocs(skillConfig) {
   ensureDir(targetDir);
 
   const files = fs.readdirSync(skillConfig.docsUseGuideDir).filter(file => file.endsWith('.md'));
-  
+
   console.log(`Found ${files.length} guide files to update:\n`);
 
   files.forEach(file => {
     const sourceFile = path.join(skillConfig.docsUseGuideDir, file);
     const targetFile = path.join(targetDir, file);
-    
+
     fs.copyFileSync(sourceFile, targetFile);
     console.log(`  ✓ use-guide/${file}`);
   });
@@ -114,12 +114,12 @@ function copyUseGuideDocs(skillConfig) {
     if (fs.existsSync(sourceSubDir)) {
       const targetSubDir = path.join(targetDir, subDir);
       ensureDir(targetSubDir);
-      
+
       const subFiles = fs.readdirSync(sourceSubDir).filter(file => file.endsWith('.md'));
       subFiles.forEach(file => {
         const sourceFile = path.join(sourceSubDir, file);
         const targetFile = path.join(targetSubDir, file);
-        
+
         fs.copyFileSync(sourceFile, targetFile);
         console.log(`  ✓ use-guide/${subDir}/${file}`);
       });
@@ -132,39 +132,39 @@ function copyUseGuideDocs(skillConfig) {
 
 function updateFromGitHub() {
   console.log('🌐 Attempting to update from GitHub repository...');
-  
+
   try {
     const tempDir = path.join(__dirname, '.temp-docs');
-    
+
     if (fs.existsSync(tempDir)) {
       fs.rmSync(tempDir, { recursive: true });
     }
-    
+
     console.log('📥 Cloning MateChat repository...');
     execSync('git clone --depth 1 --filter=blob:none --sparse https://github.com/DevCloudFE/MateChat.git .temp-docs', {
       cwd: __dirname,
       stdio: 'inherit'
     });
-    
+
     execSync('git sparse-checkout set docs/components docs/use-guide', {
       cwd: tempDir,
       stdio: 'inherit'
     });
-    
+
     const componentsDir = path.join(tempDir, 'docs/components');
     const useGuideDir = path.join(tempDir, 'docs/use-guide');
-    
+
     if (fs.existsSync(componentsDir)) {
       ensureDir(REFERENCES_COMPONENTS_DIR);
-      
+
       const components = fs.readdirSync(componentsDir);
-      
+
       components.forEach(component => {
         const componentDir = path.join(componentsDir, component);
         if (fs.statSync(componentDir).isDirectory()) {
           const targetDir = path.join(REFERENCES_COMPONENTS_DIR, component);
           ensureDir(targetDir);
-          
+
           const files = fs.readdirSync(componentDir);
           files.forEach(file => {
             if (file.endsWith('.md')) {
@@ -176,14 +176,14 @@ function updateFromGitHub() {
           });
         }
       });
-      
+
       console.log('✅ Successfully updated components from GitHub');
     }
 
     if (fs.existsSync(useGuideDir)) {
       const targetDir = path.join(REFERENCES_DIR, 'use-guide');
       ensureDir(targetDir);
-      
+
       const files = fs.readdirSync(useGuideDir).filter(file => file.endsWith('.md'));
       files.forEach(file => {
         fs.copyFileSync(
@@ -191,12 +191,12 @@ function updateFromGitHub() {
           path.join(targetDir, file)
         );
       });
-      
+
       console.log('✅ Successfully updated use-guide from GitHub');
     }
-    
+
     fs.rmSync(tempDir, { recursive: true });
-    
+
   } catch (error) {
     console.error('❌ Failed to update from GitHub:', error.message);
     console.log('💡 Falling back to local documentation...');
@@ -213,18 +213,18 @@ if (useGitHub) {
   updateFromGitHub();
 } else {
   const skillsToUpdate = targetSkill ? [targetSkill] : Object.keys(SKILLS);
-  
+
   skillsToUpdate.forEach(skillKey => {
     const skillConfig = SKILLS[skillKey];
     if (!skillConfig) {
       console.error(`❌ Unknown skill: ${skillKey}`);
       return;
     }
-    
+
     console.log(`\n${'='.repeat(60)}`);
     console.log(`📚 Updating ${skillConfig.name} Skill Documentation`);
     console.log('='.repeat(60));
-    
+
     copyComponentDocs(skillConfig);
     copyUseGuideDocs(skillConfig);
   });
