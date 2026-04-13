@@ -169,6 +169,9 @@
 .demo-block-control .control-button-wrap {
   line-height: 43px;
   margin-left: 15px;
+  display: flex;
+  align-items: center;
+  height: 43px;
 }
 
 .demo-block-control:hover .control-text,
