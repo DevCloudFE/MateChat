@@ -5,25 +5,25 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  type OnInit,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import type { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { McTeleportComponent } from '../../../demo-app/src/app/base/Teleport/teleport.component';
 import BaseComponent from '../Base/base.component';
 import {
-  type FileItem,
-  type FileListContext,
+  FileItem,
+  FileListContext,
   FileListEmits,
   FileListProps,
-  type PreviewType,
+  PreviewType,
 } from '../components-common/FileList/common/fileList-types';
 import {
-  type FileListAdapter,
+  FileListAdapter,
   FileListFoundation,
 } from '../components-common/FileList/foundation';
-import type { LocaleService } from '../Locale';
+import { LocaleService } from '../Locale';
 import { McFileIconComponent } from './FileIcon/file-icon.component';
 
 @Component({
