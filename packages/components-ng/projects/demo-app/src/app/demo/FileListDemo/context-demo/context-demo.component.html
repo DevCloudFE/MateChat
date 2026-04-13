@@ -1,0 +1,15 @@
+<div class="context-demo">
+  <h4 style="margin-bottom: 20px;">输入框上下文</h4>
+  <mc-input [(ngModel)]="inputValue" placeholder="这是一个带有文件列表的输入框...">
+    <ng-template #head>
+      <mc-file-list [fileItems]="inputList" [context]="'input'" (remove)="handleRemove($event)"
+        (retryUpload)="handleRetryUpload($event)" />
+    </ng-template>
+  </mc-input>
+
+  <h4 style="margin: 20px 0;">对话框上下文</h4>
+  <mc-bubble [align]="'right'" [avatarConfig]="userAvatar">
+    <div>上传的文件，包含了多种状态：</div>
+    <mc-file-list [fileItems]="dialogList" [context]="'dialog'" />
+  </mc-bubble>
+</div>

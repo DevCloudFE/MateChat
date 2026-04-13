@@ -19,6 +19,10 @@ import { CustomBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/cu
 import { LoadingBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/loading-demo-show.component';
 import { VariantAvatarBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-avatar-demo-show.component';
 import { VariantBubbleShowComponent } from '../../demo-app/src/app/show/Bubble/variant-demo-show.component';
+// 导入FileList相关show组件
+import { FilelistBasicShowComponent } from '../../demo-app/src/app/show/FileList/filelist-basic-show.component';
+import { FilelistContextShowComponent } from '../../demo-app/src/app/show/FileList/filelist-context-show.component';
+import { FilelistInteractiveShowComponent } from '../../demo-app/src/app/show/FileList/filelist-interactive-show.component';
 // 导入Header相关show组件
 import { HeaderBasicShowComponent } from '../../demo-app/src/app/show/Header/header-baisc-show.component';
 import { HeaderCustomOperationShowComponent } from '../../demo-app/src/app/show/Header/header-custom-operation-show.component';
@@ -35,7 +39,6 @@ import { SubmitInputShowComponent } from '../../demo-app/src/app/show/Input/subm
 import { SuffixInputShowComponent } from '../../demo-app/src/app/show/Input/suffix-demo-show.component';
 import { ThemeTagShowComponent } from '../../demo-app/src/app/show/Input/theme-tag-demo-show.component';
 import { AlignDemoShowComponent } from '../../demo-app/src/app/show/Introduction/align-demo-show.component';
-
 // 导入Introduction相关的show组件
 import { BasicDemoShowComponent } from '../../demo-app/src/app/show/Introduction/basic-demo-show.component';
 import { DescriptionDemoShowComponent } from '../../demo-app/src/app/show/Introduction/description-demo-show.component';
@@ -140,6 +143,10 @@ import { ToolbarUseIconShowComponent } from '../../demo-app/src/app/show/Toolbar
     // 添加Layout相关的show组件
     LayoutDemoShowComponent,
     LayoutContentDemoShowComponent,
+    // 添加FileList相关的show组件
+    FilelistBasicShowComponent,
+    FilelistContextShowComponent,
+    FilelistInteractiveShowComponent,
   ],
   providers: [],
 })
@@ -244,6 +251,11 @@ platformBrowserDynamic()
         ['mc-ng-toolbar-size', ToolbarSizeShowComponent],
         ['mc-ng-toolbar-slot', ToolbarSlotShowComponent],
         ['mc-ng-toolbar-use-icon', ToolbarUseIconShowComponent],
+
+        // 注册 FileList相关webComponent
+        ['mc-ng-filelist-basic', FilelistBasicShowComponent],
+        ['mc-ng-filelist-context', FilelistContextShowComponent],
+        ['mc-ng-filelist-interactive', FilelistInteractiveShowComponent],
       ]);
 
       // 遍历Map并注册所有WebComponent

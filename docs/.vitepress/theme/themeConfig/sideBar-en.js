@@ -163,7 +163,7 @@ export default {
             {
               text: 'API Reference',
               link: '/components-ng/prompt/api.md',
-            }
+            },
           ],
         },
       ],
@@ -196,6 +196,20 @@ export default {
             {
               text: 'API Reference',
               link: '/components-ng/markdownCard/api.md',
+            },
+          ],
+        },
+        {
+          text: 'FileList 文件列表',
+          link: '/components-ng/fileList/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/fileList/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/fileList/api.md',
             },
           ],
         },

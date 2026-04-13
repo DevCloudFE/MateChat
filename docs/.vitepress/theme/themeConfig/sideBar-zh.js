@@ -204,6 +204,20 @@ export default {
           ],
         },
         {
+          text: 'FileList 文件列表',
+          link: '/components-ng/fileList/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/fileList/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/fileList/api.md',
+            },
+          ],
+        },
+        {
           text: 'Attachment 附件',
           link: '/components-ng/attachment/demo',
           children: [
