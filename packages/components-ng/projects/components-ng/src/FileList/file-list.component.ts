@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { McTeleportComponent } from '../../../demo-app/src/app/base/Teleport/teleport.component';
+import { McTeleportComponent } from './Teleport/teleport.component';
 import BaseComponent from '../Base/base.component';
 import {
   FileItem,
