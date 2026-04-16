@@ -1,12 +1,12 @@
 import {
   Component,
   Input,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-  TemplateRef,
+  type OnDestroy,
+  type OnInit,
+  type Renderer2,
+  type TemplateRef,
   ViewChild,
-  ViewContainerRef,
+  type ViewContainerRef,
 } from '@angular/core';
 
 @Component({
