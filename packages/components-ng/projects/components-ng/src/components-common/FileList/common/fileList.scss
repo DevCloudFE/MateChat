@@ -30,8 +30,6 @@
     padding: 0 10px;
     // 在对话框中，让容器自适应内容，而不是滚动
     .mc-file-list__container {
-      // 设置最大宽度以容纳3个文件项
-      max-width: 606px;
 
       // 移除高度限制和滚动条
       max-height: none;
