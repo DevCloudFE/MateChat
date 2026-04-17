@@ -1,0 +1,121 @@
+<div class="mc-file-list" [class]="`mc-file-list--context-${context}`">
+  <div class="mc-file-list__container">
+    <div
+      *ngFor="let file of fileItems"
+      class="mc-file-item"
+      [class]="file.status ? `mc-file-item--${file.status}` : ''"
+      (mouseenter)="hoveredFileUid = file.uid"
+      (mouseleave)="hoveredFileUid = null"
+    >
+      <!-- 文件图标和进度 -->
+      <div class="mc-file-item__icon-container">
+        <!-- 图片预览 -->
+        <ng-container *ngIf="getPreviewType(file) === 'image' && (file['thumbUrl'] || file.url)">
+          <img [src]="sanitizeUrl(file['thumbUrl'] || file.url)" [alt]="file.name" class="mc-file-item__image-preview" (click)="handlePreview(file)">
+        </ng-container>
+        <!-- 原来的图标 -->
+        <ng-container *ngIf="!(getPreviewType(file) === 'image' && (file['thumbUrl'] || file.url))">
+          <mc-file-icon class="mc-file-item__icon" [iconType]="getIconComponent(file)" [size]="36" [title]="file.name"></mc-file-icon>
+        </ng-container>
+        <!-- 进度覆盖层 (同时处理上传和下载) -->
+        <div *ngIf="file.status === 'uploading' || file.status === 'downloading' || file.status === 'error' || file.status === 'uploadError' || file.status === 'downloadError'" class="mc-file-item__progress-overlay">
+          <div class="mc-file-item__progress-mask"></div>
+          <!-- 失败状态：显示 Wrong 图标 -->
+          <ng-container *ngIf="file.status === 'error' || file.status === 'uploadError' || file.status === 'downloadError'">
+            <svg class="mc-file-item__wrong-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <!-- 背景三角 -->
+              <path 
+                d="M7.84 0.99L13.88 12.12C14.13 12.57 13.95 13.14 13.49 13.38C13.35 13.46 13.2 13.5 13.04 13.5H0.95C0.42 13.5 0 13.08 0 12.56C0 12.4 0.03 12.25 0.11 12.12L6.15 0.99C6.4 0.53 6.98 0.36 7.44 0.61C7.61 0.69 7.75 0.83 7.84 0.99Z" 
+                fill="white"
+              />
+              <!-- 感叹号的点 -->
+              <path 
+                d="M7 11.5C6.58 11.5 6.25 11.16 6.25 10.75C6.25 10.33 6.58 10 7 10C7.41 10 7.75 10.33 7.75 10.75C7.75 11.16 7.41 11.5 7 11.5Z" 
+                fill="#F23030"
+              />
+              <!-- 感叹号的竖线 -->
+              <rect 
+                x="6.5" 
+                y="4.5" 
+                width="1" 
+                height="4.5" 
+                rx="0.5" 
+                fill="#F23030"
+              />
+            </svg>
+          </ng-container>
+          <ng-container *ngIf="file.status === 'uploading' || file.status === 'downloading'">
+            <svg class="mc-file-item__progress-ring" viewBox="0 0 36 36">
+              <path class="mc-file-item__progress-ring-track" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path
+                class="mc-file-item__progress-ring-circle"
+                stroke-dasharray="100, 100"
+                [style.strokeDashoffset]="100 - (file.percentage || 0)"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+            </svg>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- 文件信息 -->
+      <div class="mc-file-item__info">
+        <div class="mc-file-item__name" [title]="file.name">{{ file.name }}</div>
+        <div class="mc-file-item__meta">
+          <!-- 1. 失败状态 (统一处理上传和下载失败) -->
+          <ng-container *ngIf="file.status === 'error' || file.status === 'uploadError' || file.status === 'downloadError'">
+            <span 
+              class="mc-file-item__status mc-file-item__status--error" 
+              [title]="typeof file.error === 'string' ? file.error : (file.status === 'downloadError' ? t('FileList.downloadFailed') : t('FileList.uploadFailed'))"
+            >
+              {{ file.status === 'downloadError' ? t('FileList.downloadFailed') : t('FileList.uploadFailed') }}
+            </span>
+            <span
+              class="mc-file-item__meta-action"
+              (click)="file.status === 'downloadError' ? handleRetryDownload(file) : handleRetryUpload(file)"
+            >{{ t('FileList.retry') }}</span>
+          </ng-container>
+          <!-- 2. 悬停状态 -->
+          <ng-container *ngIf="hoveredFileUid === file.uid && file.status === 'success'">
+            <span class="mc-file-item__meta-action" (click)="handleDownload(file, $event)">{{ t('FileList.download') }}</span>
+            <span class="mc-file-item__meta-action" (click)="handlePreview(file)">{{ t('FileList.preview') }}</span>
+          </ng-container>
+          <!-- 3. 上传/下载中状态 -->
+          <ng-container *ngIf="file.status === 'uploading' || file.status === 'downloading'">
+            <span class="mc-file-item__status">{{ t(`FileList.${file.status}`) }}</span>
+          </ng-container>
+          <!-- 4. 默认状态 -->
+          <ng-container *ngIf="!file.status || file.status === 'success' && hoveredFileUid !== file.uid">
+            <span class="mc-file-item__file-type">{{ getFileTypeString(file.name) }}</span>
+            <span class="mc-file-item__size">{{ formatFileSize(file.size) }}</span>
+          </ng-container>
+        </div>
+      </div>
+      <!-- 删除按钮 -->
+      <div class="mc-file-item__actions" *ngIf="context === 'input'">
+        <!-- 删除按钮 -->
+        <button (click)="handleRemove(file)" class="mc-file-item__action-btn mc-file-item__action-btn--remove" [title]="t('FileList.remove')">
+          X
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- 使用 mc-teleport 组件加载文件预览 -->
+  <mc-teleport [to]="'body'">
+    <div *ngIf="isPreviewVisible && previewFile" class="mc-file-preview__overlay" (click.self)="closePreview()">
+      <!-- 图片预览 -->
+      <img *ngIf="getPreviewType(previewFile) === 'image'" [src]="sanitizeUrl(previewFile?.['thumbUrl'] || previewFile?.url)" [alt]="previewFile?.name" class="mc-file-preview__content" />
+      <!-- 视频预览 -->
+      <video *ngIf="getPreviewType(previewFile) === 'video'" [src]="sanitizeUrl(previewFile?.url)" controls class="mc-file-preview__content"></video>
+      <!-- PDF 和 文本文件预览 (使用 iframe) -->
+      <iframe *ngIf="getPreviewType(previewFile) === 'iframe'" [src]="sanitizeUrl(previewFile?.url)" class="mc-file-preview__content mc-file-preview__iframe"></iframe>
+      <!-- 其他文件类型的占位符 -->
+      <div *ngIf="getPreviewType(previewFile) === 'unsupported'" class="mc-file-preview__unsupported">
+        <span>{{ t('FileList.unsupportedPreview', { fileName: previewFileName }) }}</span>
+        <span class="mc-file-preview__unsupported-tip">{{ t('FileList.tryDownload') }}</span>
+      </div>
+      <!-- 关闭按钮 -->
+      <button class="mc-file-preview__close-btn" (click)="closePreview()" [title]="t('FileList.close')">✕</button>
+    </div>
+  </mc-teleport>
+</div>

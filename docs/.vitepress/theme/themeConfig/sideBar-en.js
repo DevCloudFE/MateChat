@@ -163,7 +163,7 @@ export default {
             {
               text: 'API Reference',
               link: '/components-ng/prompt/api.md',
-            }
+            },
           ],
         },
       ],
@@ -200,6 +200,20 @@ export default {
           ],
         },
         {
+          text: 'FileList 文件列表',
+          link: '/components-ng/fileList/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/fileList/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/fileList/api.md',
+            },
+          ],
+        },
+        {
           text: 'Attachment 附件',
           link: '/components-ng/attachment/demo',
           children: [
@@ -222,12 +236,14 @@ export default {
   ],
   '/en/use-guide-ng/': [
     { text: '快速开始', link: '/use-guide-ng/introduction' },
+    { text: 'MateChat Skill', link: '/use-guide-ng/skills' },
   ],
   '/en/use-guide/': [
     { text: 'Start', link: '/en/use-guide/introduction' },
     { text: 'On-demand Import', link: '/use-guide/require' },
     { text: 'i18n', link: '/use-guide/i18n' },
     { text: 'Theming', link: '/use-guide/theme' },
+    { text: 'MateChat Skill', link: '/use-guide/skills' },
     {
       text: 'Create an application using Cli',
       items: [

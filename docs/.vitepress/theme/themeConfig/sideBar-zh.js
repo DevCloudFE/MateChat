@@ -204,6 +204,20 @@ export default {
           ],
         },
         {
+          text: 'FileList 文件列表',
+          link: '/components-ng/fileList/demo',
+          children: [
+            {
+              text: 'Demos',
+              link: '/components-ng/fileList/demo.md',
+            },
+            {
+              text: 'API Reference',
+              link: '/components-ng/fileList/api.md',
+            },
+          ],
+        },
+        {
           text: 'Attachment 附件',
           link: '/components-ng/attachment/demo',
           children: [
@@ -224,13 +238,17 @@ export default {
       ],
     },
   ],
-  '/use-guide-ng/': [{ text: '快速开始', link: '/use-guide-ng/introduction' }],
+  '/use-guide-ng/': [
+    { text: '快速开始', link: '/use-guide-ng/introduction' },
+    { text: '通过 Agent Skills 使用 MateChat', link: '/use-guide-ng/skills' },
+  ],
   '/use-guide/': [
     // { text: '更新日志', link: '/use-guide/changelog' },
     { text: '快速开始', link: '/use-guide/introduction' },
     { text: '按需引入', link: '/use-guide/require' },
     { text: '国际化', link: '/use-guide/i18n' },
     { text: '自定义主题', link: '/use-guide/theme' },
+    { text: '通过 Agent Skills 使用 MateChat', link: '/use-guide/skills' },
     {
       text: '通过Cli创建应用',
       items: [

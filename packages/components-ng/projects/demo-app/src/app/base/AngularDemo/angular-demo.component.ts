@@ -1,7 +1,17 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewChecked, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { throttle } from 'lodash-es';
-import copy from 'clipboard-copy';
 import { CommonModule } from '@angular/common';
+import {
+  type AfterViewChecked,
+  Component,
+  ChangeDetectorRef,
+  type ElementRef,
+  Input,
+  type OnDestroy,
+  type OnInit,
+  ViewChild,
+} from '@angular/core';
+import copy from 'clipboard-copy';
+import { throttle } from 'lodash-es';
+import { openNgOnStackBlitz } from '../../../../../../../../docs/theme-default/composables/online-ide.js';
 // 导入代码高亮组件
 import { CodeHighlightComponent } from '../CodeHighlight/code-highlight.component';
 
@@ -10,16 +20,17 @@ import { CodeHighlightComponent } from '../CodeHighlight/code-highlight.componen
   standalone: true,
   imports: [CommonModule, CodeHighlightComponent],
   templateUrl: './angular-demo.component.html',
-  styleUrls: ['./angular-demo.component.scss']
+  styleUrls: ['./angular-demo.component.scss'],
 })
-export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class AngularDemoComponent
+  implements OnInit, AfterViewChecked, OnDestroy
+{
   @Input() customClass: string = '';
-  @Input() sourceCode: { type: string, code: string }[] = [];
+  @Input() sourceCode: { type: string; code: string }[] = [];
   @Input() lightCode: string = '';
   @Input() desc: string = '';
   @Input() targetFilePath: string = '';
-  @Input() demoList?: any;
-
+  @Input() demoList?: any[];
 
   hover: boolean = false;
   isExpanded: boolean = false;
@@ -27,22 +38,21 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
   isUseVueFile: boolean = false;
   activeTab: string = 'HTML';
   fixedControl: boolean = false;
-  
+
   @ViewChild('demoBlock') demoBlock!: ElementRef;
   @ViewChild('meta') meta!: ElementRef;
   @ViewChild('control') control!: ElementRef;
   @ViewChild('highlight') highlight?: ElementRef;
 
-
   // 模拟useRoute和useData的功能
   component: string = 'demo';
-  locale: any = {
+  locale = {
     'hide-text': '隐藏代码',
     'show-text': '显示代码',
     'copy-button-text': '复制代码片段',
     'copy-success-text': '复制成功',
   };
-  
+
   private scrollHandler: () => void;
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -66,30 +76,34 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
       this.meta.nativeElement.style.height = '0';
     }
   }
-  
-  ngAfterViewChecked() {
-  }
+
+  ngAfterViewChecked() {}
 
   onClickControl() {
     this.isExpanded = !this.isExpanded;
     this.hover = this.isExpanded;
-    
+
     // 更新代码区域的高度
     if (this.meta && this.meta.nativeElement) {
       this.meta.nativeElement.style.height = this.isExpanded ? `auto` : '0';
     }
-    
+
     if (!this.isExpanded) {
       // 收起时重置固定状态
       this.fixedControl = false;
-      if (this.control && this.control.nativeElement && this.demoBlock && this.demoBlock.nativeElement) {
+      if (
+        this.control &&
+        this.control.nativeElement &&
+        this.demoBlock &&
+        this.demoBlock.nativeElement
+      ) {
         this.control.nativeElement.style.left = '0';
         this.control.nativeElement.style.width = `${this.demoBlock.nativeElement.offsetWidth - 2}px`;
       }
       this.removeScrollHandler();
       return;
     }
-    
+
     // 展开后添加滚动监听
     setTimeout(() => {
       this._scrollHandler();
@@ -100,12 +114,16 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
 
   onCopy() {
     // 如果 sourceCode 是数组且不为空，取当前激活的tab的code属性
-    let codeToCopy;
+    let codeToCopy = '';
     if (this.sourceCode && this.sourceCode.length > 0) {
-      const activeCodeItem = this.sourceCode.find(item => item.type === this.activeTab);
-      codeToCopy = activeCodeItem ? activeCodeItem.code : this.sourceCode[0].code;
+      const activeCodeItem = this.sourceCode.find(
+        (item) => item.type === this.activeTab,
+      );
+      codeToCopy = activeCodeItem
+        ? activeCodeItem.code
+        : this.sourceCode[0].code;
     } else {
-      codeToCopy = this.sourceCode;
+      codeToCopy = this.sourceCode as any;
     }
     copy(codeToCopy);
     this.isShowTip = true;
@@ -120,16 +138,22 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
   }
 
   get copyText(): string {
-    return this.isShowTip ? this.locale['copy-success-text'] : this.locale['copy-button-text'];
+    return this.isShowTip
+      ? this.locale['copy-success-text']
+      : this.locale['copy-button-text'];
   }
 
   get controlText(): string {
-    return this.isExpanded ? this.locale['hide-text'] : this.locale['show-text'];
+    return this.isExpanded
+      ? this.locale['hide-text']
+      : this.locale['show-text'];
   }
 
   getActiveTabCode(): string {
     if (this.sourceCode && this.sourceCode.length > 0) {
-      const activeCodeItem = this.sourceCode.find(item => item.type === this.activeTab);
+      const activeCodeItem = this.sourceCode.find(
+        (item) => item.type === this.activeTab,
+      );
       return activeCodeItem ? activeCodeItem.code : this.sourceCode[0].code;
     }
     return '';
@@ -157,23 +181,33 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
   }
 
   private _scrollHandler() {
-    if (!this.meta || !this.meta.nativeElement || !this.control || !this.control.nativeElement || !this.demoBlock || !this.demoBlock.nativeElement) {
+    if (
+      !this.meta ||
+      !this.meta.nativeElement ||
+      !this.control ||
+      !this.control.nativeElement ||
+      !this.demoBlock ||
+      !this.demoBlock.nativeElement
+    ) {
       return;
     }
-    
+
     const rect = this.meta.nativeElement.getBoundingClientRect();
     const innerHeight = window.innerHeight || document.body.clientHeight;
-    
+
     // 检查是否需要固定控制按钮
-    this.fixedControl = rect.bottom > innerHeight && rect.top + 44 <= innerHeight;
-    
+    this.fixedControl =
+      rect.bottom > innerHeight && rect.top + 44 <= innerHeight;
+
     // 更新控制按钮的位置和宽度
     if (this.control.nativeElement) {
-      this.control.nativeElement.style.left = this.fixedControl ? `${rect.left}px` : '0';
+      this.control.nativeElement.style.left = this.fixedControl
+        ? `${rect.left}px`
+        : '0';
       const dv = this.fixedControl ? 1 : 2;
       this.control.nativeElement.style.width = `${this.demoBlock.nativeElement.offsetWidth - dv}px`;
     }
-    
+
     this.cdr.detectChanges();
   }
 
@@ -186,4 +220,7 @@ export class AngularDemoComponent implements OnInit, AfterViewChecked, OnDestroy
     this.removeScrollHandler();
   }
 
+  onlineIDEClick() {
+    openNgOnStackBlitz(this.sourceCode);
+  }
 }
