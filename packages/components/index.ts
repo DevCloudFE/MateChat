@@ -1,5 +1,6 @@
 import { McAttachment } from './Attachment';
 import { McBubble } from './Bubble';
+import { McConfigProvider, useConfigProvider } from './ConfigProvider';
 import { McFileList } from './FileList';
 import { McHeader } from './Header';
 import { McInput } from './Input';
@@ -15,6 +16,7 @@ import { McToolbar, McCopyIcon, McDeleteIcon, McLikeIcon, McDislikeIcon, McRefre
 const installs = [
   McAttachment,
   McBubble,
+  McConfigProvider,
   McFileList,
   McHeader,
   McInput,
@@ -31,6 +33,8 @@ const installs = [
 export {
   McAttachment,
   McBubble,
+  McConfigProvider,
+  useConfigProvider,
   McFileList,
   McHeader,
   McInput,

@@ -29,6 +29,7 @@ export default {
     {
       text: '演进中',
       items: [
+        { text: 'ConfigProvide 全局配置', link: '/components/configProvide/demo' },
         { text: 'Layout 布局', link: '/components/layout/demo' },
         { text: 'MarkDown 卡片', link: '/components/markDownCard/demo' },
         { text: 'FileList 文件列表', link: '/components/fileList/demo' },

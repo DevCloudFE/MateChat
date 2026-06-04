@@ -1,4 +1,4 @@
-import { ref, reactive } from "vue";
+import { ref, reactive, computed, ComputedRef, Ref } from "vue";
 
 export type LocaleMessages = Record<string, any>; 
 
@@ -12,12 +12,26 @@ export function createMcI18n(options: McI18nOptions) {
 }
 
 export class McI18n {
+  globalConfig: Ref<any> = ref({});
   locale = ref('zh-cn');
-  messages: LocaleMessages = reactive({});
+  defaultMessages: LocaleMessages = reactive({});
+  mergedMessages: LocaleMessages = reactive({});
+  messages: ComputedRef<LocaleMessages>;
+  globalLocale: ComputedRef<string>;
 
   constructor(options: McI18nOptions) {
     this.locale.value = options.locale;
-    this.messages = reactive(options.messages);
+    this.defaultMessages = reactive(options.messages);
+    // 合并默认内置文案、用户自定义文案、用户全局配置文案
+    // 优先级：用户全局配置文案 > 用户自定义文案 > 默认文案
+    this.messages = computed(() => {
+      let messages = deepMerge(options.messages, this.mergedMessages);
+      messages = deepMerge(messages, this.globalConfig.value.customLocaleMessages);
+      return messages;
+    });
+    this.globalLocale = computed(() => {
+      return this.globalConfig.value.locale;
+    });
   }
 
   /** 切换语言 */
@@ -27,20 +41,27 @@ export class McI18n {
 
   /** 翻译函数 */
   t = (path: string, params = {}) => {
-    const localeMessage = this.messages[this.locale.value];
+    // 全局配置语言优先
+    const local = this.globalLocale.value ?? this.locale.value;
+    const localeMessage = this.messages.value[local];
     return get(path, params, localeMessage);
   }
 
 
   /** 覆盖、合并国际化翻译 */
   mergeLocaleMessages = (locale: string, messages: LocaleMessages) => {
-    if(!this.messages[locale]) {
-      this.messages[locale] = messages;
-      return this.messages;
+    if(!this.mergedMessages[locale]) {
+      this.mergedMessages[locale] = messages;
+      return this.mergedMessages;
     }
-    this.messages[locale] = deepMerge(this.messages[locale], messages);
-    return deepMerge(this.messages[locale], messages);
+    this.mergedMessages[locale] = deepMerge(this.mergedMessages[locale], messages);
+    return deepMerge(this.mergedMessages[locale], messages);
   }
+
+  /** 全局配置 */
+  setGlobalLocale = (config: any) => {
+    this.globalConfig.value = config;
+  };
 }
 
 export function get(path: string, params: any, messages: LocaleMessages) {

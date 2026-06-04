@@ -27,8 +27,11 @@ export default {
     {
       text: 'Developing',
       items: [
+        { text: 'ConfigProvide', link: '/components/configProvide/demo' },
+        { text: 'Layout', link: '/components/layout/demo' },
         { text: 'MarkDown Card', link: '/components/markDownCard/demo' },
-        { text: 'FileList', link: '/en/components/fileList' },
+        { text: 'FileList', link: '/components/fileList/demo' },
+        { text: 'Attachment', link: '/components/attachment/demo' },
       ],
     },
   ],
