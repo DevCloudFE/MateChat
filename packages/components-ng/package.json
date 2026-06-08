@@ -27,7 +27,7 @@
     "@angular/router": "^20.3.10",
     "@devui-design/icons": "^1.4.0",
     "@matechat/common": "workspace:~",
-    "devui-theme": "^0.0.7",
+    "devui-theme": "^0.1.0",
     "highlight.js": "^11.11.1",
     "markdown-it": "^12.2.0",
     "markdown-it-emoji": "^3.0.0",

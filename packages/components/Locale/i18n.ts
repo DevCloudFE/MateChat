@@ -60,6 +60,9 @@ export class McI18n {
 
   /** 全局配置 */
   setGlobalLocale = (config: any) => {
+    if (!config.locale && !config.customLocaleMessages) {
+      return;
+    }
     this.globalConfig.value = config;
   };
 }

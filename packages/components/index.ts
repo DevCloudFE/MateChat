@@ -1,6 +1,6 @@
 import { McAttachment } from './Attachment';
 import { McBubble } from './Bubble';
-import { McConfigProvider, useConfigProvider } from './ConfigProvider';
+import { McConfigProvider, useConfigProvider, useMcConfigInject } from './ConfigProvider';
 import { McFileList } from './FileList';
 import { McHeader } from './Header';
 import { McInput } from './Input';
@@ -35,6 +35,7 @@ export {
   McBubble,
   McConfigProvider,
   useConfigProvider,
+  useMcConfigInject,
   McFileList,
   McHeader,
   McInput,

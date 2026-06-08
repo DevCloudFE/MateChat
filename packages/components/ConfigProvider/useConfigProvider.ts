@@ -1,6 +1,7 @@
 import { inject, InjectionKey, provide } from 'vue';
 import { useMcI18n } from '@matechat/core/Locale';
 import { ConfigProviderProps } from './types';
+import useTheme from './useTheme';
 
 export const CONFIG_PROVIDER_KEY: InjectionKey<ConfigProviderProps> = Symbol('McConfigProvider');
 
@@ -14,11 +15,12 @@ export const useMcConfigInject = () => {
   return inject(CONFIG_PROVIDER_KEY, null);
 };
 
-export default function useConfigProvider(props: ConfigProviderProps, sign?: string) {
+export default function useConfigProvider(props: ConfigProviderProps) {
   provideMcConfig(props);
 
   const i18n = useMcI18n();
   i18n.setGlobalLocale(props);
-  console.log('sign', sign);
+
+  useTheme(props);
 };
 
