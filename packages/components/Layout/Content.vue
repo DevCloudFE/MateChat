@@ -64,16 +64,22 @@ const updateScroll = (force = false) => {
   scrollToBottom();
 };
 
+const checkIsScrollBottom = () => {
+  if (!scrollerRef.value) {
+    return false;
+  }
+  return Math.abs(
+    scrollerRef.value.scrollTop +
+    scrollerRef.value.clientHeight -
+    scrollerRef.value.scrollHeight,
+  ) < 32;
+}
+
 const wheelHandler = (event: WheelEvent) => {
   if (!scrollerRef.value) {
     return;
   }
-  const isBottom =
-    Math.abs(
-      scrollerRef.value.scrollTop +
-        scrollerRef.value.clientHeight -
-        scrollerRef.value.scrollHeight,
-    ) < 32;
+  const isBottom = checkIsScrollBottom();
   if (event.deltaY !== 0) {
     userControl = !isBottom;
   }
@@ -85,8 +91,11 @@ const scrollHandler = debounce((event: Event) => {
     return;
   }
   showUpArrow.value = target.scrollTop !== 0;
-  showDownArrow.value =
-    target.scrollTop + target.clientHeight + 32 < target.scrollHeight;
+  const isBottom = checkIsScrollBottom();
+  showDownArrow.value = !isBottom;
+  if (isBottom) {
+    userControl = false;
+  }
   emits('onScrollerScroll', event);
 }, 100);
 

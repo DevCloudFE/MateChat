@@ -67,16 +67,22 @@ export class LayoutContentComponent extends BaseComponent<LayoutContentFoundatio
     };
   }
 
+  private checkIsScrollBottom = () => {
+    if (!this.scrollerRef.nativeElement) {
+      return false;
+    }
+    return Math.abs(
+      this.scrollerRef.nativeElement.scrollTop +
+        this.scrollerRef.nativeElement.clientHeight -
+        this.scrollerRef.nativeElement.scrollHeight,
+    ) < 32;
+  };
+
   private wheelHandler = (event: WheelEvent) => {
     if (!this.scrollerRef.nativeElement) {
       return;
     }
-    const isBottom =
-      Math.abs(
-        this.scrollerRef.nativeElement.scrollTop +
-          this.scrollerRef.nativeElement.clientHeight -
-          this.scrollerRef.nativeElement.scrollHeight,
-      ) < 32;
+    const isBottom = this.checkIsScrollBottom();
     if (event.deltaY !== 0) {
       this.userControl = !isBottom;
     }
@@ -87,9 +93,12 @@ export class LayoutContentComponent extends BaseComponent<LayoutContentFoundatio
     if (!target) {
       return;
     }
+    const isBottom = this.checkIsScrollBottom();
     this.showUpArrow = target.scrollTop !== 0;
-    this.showDownArrow =
-      target.scrollTop + target.clientHeight + 32 < target.scrollHeight;
+    this.showDownArrow = !isBottom;
+    if (isBottom) {
+      this.userControl = false;
+    }
     this.onScrollerScroll.emit(event);
   }, 100);
   private initListener() {
