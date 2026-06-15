@@ -16,6 +16,7 @@ export default {
       items: [
         { text: 'Bubble 气泡', link: '/components/bubble/demo' },
         { text: 'Toolbar 工具栏', link: '/components/toolbar/demo' },
+        { text: 'ToolCall 工具卡片', link: '/components/toolCall/demo' },
       ],
     },
     {

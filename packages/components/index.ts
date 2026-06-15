@@ -11,6 +11,7 @@ import { McMarkdownCard } from './MarkdownCard';
 import { McMention } from './Mention';
 import { McPrompt } from './Prompt';
 import { McToolbar, McCopyIcon, McDeleteIcon, McLikeIcon, McDislikeIcon, McRefreshIcon, McShareIcon } from './Toolbar';
+import { McToolCall } from './ToolCall';
 
 const installs = [
   McAttachment,
@@ -25,7 +26,8 @@ const installs = [
   McMarkdownCard,
   McMention,
   McPrompt,
-  McToolbar
+  McToolbar,
+  McToolCall
 ];
 
 export {
@@ -52,7 +54,8 @@ export {
   McLikeIcon,
   McDislikeIcon,
   McRefreshIcon,
-  McShareIcon
+  McShareIcon,
+  McToolCall
 };
 
 export default {
